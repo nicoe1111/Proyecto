@@ -24,6 +24,5 @@ public class Alumno extends TipoRol{
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-    
-    
+   
 }

@@ -52,6 +52,7 @@ public class Usuario implements Serializable {
     private String lugarNacimiento;
     private String imagen;
     
+    
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TipoRol> roles = new ArrayList<>();
 
@@ -256,32 +257,4 @@ public class Usuario implements Serializable {
     public void setRoles(List<TipoRol> roles) {
         this.roles = roles;
     }   
-    
-       public void uploadFile(FileUploadEvent event) {
-    try {
-        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("../web/resources/FotoPerfil/temp");
-        String archivo = path + File.separator + event.getFile().getFileName();
- 
-        FileOutputStream fileOutputStream = new FileOutputStream(archivo);
-        byte[] buffer = new byte[6124];
-        int bulk;
-        InputStream inputStream = event.getFile().getInputstream();
-        while (true) {
-        bulk = inputStream.read(buffer);
-        if (bulk < 0) {
-          break;
-        }
-        fileOutputStream.write(buffer, 0, bulk);
-        fileOutputStream.flush();
-    }
-    fileOutputStream.close();
-    inputStream.close();
- 
-    this.setImagen(event.getFile().getFileName());
- 
-    } catch (IOException e) {
-        e.printStackTrace();
-        FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al subir el archivo"));
-    }
-}
 }
