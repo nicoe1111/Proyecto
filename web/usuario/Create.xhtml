@@ -73,9 +73,9 @@
                     </p:panelGrid>
                     <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
                         <p:graphicImage id="grapImagen" value="#{usuarioController.selected.imagen}"></p:graphicImage>
-                         <p:fileUpload id="imagen" fileUploadListener="#{usuarioController.selected.uploadFile}" 
-                                       mode="single" label="Seleccione Foto (max.500Kb)" 
-                                       sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png|JPG)$/" update="grapImagen" />
+                        <p:fileUpload id="imagen" fileUploadListener="#{usuarioController.uploadFile}"
+                                       mode="advanced" label="Seleccione Foto (max.500Kb)" 
+                                       sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="grapImagen" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
