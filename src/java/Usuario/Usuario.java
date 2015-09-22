@@ -46,8 +46,8 @@ public class Usuario implements Serializable {
     private String pass;
     private String lugarNacimiento;
     private String imagen;
-   
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="usuario")
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TipoRol> roles = new ArrayList<>();
 
     public Usuario() {    }
@@ -251,7 +251,7 @@ public class Usuario implements Serializable {
     public void setRoles(List<TipoRol> roles) {
         this.roles = roles;
     }   
-    
+
     public void addRol(TipoRol tipoRol){
         this.roles.add(tipoRol);
     }

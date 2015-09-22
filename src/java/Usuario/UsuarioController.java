@@ -10,10 +10,10 @@ import Usuario.util.JsfUtil.PersistAction;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,14 +26,15 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.servlet.ServletContext;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 
 @Named("usuarioController")
@@ -46,6 +47,10 @@ public class UsuarioController implements Serializable {
     private Rol.RolFacade ejbRol;
     private List<Usuario> items = null;
     private Usuario selected;
+
+
+    private UploadedFile fileImagen;
+
     
     public UsuarioController() {
     }
@@ -341,5 +346,40 @@ public class UsuarioController implements Serializable {
 
     public void setGraphicImage(StreamedContent graphicImage) {
         this.graphicImage = graphicImage;
+    }
+    public UploadedFile getFileImagen() {
+        return fileImagen;
+    }
+
+    public void setFileImagen(UploadedFile fileImagen) {
+        this.fileImagen = fileImagen;
+    }
+    
+    public void uploadFile(FileUploadEvent event) {
+        try {
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("../web/resources/FotoPerfil/temp");
+            String archivo = path + File.separator + event.getFile().getFileName();
+
+            FileOutputStream fileOutputStream = new FileOutputStream(archivo);
+            byte[] buffer = new byte[6124];
+            int bulk;
+            InputStream inputStream = event.getFile().getInputstream();
+            while (true) {
+            bulk = inputStream.read(buffer);
+            if (bulk < 0) {
+              break;
+            }
+            fileOutputStream.write(buffer, 0, bulk);
+            fileOutputStream.flush();
+        }
+        fileOutputStream.close();
+        inputStream.close();
+
+        selected.setImagen(event.getFile().getFileName());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al subir el archivo"));
+        }
     }
 }
