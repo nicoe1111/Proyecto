@@ -10,8 +10,9 @@
 
         <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
             <h:form id="UsuarioViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
+                <h:panelGroup id="display" rendered="#{usuarioController.selected != null}" style="alignment-adjust: central">
+                    <p:graphicImage id="image" value="#{usuarioController.graphicImage}" width="200" height="200" alt="Foto perfil" style="alignment-adjust: middle" cache="false"> </p:graphicImage>
+                    <p:panelGrid columns="4">
                         <h:outputText value="#{bundle.ViewUsuarioLabel_primerNombre}"/>
                         <h:outputText value="#{usuarioController.selected.primerNombre}" title="#{bundle.ViewUsuarioTitle_primerNombre}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_segundoNombre}"/>
@@ -53,9 +54,9 @@
                         <h:outputText value="#{bundle.ViewUsuarioLabel_lugarNacimiento}"/>
                         <h:outputText value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.ViewUsuarioTitle_lugarNacimiento}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_rol}"/>
-                        <h:outputText value="#{usuarioController.selected.rol}" title="#{bundle.ViewUsuarioTitle_rol}"/> 
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_imagen}"/>
-                        <p:graphicImage url="../resources/FotoPerfil/silueta.jpg"></p:graphicImage>
+                        <ui:repeat value="#{usuarioController.selected.roles}" var="rol">
+                            <h:outputText value="#{rol}"/><br/>
+                        </ui:repeat>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
                 </h:panelGroup>

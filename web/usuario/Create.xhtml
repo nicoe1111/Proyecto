@@ -66,16 +66,10 @@
                         <p:inputText id="lugarNacimiento" value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.CreateUsuarioTitle_lugarNacimiento}" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
                         
-                        <p:selectManyCheckbox id="rol" value="#{rolMB.selectedRoles}" layout="grid" columns="4">
-                            <f:selectItems value="#{rolMB.roles}" var="rol" itemLabel="#{rol}" itemValue="#{rol}" />
+                        <p:selectManyCheckbox id="rol" value="#{usuarioController.selectedRoles}" layout="grid" columns="4">
+                            <f:selectItems value="#{usuarioController.roles}"
+                                           var="rol" itemLabel="#{rol}" itemValue="#{rol}" />
                         </p:selectManyCheckbox>
-                        
-                    </p:panelGrid>
-                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
-                        <p:graphicImage id="grapImagen" value="#{usuarioController.selected.imagen}"></p:graphicImage>
-                        <p:fileUpload id="imagen" fileUploadListener="#{usuarioController.uploadFile}"
-                                       mode="advanced" label="Seleccione Foto (max.500Kb)" 
-                                       sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="grapImagen" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>

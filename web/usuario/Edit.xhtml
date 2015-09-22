@@ -4,11 +4,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition>
 
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+            
             <h:form id="UsuarioEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
@@ -63,14 +65,11 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_lugarNacimiento}" for="lugarNacimiento" />
                         <p:inputText id="lugarNacimiento" value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.EditUsuarioTitle_lugarNacimiento}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_rol}" for="rol" />
-                        <p:selectManyCheckbox id="rol" value="#{rolMB.selectedRoles}" layout="grid" columns="4">
-                            <f:selectItems value="#{rolMB.roles}" var="rol" itemLabel="#{rol}" itemValue="#{rol}" />
+                        
+                        <p:selectManyCheckbox id="rol" value="#{usuarioController.rolesSelectedUser}" layout="grid" columns="4">
+                            <f:selectItems value="#{usuarioController.roles}" var="rol" itemLabel="#{rol}" itemValue="#{rol}"/>
                         </p:selectManyCheckbox>
                     </p:panelGrid>   
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <p:graphicImage url="../resources/FotoPerfil/silueta.jpg"></p:graphicImage>
-                        <p:fileUpload id="imagen" value="#{usuarioController.selected.imagen}" mode="advanced" label="Seleccione Foto (max.500Kb)" sizeLimit="500000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
-                    </p:panelGrid>
                     <p:commandButton  actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
                 </h:panelGroup>

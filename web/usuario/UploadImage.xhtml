@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioUploadIge" widgetVar="UsuarioUploadImagen" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioLabel_imagen}">
+        <p:dialog id="UsuarioUploadIge" widgetVar="UsuarioUploadDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioLabel_imagen}">
             <h:form id="UploadImageForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">

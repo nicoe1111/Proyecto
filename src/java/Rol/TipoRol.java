@@ -19,12 +19,12 @@ import javax.persistence.ManyToOne;
 public abstract class TipoRol implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    protected int idRol;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idRol;
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_user")
-    protected Usuario usuario;
+    private Usuario usuario;
     
     public int getIdRol() {
         return idRol;

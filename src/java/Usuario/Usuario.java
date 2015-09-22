@@ -6,30 +6,24 @@
 package Usuario;
 
 import Rol.TipoRol;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import org.primefaces.event.FileUploadEvent;
 
 @Entity
 public class Usuario implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_user;
     private String primerNombre;
     private String segundoNombre;
@@ -47,18 +41,18 @@ public class Usuario implements Serializable {
     private String localidad;
     private int celular;
     private int telefono;
+    @Column(unique=true)
     private String nick;
     private String pass;
     private String lugarNacimiento;
     private String imagen;
-    
-    
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="usuario")
     private List<TipoRol> roles = new ArrayList<>();
 
     public Usuario() {    }
 
-    public Usuario(int id_user, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, int cedula, String direccion, String mail, Date fechaNacimiento, String sexo, String credencial, String nacionalidad, String estadoCivil, String departamento, String localidad, int celular, int telefono, String nick, String pass, String lugarNacimiento, String imagen) {
+    public Usuario(int id_user, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, int cedula, String direccion, String mail, Date fechaNacimiento, String sexo, String credencial, String nacionalidad, String estadoCivil, String departamento, String localidad, int celular, int telefono, String nick, String pass, String lugarNacimiento, List<TipoRol> roles) {
         this.id_user = id_user;
         this.primerNombre = primerNombre;
         this.segundoNombre = segundoNombre;
@@ -79,7 +73,7 @@ public class Usuario implements Serializable {
         this.nick = nick;
         this.pass = pass;
         this.lugarNacimiento = lugarNacimiento;
-        this.imagen = imagen;
+        this.roles = roles;
     }
 
     public int getId_user() {
@@ -257,4 +251,12 @@ public class Usuario implements Serializable {
     public void setRoles(List<TipoRol> roles) {
         this.roles = roles;
     }   
+    
+    public void addRol(TipoRol tipoRol){
+        this.roles.add(tipoRol);
+    }
+    
+    public void clearListRoles(){
+        this.roles.clear();
+    }
 }

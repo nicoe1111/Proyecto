@@ -6,9 +6,13 @@
 package Rol;
 
 import General.AbstractFacade;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,4 +32,10 @@ public class RolFacade extends AbstractFacade<TipoRol> {
         super(TipoRol.class);
     }
     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<TipoRol> findRolUser(int idUser) {
+        Query query = em.createQuery("SELECT r FROM TipoRol r WHERE r.usuario.id_user = :id");
+        query.setParameter("id", idUser);
+        return query.getResultList();
+    }
 }

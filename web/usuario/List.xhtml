@@ -4,168 +4,99 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><ui:insert name="title">Gestor de Usuarios</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/index.xhtml">
 
-    <ui:composition template="/index.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{bundle.ListUsuarioTitle}"></h:outputText>
+            </ui:define>
 
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListUsuarioTitle}"></h:outputText>
-        </ui:define>
+            <ui:define name="centro">
+                <p:layoutUnit position="south" size="60">
+                    <ui:insert name="footer"/>
+                </p:layoutUnit>
+                    <h:form id="UsuarioListForm">
+                        <p:panel header="#{bundle.ListUsuarioTitle}">
+                            <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
+                                selectionMode="single" selection="#{usuarioController.selected}"
+                                paginator="true"
+                                rowKey="#{item.id_user}"
+                                rows="10"
+                                rowsPerPageTemplate="10,20,30,40,50"
+                                scrollable="true">
 
-        <ui:define name="centro">
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
-            </p:layoutUnit>
-                <h:form id="UsuarioListForm">
-                    <p:panel header="#{bundle.ListUsuarioTitle}">
-                        <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
-                            selectionMode="single" selection="#{usuarioController.selected}"
-                            paginator="true"
-                            rowKey="#{item.id_user}"
-                            rows="10"
-                            rowsPerPageTemplate="10,20,30,40,50"
-                            scrollable="true">
+                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_primerNombre}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.primerNombre}"/>
+                                </p:column>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_segundoNombre}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.segundoNombre}"/>
+                                </p:column>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_primerApellido}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.primerApellido}"/>
+                                </p:column>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_segundoApellido}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.segundoApellido}"/>
+                                </p:column>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_cedula}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cedula}"/>
+                                </p:column>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_direccion}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.direccion}"/>
+                                </p:column>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_mail}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.mail}"/>
+                                </p:column>
+                                <p:column width="150">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListUsuarioTitle_telefono}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.telefono}"/>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                                    <p:commandButton id="uploadImage" icon=""  value="#{bundle.SubirImage}" update=":UploadImageForm"  oncomplete="PF('UsuarioUploadDialog').show()" />
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl,datalist" disabled="#{empty usuarioController.selected}"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_primerNombre}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.primerNombre}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_segundoNombre}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.segundoNombre}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_primerApellido}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.primerApellido}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_segundoApellido}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.segundoApellido}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_cedula}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.cedula}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_direccion}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.direccion}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_mail}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.mail}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_fechaNacimiento}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.fechaNacimiento}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_sexo}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.sexo}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_credencial}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.credencial}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_nacionalidad}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nacionalidad}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_estadoCivil}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.estadoCivil}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_departamento}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.departamento}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_localidad}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.localidad}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_celular}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.celular}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_telefono}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.telefono}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_nick}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nick}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_pass}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.pass}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_lugarNacimiento}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.lugarNacimiento}"/>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_imagen}"/>
-                                </f:facet>
-                                <h:outputText value="/resources/FotoPerfil/#{item.imagen}" />
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioTitle_rol}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.rol}"/>
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl,datalist" disabled="#{empty usuarioController.selected}"/>
-                            </f:facet>
-                        </p:dataTable>
-                    </p:panel>
-                </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
+                <ui:include src="Create.xhtml"/>
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+                <ui:include src="UploadImage.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
