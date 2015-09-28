@@ -31,6 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.event.FileUploadEvent;
@@ -47,7 +48,7 @@ public class UsuarioController implements Serializable {
     private Rol.RolFacade ejbRol;
     private List<Usuario> items = null;
     private Usuario selected;
-
+    private infoadicionalalumno selectedInfoAdicional;
 
     private UploadedFile fileImagen;
 
@@ -357,7 +358,7 @@ public class UsuarioController implements Serializable {
     
     public void uploadFile(FileUploadEvent event) {
         try {
-            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("../web/resources/FotoPerfil/temp");
+            String path = getPathImagenPerfil();
             String archivo = path + File.separator + event.getFile().getFileName();
 
             FileOutputStream fileOutputStream = new FileOutputStream(archivo);
@@ -381,5 +382,27 @@ public class UsuarioController implements Serializable {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al subir el archivo"));
         }
+    }
+    
+    public String getPathImagenPerfil(){
+        return ResourceBundle.getBundle("/Bundle").getString("Path");
+    }
+    
+    public void getUserSession(){
+        selected = new Usuario();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        UsuarioController uc = new UsuarioController();
+        uc = (UsuarioController) session.getAttribute("usuarioMB");
+        selected = uc.getSelected();
+    }
+    
+    public void setPassnickUserCreate(String cedula){
+        selected.setPass(cedula);
+        selected.setNick(cedula);
+    }
+    
+    public void setNickUserCreate(String cedula){
+        selected.setNick(cedula);
     }
 }

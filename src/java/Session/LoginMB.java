@@ -65,18 +65,17 @@ public class LoginMB implements Serializable{
             FacesContext.getCurrentInstance().getExternalContext().dispatch("login.xhtml");
         }
     }
-    
+ 
     public void setUsuarioActual(){
         Usuario u = persistUser.findByNick(nick).get(0);
         UsuarioController user = new UsuarioController();
-        user.setSelected(u);
+        user.setSelected(u);///seteo usuario logeado del controlador
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
         session.setAttribute("usuarioMB", user);
     }
     
     public String logout() {
-        
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.invalidate();
         this.logged = false;
@@ -84,7 +83,6 @@ public class LoginMB implements Serializable{
     }
     
     public void obtenerParametros(){
-        
         FacesContext facesContext = FacesContext. getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         Map params = externalContext.getRequestParameterMap();
@@ -93,7 +91,7 @@ public class LoginMB implements Serializable{
           if(!categorySelected){
               logout();
           }
-      }
+        }
     }
     
 }

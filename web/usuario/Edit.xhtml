@@ -23,7 +23,9 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_segundoApellido}" for="segundoApellido" />
                         <p:inputText id="segundoApellido" value="#{usuarioController.selected.segundoApellido}" title="#{bundle.EditUsuarioTitle_segundoApellido}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_cedula}" for="cedula" />
-                        <p:inputText id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.EditUsuarioTitle_cedula}" />
+                        <p:inputText id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.EditUsuarioTitle_cedula}" >
+                            <p:ajax event="blur" update="nick" listener="#{usuarioController.setNickUserCreate(usuarioController.selected.cedula)}"/>
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_direccion}" for="direccion" />
                         <p:inputText id="direccion" value="#{usuarioController.selected.direccion}" title="#{bundle.EditUsuarioTitle_direccion}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_mail}" for="mail" />
@@ -32,10 +34,10 @@
                         <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy" value="#{usuarioController.selected.fechaNacimiento}" title="#{bundle.EditUsuarioTitle_fechaNacimiento}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_sexo}" for="sexo" />
                        
-                        <p:selectOneMenu id="sexo" value="#{usuarioController.selected.sexo}" style="width:125px">
+                        <p:selectOneMenu id="sexo" value="#{usuarioController.selected.sexo}" style="width:150px">
                                 <f:selectItem itemLabel="Seleccione..." itemValue="" />
-                                <f:selectItem itemLabel="MASCULINO" itemValue="M" />
-                                <f:selectItem itemLabel="FEMENINO" itemValue="F" />
+                                <f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />
+                                <f:selectItem itemLabel="FEMENINO" itemValue="FEMENINO" />
                         </p:selectOneMenu>
                        
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_credencial}" for="credencial" />
@@ -43,12 +45,12 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nacionalidad}" for="nacionalidad" />
                         <p:inputText id="nacionalidad" value="#{usuarioController.selected.nacionalidad}" title="#{bundle.EditUsuarioTitle_nacionalidad}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_estadoCivil}" for="estadoCivil" />
-                        <p:selectOneMenu id="estadoCivil" value="#{usuarioController.selected.estadoCivil}" style="width:125px">
+                        <p:selectOneMenu id="estadoCivil" value="#{usuarioController.selected.estadoCivil}" style="width:150px">
                                 <f:selectItem itemLabel="Seleccione..." itemValue="" />
-                                <f:selectItem itemLabel="CASAD@" itemValue="C" />
-                                <f:selectItem itemLabel="SOLETER@" itemValue="S" />
-                                <f:selectItem itemLabel="DIVORCIAD@" itemValue="D" />
-                                <f:selectItem itemLabel="VIUD@" itemValue="V" />
+                                <f:selectItem itemLabel="CASAD@" itemValue="CASAD@" />
+                                <f:selectItem itemLabel="SOLETER@" itemValue="SOLETER@" />
+                                <f:selectItem itemLabel="DIVORCIAD@" itemValue="DIVORCIAD@" />
+                                <f:selectItem itemLabel="VIUD@" itemValue="VIUD@" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_departamento}" for="departamento" />
                         <p:inputText id="departamento" value="#{usuarioController.selected.departamento}" title="#{bundle.EditUsuarioTitle_departamento}" />
@@ -59,7 +61,7 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_telefono}" for="telefono" />
                         <p:inputText id="telefono" value="#{usuarioController.selected.telefono}" title="#{bundle.EditUsuarioTitle_telefono}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nick}" for="nick" />
-                        <p:inputText id="nick" value="#{usuarioController.selected.nick}" title="#{bundle.EditUsuarioTitle_nick}" />
+                        <p:inputText id="nick" value="#{usuarioController.selected.nick}" title="#{bundle.EditUsuarioTitle_nick}" disabled="true"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_pass}" for="pass" />
                         <p:inputText id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.EditUsuarioTitle_pass}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_lugarNacimiento}" for="lugarNacimiento" />

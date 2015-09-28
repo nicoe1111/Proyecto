@@ -18,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario implements Serializable {
@@ -49,6 +50,7 @@ public class Usuario implements Serializable {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TipoRol> roles = new ArrayList<>();
+    
 
     public Usuario() {    }
 
