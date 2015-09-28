@@ -30,4 +30,8 @@ public class buttonBean implements Serializable{
     public void onRowSelect(SelectEvent event) {
         disabled = false;
     }
+    
+     public void onRowUnselect(SelectEvent event) {
+        disabled = true;
+    }
 }

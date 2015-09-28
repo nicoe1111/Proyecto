@@ -22,9 +22,10 @@
                 <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
                              selectionMode="single" selection="#{usuarioController2.selected}"
                              scrollable="true" scrollWidth="50%" scrollHeight="150"
-                             rowKey="#{user.id_user}" class="table-striped">
+                             rowKey="#{user.id_user}">
                     
                     <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                    <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
                     
                     <p:column headerText="Nombre" footerText="Nombre" width="200">
                         <h:outputText value="#{user.primerNombre}"/>
@@ -36,15 +37,15 @@
                         <h:outputText value="#{user.id_user}" />
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{usuarioController2.deleteSelected()}" disabled="#{buttonBean.disabled}"/>
-                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" disabled="#{buttonBean.disabled}">
-                            <f:passThroughAttribute name="data-toggle" value="modal"/>
-                            <f:passThroughAttribute name="data-target" value="#ModalRegistrar"/>
-                        </h:commandButton>
-                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}">
+                        <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{usuarioController2.deleteSelected()}" disabled="#{buttonBean.disabled || empty usuarioController2.items}"/>
+                        <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":editarForm" disabled="#{buttonBean.disabled || empty usuarioController2.items}">
                             <f:passThroughAttribute name="data-toggle" value="modal"/>
                             <f:passThroughAttribute name="data-target" value="#ModalEditar"/>
-                        </h:commandButton>
+                        </p:commandButton>
+                        <p:commandButton id="createButton" class="btn btn-default" update=":registrarForm" value="#{bundle.Create}" actionListener="#{usuarioController2.setSelected(null)}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalRegistrar"/>
+                        </p:commandButton>
                     </f:facet>
                 </p:dataTable>
             </h:form>
@@ -56,6 +57,7 @@
         </h:commandButton>
         
         <ui:include src="modals/Registrar.xhtml"/>
+        <ui:include src="modals/Editar.xhtml"/>
         
         
         <div class="container">
