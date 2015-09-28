@@ -11,8 +11,11 @@
         <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display" rendered="#{usuarioController.selected != null}" style="alignment-adjust: central">
-                    <p:graphicImage id="image" value="#{usuarioController.graphicImage}" width="200" height="200" alt="Foto perfil" style="alignment-adjust: middle" cache="false"> </p:graphicImage>
-                    <p:panelGrid columns="4">
+                    <p:panelGrid columns="4" style="text-align: center; margin: auto;">
+                        <p:graphicImage id="image" value="#{usuarioController.graphicImage}" width="200" height="200" alt="Foto perfil" style="alignment-adjust: middle" cache="false"> </p:graphicImage>
+                    </p:panelGrid>
+                    <br></br>
+                    <p:panelGrid columns="4" style="text-align: center; margin: auto;">
                         <h:outputText value="#{bundle.ViewUsuarioLabel_primerNombre}"/>
                         <h:outputText value="#{usuarioController.selected.primerNombre}" title="#{bundle.ViewUsuarioTitle_primerNombre}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_segundoNombre}"/>
