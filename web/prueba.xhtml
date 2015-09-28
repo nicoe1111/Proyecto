@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <!--para q ande el modal-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="resources/css/custom.css"/>
+        
+    </h:head>
+    
+    <h:body>
+        
+        <div class="container" style="border: 2px solid black">
+            <h:form id="UsuarioViewForm">
+                <!--tabla-->
+                <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
+                             selectionMode="single" selection="#{usuarioController2.selected}"
+                             scrollable="true" scrollWidth="50%" scrollHeight="150"
+                             rowKey="#{user.id_user}">
+                    
+                    <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                    <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
+                    
+                    <p:column headerText="Nombre" footerText="Nombre" width="200">
+                        <h:outputText value="#{user.primerNombre}"/>
+                    </p:column>
+                    <p:column headerText="Apellido" footerText="Apellido" width="200">
+                        <h:outputText value="#{user.primerApellido}" />
+                    </p:column>
+                    <p:column headerText="id" footerText="id" width="200">
+                        <h:outputText value="#{user.id_user}" />
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{usuarioController2.deleteSelected()}" disabled="#{buttonBean.disabled || empty usuarioController2.items}"/>
+                        <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":editarForm" disabled="#{buttonBean.disabled || empty usuarioController2.items}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalEditar"/>
+                        </p:commandButton>
+                        <p:commandButton id="createButton" class="btn btn-default" update=":registrarForm" value="#{bundle.Create}" actionListener="#{usuarioController2.setSelected(null)}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalRegistrar"/>
+                        </p:commandButton>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </div>
+        
+        <h:commandButton id="createButton1" class="btn btn-default" value="Open Modal">
+            <f:passThroughAttribute name="data-toggle" value="modal"/>
+            <f:passThroughAttribute name="data-target" value="#ModalRegistrar"/>
+        </h:commandButton>
+        
+        <ui:include src="modals/Registrar.xhtml"/>
+        <ui:include src="modals/Editar.xhtml"/>
+        
+        
+        <div class="container">
+            <h2>Button Styles</h2>
+            <button type="button" class="btn btn-default">Default</button>
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-success">Success</button>
+            <button type="button" class="btn btn-info">Info</button>
+            <button type="button" class="btn btn-warning">Warning</button>
+            <button type="button" class="btn btn-danger">Danger</button>
+            <button type="button" class="btn btn-link">Link</button>      
+        </div>
+        
+    </h:body>
+</html>
+
