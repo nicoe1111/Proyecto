@@ -21,7 +21,7 @@
                 <!--tabla-->
                 <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
                              selectionMode="single" selection="#{usuarioController2.selected}"
-                             scrollable="true" scrollWidth="50%" scrollHeight="150"
+                             scrollable="true" 
                              rowKey="#{user.id_user}">
                     
                     <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
