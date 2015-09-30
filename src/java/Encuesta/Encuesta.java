@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
  * Representa una cuesta de un Curso dado, contiene N Pregunta.
  * @author Matias
  */
+@Entity
 public class Encuesta implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
