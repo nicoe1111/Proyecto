@@ -82,7 +82,7 @@
                                     <h:outputText value="#{item.telefono}"/>
                                 </p:column>
                                 <f:facet name="footer">
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateRolForm" oncomplete="PF('UsuarioCreateRolDialog').show()"/>
                                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
                                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
                                     <p:commandButton id="uploadImage" icon=""  value="#{bundle.SubirImage}" update=":UploadImageForm"  oncomplete="PF('UsuarioUploadDialog').show()" />
@@ -93,6 +93,7 @@
                     </h:form>
 
                 <ui:include src="Create.xhtml"/>
+                <ui:include src="CreateTipoRol.xhtml"/>
                 <ui:include src="Edit.xhtml"/>
                 <ui:include src="View.xhtml"/>
                 <ui:include src="UploadImage.xhtml"/>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition  template="/index.xhtml">
+        <ui:define name="centro">
+            <h:panelGroup id="display"  style="text-align: center; margin: auto;">
+                <h:form id="EditarPerfilForm" style="text-align: center; margin: auto;">
+                    <f:event type="preRenderView" listener="#{usuarioController.getUserSession}" />
+                        <p:panelGrid columns="4" style="text-align: center; margin: auto;"  rendered="#{usuarioController.selected != null}">
+                            <p:graphicImage id="image" value="#{usuarioController.graphicImage}" width="200" height="200" alt="Foto perfil" style="alignment-adjust: middle" cache="false"> </p:graphicImage>
+                        </p:panelGrid>
+                        <br></br>
+                      <p:panelGrid columns="4" style="text-align: center; margin: auto;">
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_primerNombre}"/>
+                            <h:outputText value="#{usuarioController.selected.primerNombre}" title="#{bundle.ViewUsuarioTitle_primerNombre}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_segundoNombre}"/>
+                            <h:outputText value="#{usuarioController.selected.segundoNombre}" title="#{bundle.ViewUsuarioTitle_segundoNombre}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_primerApellido}"/>
+                            <h:outputText value="#{usuarioController.selected.primerApellido}" title="#{bundle.ViewUsuarioTitle_primerApellido}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_segundoApellido}"/>
+                            <h:outputText value="#{usuarioController.selected.segundoApellido}" title="#{bundle.ViewUsuarioTitle_segundoApellido}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_cedula}"/>
+                            <h:outputText value="#{usuarioController.selected.cedula}" title="#{bundle.ViewUsuarioTitle_cedula}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_direccion}"/>
+                            <h:outputText value="#{usuarioController.selected.direccion}" title="#{bundle.ViewUsuarioTitle_direccion}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_mail}"/>
+                            <h:outputText value="#{usuarioController.selected.mail}" title="#{bundle.ViewUsuarioTitle_mail}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_fechaNacimiento}"/>
+                            <h:outputText value="#{usuarioController.selected.fechaNacimiento}" title="#{bundle.ViewUsuarioTitle_fechaNacimiento}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_sexo}"/>
+                            <h:outputText value="#{usuarioController.selected.sexo}" title="#{bundle.ViewUsuarioTitle_sexo}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_credencial}"/>
+                            <h:outputText value="#{usuarioController.selected.credencial}" title="#{bundle.ViewUsuarioTitle_credencial}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_nacionalidad}"/>
+                            <h:outputText value="#{usuarioController.selected.nacionalidad}" title="#{bundle.ViewUsuarioTitle_nacionalidad}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_estadoCivil}"/>
+                            <h:outputText value="#{usuarioController.selected.estadoCivil}" title="#{bundle.ViewUsuarioTitle_estadoCivil}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_departamento}"/>
+                            <h:outputText value="#{usuarioController.selected.departamento}" title="#{bundle.ViewUsuarioTitle_departamento}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_localidad}"/>
+                            <h:outputText value="#{usuarioController.selected.localidad}" title="#{bundle.ViewUsuarioTitle_localidad}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_celular}"/>
+                            <h:outputText value="#{usuarioController.selected.celular}" title="#{bundle.ViewUsuarioTitle_celular}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_telefono}"/>
+                            <h:outputText value="#{usuarioController.selected.telefono}" title="#{bundle.ViewUsuarioTitle_telefono}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_nick}"/>
+                            <h:outputText value="#{usuarioController.selected.nick}" title="#{bundle.ViewUsuarioTitle_nick}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_pass}"/>
+                            <p:inputText id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_lugarNacimiento}"/>
+                            <h:outputText value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.ViewUsuarioTitle_lugarNacimiento}"/>
+                            <h:outputText value="#{bundle.ViewUsuarioLabel_rol}"/>
+                            <ui:repeat value="#{usuarioController.selected.roles}" var="rol">
+                                <h:outputText value="#{rol}"/><br/>
+                            </ui:repeat>
+                    </p:panelGrid>
+                        <p:commandButton  actionListener="#{usuarioController.update}" value="#{bundle.Save}" style="text-align: center; margin: auto;"/>    
+                        <br></br><br></br>
+                </h:form>
+                <h:form id="UsuarioViewForm">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}" style="text-align: center; margin: auto;">
+                        <p:fileUpload id="imagen" fileUploadListener="#{usuarioController.upload}" label="Buscar Foto" 
+                                            allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="512000"
+                                            uploadLabel="Subir foto Perfil" cancelLabel="Cancelar" update=":EditarPerfilForm"/>
+                        </p:panelGrid>
+                </h:form>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</html>
