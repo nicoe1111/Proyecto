@@ -5,10 +5,8 @@
  */
 package Pregunta;
 
-import ClaseDada.ClaseDada;
 import Encuesta.Encuesta;
 import RespuestaPregunta.RespuestaPregunta;
-import Rol.Docente;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,7 @@ public class Pregunta implements Serializable{
     private List<RespuestaPregunta> respuestasPreguntas= new ArrayList<>();
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_Encuesta")
+    @JoinColumn(name = "id_encuesta")
     private Encuesta encuesta;
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++
