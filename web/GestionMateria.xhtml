@@ -84,14 +84,14 @@
                                                     <td>#{materia.cargaHorariaSemanal}</td>
                                                     <td>
                                                         <h:form>
-                                                            <h:commandLink action="#{materiaController.loadSelected(usu.id_user)}" >
+                                                            <h:commandLink action="#{materiaController.loadSelected(materia.idMateria)}" >
                                                                 <span class="glyphicon glyphicon-edit"></span>
                                                             </h:commandLink>
                                                         </h:form>
                                                     </td>
                                                     <td>
                                                         <h:form>
-                                                            <h:commandLink action="#{materiaController.delete(usu.id_user)}">
+                                                            <h:commandLink action="#{materiaController.delete(materia.idMateria)}">
                                                                 <span class="glyphicon glyphicon-trash"></span>
                                                             </h:commandLink>
                                                         </h:form>
