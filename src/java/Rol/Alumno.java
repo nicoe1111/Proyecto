@@ -63,7 +63,4 @@ public class Alumno extends TipoRol{
     public void setResultadosInstancias(List<ResultadoInstancia> resultadosInstancias) {
         this.resultadosInstancias = resultadosInstancias;
     }
-    
-    
-    
 }

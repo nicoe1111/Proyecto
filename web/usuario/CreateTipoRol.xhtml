@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioCreateRolDlg" widgetVar="UsuarioCreateRolDialog" modal="true" resizable="true" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
+            <h:form id="UsuarioCreateRolForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
+                        <p:selectManyCheckbox id="rol" value="#{usuarioController.selectedRoles}" layout="grid" columns="4">
+                            <f:selectItems value="#{usuarioController.roles}"
+                                           var="rol" itemLabel="#{rol}" itemValue="#{rol}" />
+                        </p:selectManyCheckbox>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Siguiente}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

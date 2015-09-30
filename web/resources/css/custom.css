@@ -1,0 +1,9 @@
+.container {
+    padding-right: auto;
+    padding-left: auto;
+}
+.btn-default {
+    color: #F70303;
+    background-color: #121213;
+    border-color: #401616;
+}

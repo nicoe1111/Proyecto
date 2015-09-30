@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="infoadicionalalumnoCreateDlg" widgetVar="infoadicionalalumnoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.CreateinfoadicionalalumnoTitle}">
+            <h:form id="infoadicionalalumnoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{infoadicionalalumnoController.selected != null}">
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_usuario}" for="usuario" />
+                        <p:selectOneMenu id="usuario" value="#{infoadicionalalumnoController.selected.usuario}" >
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioItem"
+                                           itemValue="#{usuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_idinfoalumno}" for="idinfoalumno" />
+                        <p:inputText id="idinfoalumno" value="#{infoadicionalalumnoController.selected.idinfoalumno}" title="#{bundle2.CreateinfoadicionalalumnoTitle_idinfoalumno}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_carnetsalud}" for="carnetsalud" />
+                        <p:selectBooleanCheckbox id="carnetsalud" value="#{infoadicionalalumnoController.selected.carnetsalud}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_certificadoestudio}" for="certificadoestudio" />
+                        <p:selectBooleanCheckbox id="certificadoestudio" value="#{infoadicionalalumnoController.selected.certificadoestudio}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_expedidocarnetsalud}" for="expedidocarnetsalud" />
+                        <p:inputText id="expedidocarnetsalud" value="#{infoadicionalalumnoController.selected.expedidocarnetsalud}" title="#{bundle2.CreateinfoadicionalalumnoTitle_expedidocarnetsalud}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_fdocente}" for="fdocente" />
+                        <p:selectBooleanCheckbox id="fdocente" value="#{infoadicionalalumnoController.selected.fdocente}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_fdocenteorientacion}" for="fdocenteorientacion" />
+                        <p:inputText id="fdocenteorientacion" value="#{infoadicionalalumnoController.selected.fdocenteorientacion}" title="#{bundle2.CreateinfoadicionalalumnoTitle_fdocenteorientacion}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_facultaduniversidad}" for="facultaduniversidad" />
+                        <p:inputText id="facultaduniversidad" value="#{infoadicionalalumnoController.selected.facultaduniversidad}" title="#{bundle2.CreateinfoadicionalalumnoTitle_facultaduniversidad}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_fechainscripcion}" for="fechainscripcion" />
+                        <p:inputText id="fechainscripcion" value="#{infoadicionalalumnoController.selected.fechainscripcion}" title="#{bundle2.CreateinfoadicionalalumnoTitle_fechainscripcion}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_fotocarnet}" for="fotocarnet" />
+                        <p:selectBooleanCheckbox id="fotocarnet" value="#{infoadicionalalumnoController.selected.fotocarnet}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_generacion}" for="generacion" />
+                        <p:inputText id="generacion" value="#{infoadicionalalumnoController.selected.generacion}" title="#{bundle2.CreateinfoadicionalalumnoTitle_generacion}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_militar}" for="militar" />
+                        <p:selectBooleanCheckbox id="militar" value="#{infoadicionalalumnoController.selected.militar}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_militarorientacion}" for="militarorientacion" />
+                        <p:inputText id="militarorientacion" value="#{infoadicionalalumnoController.selected.militarorientacion}" title="#{bundle2.CreateinfoadicionalalumnoTitle_militarorientacion}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_nromatricula}" for="nromatricula" />
+                        <p:inputText id="nromatricula" value="#{infoadicionalalumnoController.selected.nromatricula}" title="#{bundle2.CreateinfoadicionalalumnoTitle_nromatricula}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_secuandaria}" for="secuandaria" />
+                        <p:selectBooleanCheckbox id="secuandaria" value="#{infoadicionalalumnoController.selected.secuandaria}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_secundariaorientacion}" for="secundariaorientacion" />
+                        <p:inputText id="secundariaorientacion" value="#{infoadicionalalumnoController.selected.secundariaorientacion}" title="#{bundle2.CreateinfoadicionalalumnoTitle_secundariaorientacion}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_tramitecarnetsalud}" for="tramitecarnetsalud" />
+                        <p:inputText id="tramitecarnetsalud" value="#{infoadicionalalumnoController.selected.tramitecarnetsalud}" title="#{bundle2.CreateinfoadicionalalumnoTitle_tramitecarnetsalud}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_turno}" for="turno" />
+                        <p:inputText id="turno" value="#{infoadicionalalumnoController.selected.turno}" title="#{bundle2.CreateinfoadicionalalumnoTitle_turno}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_universidad}" for="universidad" />
+                        <p:selectBooleanCheckbox id="universidad" value="#{infoadicionalalumnoController.selected.universidad}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_utu}" for="utu" />
+                        <p:selectBooleanCheckbox id="utu" value="#{infoadicionalalumnoController.selected.utu}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_utuorientacion}" for="utuorientacion" />
+                        <p:inputText id="utuorientacion" value="#{infoadicionalalumnoController.selected.utuorientacion}" title="#{bundle2.CreateinfoadicionalalumnoTitle_utuorientacion}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_vacunaantitetanica}" for="vacunaantitetanica" />
+                        <p:selectBooleanCheckbox id="vacunaantitetanica" value="#{infoadicionalalumnoController.selected.vacunaantitetanica}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_vencimcarnetsalud}" for="vencimcarnetsalud" />
+                        <p:inputText id="vencimcarnetsalud" value="#{infoadicionalalumnoController.selected.vencimcarnetsalud}" title="#{bundle2.CreateinfoadicionalalumnoTitle_vencimcarnetsalud}" />
+                        <p:outputLabel value="#{bundle2.CreateinfoadicionalalumnoLabel_vencimvacunaantitetanica}" for="vencimvacunaantitetanica" />
+                        <p:inputText id="vencimvacunaantitetanica" value="#{infoadicionalalumnoController.selected.vencimvacunaantitetanica}" title="#{bundle2.CreateinfoadicionalalumnoTitle_vencimvacunaantitetanica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{infoadicionalalumnoController.create}" value="#{bundle2.Save}" update="display,:infoadicionalalumnoListForm:datalist,:growl" oncomplete="handleSubmit(args,'infoadicionalalumnoCreateDialog');"/>
+                    <p:commandButton value="#{bundle2.Cancel}" onclick="infoadicionalalumnoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
