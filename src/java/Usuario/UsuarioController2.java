@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 
-
 @Named("usuarioController2")
 @SessionScoped
 public class UsuarioController2 implements Serializable {
@@ -41,12 +40,14 @@ public class UsuarioController2 implements Serializable {
     public void updateSelected(){
         ejbUsuario.edit(selected);
         updateItems();
+        selected = null;
     }
     
     public void update(int id){
         Usuario u = ejbUsuario.find(id);
         ejbUsuario.edit(u);
         updateItems();
+        selected = null;
     }
     
     public void deleteSelected() {
@@ -70,6 +71,24 @@ public class UsuarioController2 implements Serializable {
     
     private void updateItems(){
         items=ejbUsuario.findAll();
+    }
+    
+    /////filtrossssss/////////
+    
+    private List<Usuario> filteredUsers;
+
+    public List<Usuario> getFilteredUsers() {
+        return filteredUsers;
+    }
+
+    public void setFilteredUsers(List<Usuario> filteredUsers) {
+        this.filteredUsers = filteredUsers;
+    }
+    
+    //////////////////////////
+    
+    public void loadSelected(int id){
+        selected=ejbUsuario.find(id);
     }
     
 }

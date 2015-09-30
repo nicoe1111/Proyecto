@@ -78,3 +78,62 @@
 
     </f:view>
 </html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <h:outputStylesheet library="css" name="jsfcrud.css"/>
+                <h:outputScript library="js" name="jsfcrud.js"/>
+                <h:outputStylesheet name="css/bootstrap.css" />
+                <title>Sistema Administracion Tecnolgo en Informatica</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit style="background-color:#FFFFFF" position="north" size="100" resizable="false" closable="false" collapsible="true" gutter="0">
+                    <p:graphicImage value="/resources/Images/logo_fing1.GIF" width="60" height="60" alt=""></p:graphicImage>
+                    <p:graphicImage value="/resources/Images/log_utu2.gif" width="60" height="60" alt=""></p:graphicImage>
+                    <p:outputLabel style="font-family: Segoe UI, Helvetica, Arial, sans-serif; color: #e3ddc9;font-size:36px; font-weight: bold; alignment-adjust: central">Tecnologo en Informatica</p:outputLabel>
+                    <ui:include src="header.xhtml"/>
+                </p:layoutUnit>
+
+                <div align="center">
+                    <p:layoutUnit position="south" size="100" closable="false" collapsible="false">
+                        <p:outputLabel style=" alignment-adjust: central; font-family: Segoe UI, Helvetica, Arial, sans-serif; color: #e3ddc9;font-size:12px; font-weight: bold;">
+                            Batlle y Ordóñez 810 esq. Di Martino, San José de Mayo
+                        </p:outputLabel>    
+                       <p:outputLabel style=" alignment-adjust: central; font-family: Segoe UI, Helvetica, Arial, sans-serif; color: #e3ddc9;font-size:12px; font-weight: bold;">
+                           <div>434 22743</div>
+                       </p:outputLabel>                         
+                       <p:outputLabel style=" alignment-adjust: central; font-family: Segoe UI, Helvetica, Arial, sans-serif; color: #e3ddc9;font-size:12px; font-weight: bold;">                          
+                           <div>tecnoinf.sj.adm@gmail.com</div>
+                       </p:outputLabel>
+                    </p:layoutUnit>
+                </div>
+                <p:layoutUnit position="west" size="175" collapsible="false">
+                    <ui:include src="/WEB-INF/Menu.xhtml"/>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center"> 
+                    <p:growl id="growl" life="3000" />
+                    <ui:insert name="centro"/>
+                </p:layoutUnit>
+                    
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
