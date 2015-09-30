@@ -40,12 +40,14 @@ public class UsuarioController2 implements Serializable {
     public void updateSelected(){
         ejbUsuario.edit(selected);
         updateItems();
+        selected = null;
     }
     
     public void update(int id){
         Usuario u = ejbUsuario.find(id);
         ejbUsuario.edit(u);
         updateItems();
+        selected = null;
     }
     
     public void deleteSelected() {
@@ -84,4 +86,9 @@ public class UsuarioController2 implements Serializable {
     }
     
     //////////////////////////
+    
+    public void loadSelected(int id){
+        selected=ejbUsuario.find(id);
+    }
+    
 }
