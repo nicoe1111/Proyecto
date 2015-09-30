@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GestionPais;
+package Pais;
 
 import Departamento.Departamento;
 import javax.ejb.Stateless;

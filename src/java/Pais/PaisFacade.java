@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GestionPais;
+package Pais;
 
-import Localidad.Localidad;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Agus
  */
 @Stateless
-public class LocalidadFacade extends AbstractFacade<Localidad> {
+public class PaisFacade extends AbstractFacade<Pais> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
 
@@ -24,8 +23,8 @@ public class LocalidadFacade extends AbstractFacade<Localidad> {
         return em;
     }
 
-    public LocalidadFacade() {
-        super(Localidad.class);
+    public PaisFacade() {
+        super(Pais.class);
     }
     
 }
