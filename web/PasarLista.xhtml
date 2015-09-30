@@ -25,20 +25,29 @@
                 <p:panel header="#{bundle.ListUsuarioTitle}">
                     <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
                                  selectionMode="single" selection="#{usuarioController2.selected}"
-                                 scrollable="true"
-                                 rowKey="#{user.id_user}">
+                                 scrollable="true" 
+                                 rowKey="#{user.id_user}"
+                                 filteredValue="#{usuarioController2.filteredUsers}"
+                                 emptyMessage="No users encontrados"
+                                 widgetVar="studentsTable">
                                      
                         <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
                         <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
-                                     
-                                     
-                        <p:column headerText="Nombre" footerText="Nombre" width="200">
+                            
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+                            
+                        <p:column headerText="Nombre" footerText="Nombre" width="200" filterStyle="display:none" filterBy="primerNombre" filterMatchMode="contains">
                             <h:outputText value="#{user.primerNombre}"/>
                         </p:column>
-                        <p:column headerText="Apellido" footerText="Apellido" width="200">
+                        <p:column headerText="Apellido" footerText="Apellido" width="200" filterStyle="display:none" filterBy="primerApellido" filterMatchMode="contains">
                             <h:outputText value="#{user.primerApellido}" />
                         </p:column>
-                        <p:column headerText="id" footerText="id" width="200">
+                        <p:column headerText="id" footerText="id" width="200" filterStyle="display:none" filterBy="id_user" filterMatchMode="contains">
                             <h:outputText value="#{user.id_user}" />
                         </p:column>
                         <f:facet name="footer">
