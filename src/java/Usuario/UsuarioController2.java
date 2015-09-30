@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 
-
 @Named("usuarioController2")
 @SessionScoped
 public class UsuarioController2 implements Serializable {
@@ -72,4 +71,17 @@ public class UsuarioController2 implements Serializable {
         items=ejbUsuario.findAll();
     }
     
+    /////filtrossssss/////////
+    
+    private List<Usuario> filteredUsers;
+
+    public List<Usuario> getFilteredUsers() {
+        return filteredUsers;
+    }
+
+    public void setFilteredUsers(List<Usuario> filteredUsers) {
+        this.filteredUsers = filteredUsers;
+    }
+    
+    //////////////////////////
 }

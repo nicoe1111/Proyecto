@@ -7,8 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <!--para q ande el modal-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> para q ande el modal
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
         <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="resources/css/custom.css"/>
         
@@ -22,18 +22,28 @@
                 <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
                              selectionMode="single" selection="#{usuarioController2.selected}"
                              scrollable="true" 
-                             rowKey="#{user.id_user}">
+                             rowKey="#{user.id_user}"
+                             filteredValue="#{usuarioController2.filteredUsers}"
+                             emptyMessage="No users encontrados"
+                             widgetVar="studentsTable">
                     
                     <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
                     <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
                     
-                    <p:column headerText="Nombre" footerText="Nombre" width="200">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    
+                    <p:column headerText="Nombre" footerText="Nombre" width="200" filterStyle="display:none" filterBy="primerNombre" filterMatchMode="contains">
                         <h:outputText value="#{user.primerNombre}"/>
                     </p:column>
-                    <p:column headerText="Apellido" footerText="Apellido" width="200">
+                    <p:column headerText="Apellido" footerText="Apellido" width="200" filterStyle="display:none" filterBy="primerApellido" filterMatchMode="contains">
                         <h:outputText value="#{user.primerApellido}" />
                     </p:column>
-                    <p:column headerText="id" footerText="id" width="200">
+                    <p:column headerText="id" footerText="id" width="200" filterStyle="display:none" filterBy="id_user" filterMatchMode="contains">
                         <h:outputText value="#{user.id_user}" />
                     </p:column>
                     <f:facet name="footer">
