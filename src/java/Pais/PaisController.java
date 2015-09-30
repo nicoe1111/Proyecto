@@ -4,6 +4,7 @@ import Pais.util.JsfUtil;
 import Pais.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -118,6 +119,15 @@ public class PaisController implements Serializable {
     public List<Pais> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+  
+//    public List<String> getItemsSelectOneNombrePais(){
+//        List<String> paisesSelectOne = new ArrayList<>();
+//        List<Pais> paises = getItemsAvailableSelectOne();
+//        for (int i = 0; i < paises.size(); i++) {
+//                paisesSelectOne.add(paises.get(i).getNombre());
+//            }
+//        return paisesSelectOne;
+//    }
 
     @FacesConverter(forClass = Pais.class)
     public static class PaisControllerConverter implements Converter {
