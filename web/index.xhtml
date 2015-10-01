@@ -23,7 +23,7 @@
         <h:body>
 
             <p:layout fullPage="true">
-                <p:layoutUnit style="background-color:#FFFFFF" position="north" size="75" resizable="false" closable="false" collapsible="true" gutter="0">
+                <p:layoutUnit style="background-color:#FFFFFF" position="north" size="75" resizable="false" closable="false" collapsible="false" gutter="0">
                     <p:graphicImage value="/resources/Images/logo_fing1.GIF" width="60" height="60" alt=""></p:graphicImage>
                     <p:graphicImage value="/resources/Images/log_utu2.gif" width="60" height="60" alt=""></p:graphicImage>
                     <p:outputLabel style="font-family: Segoe UI, Helvetica, Arial, sans-serif; color: #e3ddc9;font-size:36px; font-weight: bold; alignment-adjust: central">Tecnologo en Informatica</p:outputLabel>
@@ -31,7 +31,7 @@
                 </p:layoutUnit>
 
                 <div align="center">
-                    <p:layoutUnit position="south" size="100" closable="false" collapsible="true" gutter="0">
+                    <p:layoutUnit position="south" size="75" closable="false" collapsible="false" gutter="0">
                         <p:outputLabel style=" alignment-adjust: central; font-family: Segoe UI, Helvetica, Arial, sans-serif; color: #e3ddc9;font-size:12px; font-weight: bold;">
                             Batlle y Ordóñez 810 esq. Di Martino, San José de Mayo
                         </p:outputLabel>    
@@ -50,8 +50,12 @@
                 <p:layoutUnit position="center"> 
                     <p:growl id="growl" life="3000" />
                     <ui:insert name="centro"/>
+                    <ui:insert name="pasarLista"/>
+                    <ui:insert name="Alumnos"/>
+                    <ui:insert name="GestionMateria"/>
                 </p:layoutUnit>
-
+                <ui:include src="modals/Registrar.xhtml"/>
+                <ui:include src="modals/Editar.xhtml"/>
             </p:layout>
 
             <br />
