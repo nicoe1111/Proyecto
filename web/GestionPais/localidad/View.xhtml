@@ -3,40 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewLocalidadTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewLocalidadLabel_idLocalidad}"/>
-                    <h:outputText value="#{localidadController.selected.idLocalidad}" title="#{bundle.ViewLocalidadTitle_idLocalidad}"/>
-                    <h:outputText value="#{bundle.ViewLocalidadLabel_nombre}"/>
-                    <h:outputText value="#{localidadController.selected.nombre}" title="#{bundle.ViewLocalidadTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewLocalidadLabel_departamento}"/>
-                    <h:outputText value="#{localidadController.selected.departamento}" title="#{bundle.ViewLocalidadTitle_departamento}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{localidadController.destroyAndView}" value="#{bundle.ViewLocalidadDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewLocalidadEditLink}"/>
-                <br />
-                <h:commandLink action="#{localidadController.prepareCreate}" value="#{bundle.ViewLocalidadCreateLink}" />
-                <br />
-                <h:commandLink action="#{localidadController.prepareList}" value="#{bundle.ViewLocalidadShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewLocalidadIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="LocalidadViewDlg" widgetVar="LocalidadViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle1.ViewLocalidadTitle}">
+            <h:form id="LocalidadViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{localidadController.selected != null}">
+                        <h:outputText value="#{bundle1.ViewLocalidadLabel_idLocalidad}"/>
+                        <h:outputText value="#{localidadController.selected.idLocalidad}" title="#{bundle1.ViewLocalidadTitle_idLocalidad}"/>
+                        <h:outputText value="#{bundle1.ViewLocalidadLabel_nombre}"/>
+                        <h:outputText value="#{localidadController.selected.nombre}" title="#{bundle1.ViewLocalidadTitle_nombre}"/>
+                        <h:outputText value="#{bundle1.ViewLocalidadLabel_departamento}"/>
+                        <h:outputText value="#{localidadController.selected.departamento}" title="#{bundle1.ViewLocalidadTitle_departamento}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle1.Close}" onclick="LocalidadViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

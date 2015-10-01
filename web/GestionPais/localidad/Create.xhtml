@@ -3,37 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateLocalidadTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateLocalidadLabel_idLocalidad}" for="idLocalidad" />
-                    <h:inputText id="idLocalidad" value="#{localidadController.selected.idLocalidad}" title="#{bundle.CreateLocalidadTitle_idLocalidad}" />
-                    <h:outputLabel value="#{bundle.CreateLocalidadLabel_nombre}" for="nombre" />
-                    <h:inputText id="nombre" value="#{localidadController.selected.nombre}" title="#{bundle.CreateLocalidadTitle_nombre}" />
-                    <h:outputLabel value="#{bundle.CreateLocalidadLabel_departamento}" for="departamento" />
-                    <h:selectOneMenu id="departamento" value="#{localidadController.selected.departamento}" title="#{bundle.CreateLocalidadTitle_departamento}" >
-                        <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{localidadController.create}" value="#{bundle.CreateLocalidadSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{localidadController.prepareList}" value="#{bundle.CreateLocalidadShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateLocalidadIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="LocalidadCreateDlg" widgetVar="LocalidadCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle1.CreateLocalidadTitle}">
+            <h:form id="LocalidadCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{localidadController.selected != null}">
+                        <p:outputLabel value="#{bundle1.CreateLocalidadLabel_idLocalidad}" for="idLocalidad" />
+                        <p:inputText id="idLocalidad" value="#{localidadController.selected.idLocalidad}" title="#{bundle1.CreateLocalidadTitle_idLocalidad}" />
+                        <p:outputLabel value="#{bundle1.CreateLocalidadLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{localidadController.selected.nombre}" title="#{bundle1.CreateLocalidadTitle_nombre}" />
+                        <p:outputLabel value="#{bundle1.CreateLocalidadLabel_departamento}" for="departamento" />
+                        <p:selectOneMenu id="departamento" value="#{localidadController.selected.departamento}" >
+                            <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"
+                                           var="departamentoItem"
+                                           itemValue="#{departamentoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{localidadController.create}" value="#{bundle1.Save}" update="display,:LocalidadListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalidadCreateDialog');"/>
+                    <p:commandButton value="#{bundle1.Cancel}" onclick="LocalidadCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>
