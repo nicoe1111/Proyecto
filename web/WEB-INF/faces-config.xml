@@ -21,8 +21,8 @@
             <var>bundle2</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>/Bundle2</base-name>
-            <var>bundle2</var>
+            <base-name>/Bundle1</base-name>
+            <var>bundle1</var>
         </resource-bundle>
     </application>
 </faces-config>

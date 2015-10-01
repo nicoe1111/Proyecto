@@ -3,38 +3,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditDepartamentoTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_idDepartamento}" for="idDepartamento" />
-                    <h:inputText id="idDepartamento" value="#{departamentoController.selected.idDepartamento}" title="#{bundle.EditDepartamentoTitle_idDepartamento}" />
-                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_nombre}" for="nombre" />
-                    <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle.EditDepartamentoTitle_nombre}" />
-                    <h:outputLabel value="#{bundle.EditDepartamentoLabel_pais}" for="pais" />
-                    <h:selectOneMenu id="pais" value="#{departamentoController.selected.pais}" title="#{bundle.EditDepartamentoTitle_pais}" >
-                        <f:selectItems value="#{paisController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{departamentoController.update}" value="#{bundle.EditDepartamentoSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditDepartamentoViewLink}"/>
-                <br />
-                <h:commandLink action="#{departamentoController.prepareList}" value="#{bundle.EditDepartamentoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditDepartamentoIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="DepartamentoEditDlg" widgetVar="DepartamentoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle1.EditDepartamentoTitle}">
+            <h:form id="DepartamentoEditForm">
+                <h:panelGroup id="display1">
+                    <p:panelGrid columns="2" rendered="#{departamentoController.selected != null}">
+                        <p:outputLabel value="#{bundle1.EditDepartamentoLabel_idDepartamento}" for="idDepartamento" />
+                        <p:inputText id="idDepartamento" value="#{departamentoController.selected.idDepartamento}" title="#{bundle1.EditDepartamentoTitle_idDepartamento}" />
+                        <p:outputLabel value="#{bundle1.EditDepartamentoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle1.EditDepartamentoTitle_nombre}" />
+                        <p:outputLabel value="#{bundle1.EditDepartamentoLabel_pais}" for="pais" />
+                        <p:selectOneMenu id="pais" value="#{departamentoController.selected.pais}" >
+                            <f:selectItem itemLabel="#{bundle1.SelectOneMessage}"/>
+                            <f:selectItems value="#{paisController.itemsAvailableSelectOne}"
+                                           var="paisItem"
+                                           itemValue="#{paisItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departamentoController.update}" value="#{bundle1.Save}" update="display1,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartamentoEditDialog');"/>
+                    <p:commandButton value="#{bundle1.Cancel}" onclick="DepartamentoEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

@@ -3,37 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateDepartamentoTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_idDepartamento}" for="idDepartamento" />
-                    <h:inputText id="idDepartamento" value="#{departamentoController.selected.idDepartamento}" title="#{bundle.CreateDepartamentoTitle_idDepartamento}" />
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_nombre}" for="nombre" />
-                    <h:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle.CreateDepartamentoTitle_nombre}" />
-                    <h:outputLabel value="#{bundle.CreateDepartamentoLabel_pais}" for="pais" />
-                    <h:selectOneMenu id="pais" value="#{departamentoController.selected.pais}" title="#{bundle.CreateDepartamentoTitle_pais}" >
-                        <f:selectItems value="#{paisController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{departamentoController.create}" value="#{bundle.CreateDepartamentoSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{departamentoController.prepareList}" value="#{bundle.CreateDepartamentoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateDepartamentoIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="DepartamentoCreateDlg" widgetVar="DepartamentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle1.CreateDepartamentoTitle}">
+            <h:form id="DepartamentoCreateForm">
+                <h:panelGroup id="display1">
+                    <p:panelGrid columns="2" rendered="#{departamentoController.selected != null}">
+                        <p:outputLabel value="#{bundle1.CreateDepartamentoLabel_idDepartamento}" for="idDepartamento" />
+                        <p:inputText id="idDepartamento" value="#{departamentoController.selected.idDepartamento}" title="#{bundle1.CreateDepartamentoTitle_idDepartamento}" />
+                        <p:outputLabel value="#{bundle1.CreateDepartamentoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle1.CreateDepartamentoTitle_nombre}" />
+                        <p:outputLabel value="#{bundle1.CreateDepartamentoLabel_pais}" for="pais" />
+                        <p:selectOneMenu id="pais" value="#{departamentoController.selected.pais}" >
+                            <f:selectItems value="#{paisController.itemsAvailableSelectOne}"
+                                           var="paisItem"
+                                           itemValue="#{paisItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departamentoController.create}" value="#{bundle1.Save}" update="display1,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartamentoCreateDialog');"/>
+                    <p:commandButton value="#{bundle1.Cancel}" onclick="DepartamentoCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>
