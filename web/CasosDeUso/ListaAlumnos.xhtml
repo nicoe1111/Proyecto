@@ -55,6 +55,7 @@
                                             <c:when test="#{usuarioController2.selected.id_user > 0 }">
                                                 <h:inputHidden value="#{usuarioController2.selected.id_user}" />
                                                 <h:commandButton action="#{usuarioController2.updateSelected()}" value="Update" styleClass="btn btn-default"/>
+                                                <h:commandButton action="#{usuarioController2.setSelected(null)}" value="Cancel" styleClass="btn btn-default"/>
                                             </c:when>
                                             <c:otherwise>
                                                 <h:commandLink action="#{usuarioController2.createSelected()}" styleClass="btn btn-default">
