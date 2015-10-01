@@ -41,7 +41,7 @@
                                             <h:outputLabel value="Num Semestre" styleClass="control-label col-sm-2"/>
                                             <div class="col-sm-2">
                                                 <p:selectOneMenu id="country" value="#{materiaController.selected.semestre}" style="width:170px">
-                                                    <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                                     <f:selectItems value="#{materiaController.semestres}" />
                                                 </p:selectOneMenu>
                                             </div>
@@ -58,6 +58,7 @@
                                                     <c:when test="#{materiaController.selected.idMateria > 0 }">
                                                         <h:inputHidden value="#{materiaController.selected.idMateria}" />
                                                         <h:commandButton action="#{materiaController.updateSelected()}" value="Update" styleClass="btn btn-default"/>
+                                                        <h:commandButton action="#{materiaController.setSelected(null)}" value="Cancel" styleClass="btn btn-default"/>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <h:commandLink action="#{materiaController.createSelected()}" styleClass="btn btn-default">

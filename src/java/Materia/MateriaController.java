@@ -95,14 +95,14 @@ public class MateriaController implements Serializable {
     //////////////////////////  Arbol  //////////////////////////////////////////
     private TreeNode root;
     
-    private TreeNode selectedNode;
-
-    public TreeNode getSelectedNode() {
-        return selectedNode;
+    private TreeNode[] selectedNodes;
+    
+    public TreeNode[] getSelectedNodes() {
+        return selectedNodes;
     }
-
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
+    
+    public void setSelectedNodes(TreeNode[] selectedNodes) {
+        this.selectedNodes = selectedNodes;
     }
     
     public TreeNode getRoot() {
@@ -115,6 +115,10 @@ public class MateriaController implements Serializable {
                     TreeNode matenode = new DefaultTreeNode(mate.getNombre(), semnod);
                 }
             }
+        }
+        if(items.isEmpty()||items==null){
+            TreeNode nodo = new DefaultTreeNode("No hay materias registradas", root);
+            nodo.setSelectable(false);
         }
         return root;
     }
@@ -137,5 +141,40 @@ public class MateriaController implements Serializable {
     public void setRoot(TreeNode root) {
         this.root = root;
     }
+    
+    public String verSelectedNodes(){
+        if(selectedNodes!=null){
+            String result="";
+            for(TreeNode nodo:selectedNodes){
+                result = result + " " + nodo.getData().toString();
+            }
+            return result;
+        }
+        return"";
+    }
+    
+    private String ver;
+    
+    public String getVer() {
+        ver=verSelectedNodes();
+        return ver;
+    }
+
+    public void setVer(String ver) {
+        this.ver = ver;
+    }
+    
     /////////////////////////////////////////////////////////////////////////////
+
+    private TreeNode selectedNode;
+
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
+
+    public void setSelectedNode(TreeNode selectedNode) {
+        List<Materia> mats= ejbMateria.findByNick(selectedNode.getData().toString());
+        selected = mats.get(0);
+        this.selectedNode = selectedNode;
+    }
 }

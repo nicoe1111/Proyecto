@@ -1,6 +1,9 @@
 package Usuario;
 
+import Rol.Docente;
+import Rol.TipoRol;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -76,11 +79,11 @@ public class UsuarioController2 implements Serializable {
     /////filtrossssss/////////
     
     private List<Usuario> filteredUsers;
-
+    
     public List<Usuario> getFilteredUsers() {
         return filteredUsers;
     }
-
+    
     public void setFilteredUsers(List<Usuario> filteredUsers) {
         this.filteredUsers = filteredUsers;
     }
@@ -90,5 +93,54 @@ public class UsuarioController2 implements Serializable {
     public void loadSelected(int id){
         selected=ejbUsuario.find(id);
     }
+    
+    /////////  Usuario Docente     ////////////////////////////////////////////////
+    
+    private List<Usuario> docentes = null;
+    private int idDocenteSelected;
+
+    public int getIdDocenteSelected() {
+        return idDocenteSelected;
+    }
+
+    public void setIdDocenteSelected(int idDocenteSelected) {
+        selected = ejbUsuario.find(idDocenteSelected);
+        this.idDocenteSelected = idDocenteSelected;
+    }
+    
+    public List<Usuario> getDocentes() {
+        loadDocentes();
+        return docentes;
+    }
+    
+    public void loadDocentes(){
+        docentes=new ArrayList();
+        for(Usuario user : getItems()){
+            if(isUserDocente(user)){
+                docentes.add(user);
+            }
+        }
+    }
+    
+    public boolean isUserDocente(Usuario user){
+        if(user!=null){
+            if(user.getRoles()!=null && !user.getRoles().isEmpty()){
+                for(TipoRol rol:user.getRoles()){
+                    if(rol instanceof Docente){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public void setDocentes(List<Usuario> docentes) {
+        this.docentes = docentes;
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    
+    
     
 }

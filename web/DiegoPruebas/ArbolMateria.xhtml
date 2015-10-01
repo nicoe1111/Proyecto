@@ -13,12 +13,17 @@
     <h:body>
         <h:form>
             <div class="container">
-                <p:tree value="#{materiaController.root}" selectionMode="single" selection="#{treeSelectionView.selectedNode}" var="node" dynamic="true">
+                <p:tree value="#{materiaController.root}" selectionMode="multiple" selection="#{materiaController.selectedNodes}" var="node" dynamic="true" animate="true">
                     <p:treeNode>
                         <h:outputText value="#{node}" />
                     </p:treeNode>
                 </p:tree>
+                <p:commandButton update="ojete"/>
+                
+                <p:outputLabel id="ojete" value="#{materiaController.ver}"/>
             </div>
+            
+            
         </h:form>
     </h:body>
 </html>
