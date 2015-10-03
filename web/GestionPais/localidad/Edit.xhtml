@@ -12,16 +12,13 @@
             <h:form id="LocalidadEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localidadController.selected != null}">
-                        <p:outputLabel value="#{bundle1.EditLocalidadLabel_idLocalidad}" for="idLocalidad" />
-                        <p:inputText id="idLocalidad" value="#{localidadController.selected.idLocalidad}" title="#{bundle1.EditLocalidadTitle_idLocalidad}" />
                         <p:outputLabel value="#{bundle1.EditLocalidadLabel_nombre}" for="nombre" />
-                        <p:inputText id="anombre" value="#{localidadController.selected.nombre}" title="#{bundle1.EditLocalidadTitle_nombre}" />
+                        <p:inputText id="nombre" value="#{localidadController.selected.nombre}" title="#{bundle1.EditLocalidadTitle_nombre}" />
                         <p:outputLabel value="#{bundle1.EditLocalidadLabel_departamento}" for="departamento" />
-                        <p:selectOneMenu id="departamento" value="#{localidadController.selected.departamento}" >
-                            <f:selectItem itemLabel="#{bundle1.SelectOneMessage}"/>
-                            <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"
-                                           var="departamentoItem"
-                                           itemValue="#{departamentoItem}"/>
+                        <p:selectOneMenu id="departamento" value="#{localidadController.stringDepto}">
+                            <f:selectItems value="#{localidadController.stringDeptos}"
+                                       var="deptoItem"
+                                       itemValue="#{deptoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{localidadController.update}" value="#{bundle1.Save}" update="display,:LocalidadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LocalidadEditDialog');"/>

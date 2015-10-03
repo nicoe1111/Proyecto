@@ -17,10 +17,11 @@
                         <p:outputLabel value="#{bundle1.CreateLocalidadLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{localidadController.selected.nombre}" title="#{bundle1.CreateLocalidadTitle_nombre}" />
                         <p:outputLabel value="#{bundle1.CreateLocalidadLabel_departamento}" for="departamento" />
-                        <p:selectOneMenu id="departamento" value="#{localidadController.selected.departamento}" >
-                            <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"
-                                           var="departamentoItem"
-                                           itemValue="#{departamentoItem}"/>
+                        <f:event type="preRenderView" listener="#{localidadController.getItemDeptos}" />
+                        <p:selectOneMenu id="departamento" value="#{localidadController.stringDepto}">
+                            <f:selectItems value="#{localidadController.stringDeptos}"
+                                       var="deptoItem"
+                                       itemValue="#{deptoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{localidadController.create}" value="#{bundle1.Save}" update="display,:LocalidadListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalidadCreateDialog');"/>

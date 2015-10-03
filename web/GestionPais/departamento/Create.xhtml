@@ -12,15 +12,14 @@
             <h:form id="DepartamentoCreateForm">
                 <h:panelGroup id="display1">
                     <p:panelGrid columns="2" rendered="#{departamentoController.selected != null}">
-                        <p:outputLabel value="#{bundle1.CreateDepartamentoLabel_idDepartamento}" for="idDepartamento" />
-                        <p:inputText id="idDepartamento" value="#{departamentoController.selected.idDepartamento}" title="#{bundle1.CreateDepartamentoTitle_idDepartamento}" />
                         <p:outputLabel value="#{bundle1.CreateDepartamentoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle1.CreateDepartamentoTitle_nombre}" />
                         <p:outputLabel value="#{bundle1.CreateDepartamentoLabel_pais}" for="pais" />
-                        <p:selectOneMenu id="pais" value="#{departamentoController.selected.pais}" >
-                            <f:selectItems value="#{paisController.itemsAvailableSelectOne}"
-                                           var="paisItem"
-                                           itemValue="#{paisItem}"/>
+                        <f:event type="preRenderView" listener="#{departamentoController.getItemPaises}" />
+                        <p:selectOneMenu id="pais" value="#{departamentoController.stringPais}">
+                            <f:selectItems value="#{departamentoController.stringPaises}"
+                                       var="paisItem"
+                                       itemValue="#{paisItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departamentoController.create}" value="#{bundle1.Save}" update="display1,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartamentoCreateDialog');"/>

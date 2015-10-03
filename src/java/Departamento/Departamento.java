@@ -33,9 +33,9 @@ public class Departamento implements Serializable{
     @Column(unique=true)
     private String nombre;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "idPais")
-    private Pais pais;
+    private Pais pais = new Pais();
     
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Localidad> localidad = new ArrayList<>();

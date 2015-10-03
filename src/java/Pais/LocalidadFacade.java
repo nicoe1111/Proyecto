@@ -26,6 +26,5 @@ public class LocalidadFacade extends AbstractFacade<Localidad> {
 
     public LocalidadFacade() {
         super(Localidad.class);
-    }
-    
+    } 
 }

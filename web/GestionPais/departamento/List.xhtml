@@ -10,10 +10,8 @@
                 <p:panel header="#{bundle1.ListDepartamentoTitle}">
                     <p:dataTable id="datalist" value="#{departamentoController.items}" var="item"
                                  selectionMode="single" selection="#{departamentoController.selected}"
-                                 paginator="true"
+                                 paginator="false"
                                  rowKey="#{item.idDepartamento}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
@@ -21,21 +19,9 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle1.ListDepartamentoTitle_idDepartamento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idDepartamento}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle1.ListDepartamentoTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle1.ListDepartamentoTitle_pais}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pais}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle1.Create}" actionListener="#{departamentoController.prepareCreate}" update=":DepartamentoCreateForm" oncomplete="PF('DepartamentoCreateDialog').show()"/>

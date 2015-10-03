@@ -1,5 +1,7 @@
 package Usuario;
 
+import Pais.Pais;
+import Pais.PaisFacade;
 import Rol.Administrador;
 import Rol.Administrativo;
 import Rol.Alumno;
@@ -17,7 +19,9 @@ import java.io.InputStream;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +45,7 @@ import org.primefaces.model.UploadedFile;
 @Named("usuarioController")
 @SessionScoped
 public class UsuarioController implements Serializable {
-
+    
     @EJB
     private UsuarioFacade ejbUsuario;
     @EJB
@@ -49,37 +53,37 @@ public class UsuarioController implements Serializable {
     private List<Usuario> items = null;
     private Usuario selected;
     private infoadicionalalumno selectedInfoAdicional;
-
+    
     private UploadedFile fileImagen;
-
+    
     
     public UsuarioController() {
     }
-
+    
     public Usuario getSelected() {
         return selected;
     }
-
+    
     public void setSelected(Usuario selected) {
         this.selected = selected;
     }
-
+    
     protected void setEmbeddableKeys() {
     }
-
+    
     protected void initializeEmbeddableKey() {
     }
-
+    
     private UsuarioFacade getFacade() {
         return ejbUsuario;
     }
-
+    
     public Usuario prepareCreate() {
         selected = new Usuario();
         initializeEmbeddableKey();
         return selected;
     }
-
+    
     public void create() {
         
         seteoRolesSeleccionados();
@@ -89,10 +93,9 @@ public class UsuarioController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-  
+    
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
-        
         selectedRoles.clear();
     }
     
@@ -103,14 +106,14 @@ public class UsuarioController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public List<Usuario> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         return items;
     }
-
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -138,23 +141,23 @@ public class UsuarioController implements Serializable {
             }
         }
     }
-
+    
     public Usuario getUsuario(int id) {
         return getFacade().find(id);
     }
-
+    
     public List<Usuario> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
-
+    
     public List<Usuario> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-  
-
+    
+    
     @FacesConverter(forClass = Usuario.class)
     public static class UsuarioControllerConverter implements Converter {
-
+        
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -164,19 +167,19 @@ public class UsuarioController implements Serializable {
                     getValue(facesContext.getELContext(), null, "usuarioController");
             return controller.getUsuario(getKey(value));
         }
-
+        
         int getKey(String value) {
             int key;
             key = Integer.parseInt(value);
             return key;
         }
-
+        
         String getStringKey(int value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
-
+        
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
@@ -190,39 +193,39 @@ public class UsuarioController implements Serializable {
                 return null;
             }
         }
-
+        
     }
     //////////Subir Imagen ///////////////////////////////////////
-   public void upload(FileUploadEvent event) {        
+    public void upload(FileUploadEvent event) {
         try {
             copyFile(event.getFile().getContentType(), event.getFile().getInputstream());
         } catch (IOException e) {
             e.printStackTrace();
         }
- 
-    }  
-   
+        
+    }
+    
     public void copyFile(String fileTipo, InputStream in) {
         try {
             String url = getUrlImagenes();
-             String nombreImagen = String.valueOf(selected.getId_user());
-             OutputStream out = new FileOutputStream(new File(url + nombreImagen +  ".jpg"));
-             url = url + nombreImagen + ".jpg";
-             selected.setImagen(url);
-             update();
-             int read = 0;
-             byte[] bytes = new byte[1024];
-
-             while ((read = in.read(bytes)) != -1) {
-                 out.write(bytes, 0, read);
-             }
-             in.close();
-             out.flush();
-             out.close();
-             System.out.println("New file created!");
-             } catch (IOException e) {
-                System.out.println(e.getMessage());
-             }
+            String nombreImagen = String.valueOf(selected.getId_user());
+            OutputStream out = new FileOutputStream(new File(url + nombreImagen +  ".jpg"));
+            url = url + nombreImagen + ".jpg";
+            selected.setImagen(url);
+            update();
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+            System.out.println("New file created!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     public String getUrlImagenes(){
@@ -235,17 +238,90 @@ public class UsuarioController implements Serializable {
     private final List<String> roles = new ArrayList<>();//lista de string para cargar los check
     private List<String> selectedRoles = new ArrayList<>();//lista que se carga cuando el usuario hace click en el check
     private List<String> rolesSelectedUser = new ArrayList<>();
+    
+    ///variables combos pais depto y localidad
+    
+    private Map<String,Map<String,String>> data = new HashMap<String, Map<String,String>>();
+    private Map<String,Map<String,String>> data1 = new HashMap<String, Map<String,String>>();
+    private Map<String,String> paises;
+    private Map<String,String> departamentos;
+    private Map<String,String> deptos;
+    private Map<String,String> localidades;
+    @EJB
+    PaisFacade ejbPais;
     @PostConstruct
-    void init(){
-        roles.add("Alumno");
-        roles.add("Administrativo");
-        roles.add("Docente");
-        roles.add("Administrador");
+        void init(){
+            roles.add("Alumno");
+            roles.add("Administrativo");
+            roles.add("Docente");
+            roles.add("Administrador");
+
+            List<Pais> listPaises = ejbPais.findAll();
+            paises  = new HashMap<String, String>();
+            deptos  = new HashMap<String, String>();
+            Map<String,String> map = null;
+            Map<String,String> map1 = null;
+            for (int i = 0; i < listPaises.size(); i++) {
+                paises.put(listPaises.get(i).getNombre(), listPaises.get(i).getNombre());
+                map = new HashMap<String, String>();
+                for (int j = 0; j < listPaises.get(i).getDepartemento().size(); j++) {
+                    if(listPaises.get(i).getIdPais() == listPaises.get(i).getDepartemento().get(j).getPais().getIdPais()){
+                        map.put(listPaises.get(i).getDepartemento().get(j).getNombre(), listPaises.get(i).getDepartemento().get(j).getNombre());
+                        data.put(listPaises.get(i).getNombre(), map);
+
+                        deptos.put(listPaises.get(i).getDepartemento().get(j).getNombre(), listPaises.get(i).getDepartemento().get(j).getNombre());
+                        map1 = new HashMap<String, String>();
+                        for (int k = 0; k < listPaises.get(i).getDepartemento().get(j).getLocalidad().size(); k++) {
+                            if(listPaises.get(i).getDepartemento().get(j).getIdDepartamento() == listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getDepartamento().getIdDepartamento()){
+                                map1.put(listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getNombre(), listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getNombre());
+                                data1.put(listPaises.get(i).getDepartemento().get(j).getNombre(), map1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    public void onCountryChange() {
+        if(selected.getNacionalidad() !=null && !selected.getNacionalidad().equals(""))
+            departamentos = data.get(selected.getNacionalidad());
+        else
+            departamentos = new HashMap<String, String>();
+    }
+    
+    public void onDepartamentoChange() {
+        if(selected.getDepartamento()!=null && !selected.getDepartamento().equals(""))
+            localidades = data1.get(selected.getDepartamento());
+        else
+            localidades = new HashMap<String, String>();
+    } 
+
+    public Map<String, Map<String, String>> getData() {
+        return data;
     }
 
+    public Map<String, Map<String, String>> getData1() {
+        return data1;
+    }
+
+    public Map<String, String> getPaises() {
+        return paises;
+    }
+
+    public Map<String, String> getDepartamentos() {
+        return departamentos;
+    }
+
+    public Map<String, String> getDeptos() {
+        return deptos;
+    }
+
+    public Map<String, String> getLocalidades() {
+        return localidades;
+    }
+    
     public List<String> getRoles() {
         return roles;
-    } 
+    }
 
     public List<String> getSelectedRoles() {
         return selectedRoles;
@@ -254,22 +330,22 @@ public class UsuarioController implements Serializable {
     public void setSelectedRoles(List<String> selectedRoles) {
         this.selectedRoles = selectedRoles;
     }
-    
+
     /// Antes de crear el usuario verifico los roles seleccionados y se los seteo al usuario
     public void seteoRolesSeleccionados(){
-        
+
         for (int i = 0; i < selectedRoles.size(); i++) { //lista de roles seleccionado es un String
             addRolUser(selectedRoles.get(i));
         }
         selectedRoles.clear();//luego de agregados los roles a la lista de usuarios borro los datos
     }
-    //obtengo los roles del usuario seleccionado 
+    //obtengo los roles del usuario seleccionado
     public List<String> getRolesSelectedUser() {
         selectedRoles.clear();
         if(selected != null){
-            for (int i = 0; i < selected.getRoles().size(); i++) {                                                   
+            for (int i = 0; i < selected.getRoles().size(); i++) {
                 if(selected.getRoles().get(i).getClass().getName().contains("Administrador")){
-                selectedRoles.add("Administrador");
+                    selectedRoles.add("Administrador");
                 }else if(selected.getRoles().get(i).getClass().getName().contains("Administrativo")){
                     selectedRoles.add("Administrativo");
                 }else if(selected.getRoles().get(i).getClass().getName().contains("Docente")){
@@ -279,15 +355,15 @@ public class UsuarioController implements Serializable {
                 }
             }
         }
-        rolesSelectedUser = selectedRoles;        
+        rolesSelectedUser = selectedRoles;
         return rolesSelectedUser;
     }
 
     public void setRolesSelectedUser(List<String> rolesSelectedUser) {
         this.rolesSelectedUser = rolesSelectedUser;
     }
-    
-    public void addRolUser(String tiporol){/// segun el string pasado por parametro crea el objeto rol asociado al usuario 
+
+    public void addRolUser(String tiporol){/// segun el string pasado por parametro crea el objeto rol asociado al usuario
         if(tiporol.equals("Administrador")){    //y el rol es agregado a una lista de roles del usuario
             Administrador administrador = new Administrador();
             administrador.setUsuario(selected);// agrego el usuario al rol
@@ -300,22 +376,22 @@ public class UsuarioController implements Serializable {
             Docente docente = new Docente();
             docente.setUsuario(selected);// agrego el usuario al rol
             selected.addRol(docente);// agreaga el rol al usuario selected
-        }else{ 
+        }else{
             Alumno alumno = new Alumno();
             alumno.setUsuario(selected);// agrego el usuario al rol
             selected.addRol(alumno); // agreaga el rol al usuario selected
         }
     }
-    
+
     ///verifica antes de update del usuario que los roles seleccionados y los persistidos sean iguales sino que agregue o elimine
     public void verificarRolesUserUpdate(){
         if(selectedRoles.size() > selected.getRoles().size()){
-            
-            
+
+
         }
-        
+
     }
-       
+
     public void destroyRolAntiguo(){
         Boolean bool = false;
         List<TipoRol> listaRoles = ejbRol.findRolUser(selected.getId_user());
@@ -324,9 +400,9 @@ public class UsuarioController implements Serializable {
                 for (int j = 0; j < selected.getRoles().size(); j++) {
                     if(listaRoles.get(i) == selected.getRoles().get(j)){
                         bool = true;
-                }
+                    }
                     if(bool == false){
-                         ejbRol.remove(listaRoles.get(i));
+                        ejbRol.remove(listaRoles.get(i));
                     }else{
                         bool = false;
                     }
@@ -334,14 +410,14 @@ public class UsuarioController implements Serializable {
             }
         }
     }
-    
-  private StreamedContent graphicImage;
 
-  public StreamedContent getGraphicImage() throws FileNotFoundException {
-      if(selected.getImagen()!= null){
-       FileInputStream fileImage = new FileInputStream(selected.getImagen());
-       graphicImage = new DefaultStreamedContent(fileImage, "image/png");
-      }
+    private StreamedContent graphicImage;
+
+    public StreamedContent getGraphicImage() throws FileNotFoundException {
+        if(selected.getImagen()!= null){
+            FileInputStream fileImage = new FileInputStream(selected.getImagen());
+            graphicImage = new DefaultStreamedContent(fileImage, "image/png");
+        }
         return graphicImage;
     }
 
@@ -355,7 +431,7 @@ public class UsuarioController implements Serializable {
     public void setFileImagen(UploadedFile fileImagen) {
         this.fileImagen = fileImagen;
     }
-    
+
     public void uploadFile(FileUploadEvent event) {
         try {
             String path = getPathImagenPerfil();
@@ -366,28 +442,28 @@ public class UsuarioController implements Serializable {
             int bulk;
             InputStream inputStream = event.getFile().getInputstream();
             while (true) {
-            bulk = inputStream.read(buffer);
-            if (bulk < 0) {
-              break;
+                bulk = inputStream.read(buffer);
+                if (bulk < 0) {
+                    break;
+                }
+                fileOutputStream.write(buffer, 0, bulk);
+                fileOutputStream.flush();
             }
-            fileOutputStream.write(buffer, 0, bulk);
-            fileOutputStream.flush();
-        }
-        fileOutputStream.close();
-        inputStream.close();
+            fileOutputStream.close();
+            inputStream.close();
 
-        selected.setImagen(event.getFile().getFileName());
+            selected.setImagen(event.getFile().getFileName());
 
         } catch (IOException e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al subir el archivo"));
         }
     }
-    
+
     public String getPathImagenPerfil(){
         return ResourceBundle.getBundle("/Bundle").getString("Path");
     }
-    
+
     public void getUserSession(){
         selected = new Usuario();
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -396,12 +472,12 @@ public class UsuarioController implements Serializable {
         uc = (UsuarioController) session.getAttribute("usuarioMB");
         selected = uc.getSelected();
     }
-    
+
     public void setPassnickUserCreate(String cedula){
         selected.setPass(cedula);
         selected.setNick(cedula);
     }
-    
+
     public void setNickUserCreate(String cedula){
         selected.setNick(cedula);
     }

@@ -10,11 +10,16 @@
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
     <h:body>
+        
         <ui:composition template="/index.xhtml">
             <ui:define name="centro">
-                <ui:include src="/GestionPais/pais/ListPais.xhtml"/>
-                <ui:include src="/GestionPais/departamento/List.xhtml"/>
-                <ui:include src="/GestionPais/localidad/List.xhtml"/>
+                <div style="width: 600px; text-align: center; margin: auto;">
+                    <ui:include src="/GestionPais/pais/ListPais.xhtml"/>
+                   
+                    <ui:include src="/GestionPais/departamento/List.xhtml"/>
+                    
+                    <ui:include src="/GestionPais/localidad/List.xhtml"/>
+                 </div>
             </ui:define>
         </ui:composition>
     </h:body>

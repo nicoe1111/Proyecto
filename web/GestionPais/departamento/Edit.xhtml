@@ -17,11 +17,11 @@
                         <p:outputLabel value="#{bundle1.EditDepartamentoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{departamentoController.selected.nombre}" title="#{bundle1.EditDepartamentoTitle_nombre}" />
                         <p:outputLabel value="#{bundle1.EditDepartamentoLabel_pais}" for="pais" />
-                        <p:selectOneMenu id="pais" value="#{departamentoController.selected.pais}" >
-                            <f:selectItem itemLabel="#{bundle1.SelectOneMessage}"/>
-                            <f:selectItems value="#{paisController.itemsAvailableSelectOne}"
-                                           var="paisItem"
-                                           itemValue="#{paisItem}"/>
+                        <f:event type="preRenderView" listener="#{departamentoController.getItemPaises}" />
+                        <p:selectOneMenu id="pais" value="#{departamentoController.stringPais}">
+                            <f:selectItems value="#{departamentoController.stringPaises}"
+                                       var="paisItem"
+                                       itemValue="#{paisItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departamentoController.update}" value="#{bundle1.Save}" update="display1,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartamentoEditDialog');"/>

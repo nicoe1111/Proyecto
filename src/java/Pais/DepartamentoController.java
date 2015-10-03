@@ -5,6 +5,7 @@ import Pais.util.JsfUtil;
 import Pais.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -55,13 +56,21 @@ public class DepartamentoController implements Serializable {
     }
 
     public void create() {
+        setPaisSeleccionado(getStringPais());
+        stringPaises.clear();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle1").getString("DepartamentoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
+    public void setPaisSeleccionado(String nombrePais){
+        List<Pais> paises = ejbPais.findNombre(nombrePais);
+        selected.setPais(paises.get(0));
+    }
+    
     public void update() {
+        setPaisSeleccionado(getStringPais());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle1").getString("DepartamentoUpdated"));
     }
 
@@ -160,5 +169,35 @@ public class DepartamentoController implements Serializable {
         }
 
     }
+   
+        @EJB
+        PaisFacade ejbPais;
+        private String stringPais;
+        private List<String> stringPaises = new ArrayList<String>();
+        
+        public List<String> getItemPaises(){
+            stringPaises.clear();
+            List<Pais> paises = ejbPais.findAll();
+            for (int i = 0; i < paises.size(); i++) {
+                stringPaises.add(paises.get(i).getNombre());
+            }
+            return stringPaises;
+        }
 
-}
+    public String getStringPais() {
+        return stringPais;
+    }
+
+    public List<String> getStringPaises() {
+        return stringPaises;
+    }
+
+    public void setStringPais(String stringPais) {
+        this.stringPais = stringPais;
+    }
+
+    public void setStringPaises(List<String> stringPaises) {
+        this.stringPaises = stringPaises;
+    }
+        
+    }

@@ -1,10 +1,12 @@
 package Pais;
 
+import Departamento.Departamento;
 import Localidad.Localidad;
 import Pais.util.JsfUtil;
 import Pais.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -54,14 +56,23 @@ public class LocalidadController implements Serializable {
         return selected;
     }
 
-    public void create() {
+    public void create() {        
+        setDeptoSeleccionado(getStringDepto());        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle1").getString("LocalidadCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public void update() {
+    @EJB
+    DepartamentoFacade ejbDepto;
+    public void setDeptoSeleccionado(String nombreDpto){
+        List<Departamento> deptos = ejbDepto.findNombre(nombreDpto);
+        selected.setDepartamento(deptos.get(0));
+    }
+       
+    public void update() {        
+        setDeptoSeleccionado(getStringDepto());        
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle1").getString("LocalidadUpdated"));
     }
 
@@ -160,5 +171,36 @@ public class LocalidadController implements Serializable {
         }
 
     }
+    
+    @EJB
+    DepartamentoFacade ejbDepartamento;
+    private String stringDepto;
+    private List<String> stringDeptos = new ArrayList<String>();
+
+    public List<String> getItemDeptos(){
+        stringDeptos.clear();
+        List<Departamento> deptos = ejbDepartamento.findAll();
+        for (int i = 0; i < deptos.size(); i++) {
+            stringDeptos.add(deptos.get(i).getNombre());
+        }
+        return stringDeptos;
+    }
+
+    public String getStringDepto() {
+        return stringDepto;
+    }
+
+    public void setStringDepto(String stringDepto) {
+        this.stringDepto = stringDepto;
+    }
+
+    public List<String> getStringDeptos() {
+        return stringDeptos;
+    }
+
+    public void setStringDeptos(List<String> stringDeptos) {
+        this.stringDeptos = stringDeptos;
+    }
+
 
 }

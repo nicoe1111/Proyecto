@@ -10,8 +10,10 @@
         <ui:define name="centro">
             <h:panelGroup id="display"  style="text-align: center; margin: auto;">
                 <h:form id="EditarPerfilForm" style="text-align: center; margin: auto;">
-                    <f:event type="preRenderView" listener="#{usuarioController.getUserSession}" />
                         <p:panelGrid columns="4" style="text-align: center; margin: auto;"  rendered="#{usuarioController.selected != null}">
+                            
+                            <f:event type="preRenderView" listener="#{usuarioController.getUserSession}" />
+                            
                             <p:graphicImage id="image" value="#{usuarioController.graphicImage}" width="200" height="200" alt="Foto perfil" style="alignment-adjust: middle" cache="false"> </p:graphicImage>
                         </p:panelGrid>
                         <br></br>

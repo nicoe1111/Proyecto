@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -119,15 +120,6 @@ public class PaisController implements Serializable {
     public List<Pais> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-  
-//    public List<String> getItemsSelectOneNombrePais(){
-//        List<String> paisesSelectOne = new ArrayList<>();
-//        List<Pais> paises = getItemsAvailableSelectOne();
-//        for (int i = 0; i < paises.size(); i++) {
-//                paisesSelectOne.add(paises.get(i).getNombre());
-//            }
-//        return paisesSelectOne;
-//    }
 
     @FacesConverter(forClass = Pais.class)
     public static class PaisControllerConverter implements Converter {
@@ -169,5 +161,4 @@ public class PaisController implements Serializable {
         }
 
     }
-
 }

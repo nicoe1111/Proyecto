@@ -42,8 +42,6 @@
                        
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_credencial}" for="credencial" />
                         <p:inputText id="credencial" value="#{usuarioController.selected.credencial}" title="#{bundle.EditUsuarioTitle_credencial}" />
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_nacionalidad}" for="nacionalidad" />
-                        <p:inputText id="nacionalidad" value="#{usuarioController.selected.nacionalidad}" title="#{bundle.EditUsuarioTitle_nacionalidad}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_estadoCivil}" for="estadoCivil" />
                         <p:selectOneMenu id="estadoCivil" value="#{usuarioController.selected.estadoCivil}" style="width:150px">
                                 <f:selectItem itemLabel="Seleccione..." itemValue="" />
@@ -52,10 +50,27 @@
                                 <f:selectItem itemLabel="DIVORCIAD@" itemValue="DIVORCIAD@" />
                                 <f:selectItem itemLabel="VIUD@" itemValue="VIUD@" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_departamento}" for="departamento" />
-                        <p:inputText id="departamento" value="#{usuarioController.selected.departamento}" title="#{bundle.EditUsuarioTitle_departamento}" />
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_localidad}" for="localidad" />
-                        <p:inputText id="localidad" value="#{usuarioController.selected.localidad}" title="#{bundle.EditUsuarioTitle_localidad}" />
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_nacionalidad}" for="nacionalidad" />
+                        <p:selectOneMenu id="nacionalidad" value="#{usuarioController.selected.nacionalidad}" style="width:150px">
+                            <p:ajax listener="#{usuarioController.onCountryChange}" update="departamento" />
+                            <f:selectItem itemLabel="Nacionalidad" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{usuarioController.paises}" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_departamento}" for="departamento" />
+                        <p:selectOneMenu id="departamento" value="#{usuarioController.selected.departamento}" style="width:150px">
+                            <p:ajax listener="#{usuarioController.onDepartamentoChange}" update="localidad" />
+                            <f:selectItem itemLabel="Selecc Departamento" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{usuarioController.departamentos}" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_localidad}" for="localidad" />
+                        <p:selectOneMenu id="localidad" value="#{usuarioController.selected.localidad}" style="width:150px">
+                            <f:selectItem itemLabel="Selecc Localidad" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{usuarioController.localidades}" />
+                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_celular}" for="celular" />
                         <p:inputText id="celular" value="#{usuarioController.selected.celular}" title="#{bundle.EditUsuarioTitle_celular}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_telefono}" for="telefono" />

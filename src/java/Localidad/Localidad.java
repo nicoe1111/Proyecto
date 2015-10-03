@@ -6,7 +6,6 @@
 package Localidad;
 
 import Departamento.Departamento;
-import Pais.Pais;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,9 +28,9 @@ public class Localidad implements Serializable {
     @Column(unique=true)
     private String nombre;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "idDepartamento")
-    private Departamento departamento;
+    private Departamento departamento =  new Departamento();
     
     public Localidad() {    }
 
