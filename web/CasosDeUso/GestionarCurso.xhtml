@@ -46,20 +46,19 @@
                     </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{cursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
-                        <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":editarForm" disabled="#{buttonBean.disabled || empty cursoController.items}">
+                        <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":getionarCursoForm" actionListener="#{cursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty cursoController.items}">
                             <f:passThroughAttribute name="data-toggle" value="modal"/>
-                            <f:passThroughAttribute name="data-target" value="#"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalGestionarCurso"/>
                         </p:commandButton>
-                        <p:commandButton id="createButton" class="btn btn-default" update=":registrarCursoForm" value="#{bundle.Create}" actionListener="#{cursoController.setSelected(null)}">
+                        <p:commandButton id="createButton" class="btn btn-default" update=":getionarCursoForm" value="#{bundle.Create}" actionListener="#{cursoController.vaciarControllersSelecteds()}" action="#{usuarioController2.setSelected(null)}">
                             <f:passThroughAttribute name="data-toggle" value="modal"/>
-                            <f:passThroughAttribute name="data-target" value="#ModalRegistrarCurso"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalGestionarCurso"/>
                         </p:commandButton>
                     </f:facet>
                 </p:dataTable>
             </p:panel>
         </h:form>
-        <ui:include src="/modals/RegistrarCurso.xhtml"/>
-        <ui:include src="/modals/Editar.xhtml"/>
+        <ui:include src="/modals/ModalGestionarCurso.xhtml"/>
     </h:body>
 </html>
 

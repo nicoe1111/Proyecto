@@ -8,10 +8,13 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 
 @Named("usuarioController2")
 @SessionScoped
-public class UsuarioController2 implements Serializable {
+public class UsuarioController2 implements Serializable{
     
     @EJB
     private UsuarioFacade ejbUsuario;
@@ -98,11 +101,11 @@ public class UsuarioController2 implements Serializable {
     
     private List<Usuario> docentes = null;
     private int idDocenteSelected;
-
+    
     public int getIdDocenteSelected() {
         return idDocenteSelected;
     }
-
+    
     public void setIdDocenteSelected(int idDocenteSelected) {
         selected = ejbUsuario.find(idDocenteSelected);
         this.idDocenteSelected = idDocenteSelected;
@@ -140,7 +143,4 @@ public class UsuarioController2 implements Serializable {
     }
     
     /////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
 }

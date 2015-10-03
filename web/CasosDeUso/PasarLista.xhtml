@@ -51,22 +51,18 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{usuarioController2.deleteSelected()}" disabled="#{buttonBean.disabled || empty usuarioController2.items}"/>
-                            <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":editarForm" disabled="#{buttonBean.disabled || empty usuarioController2.items}">
+                            <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":gestionarForm" disabled="#{buttonBean.disabled || empty usuarioController2.items}">
                                 <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                <f:passThroughAttribute name="data-target" value="#ModalEditar"/>
+                                <f:passThroughAttribute name="data-target" value="#ModalGestionarUsuario"/>
                             </p:commandButton>
-                            <p:commandButton id="createButton" class="btn btn-default" update=":registrarForm" value="#{bundle.Create}" actionListener="#{usuarioController2.setSelected(null)}">
+                            <p:commandButton id="createButton" class="btn btn-default" update=":gestionarForm" value="#{bundle.Create}" actionListener="#{usuarioController2.setSelected(null)}">
                                 <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                <f:passThroughAttribute name="data-target" value="#ModalRegistrar"/>
+                                <f:passThroughAttribute name="data-target" value="#ModalGestionarUsuario"/>
                             </p:commandButton>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
-            <h:commandButton id="createButton1" class="btn btn-default" value="Open Modal">
-                <f:passThroughAttribute name="data-toggle" value="modal"/>
-                <f:passThroughAttribute name="data-target" value="#ModalRegistrar"/>
-            </h:commandButton>
         </ui:define>
     </ui:composition>
         

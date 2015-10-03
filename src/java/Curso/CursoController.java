@@ -6,19 +6,13 @@
 package Curso;
 
 import Materia.MateriaController;
-import Usuario.UsuarioController;
 import Usuario.UsuarioController2;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.servlet.http.HttpSession;
 
 @Named("cursoController")
 @SessionScoped
@@ -79,6 +73,8 @@ public class CursoController implements Serializable {
         ejbCurso.create(selected);
         updateItems();
         selected = null;
+        usuarioController2.setSelected(null);
+        materiaController.setSelected(null);
     }
     
     private void updateItems(){
@@ -113,5 +109,17 @@ public class CursoController implements Serializable {
     }
     
      //////////////////////////
+    
+    public void vaciarControllersSelecteds(){
+        setSelected(null);
+        usuarioController2.setSelected(null);
+        usuarioController2.setIdDocenteSelected(0);
+        materiaController.setSelected(null);
+    }
+    
+    public void cargarControllersSelecteds(){
+        usuarioController2.setIdDocenteSelected(selected.getDocente().getIdRol());
+        materiaController.setSelected(selected.getMateria());
+    }
      
 }
