@@ -10,14 +10,15 @@
     
     <f:view contentType="text/html">
         <h:head>
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <h:outputStylesheet name="css/bootstrap.css" />
+            <h:outputStylesheet library="js" name="bootstrap.js" />
+            <h:outputStylesheet library="js" name="bootstrap.min.js" />
+            
             <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <h:outputStylesheet library="css" name="jsfcrud.css"/>
-                <h:outputScript library="js" name="jsfcrud.js"/>
-                <h:outputStylesheet name="css/bootstrap.css" />
-                <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
                 <title>Sistema Administracion Tecnolgo en Informatica</title>
-                <h:outputStylesheet name="css/jsfcrud.css"/>
             </f:facet>
         </h:head>
         
@@ -55,8 +56,8 @@
                     <ui:insert name="Alumnos"/>
                     <ui:insert name="GestionMateria"/>
                 </p:layoutUnit>
-                <ui:include src="modals/Registrar.xhtml"/>
-                <ui:include src="modals/Editar.xhtml"/>
+                <ui:include src="/modals/Registrar.xhtml"/>
+                <ui:include src="/modals/Editar.xhtml"/>
             </p:layout>
             
             <br />

@@ -8,23 +8,58 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
     </h:head>
     <h:body>
-        <h:form>
-            <p:selectOneMenu id="country" value="#{usuarioController2.idDocenteSelected}" style="width:170px">
-                <f:selectItem itemLabel="Seleciona Docente" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                <f:selectItems value="#{usuarioController2.docentes}" var="doc" itemLabel="#{doc.primerNombre} #{doc.primerApellido}" itemValue="#{doc.id_user}"/>
-            </p:selectOneMenu>
-            
-            Año: <p:inputText value="#{cursoController.selected.anio}"/>
-            <p:commandButton action="#{cursoController.createSelected()}"/>
-            
-            <p:tree value="#{materiaController.root}" selectionMode="single" selection="#{materiaController.selectedNode}" var="node" dynamic="true" animate="true">
-                <p:treeNode>
-                    <h:outputText value="#{node}" />
-                </p:treeNode>
-            </p:tree>
+        <h:form id="GestionarCursoForm">
+            <p:panel header="Gestionar Curso">
+                <p:dataTable id="datalist" var="curso" value="#{cursoController.items}" 
+                             selectionMode="single" selection="#{cursoController.selected}"
+                             scrollable="true" 
+                             rowKey="#{curso.idCurso}"
+                             filteredValue="#{cursoController.filteredCursos}"
+                             emptyMessage="No users encontrados"
+                             widgetVar="studentsTable">
+                    
+                    <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                    <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
+                    
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    
+                    <p:column headerText="Materia" footerText="Materia" width="200" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains">
+                        <p:outputLabel value="#{curso.materia.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Semestre" footerText="Semestre" width="200" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains">
+                        <h:outputText value="#{curso.materia.semestre}" />
+                    </p:column>
+                    <p:column headerText="anio" footerText="anio" width="200" filterStyle="display:none" filterBy="anio" filterMatchMode="contains">
+                        <h:outputText value="#{curso.anio}" />
+                    </p:column>
+                    <p:column headerText="Docente" footerText="Docente" width="200" filterStyle="display:none" filterBy="docente.usuario.primerNombre" filterMatchMode="contains">
+                        <h:outputText value="#{curso.docente.usuario.primerNombre} #{curso.docente.usuario.primerApellido}" />
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{cursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
+                        <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":editarForm" disabled="#{buttonBean.disabled || empty cursoController.items}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#"/>
+                        </p:commandButton>
+                        <p:commandButton id="createButton" class="btn btn-default" update=":registrarCursoForm" value="#{bundle.Create}" actionListener="#{cursoController.setSelected(null)}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalRegistrarCurso"/>
+                        </p:commandButton>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
         </h:form>
+        <ui:include src="/modals/RegistrarCurso.xhtml"/>
+        <ui:include src="/modals/Editar.xhtml"/>
     </h:body>
 </html>
 
