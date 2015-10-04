@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+        <h:outputStylesheet library="js" name="bootstrap.js" />
+        <h:outputStylesheet library="js" name="bootstrap.min.js" />
+        
+        
+    </h:head>
+    
+    <h:body>
+        <div class="container">
+            <h:form>
+                <table class="table table-hover table-bordered" >
+                    <thead>
+                        <tr>
+                            <th>desde</th>
+                            <th>para</th>
+                            <th>asunto</th>
+                            <th>mensaje</th>
+                            <th>fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="#{mensajeController.items}" var="item">
+                            <tr class="#{mensajeController.rowColor(item)}">
+                                <td>#{item.desde}</td>
+                                <td>#{item.para}</td>
+                                <td>#{item.asunto}</td>
+                                <td>#{item.mensaje}</td>
+                                <td>#{item.fecha}</td>
+                                <td>
+                                    <!--si no anda es xq va un form-->
+                                    <p:commandLink  update=":verMensajeForm" >
+                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                        <f:passThroughAttribute name="data-target" value="#ModalVerMensaje"/>
+                                        <c:choose>
+                                            <c:when test="#{item.readed}">
+                                                <f:passThroughAttribute name="action" value="#{mensajeController.loadSelected(item)}"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <f:passThroughAttribute name="action" value="#{mensajeController.updateReaded(item.id_mensaje)}"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </p:commandLink>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </h:form>
+            <ui:include src="/modals/ModalVerMensaje.xhtml"/>
+        </div>
+    </h:body>
+</html>
+

@@ -1,6 +1,7 @@
 package Mensaje;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -49,6 +50,17 @@ public class MensajeController implements Serializable{
         selected = null;
     }
     
+    public void updateReaded(int id){
+        selected = ejbMensaje.find(id);
+        selected.setReaded(true);
+        ejbMensaje.edit(selected);
+        updateItems();
+    }
+    
+    public void loadSelected(Mensaje m){
+        selected = m;
+    }
+    
     public void deleteSelected() {
         ejbMensaje.remove(selected);
         updateItems();
@@ -63,6 +75,7 @@ public class MensajeController implements Serializable{
     }
     
     public void createSelected(){
+        selected.setFecha(new Date());
         ejbMensaje.create(selected);
         updateItems();
         selected = null;
@@ -70,5 +83,12 @@ public class MensajeController implements Serializable{
     
     private void updateItems(){
         items=ejbMensaje.findAll();
+    }
+    
+    public String rowColor(Mensaje msj){
+        if(!msj.isReaded()){
+            return "info";
+        }
+        else return "#";
     }
 }
