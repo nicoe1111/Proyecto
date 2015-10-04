@@ -52,7 +52,7 @@ public class UsuarioController implements Serializable {
     private Rol.RolFacade ejbRol;
     private List<Usuario> items = null;
     private Usuario selected;
-    private infoadicionalalumno selectedInfoAdicional;
+    private Infoadicionalalumno selectedInfoAdicional;
     
     private UploadedFile fileImagen;
     
@@ -95,15 +95,16 @@ public class UsuarioController implements Serializable {
     }
     
     public void update() {
+        verificarRolesUserUpdate();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
         selectedRoles.clear();
+        items = getFacade().findAll();
     }
     
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UsuarioDeleted"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            selected = null;
         }
     }
     
@@ -383,32 +384,17 @@ public class UsuarioController implements Serializable {
         }
     }
 
-    ///verifica antes de update del usuario que los roles seleccionados y los persistidos sean iguales sino que agregue o elimine
     public void verificarRolesUserUpdate(){
-        if(selectedRoles.size() > selected.getRoles().size()){
-
-
+        selected.getRoles().clear();
+        List<TipoRol> listRoles = new ArrayList<>();
+        listRoles = ejbRol.findRolUser(selected.getId_user());
+        for (int i = 0; i < listRoles.size(); i++) {
+            ejbRol.remove(listRoles.get(i));
+        }     
+        for (int i = 0; i < rolesSelectedUser.size(); i++) {
+           addRolUser(rolesSelectedUser.get(i));
         }
-
-    }
-
-    public void destroyRolAntiguo(){
-        Boolean bool = false;
-        List<TipoRol> listaRoles = ejbRol.findRolUser(selected.getId_user());
-        if(listaRoles.size() > 0){
-            for (int i = 0; i < listaRoles.size(); i++) {
-                for (int j = 0; j < selected.getRoles().size(); j++) {
-                    if(listaRoles.get(i) == selected.getRoles().get(j)){
-                        bool = true;
-                    }
-                    if(bool == false){
-                        ejbRol.remove(listaRoles.get(i));
-                    }else{
-                        bool = false;
-                    }
-                }
-            }
-        }
+        rolesSelectedUser.clear();
     }
 
     private StreamedContent graphicImage;

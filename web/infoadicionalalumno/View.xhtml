@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InfoadicionalalumnoViewDlg" widgetVar="InfoadicionalalumnoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle}">
+            <h:form id="InfoadicionalalumnoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{infoadicionalalumnoController.selected != null}">
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_usurioAlumno}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.usurioAlumno}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_usurioAlumno}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_idinfoalumno}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.idinfoalumno}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_idinfoalumno}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_carnetsalud}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.carnetsalud}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_certificadoestudio}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.certificadoestudio}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_expedidocarnetsalud}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.expedidocarnetsalud}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_expedidocarnetsalud}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_fdocente}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.fdocente}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_fdocenteorientacion}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.fdocenteorientacion}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_fdocenteorientacion}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_facultaduniversidad}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.facultaduniversidad}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_facultaduniversidad}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_fechainscripcion}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.fechainscripcion}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_fechainscripcion}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_fotocarnet}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.fotocarnet}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_generacion}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.generacion}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_generacion}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_militar}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.militar}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_militarorientacion}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.militarorientacion}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_militarorientacion}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_nromatricula}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.nromatricula}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_nromatricula}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_secuandaria}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.secuandaria}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_secundariaorientacion}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.secundariaorientacion}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_secundariaorientacion}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_tramitecarnetsalud}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.tramitecarnetsalud}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_tramitecarnetsalud}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_turno}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.turno}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_turno}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_universidad}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.universidad}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_utu}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.utu}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_utuorientacion}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.utuorientacion}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_utuorientacion}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_vacunaantitetanica}"/>
+                        <p:selectBooleanCheckbox value="#{infoadicionalalumnoController.selected.vacunaantitetanica}" disabled="true"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_vencimcarnetsalud}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.vencimcarnetsalud}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_vencimcarnetsalud}"/>
+                        <h:outputText value="#{bundleInfoAlumno.ViewInfoadicionalalumnoLabel_vencimvacunaantitetanica}"/>
+                        <h:outputText value="#{infoadicionalalumnoController.selected.vencimvacunaantitetanica}" title="#{bundleInfoAlumno.ViewInfoadicionalalumnoTitle_vencimvacunaantitetanica}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundleInfoAlumno.Close}" onclick="InfoadicionalalumnoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

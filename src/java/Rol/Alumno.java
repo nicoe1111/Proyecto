@@ -9,6 +9,7 @@ import Asistencia.Asistencia;
 import Curso.Curso;
 import RespuestaPregunta.RespuestaPregunta;
 import ResultadoInstancia.ResultadoInstancia;
+import Usuario.Infoadicionalalumno;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -16,6 +17,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Alumno extends TipoRol{
@@ -31,6 +34,10 @@ public class Alumno extends TipoRol{
     
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ResultadoInstancia> resultadosInstancias= new ArrayList<>();
+    
+ 
+
+    public Alumno() {    }
 
     public List<Curso> getCursos() {
         return cursos;

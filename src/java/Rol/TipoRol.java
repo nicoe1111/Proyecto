@@ -7,6 +7,7 @@ package Rol;
 
 import Usuario.Usuario;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public abstract class TipoRol implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRol;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
     @JoinColumn(name = "id_user")
     private Usuario usuario;
     

@@ -37,27 +37,27 @@ public class Curso implements Serializable{
     private int anio;
     private Date FechaInicio;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
     @JoinColumn(name = "id_materia")
     private Materia materia;
         
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
     @JoinColumn(name = "id_docente")
     private Docente docente;
     
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
     private List<Alumno> alumnos = new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<ClaseDada> clasesDadas= new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<SalonCurso> salonesCurso= new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<InstanciaEvaluacion> instanciasEvaluaciones= new ArrayList<>();
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Encuesta encuesta;
 

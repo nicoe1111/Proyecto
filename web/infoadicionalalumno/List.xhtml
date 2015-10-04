@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="InfoadicionalalumnoListForm">
+                <p:panel header="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle}">
+                    <p:dataTable id="datalist" value="#{infoadicionalalumnoController.items}" var="item"
+                                 selectionMode="single" selection="#{infoadicionalalumnoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idinfoalumno}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_usurioAlumno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usurioAlumno}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_idinfoalumno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idinfoalumno}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_carnetsalud}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.carnetsalud}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_certificadoestudio}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.certificadoestudio}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_expedidocarnetsalud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.expedidocarnetsalud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fdocente}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.fdocente}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fdocenteorientacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fdocenteorientacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_facultaduniversidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.facultaduniversidad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fechainscripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechainscripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fotocarnet}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.fotocarnet}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_generacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.generacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_militar}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.militar}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_militarorientacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.militarorientacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_nromatricula}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nromatricula}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_secuandaria}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.secuandaria}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_secundariaorientacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.secundariaorientacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_tramitecarnetsalud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tramitecarnetsalud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_turno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.turno}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_universidad}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.universidad}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_utu}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.utu}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_utuorientacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.utuorientacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_vacunaantitetanica}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.vacunaantitetanica}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_vencimcarnetsalud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vencimcarnetsalud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_vencimvacunaantitetanica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vencimvacunaantitetanica}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleInfoAlumno.Create}" actionListener="#{infoadicionalalumnoController.prepareCreate}" update=":InfoadicionalalumnoCreateForm" oncomplete="PF('InfoadicionalalumnoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleInfoAlumno.View}" update=":InfoadicionalalumnoViewForm" oncomplete="PF('InfoadicionalalumnoViewDialog').show()" disabled="#{empty infoadicionalalumnoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleInfoAlumno.Edit}" update=":InfoadicionalalumnoEditForm" oncomplete="PF('InfoadicionalalumnoEditDialog').show()" disabled="#{empty infoadicionalalumnoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleInfoAlumno.Delete}" actionListener="#{infoadicionalalumnoController.destroy}" update=":growl,datalist" disabled="#{empty infoadicionalalumnoController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

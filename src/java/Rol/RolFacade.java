@@ -6,6 +6,7 @@
 package Rol;
 
 import General.AbstractFacade;
+import Usuario.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -37,5 +38,13 @@ public class RolFacade extends AbstractFacade<TipoRol> {
         Query query = em.createQuery("SELECT r FROM TipoRol r WHERE r.usuario.id_user = :id");
         query.setParameter("id", idUser);
         return query.getResultList();
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Boolean DeleteRolUser(Usuario user) {
+        Query query = em.createQuery("DELETE FROM TipoRol r WHERE r.usuario = :user");
+        query.setParameter("user", user);
+        query.executeUpdate();
+        return (!query.getResultList().isEmpty());
     }
 }
