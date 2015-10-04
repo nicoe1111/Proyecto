@@ -40,26 +40,34 @@
                                 <td>#{item.fecha}</td>
                                 <td>
                                     <!--si no anda es xq va un form-->
-                                    <p:commandLink  update=":verMensajeForm" >
-                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                        <f:passThroughAttribute name="data-target" value="#ModalVerMensaje"/>
-                                        <c:choose>
-                                            <c:when test="#{item.readed}">
-                                                <f:passThroughAttribute name="action" value="#{mensajeController.loadSelected(item)}"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <f:passThroughAttribute name="action" value="#{mensajeController.updateReaded(item.id_mensaje)}"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                    </p:commandLink>
+                                    <c:choose>
+                                        <c:when test="#{item.readed}">
+                                            <p:commandLink  update=":verMensajeForm" actionListener="#{mensajeController.loadSelected(item)}" >
+                                                <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                                <f:passThroughAttribute name="data-target" value="#ModalVerMensaje"/>
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            </p:commandLink>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p:commandLink  update=":verMensajeForm" actionListener="#{mensajeController.updateReaded(item.id_mensaje)}" >
+                                                <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                                <f:passThroughAttribute name="data-target" value="#ModalVerMensaje"/>
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            </p:commandLink>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
+                <p:commandButton value="Nuevo Mensaje">
+                    <f:passThroughAttribute name="data-toggle" value="modal"/>
+                    <f:passThroughAttribute name="data-target" value="#ModalEnviarMensaje"/>
+                </p:commandButton>
             </h:form>
             <ui:include src="/modals/ModalVerMensaje.xhtml"/>
+            <ui:include src="/modals/ModalEnviarMensaje.xhtml"/>
         </div>
     </h:body>
 </html>

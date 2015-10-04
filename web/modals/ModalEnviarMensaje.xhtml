@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        <div id="ModalEnviarMensaje" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nuevo Mensaje</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h:outputLabel value="#{mensajeController.setSelected(null)}"/>
+                        <h:form id="enviarMensajeForm">
+                            from: <h:inputText value="#{mensajeController.selected.desde}"/><br/> 
+                            to: <h:inputText value="#{mensajeController.selected.para}"/><br/>
+                            asunto: <h:inputText value="#{mensajeController.selected.asunto}"/><br/>
+                            mensaje: <h:inputText value="#{mensajeController.selected.mensaje}"/><br/>
+                            <h:commandButton value="enviar" actionListener="#{mensajeController.createSelected()}"/>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-sm-2">
+                            <h:commandButton id="createButton" class="btn btn-default" value="Enviar" actionListener="#"/>
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:composition>
+</html>
+
