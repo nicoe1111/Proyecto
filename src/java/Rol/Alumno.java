@@ -15,6 +15,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -34,8 +35,6 @@ public class Alumno extends TipoRol{
     
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ResultadoInstancia> resultadosInstancias= new ArrayList<>();
-    
- 
 
     public Alumno() {    }
 
@@ -70,4 +69,5 @@ public class Alumno extends TipoRol{
     public void setResultadosInstancias(List<ResultadoInstancia> resultadosInstancias) {
         this.resultadosInstancias = resultadosInstancias;
     }
+  
 }

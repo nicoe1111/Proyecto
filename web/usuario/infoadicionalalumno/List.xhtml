@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle}"></h:outputText>
+            <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="InfoadicionalalumnoListForm">
-                <p:panel header="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle}">
+                <p:panel header="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle}">
                     <p:dataTable id="datalist" value="#{infoadicionalalumnoController.items}" var="item"
                                  selectionMode="single" selection="#{infoadicionalalumnoController.selected}"
                                  paginator="true"
@@ -29,153 +29,153 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_usurioAlumno}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_usurioAlumno}"/>
                             </f:facet>
                             <h:outputText value="#{item.usurioAlumno}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_idinfoalumno}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_idinfoalumno}"/>
                             </f:facet>
                             <h:outputText value="#{item.idinfoalumno}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_carnetsalud}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_carnetsalud}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.carnetsalud}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_certificadoestudio}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_certificadoestudio}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.certificadoestudio}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_expedidocarnetsalud}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_expedidocarnetsalud}"/>
                             </f:facet>
                             <h:outputText value="#{item.expedidocarnetsalud}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fdocente}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_fdocente}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.fdocente}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fdocenteorientacion}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_fdocenteorientacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.fdocenteorientacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_facultaduniversidad}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_facultaduniversidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.facultaduniversidad}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fechainscripcion}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_fechainscripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechainscripcion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_fotocarnet}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_fotocarnet}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.fotocarnet}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_generacion}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_generacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.generacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_militar}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_militar}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.militar}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_militarorientacion}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_militarorientacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.militarorientacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_nromatricula}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_nromatricula}"/>
                             </f:facet>
                             <h:outputText value="#{item.nromatricula}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_secuandaria}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_secuandaria}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.secuandaria}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_secundariaorientacion}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_secundariaorientacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.secundariaorientacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_tramitecarnetsalud}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_tramitecarnetsalud}"/>
                             </f:facet>
                             <h:outputText value="#{item.tramitecarnetsalud}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_turno}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_turno}"/>
                             </f:facet>
                             <h:outputText value="#{item.turno}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_universidad}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_universidad}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.universidad}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_utu}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_utu}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.utu}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_utuorientacion}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_utuorientacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.utuorientacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_vacunaantitetanica}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_vacunaantitetanica}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.vacunaantitetanica}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_vencimcarnetsalud}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_vencimcarnetsalud}"/>
                             </f:facet>
                             <h:outputText value="#{item.vencimcarnetsalud}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleInfoAlumno.ListInfoadicionalalumnoTitle_vencimvacunaantitetanica}"/>
+                                <h:outputText value="#{bundleInfoAdicional.ListInfoadicionalalumnoTitle_vencimvacunaantitetanica}"/>
                             </f:facet>
                             <h:outputText value="#{item.vencimvacunaantitetanica}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleInfoAlumno.Create}" actionListener="#{infoadicionalalumnoController.prepareCreate}" update=":InfoadicionalalumnoCreateForm" oncomplete="PF('InfoadicionalalumnoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleInfoAlumno.View}" update=":InfoadicionalalumnoViewForm" oncomplete="PF('InfoadicionalalumnoViewDialog').show()" disabled="#{empty infoadicionalalumnoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleInfoAlumno.Edit}" update=":InfoadicionalalumnoEditForm" oncomplete="PF('InfoadicionalalumnoEditDialog').show()" disabled="#{empty infoadicionalalumnoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleInfoAlumno.Delete}" actionListener="#{infoadicionalalumnoController.destroy}" update=":growl,datalist" disabled="#{empty infoadicionalalumnoController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleInfoAdicional.Create}" actionListener="#{infoadicionalalumnoController.prepareCreate}" update=":InfoadicionalalumnoCreateForm" oncomplete="PF('InfoadicionalalumnoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleInfoAdicional.View}" update=":InfoadicionalalumnoViewForm" oncomplete="PF('InfoadicionalalumnoViewDialog').show()" disabled="#{empty infoadicionalalumnoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleInfoAdicional.Edit}" update=":InfoadicionalalumnoEditForm" oncomplete="PF('InfoadicionalalumnoEditDialog').show()" disabled="#{empty infoadicionalalumnoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleInfoAdicional.Delete}" actionListener="#{infoadicionalalumnoController.destroy}" update=":growl,datalist" disabled="#{empty infoadicionalalumnoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

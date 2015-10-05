@@ -56,6 +56,8 @@ public class UsuarioController implements Serializable {
     
     private UploadedFile fileImagen;
     
+    private Alumno selectedAlumno;
+    
     
     public UsuarioController() {
     }
@@ -106,6 +108,8 @@ public class UsuarioController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null;
         }
+        selectedRoles.clear();
+        items = getFacade().findAll();
     }
     
     public List<Usuario> getItems() {
@@ -378,10 +382,17 @@ public class UsuarioController implements Serializable {
             docente.setUsuario(selected);// agrego el usuario al rol
             selected.addRol(docente);// agreaga el rol al usuario selected
         }else{
-            Alumno alumno = new Alumno();
-            alumno.setUsuario(selected);// agrego el usuario al rol
-            selected.addRol(alumno); // agreaga el rol al usuario selected
+            selectedAlumno.setUsuario(selected);// agrego el usuario al rol
+            selected.addRol(selectedAlumno); // agreaga el rol al usuario selected
         }
+    }
+
+    public Alumno getSelectedAlumno() {
+        return selectedAlumno;
+    }
+
+    public void setSelectedAlumno(Alumno selectedAlumno) {
+        this.selectedAlumno = selectedAlumno;
     }
 
     public void verificarRolesUserUpdate(){
@@ -466,5 +477,22 @@ public class UsuarioController implements Serializable {
 
     public void setNickUserCreate(String cedula){
         selected.setNick(cedula);
+    } 
+    private Boolean boolAlumno = false;
+
+    public Boolean getBoolAlumno() {
+        return boolAlumno;
+    }
+    
+    public Boolean isAlumno(){
+        if(selected != null){
+            for (int i = 0; i < selectedRoles.size(); i++) {
+                if(selectedRoles.get(i).equals("Alumno")){
+                    selectedAlumno = new Alumno();
+                    return boolAlumno = true;
+                }
+            }
+        }
+        return boolAlumno = false;
     }
 }

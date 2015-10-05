@@ -54,18 +54,18 @@ public class InfoadicionalalumnoController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleInfoAlumno").getString("InfoadicionalalumnoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleInfoAdicional").getString("InfoadicionalalumnoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleInfoAlumno").getString("InfoadicionalalumnoUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleInfoAdicional").getString("InfoadicionalalumnoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleInfoAlumno").getString("InfoadicionalalumnoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleInfoAdicional").getString("InfoadicionalalumnoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -98,11 +98,11 @@ public class InfoadicionalalumnoController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleInfoAlumno").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleInfoAdicional").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleInfoAlumno").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleInfoAdicional").getString("PersistenceErrorOccured"));
             }
         }
     }

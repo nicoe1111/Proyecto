@@ -17,6 +17,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -53,9 +54,8 @@ public class Usuario implements Serializable {
     private List<TipoRol> roles = new ArrayList<>();
     
     @OneToOne
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "id_user")
     Infoadicionalalumno infoAdicionalAlumno;
-    
 
     public Usuario() {    }
 
@@ -266,7 +266,7 @@ public class Usuario implements Serializable {
     public void clearListRoles(){
         this.roles.clear();
     }
-
+    
     public Infoadicionalalumno getInfoAdicionalAlumno() {
         return infoAdicionalAlumno;
     }
@@ -274,5 +274,4 @@ public class Usuario implements Serializable {
     public void setInfoAdicionalAlumno(Infoadicionalalumno infoAdicionalAlumno) {
         this.infoAdicionalAlumno = infoAdicionalAlumno;
     }
-    
 }

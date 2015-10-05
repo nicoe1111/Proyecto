@@ -16,5 +16,9 @@
             <base-name>/BundleInfoAlumno</base-name>
             <var>bundleInfoAlumno</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleInfoAdicional</base-name>
+            <var>bundleInfoAdicional</var>
+        </resource-bundle>
     </application>
 </faces-config>
