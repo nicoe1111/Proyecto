@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="GestionarCurso">
+            <h:body>
+                <h:form id="GestionarCursoForm">
+                    <p:panel header="Gestionar Curso">
+                        <p:dataTable id="datalist" var="curso" value="#{cursoController.items}" 
+                                     selectionMode="single" selection="#{cursoController.selected}"
+                                     scrollable="true" 
+                                     rowKey="#{curso.idCurso}"
+                                     filteredValue="#{cursoController.filteredCursos}"
+                                     emptyMessage="No cursos encontrados"
+                                     widgetVar="studentsTable">
+                            
+                            <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                            <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
+                            
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Search all fields:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                </p:outputPanel>
+                            </f:facet>
+                            
+                            <p:column headerText="Materia" footerText="Materia" width="200" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains">
+                                <p:outputLabel value="#{curso.materia.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Semestre" footerText="Semestre" width="200" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains">
+                                <h:outputText value="#{curso.materia.semestre}" />
+                            </p:column>
+                            <p:column headerText="anio" footerText="anio" width="200" filterStyle="display:none" filterBy="anio" filterMatchMode="contains">
+                                <h:outputText value="#{curso.anio}" />
+                            </p:column>
+                            <p:column headerText="Docente" footerText="Docente" width="200" filterStyle="display:none" filterBy="docente.usuario.primerNombre" filterMatchMode="contains">
+                                <h:outputText value="#{curso.docente.usuario.primerNombre} #{curso.docente.usuario.primerApellido}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{cursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
+                                <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":getionarCursoForm" actionListener="#{cursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty cursoController.items}">
+                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                    <f:passThroughAttribute name="data-target" value="#ModalGestionarCurso"/>
+                                </p:commandButton>
+                                <p:commandButton id="createButton" class="btn btn-default" update=":getionarCursoForm" value="#{bundle.Create}" actionListener="#{cursoController.vaciarControllersSelecteds()}" action="#{usuarioController2.setSelected(null)}">
+                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                    <f:passThroughAttribute name="data-target" value="#ModalGestionarCurso"/>
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

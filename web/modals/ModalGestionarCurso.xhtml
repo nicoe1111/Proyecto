@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:composition>
+        <div id="ModalGestionarCurso" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <h:form id="getionarCursoForm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <c:choose>
+                                <c:when test="#{cursoController.selected.idCurso>0}">
+                                    <h4 class="modal-title">Editar Curso</h4>
+                                </c:when>
+                                <c:otherwise>
+                                    <h4 class="modal-title">Registrar Curso</h4>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <p:selectOneMenu id="country" value="#{usuarioController2.idDocenteSelected}" appendTo="@this" style="width:200px;">
+                                    <f:selectItem itemLabel="Seleciona Docente" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{usuarioController2.docentes}" var="doc" itemLabel="#{doc.primerNombre} #{doc.primerApellido}" itemValue="#{doc.id_user}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="form-group">
+                                Año: <p:inputText value="#{cursoController.selected.anio}"/>
+                            </div>
+                            <div class="form-group">
+                                <p:tree value="#{materiaController.root}" selectionMode="single" selection="#{materiaController.selectedNode}" var="node" dynamic="true" animate="true">
+                                    <p:treeNode>
+                                        <h:outputText value="#{node}" />
+                                    </p:treeNode>
+                                </p:tree>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-2">
+                                <c:choose>
+                                    <c:when test="#{cursoController.selected.idCurso>0}">
+                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty usuarioController2.selected || empty materiaController.selected}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{cursoController.createSelected()}" disabled="#{empty cursoController.selected || empty usuarioController2.selected || empty materiaController.selected}"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:composition>
+</html>
+

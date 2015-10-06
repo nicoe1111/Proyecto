@@ -37,11 +37,11 @@ public class Curso implements Serializable{
     private int anio;
     private Date FechaInicio;
     
-    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_materia")
     private Materia materia;
-        
-    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
+
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_docente")
     private Docente docente;
     

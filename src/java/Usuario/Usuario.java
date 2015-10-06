@@ -5,6 +5,7 @@
  */
 package Usuario;
 
+import Rol.Docente;
 import Rol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -270,5 +271,12 @@ public class Usuario implements Serializable {
     
     public void clearListRoles(){
         this.roles.clear();
+    }
+    
+    public Docente getRolDocente(){
+        for(TipoRol rol:roles){
+            if(rol instanceof Docente) return (Docente)rol;
+        }
+        return null;
     }
 }

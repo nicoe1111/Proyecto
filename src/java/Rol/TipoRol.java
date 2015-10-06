@@ -25,7 +25,7 @@ public abstract class TipoRol implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRol;
     
-    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_user")
     private Usuario usuario;
     

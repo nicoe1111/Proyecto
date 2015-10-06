@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a class="navbar-brand" href="#">Tecnólogo en Informatica</a>
+                    <img class="navbar-form" src="/Proyecto/resources/Images/logo-fing.png"></img>
+                    <img class="navbar-from" src="/Proyecto/resources/Images/logo-utu.png"></img>
+                    
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Opciones</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="/Items/HeaderOptions/UIMensajes.xhtml" value="Bandeja de Entrada">
+                                        <span class="badge pull-right">42</span>
+                                        <f:param name="vista" value="ENTRADA"/>
+                                    </h:link></li>
+                                <li><h:link outcome="/Items/HeaderOptions/UIMensajes.xhtml" value="Elementos Enviados">
+                                        <f:param name="vista" value="SALIDA"/>
+                                    </h:link></li>
+                            </ul>
+                        </li>
+                        <li><a href="/Proyecto/usuario/EditarPerfil.xhtml">Editar Perfil</a></li>
+                        <li><a href="#">Ayuda</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Buscar..." />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ui:composition>
+</html>
+

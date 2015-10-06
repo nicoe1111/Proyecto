@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:composition>
+        <div id="ModalVerMensaje" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <h:form id="verMensajeForm">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">#{mensajeController.selected.asunto}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <p:outputLabel value="#{mensajeController.selected.desde}"/><br/>
+                                para: <h:outputText value="#{mensajeController.selected.para}"/>
+                            </div>
+                            <div class="form-group">
+                                <p:outputLabel value="#{mensajeController.selected.mensaje}" />
+                            </div>
+                            <div class="form-group">
+                                <p:outputLabel value="#{mensajeController.selected.fecha}" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:composition>
+</html>
+
