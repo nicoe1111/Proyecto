@@ -165,8 +165,6 @@ public class MateriaController implements Serializable {
         this.ver = ver;
     }
     
-    /////////////////////////////////////////////////////////////////////////////
-
     private TreeNode selectedNode;
 
     public TreeNode getSelectedNode() {
@@ -178,4 +176,8 @@ public class MateriaController implements Serializable {
         selected = mats.get(0);
         this.selectedNode = selectedNode;
     }
+    
+    /////////////////////////////////////////////////////////////////////////////
+
+    
 }
