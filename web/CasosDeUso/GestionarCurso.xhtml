@@ -8,11 +8,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="/index.xhtml">
         <ui:define name="GestionarCurso">
-            <h:head>
-                <title>Facelet Title</title>
-                <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-                <h:outputStylesheet library="css" name="bootstrap.min.css" />
-            </h:head>
             <h:body>
                 <h:form id="GestionarCursoForm">
                     <p:panel header="Gestionar Curso">
@@ -21,7 +16,7 @@
                                      scrollable="true" 
                                      rowKey="#{curso.idCurso}"
                                      filteredValue="#{cursoController.filteredCursos}"
-                                     emptyMessage="No users encontrados"
+                                     emptyMessage="No cursos encontrados"
                                      widgetVar="studentsTable">
                             
                             <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
