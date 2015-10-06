@@ -106,4 +106,10 @@ public class MensajeController implements Serializable{
         }
     }
     
+    public void responder(){
+        Mensaje nuevo=new Mensaje();
+        nuevo.setDesde(selected.getPara());
+        nuevo.setPara(selected.getDesde());
+        selected=nuevo;
+    }
 }

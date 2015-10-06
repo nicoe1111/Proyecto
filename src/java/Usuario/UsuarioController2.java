@@ -25,6 +25,17 @@ public class UsuarioController2 implements Serializable{
         return items;
     }
     
+    public List<String> obtenerNicks(String query){
+        List<Usuario> users = ejbUsuario.findAll();
+        List<String> nicks=new ArrayList<>();
+        for(Usuario u:users){
+            if(u.getNick().toLowerCase().startsWith(query)){
+                nicks.add(u.getNick());
+            }
+        }
+        return nicks;
+    }
+    
     public void setItems(List<Usuario> items) {
         this.items = items;
     }

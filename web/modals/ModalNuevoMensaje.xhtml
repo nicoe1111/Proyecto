@@ -18,6 +18,7 @@
                         <div class="modal-body">
                             from: <h:inputText value="#{mensajeController.selected.desde}"/><br/> 
                             to: <h:inputText value="#{mensajeController.selected.para}"/><br/>
+                            to auto:<p:autoComplete id="acMaxResults" maxResults="5" value="#{mensajeController.selected.para}" appendTo="@this" completeMethod="#{usuarioController2.obtenerNicks}"/>
                             asunto: <h:inputText value="#{mensajeController.selected.asunto}"/><br/>
                             mensaje: <h:inputText value="#{mensajeController.selected.mensaje}"/><br/>
                         </div>
