@@ -1,24 +1,37 @@
 package Mensaje;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 
 @Named("mensajeController")
-@SessionScoped
+@ViewScoped
 public class MensajeController implements Serializable{
     
     @EJB
     private MensajeFacade ejbMensaje;
     
-    private List<Mensaje> items = null;
-    private Mensaje selected = null;
+    private List<Mensaje> items = new ArrayList<>();
+    private Mensaje selected = new Mensaje();
+    
+//    public void sendSelected(){
+//        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("selected", selected);
+//    selected = (Mensaje) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("selected");
+//    
+    @PostConstruct
+    public void init() {
+        obtenerParameterOnItems();
+    }
     
     public List<Mensaje> getItems() {
-        items = ejbMensaje.findAll();
         return items;
     }
     
@@ -28,7 +41,7 @@ public class MensajeController implements Serializable{
     
     public Mensaje getSelected() {
         if(selected==null){
-            selected = new Mensaje();
+            prepareToCreate();
         }
         return selected;
     }
@@ -37,24 +50,11 @@ public class MensajeController implements Serializable{
         this.selected = selected;
     }
     
-    public void updateSelected(){
-        ejbMensaje.edit(selected);
-        updateItems();
-        selected = null;
-    }
-    
-    public void update(int id){
-        Mensaje u = ejbMensaje.find(id);
-        ejbMensaje.edit(u);
-        updateItems();
-        selected = null;
-    }
-    
-    public void updateReaded(int id){
-        selected = ejbMensaje.find(id);
-        selected.setReaded(true);
-        ejbMensaje.edit(selected);
-        updateItems();
+    public void updateReaded(Mensaje m){
+        m.setReaded(true);
+        ejbMensaje.edit(m);
+        selected=m;
+        obtenerParameterOnItems();
     }
     
     public void loadSelected(Mensaje m){
@@ -77,8 +77,8 @@ public class MensajeController implements Serializable{
     public void createSelected(){
         selected.setFecha(new Date());
         ejbMensaje.create(selected);
-        updateItems();
-        selected = null;
+        obtenerParameterOnItems();
+        selected = new Mensaje();
     }
     
     private void updateItems(){
@@ -91,4 +91,19 @@ public class MensajeController implements Serializable{
         }
         else return "#";
     }
+    
+    public void prepareToCreate(){
+        selected = new Mensaje();
+    }
+    
+    public void obtenerParameterOnItems(){
+        Map<String, String> params =FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String vista = params.get("vista");
+        if(vista!=null && vista.equals("SALIDA")){
+            items=ejbMensaje.getMensajesRecividos("nacho");
+        }else{
+            items=ejbMensaje.getMensajesRecividos("diego");
+        }
+    }
+    
 }

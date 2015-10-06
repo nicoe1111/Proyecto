@@ -10,26 +10,24 @@
         <div id="ModalEnviarMensaje" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Nuevo Mensaje</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h:outputLabel value="#{mensajeController.setSelected(null)}"/>
-                        <h:form id="enviarMensajeForm">
+                    <h:form id="enviarMensajeForm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Nuevo Mensaje</h4>
+                        </div>
+                        <div class="modal-body">
                             from: <h:inputText value="#{mensajeController.selected.desde}"/><br/> 
                             to: <h:inputText value="#{mensajeController.selected.para}"/><br/>
                             asunto: <h:inputText value="#{mensajeController.selected.asunto}"/><br/>
                             mensaje: <h:inputText value="#{mensajeController.selected.mensaje}"/><br/>
-                            <h:commandButton value="enviar" actionListener="#{mensajeController.createSelected()}"/>
-                        </h:form>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-sm-2">
-                            <h:commandButton id="createButton" class="btn btn-default" value="Enviar" actionListener="#"/>
                         </div>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-2">
+                                <h:commandButton id="createButton" class="btn btn-default" value="Enviar" actionListener="#{mensajeController.createSelected()}"/>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </h:form>
                 </div>
             </div>
         </div>

@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <ui:composition>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -31,9 +32,13 @@
                             <ul class="dropdown-menu">
                                 <li><h:link outcome="/Items/HeaderOptions/BandejaEntrada.xhtml" value="Bandeja de Entrada">
                                         <span class="badge pull-right">42</span>
+                                        <f:param name="vista" value="ENTRADA"/>
                                         Bandeja de Entrada
                                     </h:link></li>
-                                <li><h:link outcome="/Items/HeaderOptions/EnviarMensaje.xhtml" value="Elementos Enviados"/></li>
+                                <li><h:link outcome="/Items/HeaderOptions/BandejaEntrada.xhtml" value="Elementos Enviados">
+                                        <f:param name="vista" value="SALIDA"/>
+                                        
+                                    </h:link></li>
                             </ul>
                         </li>
                         <li><a href="/Proyecto/usuario/EditarPerfil.xhtml">Editar Perfil</a></li>
