@@ -11,12 +11,13 @@ import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 @Named("materiaController")
-@SessionScoped
+@ViewScoped
 public class MateriaController implements Serializable {
     
     @EJB
