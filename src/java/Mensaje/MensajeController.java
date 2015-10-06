@@ -25,7 +25,7 @@ public class MensajeController implements Serializable{
 //    public void sendSelected(){
 //        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("selected", selected);
 //    selected = (Mensaje) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("selected");
-//    
+//
     @PostConstruct
     public void init() {
         obtenerParameterOnItems();
@@ -50,15 +50,15 @@ public class MensajeController implements Serializable{
         this.selected = selected;
     }
     
-    public void updateReaded(Mensaje m){
-        m.setReaded(true);
-        ejbMensaje.edit(m);
-        selected=m;
-        obtenerParameterOnItems();
-    }
+    
     
     public void loadSelected(Mensaje m){
+        if(m.isReaded()==false){
+            m.setReaded(true);
+            ejbMensaje.edit(m);
+        }
         selected = m;
+        obtenerParameterOnItems();
     }
     
     public void deleteSelected() {
