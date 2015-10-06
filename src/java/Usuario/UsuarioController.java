@@ -50,17 +50,12 @@ public class UsuarioController implements Serializable {
     private UsuarioFacade ejbUsuario;
     @EJB
     private Rol.RolFacade ejbRol;
+    
     private List<Usuario> items = null;
-    private Usuario selected;
-    private Infoadicionalalumno selectedInfoAdicional;
-    
+    private Usuario selected;    
     private UploadedFile fileImagen;
-    
-    private Alumno selectedAlumno;
-    
-    
-    public UsuarioController() {
-    }
+
+    public UsuarioController() {    }
     
     public Usuario getSelected() {
         return selected;
@@ -89,7 +84,6 @@ public class UsuarioController implements Serializable {
     public void create() {
         
         seteoRolesSeleccionados();
-        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -382,17 +376,10 @@ public class UsuarioController implements Serializable {
             docente.setUsuario(selected);// agrego el usuario al rol
             selected.addRol(docente);// agreaga el rol al usuario selected
         }else{
+            Alumno selectedAlumno  = new Alumno();
             selectedAlumno.setUsuario(selected);// agrego el usuario al rol
             selected.addRol(selectedAlumno); // agreaga el rol al usuario selected
         }
-    }
-
-    public Alumno getSelectedAlumno() {
-        return selectedAlumno;
-    }
-
-    public void setSelectedAlumno(Alumno selectedAlumno) {
-        this.selectedAlumno = selectedAlumno;
     }
 
     public void verificarRolesUserUpdate(){
@@ -478,6 +465,7 @@ public class UsuarioController implements Serializable {
     public void setNickUserCreate(String cedula){
         selected.setNick(cedula);
     } 
+    
     private Boolean boolAlumno = false;
 
     public Boolean getBoolAlumno() {
@@ -488,7 +476,7 @@ public class UsuarioController implements Serializable {
         if(selected != null){
             for (int i = 0; i < selectedRoles.size(); i++) {
                 if(selectedRoles.get(i).equals("Alumno")){
-                    selectedAlumno = new Alumno();
+                    selected.setInfoAdicionalAlumno(new Infoadicionalalumno());
                     return boolAlumno = true;
                 }
             }

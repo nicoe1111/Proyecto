@@ -17,10 +17,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Usuario implements Serializable {
@@ -53,9 +51,16 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
     private List<TipoRol> roles = new ArrayList<>();
     
-    @OneToOne
-    @JoinColumn(name = "id_user")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Infoadicionalalumno infoAdicionalAlumno;
+    
+    public Infoadicionalalumno getInfoAdicionalAlumno() {
+        return infoAdicionalAlumno;
+    }
+
+    public void setInfoAdicionalAlumno(Infoadicionalalumno infoAdicionalAlumno) {
+        this.infoAdicionalAlumno = infoAdicionalAlumno;
+    }
 
     public Usuario() {    }
 
@@ -265,13 +270,5 @@ public class Usuario implements Serializable {
     
     public void clearListRoles(){
         this.roles.clear();
-    }
-    
-    public Infoadicionalalumno getInfoAdicionalAlumno() {
-        return infoAdicionalAlumno;
-    }
-
-    public void setInfoAdicionalAlumno(Infoadicionalalumno infoAdicionalAlumno) {
-        this.infoAdicionalAlumno = infoAdicionalAlumno;
     }
 }

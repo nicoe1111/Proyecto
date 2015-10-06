@@ -18,7 +18,7 @@
                                            var="rol" itemLabel="#{rol}" itemValue="#{rol}" />
                         </p:selectManyCheckbox>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Siguiente}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+                    <p:commandButton value="#{bundle.Siguiente}" update=":UsuarioCreateForm" actionListener="#{usuarioController.isAlumno()}" oncomplete="PF('UsuarioCreateDialog').show()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
