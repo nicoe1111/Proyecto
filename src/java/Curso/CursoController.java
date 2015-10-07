@@ -12,8 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,8 +30,12 @@ public class CursoController implements Serializable {
     private List<Curso> items;
     private Curso selected;
     
-    public List<Curso> getItems() {
+    @PostConstruct
+    private void init(){
         items = ejbCurso.findAll();
+    }
+    
+    public List<Curso> getItems() {
         return items;
     }
     
@@ -51,6 +55,7 @@ public class CursoController implements Serializable {
     }
     
     public void updateSelected(){
+        beforCreate();
         ejbCurso.edit(selected);
         updateItems();
     }
