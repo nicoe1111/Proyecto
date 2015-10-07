@@ -6,7 +6,7 @@
 package SalonCurso;
 
 import Curso.Curso;
-import Rol.Alumno;
+import TipoRol.Alumno;
 import Salon.Salon;
 import java.io.Serializable;
 import javax.persistence.Entity;

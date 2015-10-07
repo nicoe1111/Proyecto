@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Rol;
+package TipoRol;
 
 import Asistencia.Asistencia;
 import Curso.Curso;
 import RespuestaPregunta.RespuestaPregunta;
 import ResultadoInstancia.ResultadoInstancia;
-import Rol.TipoRol;
+import TipoRol.TipoRol;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;

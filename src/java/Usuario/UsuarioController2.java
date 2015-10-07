@@ -1,7 +1,8 @@
 package Usuario;
 
-import Rol.Docente;
-import Rol.TipoRol;
+import TipoRol.Docente;
+import TipoRol.RolFacade;
+import TipoRol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class UsuarioController2 implements Serializable{
     @EJB
     private UsuarioFacade ejbUsuario;
     @EJB
-    private Rol.RolFacade ejbRol;
+    private RolFacade ejbRol;
     private List<Usuario> items = null;
     private Usuario selected = null;
     

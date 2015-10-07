@@ -7,7 +7,7 @@ package ResultadoInstancia;
 
 import Curso.Curso;
 import InstanciaEvaluacion.InstanciaEvaluacion;
-import Rol.Alumno;
+import TipoRol.Alumno;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

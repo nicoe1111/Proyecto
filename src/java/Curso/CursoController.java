@@ -7,7 +7,7 @@ package Curso;
 
 import Materia.Materia;
 import Materia.MateriaController;
-import Rol.RolDocente.DocenteController;
+import TipoRol.RolDocente.DocenteController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;

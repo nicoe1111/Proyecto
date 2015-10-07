@@ -1,10 +1,11 @@
 package Usuario;
 
-import Rol.Administrador;
-import Rol.Administrativo;
-import Rol.Alumno;
-import Rol.Docente;
-import Rol.TipoRol;
+import TipoRol.Administrador;
+import TipoRol.Administrativo;
+import TipoRol.Alumno;
+import TipoRol.Docente;
+import TipoRol.RolFacade;
+import TipoRol.TipoRol;
 import Usuario.util.JsfUtil;
 import Usuario.util.JsfUtil.PersistAction;
 import java.io.File;
@@ -45,7 +46,7 @@ public class UsuarioController implements Serializable {
     @EJB
     private UsuarioFacade ejbUsuario;
     @EJB
-    private Rol.RolFacade ejbRol;
+    private RolFacade ejbRol;
     private List<Usuario> items = null;
     private Usuario selected;
     private infoadicionalalumno selectedInfoAdicional;

@@ -5,8 +5,8 @@
  */
 package Usuario;
 
-import Rol.Docente;
-import Rol.TipoRol;
+import TipoRol.Docente;
+import TipoRol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

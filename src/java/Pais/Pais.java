@@ -6,7 +6,7 @@
 package Pais;
 
 import Departamento.Departamento;
-import Rol.TipoRol;
+import TipoRol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

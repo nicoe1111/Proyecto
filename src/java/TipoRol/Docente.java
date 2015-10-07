@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Rol;
+package TipoRol;
 
 import Curso.Curso;
-import Rol.TipoRol;
+import TipoRol.TipoRol;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;

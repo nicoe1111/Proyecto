@@ -1,8 +1,9 @@
-package Rol.RolDocente;
+package TipoRol.RolDocente;
 
-import Rol.Docente;
+import TipoRol.Docente;
+import TipoRol.RolFacade;
 import Usuario.*;
-import Rol.TipoRol;
+import TipoRol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import javax.faces.view.ViewScoped;
 public class DocenteController implements Serializable{
     
     @EJB
-    private Rol.RolFacade ejbRol;
+    private RolFacade ejbRol;
     
     @EJB
     private UsuarioFacade ejbUsuario;
