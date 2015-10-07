@@ -20,21 +20,13 @@
                 <ui:insert name="footer"/>
             </p:layoutUnit>
             <h:form id="UsuarioViewForm">
-                <!--Combo mas link-->
-                <p:selectOneMenu id="country" value="#{docenteController.selected}" appendTo="@this" style="width:200px;">
-                    <f:selectItem itemLabel="Seleciona Docente" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                    <f:selectItems value="#{docenteController.items}" var="doc" itemLabel="#{doc.primerNombre} #{doc.primerApellido}" itemValue="#{doc}"/>
-                </p:selectOneMenu>
-                <h:commandLink action="#" styleClass="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span>Create
-                </h:commandLink>
-                <!--Combo mas link-->
+                
                 <p:panel header="#{bundle.ListUsuarioTitle}">
                     <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
                                  selectionMode="single" selection="#{usuarioController2.selected}"
                                  scrollable="true" 
                                  rowKey="#{user.id_user}"
-                                 filteredValue="#{usuarioController2.filteredUsers}"
+                                 filteredValue="#{filtersList.filteredItems}"
                                  emptyMessage="No users encontrados"
                                  widgetVar="studentsTable">
                                      

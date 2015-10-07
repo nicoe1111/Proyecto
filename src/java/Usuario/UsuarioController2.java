@@ -88,20 +88,6 @@ public class UsuarioController2 implements Serializable{
         items=ejbUsuario.findAll();
     }
     
-    /////filtrossssss/////////
-    
-    private List<Usuario> filteredUsers;
-    
-    public List<Usuario> getFilteredUsers() {
-        return filteredUsers;
-    }
-    
-    public void setFilteredUsers(List<Usuario> filteredUsers) {
-        this.filteredUsers = filteredUsers;
-    }
-    
-    //////////////////////////
-    
     public void loadSelected(int id){
         selected=ejbUsuario.find(id);
     }

@@ -105,20 +105,6 @@ public class CursoController implements Serializable {
         selected.setMateria(materiaController.getSelected());
     }
     
-    /////filtrossssss/////////
-    
-     private List<Curso> filteredCursos;
-    
-    public List<Curso> getFilteredCursos() {
-        return filteredCursos;
-    }
-    
-    public void setFilteredCursos(List<Curso> filteredCursos) {
-        this.filteredCursos = filteredCursos;
-    }
-    
-     //////////////////////////
-    
     public void vaciarControllersSelecteds(){
         setSelected(null);
         docenteController.setSelected(null);
