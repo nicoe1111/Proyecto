@@ -20,15 +20,6 @@
                 <ui:insert name="footer"/>
             </p:layoutUnit>
             <h:form id="UsuarioViewForm">
-                <!--Combo mas link-->
-                <p:selectOneMenu id="country" value="#{docenteController.selected}" appendTo="@this" style="width:200px;">
-                    <f:selectItem itemLabel="Seleciona Docente" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                    <f:selectItems value="#{docenteController.items}" var="doc" itemLabel="#{doc.primerNombre} #{doc.primerApellido}" itemValue="#{doc}"/>
-                </p:selectOneMenu>
-                <h:commandLink action="#" styleClass="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span>Create
-                </h:commandLink>
-                <!--Combo mas link-->
                 <p:panel header="#{bundle.ListUsuarioTitle}">
                     <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
                                  selectionMode="single" selection="#{usuarioController2.selected}"
@@ -38,16 +29,14 @@
                                  emptyMessage="No users encontrados"
                                  widgetVar="studentsTable">
                                      
-                        <p:ajax event="rowSelect" update="deleteButton" listener="#{buttonBean.onRowSelect}" />
-                        <p:ajax event="rowUnselect" update="deleteButton" listener="#{buttonBean.onRowUnselect}" />
+                        <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                        <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
                             
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Search all fields:" />
                                 <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
                             </p:outputPanel>
-                                
-                                
                         </f:facet>
                             
                         <p:column headerText="Nombre" footerText="Nombre" width="200" filterStyle="display:none" filterBy="primerNombre" filterMatchMode="contains">
@@ -61,10 +50,17 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{usuarioController2.deleteSelected()}" disabled="#{buttonBean.disabled || empty usuarioController2.items}"/>
+                            <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":gestionarForm" disabled="#{buttonBean.disabled || empty usuarioController2.items}">
+                                <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                <f:passThroughAttribute name="data-target" value="#ModalGestionarUsuario"/>
+                            </p:commandButton>
+                            <p:commandButton id="createButton" class="btn btn-default" update=":gestionarForm" value="#{bundle.Create}" actionListener="#{usuarioController2.setSelected(null)}">
+                                <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                <f:passThroughAttribute name="data-target" value="#ModalGestionarUsuario"/>
+                            </p:commandButton>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                    
             </h:form>
         </ui:define>
     </ui:composition>

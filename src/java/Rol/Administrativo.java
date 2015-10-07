@@ -5,10 +5,12 @@
  */
 package Rol;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 
 @Entity
-public class Administrativo  extends TipoRol implements Serializable{
+public class Administrativo  extends TipoRol{
+
+    public Administrativo() {
+    }
 
 }

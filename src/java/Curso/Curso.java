@@ -106,22 +106,6 @@ public class Curso implements Serializable{
         this.materia = materia;
     }
 
-//    public Docente getDocente() {
-//        return docente;
-//    }
-//
-//    public void setDocente(Docente docente) {
-//        this.docente = docente;
-//    }
-
-//    public List<Alumno> getAlumnos() {
-//        return alumnos;
-//    }
-//
-//    public void setAlumnos(List<Alumno> alumnos) {
-//        this.alumnos = alumnos;
-//    }
-
     public Docente getDocente() {
         return docente;
     }

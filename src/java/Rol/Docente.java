@@ -6,6 +6,7 @@
 package Rol;
 
 import Curso.Curso;
+import Rol.TipoRol;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
