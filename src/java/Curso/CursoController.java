@@ -7,7 +7,7 @@ package Curso;
 
 import Materia.Materia;
 import Materia.MateriaController;
-import Usuario.UsuarioController2;
+import Rol.RolDocente.DocenteController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,9 +83,7 @@ public class CursoController implements Serializable {
         beforCreate();
         ejbCurso.create(selected);
         updateItems();
-        selected = null;
-        usuarioController2.setSelected(null);
-        materiaController.setSelected(null);
+        vaciarControllersSelecteds();
     }
     
     private void updateItems(){
@@ -97,13 +95,13 @@ public class CursoController implements Serializable {
     }
     
     @Inject
-    private UsuarioController2 usuarioController2;
+    private DocenteController docenteController;
     
     @Inject
     private MateriaController materiaController;
     
     public void beforCreate(){
-        selected.setDocente(usuarioController2.getSelected().getRolDocente());
+        selected.setDocente(docenteController.getSelected().getRolDocente());
         selected.setMateria(materiaController.getSelected());
     }
     
@@ -123,13 +121,13 @@ public class CursoController implements Serializable {
     
     public void vaciarControllersSelecteds(){
         setSelected(null);
-        usuarioController2.setSelected(null);
-        usuarioController2.setIdDocenteSelected(0);
+        docenteController.setSelected(null);
+        docenteController.setIdSelected(0);
         materiaController.setSelected(null);
     }
     
     public void cargarControllersSelecteds(){
-        usuarioController2.setIdDocenteSelected(selected.getDocente().getIdRol());
+        docenteController.setIdSelected(selected.getDocente().getIdRol());
         materiaController.setSelected(selected.getMateria());
     }
      
