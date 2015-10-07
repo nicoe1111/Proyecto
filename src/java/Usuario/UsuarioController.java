@@ -1,11 +1,11 @@
 package Usuario;
 
-import TipoRol.Administrador;
-import TipoRol.Administrativo;
-import TipoRol.Alumno;
-import TipoRol.Docente;
-import TipoRol.RolFacade;
-import TipoRol.TipoRol;
+import Rol.Administrador;
+import Rol.Administrativo;
+import Rol.Alumno;
+import Rol.Docente;
+import Rol.RolFacade;
+import Rol.TipoRol;
 import Usuario.util.JsfUtil;
 import Usuario.util.JsfUtil.PersistAction;
 import java.io.File;

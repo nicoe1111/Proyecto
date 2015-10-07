@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TipoRol;
+package Rol;
 
 import General.AbstractFacade;
 import java.util.List;

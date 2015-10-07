@@ -6,8 +6,7 @@
 package Asistencia;
 
 import ClaseDada.ClaseDada;
-import Curso.Curso;
-import TipoRol.Alumno;
+import Rol.Alumno;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TipoRol;
+package Rol;
 
 import javax.persistence.Entity;
 
 @Entity
-public class Administrador extends TipoRol{
+public class Administrativo  extends TipoRol{
 
-    public Administrador() {
+    public Administrativo() {
     }
-    
-    
+
 }

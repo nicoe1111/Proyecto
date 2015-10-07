@@ -6,7 +6,7 @@
 package RespuestaPregunta;
 
 import Pregunta.Pregunta;
-import TipoRol.Alumno;
+import Rol.Alumno;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

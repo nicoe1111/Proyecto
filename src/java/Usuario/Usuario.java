@@ -5,8 +5,8 @@
  */
 package Usuario;
 
-import TipoRol.Docente;
-import TipoRol.TipoRol;
+import Rol.Docente;
+import Rol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +19,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario implements Serializable {

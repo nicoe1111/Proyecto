@@ -1,9 +1,9 @@
-package TipoRol.RolDocente;
+package RolDocente;
 
-import TipoRol.Docente;
-import TipoRol.RolFacade;
+import Rol.Docente;
+import Rol.RolFacade;
 import Usuario.*;
-import TipoRol.TipoRol;
+import Rol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
