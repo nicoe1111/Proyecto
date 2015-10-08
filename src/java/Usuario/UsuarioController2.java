@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 
 @Named("usuarioController2")
-@SessionScoped
+@ViewScoped
 public class UsuarioController2 implements Serializable{
     
     @EJB
@@ -33,6 +33,29 @@ public class UsuarioController2 implements Serializable{
             }
         }
         return nicks;
+    }
+    
+    public List<String> obtenerNicksYNombres(String query){
+        List<String> datos = obtenerNicksNobresConcatenados();
+        List<String> result= new ArrayList<>();
+        for(String dato : datos){
+        if(dato.toLowerCase().startsWith(query)){
+                result.add(dato);
+            }
+        }
+        return result;
+    }
+        
+    private List<String> obtenerNicksNobresConcatenados(){
+        List<String[]> users = ejbUsuario.obtenerNicksYNombres();
+        List<String> datos=new ArrayList<>();
+        for(int i=0 ; i<users.size() ; i++){
+            String nombre = (((Object[]) users.get(i))[0]).toString();
+            String pellido1 = (((Object[]) users.get(i))[1]).toString();
+            String apellido2 = (((Object[]) users.get(i))[2]).toString();
+            datos.add(nombre+ " " + pellido1 + " " +apellido2);
+        }
+        return datos;
     }
     
     public void setItems(List<Usuario> items) {

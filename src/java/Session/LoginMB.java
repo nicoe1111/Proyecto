@@ -7,6 +7,7 @@ package Session;
 
 import Usuario.Usuario;
 import Usuario.UsuarioController;
+import Usuario.UsuarioController2;
 import Usuario.UsuarioFacade;
 import java.io.IOException;
 import java.io.Serializable;
@@ -68,11 +69,11 @@ public class LoginMB implements Serializable{
  
     public void setUsuarioActual(){
         Usuario u = persistUser.findByNick(nick).get(0);
-        UsuarioController user = new UsuarioController();
+        UsuarioController2 user = new UsuarioController2();
         user.setSelected(u);///seteo usuario logeado del controlador
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        session.setAttribute("usuarioMB", user);
+        session.setAttribute("controladorUsuario2", user);
     }
     
     public String logout() {
@@ -94,5 +95,11 @@ public class LoginMB implements Serializable{
         }
     }
     
+    public Usuario getUserSession(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        UsuarioController2 uc = (UsuarioController2) session.getAttribute("usuarioController2");
+        return uc.getSelected();
+    }
 }
 
