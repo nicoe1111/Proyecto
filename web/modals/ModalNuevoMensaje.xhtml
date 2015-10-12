@@ -7,20 +7,49 @@
       xmlns:p="http://primefaces.org/ui">
     
     <ui:composition>
+        <h:head>
+            <style>
+                .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
+                    width: 100% !important;
+                }
+            </style>
+        </h:head>
+        <f:facet name="last">
+		<h:outputStylesheet name="css/bootstrap.css" />
+	</f:facet>
         <div id="ModalNuevoMensaje" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <h:form id="nuevoMensajeForm">
+                    <h:form id="nuevoMensajeForm" class="form-horizontal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Nuevo Mensaje</h4>
                         </div>
                         <div class="modal-body">
-                            from: <h:inputText value="#{mensajeController.selected.desde}"/><br/> 
-                            to: <h:inputText value="#{mensajeController.selected.para}"/><br/>
-                            to auto:<p:autoComplete id="acMaxResults" maxResults="5" value="#{mensajeController.selected.para}" appendTo="@this" completeMethod="#{usuarioController2.obtenerNicksYNombres}"/>
-                            asunto: <h:inputText value="#{mensajeController.selected.asunto}"/><br/>
-                            mensaje: <h:inputText value="#{mensajeController.selected.mensaje}"/><br/>
+                            <div class="form-group">
+                                <h:outputLabel value="De:" class="col-sm-2 control-label"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{mensajeController.selected.desde}" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Para:" class="col-sm-2 control-label"/>
+                                <div class="col-sm-8">
+                                    <p:autoComplete id="acMaxResults" maxResults="5" value="#{mensajeController.selected.para}" appendTo="@this" completeMethod="#{usuarioController2.obtenerNicksYNombres}" placeholder="Nombre y apellido" style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Asunto:" class="col-sm-2 control-label"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{mensajeController.selected.asunto}" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Mensaje:" class="col-sm-2 control-label"/>
+                                <div class="col-sm-8">
+                                    <h:inputTextarea rows="4" value="#{mensajeController.selected.mensaje}" class="form-control"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <div class="col-sm-2">
