@@ -8,6 +8,13 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:composition>
+        <h:head>
+            <style>
+                .preformatted {
+                    white-space: pre;
+                }
+            </style>
+        </h:head>
         <div id="ModalVerMensaje" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <h:form id="verMensajeForm">
@@ -19,17 +26,15 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <p:outputLabel value="#{mensajeController.selected.desde}"/><br/>
-                                para: <h:outputText value="#{mensajeController.selected.para}"/>
+                                <h:outputLabel value="#{mensajeController.selected.desde}"/>
+                                 <h:outputText value=" dice:" /><br/>
                             </div>
                             <div class="form-group">
-                                <p:outputLabel value="#{mensajeController.selected.mensaje}" />
-                            </div>
-                            <div class="form-group">
-                                <p:outputLabel value="#{mensajeController.selected.fecha}" />
+                                <h:outputText value="#{mensajeController.selected.mensaje}" styleClass="preformatted" />
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <h:outputLabel value="#{mensajeController.selected.fecha}" />
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
