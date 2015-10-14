@@ -26,7 +26,6 @@ public class SalonController implements Serializable{
     }
     
     public List<Salon> getItems() {
-        items = ejbSalon.findAll();
         return items;
     }
     
