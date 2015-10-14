@@ -15,19 +15,50 @@
     
     <h:body>
         <h:form id="asd">
-            from: <h:inputText value="#{mensajeController.selected.desde}"/><br/> 
-            to: <h:inputText value="#{mensajeController.selected.para}"/><br/>
-            asunto: <h:inputText value="#{mensajeController.selected.asunto}"/><br/>
-            mensaje: <h:inputText value="#{mensajeController.selected.mensaje}"/><br/>
-            <h:commandButton value="enviar" actionListener="#{mensajeController.createSelected()}"/>
+            <p:panel header="#{bundle.ListUsuarioTitle}">
+                <p:dataTable id="datalist" var="salon" value="#{salonController.items}" 
+                             selectionMode="single" selection="#{salonController.selected}"
+                             scrollable="true" 
+                             rowKey="#{salon.idSalon}"
+                             filteredValue="#{filtersList.filteredItems}"
+                             emptyMessage="No users encontrados"
+                             widgetVar="studentsTable">
+                    
+                    <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                    <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
+                    
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    
+                    <p:column headerText="ID" footerText="ID" width="200" filterStyle="display:none" filterBy="idSalon" filterMatchMode="contains" sortBy="#{salon.idSalon}">
+                        <h:outputText value="#{salon.idSalon}"/>
+                    </p:column>
+                    <p:column headerText="Nombre" footerText="Nombre" width="200" filterStyle="display:none" filterBy="nombreNumero" filterMatchMode="contains" sortBy="#{salon.nombreNumero}">
+                        <h:outputText value="#{salon.nombreNumero}" />
+                    </p:column>
+                    <p:column headerText="Descripcion" footerText="Descripcion" width="200" filterStyle="display:none" filterBy="descripcion" filterMatchMode="contains" sortBy="#{salon.descripcion}">
+                        <h:outputText value="#{salon.descripcion}" />
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":asd" actionListener="#{salonController.deleteSelected()}" disabled="#{buttonBean.disabled || empty salonController.items}"/>
+                        <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":gestionarForm" disabled="#{buttonBean.disabled || empty salonController.items}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalGestionarSalon"/>
+                        </p:commandButton>
+                        <p:commandButton id="createButton" class="btn btn-default" update=":gestionarForm" value="#{bundle.Create}" action="#{salonController.setSelected(null)}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalGestionarSalon"/>
+                        </p:commandButton>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+            
         </h:form>
-        
-        
-<!--        <p:commandButton value="Nuevo Mensaje" actionListener="#">
-            <f:passThroughAttribute name="data-toggle" value="modal"/>
-            <f:passThroughAttribute name="data-target" value="#ModalEnviarMensaje"/>
-        </p:commandButton>
-        <ui:include src="/modals/ModalEnviarMensaje.xhtml"/>-->
+        <ui:include src="/modals/ModalGestionarSalon.xhtml"/>
     </h:body>
 </html>
 

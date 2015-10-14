@@ -67,6 +67,7 @@ public class CursoController implements Serializable {
     }
     
     public void deleteSelected() {
+        beforeDelete();
         ejbCurso.remove(selected);
         updateItems();
         selected = null;
@@ -99,6 +100,17 @@ public class CursoController implements Serializable {
     
     @Inject
     private MateriaController materiaController;
+    
+    private void beforeDelete(){
+        selected.setAlumnos(null);
+        selected.setEncuesta(null);
+        selected.setSalonesCurso(null);
+        selected.setInstanciasEvaluaciones(null);
+        selected.setClasesDadas(null);
+        selected.setDocente(null);
+        selected.setMateria(null);
+        ejbCurso.edit(selected);
+    }
     
     public void beforCreate(){
         selected.setDocente(docenteController.getSelected().getRolDocente());
