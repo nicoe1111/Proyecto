@@ -9,6 +9,7 @@ import Asistencia.Asistencia;
 import Curso.Curso;
 import RespuestaPregunta.RespuestaPregunta;
 import ResultadoInstancia.ResultadoInstancia;
+import Rol.TipoRol;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;

@@ -5,7 +5,6 @@
  */
 package ResultadoInstancia;
 
-import Curso.Curso;
 import InstanciaEvaluacion.InstanciaEvaluacion;
 import Rol.Alumno;
 import java.io.Serializable;

@@ -6,7 +6,6 @@
 package Asistencia;
 
 import ClaseDada.ClaseDada;
-import Curso.Curso;
 import Rol.Alumno;
 import java.io.Serializable;
 import javax.persistence.Entity;

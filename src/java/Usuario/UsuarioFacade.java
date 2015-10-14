@@ -13,6 +13,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -55,6 +56,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.nick = :nick");
         query.setParameter("nick", nickname);
         List<Usuario> users = query.getResultList();
+        return users;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<String[]> obtenerNicksYNombres() {
+        Query query = em.createQuery("SELECT u.primerNombre, u.primerApellido, u.segundoApellido FROM Usuario u");
+        List<String[]> users = query.getResultList();
         return users;
     }
 }

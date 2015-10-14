@@ -25,14 +25,15 @@ public class MensajeFacade extends AbstractFacade<Mensaje> {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Mensaje> getMensajesRecividos(String desde) {
+    public List<Mensaje> getMensajesEnviados(String desde) {
         Query query = em.createQuery("SELECT m FROM Mensaje m WHERE m.desde = :desde");
         query.setParameter("desde", desde);
         List<Mensaje> msjs = query.getResultList();
         return msjs;
     }
     
-    public List<Mensaje> getMensajesEnviados(String para) {
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Mensaje> getMensajesRecividos(String para) {
         Query query = em.createQuery("SELECT m FROM Mensaje m WHERE m.para = :para");
         query.setParameter("para", para);
         List<Mensaje> msjs = query.getResultList();

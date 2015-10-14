@@ -15,7 +15,7 @@
                                      selectionMode="single" selection="#{cursoController.selected}"
                                      scrollable="true" 
                                      rowKey="#{curso.idCurso}"
-                                     filteredValue="#{cursoController.filteredCursos}"
+                                     filteredValue="#{filtersList.filteredItems}"
                                      emptyMessage="No cursos encontrados"
                                      widgetVar="studentsTable">
                             
@@ -42,12 +42,12 @@
                                 <h:outputText value="#{curso.docente.usuario.primerNombre} #{curso.docente.usuario.primerApellido}" />
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" actionListener="#{cursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
+                                <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarCursoForm" actionListener="#{cursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
                                 <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":getionarCursoForm" actionListener="#{cursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty cursoController.items}">
                                     <f:passThroughAttribute name="data-toggle" value="modal"/>
                                     <f:passThroughAttribute name="data-target" value="#ModalGestionarCurso"/>
                                 </p:commandButton>
-                                <p:commandButton id="createButton" class="btn btn-default" update=":getionarCursoForm" value="#{bundle.Create}" actionListener="#{cursoController.vaciarControllersSelecteds()}" action="#{usuarioController2.setSelected(null)}">
+                                <p:commandButton id="createButton" class="btn btn-default" update=":getionarCursoForm" value="#{bundle.Create}" actionListener="#{cursoController.vaciarControllersSelecteds()}" action="#{cursoController.setSelected(null)}">
                                     <f:passThroughAttribute name="data-toggle" value="modal"/>
                                     <f:passThroughAttribute name="data-target" value="#ModalGestionarCurso"/>
                                 </p:commandButton>

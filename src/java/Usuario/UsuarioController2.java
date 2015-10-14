@@ -1,22 +1,21 @@
 package Usuario;
 
-import Rol.Docente;
-import Rol.TipoRol;
+import Rol.RolFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 
 @Named("usuarioController2")
-@SessionScoped
+@ViewScoped
 public class UsuarioController2 implements Serializable{
     
     @EJB
     private UsuarioFacade ejbUsuario;
     @EJB
-    private Rol.RolFacade ejbRol;
+    private RolFacade ejbRol;
     private List<Usuario> items = null;
     private Usuario selected = null;
     
@@ -34,6 +33,29 @@ public class UsuarioController2 implements Serializable{
             }
         }
         return nicks;
+    }
+    
+    public List<String> obtenerNicksYNombres(String query){
+        List<String> datos = obtenerNicksNobresConcatenados();
+        List<String> result= new ArrayList<>();
+        for(String dato : datos){
+        if(dato.toLowerCase().startsWith(query)){
+                result.add(dato);
+            }
+        }
+        return result;
+    }
+        
+    private List<String> obtenerNicksNobresConcatenados(){
+        List<String[]> users = ejbUsuario.obtenerNicksYNombres();
+        List<String> datos=new ArrayList<>();
+        for(int i=0 ; i<users.size() ; i++){
+            String nombre = (((Object[]) users.get(i))[0]).toString();
+            String pellido1 = (((Object[]) users.get(i))[1]).toString();
+            String apellido2 = (((Object[]) users.get(i))[2]).toString();
+            datos.add(nombre+ " " + pellido1 + " " +apellido2);
+        }
+        return datos;
     }
     
     public void setItems(List<Usuario> items) {
@@ -87,68 +109,8 @@ public class UsuarioController2 implements Serializable{
         items=ejbUsuario.findAll();
     }
     
-    /////filtrossssss/////////
-    
-    private List<Usuario> filteredUsers;
-    
-    public List<Usuario> getFilteredUsers() {
-        return filteredUsers;
-    }
-    
-    public void setFilteredUsers(List<Usuario> filteredUsers) {
-        this.filteredUsers = filteredUsers;
-    }
-    
-    //////////////////////////
-    
     public void loadSelected(int id){
         selected=ejbUsuario.find(id);
     }
     
-    /////////  Usuario Docente     ////////////////////////////////////////////////
-    
-    private List<Usuario> docentes = null;
-    private int idDocenteSelected;
-    
-    public int getIdDocenteSelected() {
-        return idDocenteSelected;
-    }
-    
-    public void setIdDocenteSelected(int idDocenteSelected) {
-        selected = ejbUsuario.find(idDocenteSelected);
-        this.idDocenteSelected = idDocenteSelected;
-    }
-    
-    public List<Usuario> getDocentes() {
-        loadDocentes();
-        return docentes;
-    }
-    
-    public void loadDocentes(){
-        docentes=new ArrayList();
-        for(Usuario user : getItems()){
-            if(isUserDocente(user)){
-                docentes.add(user);
-            }
-        }
-    }
-    
-    public boolean isUserDocente(Usuario user){
-        if(user!=null){
-            if(user.getRoles()!=null && !user.getRoles().isEmpty()){
-                for(TipoRol rol:user.getRoles()){
-                    if(rol instanceof Docente){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    public void setDocentes(List<Usuario> docentes) {
-        this.docentes = docentes;
-    }
-    
-    /////////////////////////////////////////////////////////////////////////////////
 }

@@ -7,13 +7,13 @@ package Curso;
 
 import Materia.Materia;
 import Materia.MateriaController;
-import Usuario.UsuarioController2;
+import RolDocente.DocenteController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,8 +30,12 @@ public class CursoController implements Serializable {
     private List<Curso> items;
     private Curso selected;
     
-    public List<Curso> getItems() {
+    @PostConstruct
+    private void init(){
         items = ejbCurso.findAll();
+    }
+    
+    public List<Curso> getItems() {
         return items;
     }
     
@@ -51,6 +55,7 @@ public class CursoController implements Serializable {
     }
     
     public void updateSelected(){
+        beforCreate();
         ejbCurso.edit(selected);
         updateItems();
     }
@@ -62,6 +67,7 @@ public class CursoController implements Serializable {
     }
     
     public void deleteSelected() {
+        beforeDelete();
         ejbCurso.remove(selected);
         updateItems();
         selected = null;
@@ -78,9 +84,7 @@ public class CursoController implements Serializable {
         beforCreate();
         ejbCurso.create(selected);
         updateItems();
-        selected = null;
-        usuarioController2.setSelected(null);
-        materiaController.setSelected(null);
+        vaciarControllersSelecteds();
     }
     
     private void updateItems(){
@@ -92,39 +96,36 @@ public class CursoController implements Serializable {
     }
     
     @Inject
-    private UsuarioController2 usuarioController2;
+    private DocenteController docenteController;
     
     @Inject
     private MateriaController materiaController;
     
+    private void beforeDelete(){
+        selected.setAlumnos(null);
+        selected.setEncuesta(null);
+        selected.setSalonesCurso(null);
+        selected.setInstanciasEvaluaciones(null);
+        selected.setClasesDadas(null);
+        selected.setDocente(null);
+        selected.setMateria(null);
+        ejbCurso.edit(selected);
+    }
+    
     public void beforCreate(){
-        selected.setDocente(usuarioController2.getSelected().getRolDocente());
+        selected.setDocente(docenteController.getSelected().getRolDocente());
         selected.setMateria(materiaController.getSelected());
     }
     
-    /////filtrossssss/////////
-    
-     private List<Curso> filteredCursos;
-    
-    public List<Curso> getFilteredCursos() {
-        return filteredCursos;
-    }
-    
-    public void setFilteredCursos(List<Curso> filteredCursos) {
-        this.filteredCursos = filteredCursos;
-    }
-    
-     //////////////////////////
-    
     public void vaciarControllersSelecteds(){
         setSelected(null);
-        usuarioController2.setSelected(null);
-        usuarioController2.setIdDocenteSelected(0);
+        docenteController.setSelected(null);
+        docenteController.setIdSelected(0);
         materiaController.setSelected(null);
     }
     
     public void cargarControllersSelecteds(){
-        usuarioController2.setIdDocenteSelected(selected.getDocente().getIdRol());
+        docenteController.setIdSelected(selected.getDocente().getIdRol());
         materiaController.setSelected(selected.getMateria());
     }
      

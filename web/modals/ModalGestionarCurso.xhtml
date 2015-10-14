@@ -22,13 +22,12 @@
                                     <h4 class="modal-title">Registrar Curso</h4>
                                 </c:otherwise>
                             </c:choose>
-                            
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <p:selectOneMenu id="country" value="#{usuarioController2.idDocenteSelected}" appendTo="@this" style="width:200px;">
+                                <p:selectOneMenu id="country" value="#{docenteController.idSelected}" appendTo="@this" style="width:200px;">
                                     <f:selectItem itemLabel="Seleciona Docente" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                                    <f:selectItems value="#{usuarioController2.docentes}" var="doc" itemLabel="#{doc.primerNombre} #{doc.primerApellido}" itemValue="#{doc.id_user}"/>
+                                    <f:selectItems value="#{docenteController.items}" var="doc" itemLabel="#{doc.primerNombre} #{doc.primerApellido}" itemValue="#{doc.id_user}"/>
                                 </p:selectOneMenu>
                             </div>
                             <div class="form-group">

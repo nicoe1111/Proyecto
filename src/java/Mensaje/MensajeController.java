@@ -1,7 +1,8 @@
 package Mensaje;
 
+import Session.LoginMB;
 import Usuario.Usuario;
-import Usuario.UsuarioController;
+import Usuario.UsuarioController2;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -53,8 +54,6 @@ public class MensajeController implements Serializable{
         this.selected = selected;
     }
     
-    
-    
     public void loadSelected(Mensaje m){
         if(m.isReaded()==false){
             m.setReaded(true);
@@ -89,30 +88,42 @@ public class MensajeController implements Serializable{
     }
     
     public String rowColor(Mensaje msj){
-        if(!msj.isReaded()){
-            return "info";
+        if(!bandejaDeSalida()){ //Si bandeja de entrada = true
+            if(!msj.isReaded()){
+                return "info";
+            }
         }
-        else return "#";
+        return "#";
     }
     
     public void prepareToCreate(){
         selected = new Mensaje();
+//        selected.setDesde(loginMB.getUserSession().getNick());
     }
     
+    
     public void obtenerParameterOnItems(){
+        
+//        if(bandejaDeSalida()){
+//            items=ejbMensaje.getMensajesEnviados(loginMB.getUserSession().getNick());
+//        }else{
+//            items=ejbMensaje.getMensajesRecividos(loginMB.getUserSession().getNick());
+//        }
+        items=ejbMensaje.findAll();
+        
+    }
+    
+    //Verifica si es bandeja de salida
+    public boolean bandejaDeSalida(){
         Map<String, String> params =FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String vista = params.get("vista");
-        if(vista!=null && vista.equals("SALIDA")){
-            items=ejbMensaje.getMensajesEnviados(getUserSession().getNick());
-        }else{
-            items=ejbMensaje.getMensajesRecividos(getUserSession().getNick());
-        }
+        return (vista!=null && vista.equals("SALIDA"));
     }
     
     public Usuario getUserSession(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        UsuarioController uc = (UsuarioController) session.getAttribute("usuarioMB");
+        UsuarioController2 uc = (UsuarioController2) session.getAttribute("usuarioController2");
         return uc.getSelected();
     }
     
@@ -122,4 +133,7 @@ public class MensajeController implements Serializable{
         nuevo.setPara(selected.getDesde());
         selected=nuevo;
     }
+    
+//    @Inject
+//    LoginMB loginMB;
 }

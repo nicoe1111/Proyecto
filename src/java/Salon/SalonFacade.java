@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Rol;
+package Salon;
 
+import Usuario.*;
 import General.AbstractFacade;
-import Usuario.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -20,7 +20,7 @@ import javax.persistence.Query;
  * @author Agus
  */
 @Stateless
-public class RolFacade extends AbstractFacade<TipoRol> {
+public class SalonFacade extends AbstractFacade<Salon> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
 
@@ -29,22 +29,15 @@ public class RolFacade extends AbstractFacade<TipoRol> {
         return em;
     }
 
-    public RolFacade() {
-        super(TipoRol.class);
+    public SalonFacade() {
+        super(Salon.class);
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<TipoRol> findRolUser(int idUser) {
-        Query query = em.createQuery("SELECT r FROM TipoRol r WHERE r.usuario.id_user = :id");
-        query.setParameter("id", idUser);
-        return query.getResultList();
-    }
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Docente> getDocentes() {
-        Query query = em.createQuery("SELECT r FROM TipoRol r WHERE TYPE(r) = :tipo");
-        query.setParameter("tipo", Docente.class);
-        List<? extends TipoRol> docentes =  query.getResultList();
-        return  (List<Docente>)docentes;
+    public List<Salon> findByNombre(String nickname) {
+        Query query = em.createQuery("SELECT s FROM Salon s WHERE s.nombreNumero = :nick");
+        query.setParameter("nick", nickname);
+        List<Salon> users = query.getResultList();
+        return users;
     }
 }
