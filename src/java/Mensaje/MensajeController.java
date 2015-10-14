@@ -1,5 +1,7 @@
 package Mensaje;
 
+import Usuario.Usuario;
+import Usuario.UsuarioController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 @Named("mensajeController")
 @ViewScoped
@@ -28,7 +31,7 @@ public class MensajeController implements Serializable{
 //
     @PostConstruct
     public void init() {
-        obtenerParameterOnItems();
+        //obtenerParameterOnItems();
     }
     
     public List<Mensaje> getItems() {
@@ -100,10 +103,17 @@ public class MensajeController implements Serializable{
         Map<String, String> params =FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String vista = params.get("vista");
         if(vista!=null && vista.equals("SALIDA")){
-            items=ejbMensaje.getMensajesRecividos("nacho");
+            items=ejbMensaje.getMensajesEnviados(getUserSession().getNick());
         }else{
-            items=ejbMensaje.getMensajesRecividos("diego");
+            items=ejbMensaje.getMensajesRecividos(getUserSession().getNick());
         }
+    }
+    
+    public Usuario getUserSession(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        UsuarioController uc = (UsuarioController) session.getAttribute("usuarioMB");
+        return uc.getSelected();
     }
     
     public void responder(){

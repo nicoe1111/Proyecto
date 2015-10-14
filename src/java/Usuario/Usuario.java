@@ -52,7 +52,7 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
     private List<TipoRol> roles = new ArrayList<>();
     
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
     Infoadicionalalumno infoAdicionalAlumno;
     
     public Infoadicionalalumno getInfoAdicionalAlumno() {

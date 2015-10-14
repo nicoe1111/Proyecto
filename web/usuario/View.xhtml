@@ -61,6 +61,53 @@
                             <h:outputText value="#{rol}"/><br/>
                         </ui:repeat>
                     </p:panelGrid>
+                    
+                    <p:panelGrid columns="6" rendered="#{usuarioController.boolAlumno == true}">
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_carnetsalud}" for="carnetsalud" />
+                        <p:outputLabel id="carnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.carnetsalud}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_certificadoestudio}" for="certificadoestudio" />
+                        <p:outputLabel id="certificadoestudio" value="#{usuarioController.selected.infoAdicionalAlumno.certificadoestudio}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_expedidocarnetsalud}" for="expedidocarnetsalud" />
+                        <p:outputLabel id="expedidocarnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.expedidocarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_expedidocarnetsalud}"/>
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fdocente}" for="fdocente" />
+                        <p:outputLabel id="fdocente" value="#{usuarioController.selected.infoAdicionalAlumno.fdocente}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fdocenteorientacion}" for="fdocenteorientacion" />
+                        <p:outputLabel id="fdocenteorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.fdocenteorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_fdocenteorientacion}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_facultaduniversidad}" for="facultaduniversidad" />
+                        <p:outputLabel id="facultaduniversidad" value="#{usuarioController.selected.infoAdicionalAlumno.facultaduniversidad}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_facultaduniversidad}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fechainscripcion}" for="fechainscripcion" />
+                        <p:outputLabel id="fechainscripcion" value="#{usuarioController.selected.infoAdicionalAlumno.fechainscripcion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_fechainscripcion}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fotocarnet}" for="fotocarnet" />
+                        <p:outputLabel id="fotocarnet" value="#{usuarioController.selected.infoAdicionalAlumno.fotocarnet}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_generacion}" for="generacion" />
+                        <p:outputLabel id="generacion" value="#{usuarioController.selected.infoAdicionalAlumno.generacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_generacion}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_militar}" for="militar" />
+                        <p:outputLabel id="militar" value="#{usuarioController.selected.infoAdicionalAlumno.militar}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_militarorientacion}" for="militarorientacion" />
+                        <p:outputLabel id="militarorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.militarorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_militarorientacion}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_nromatricula}" for="nromatricula" />
+                        <p:outputLabel id="nromatricula" value="#{usuarioController.selected.infoAdicionalAlumno.nromatricula}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_nromatricula}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_secuandaria}" for="secuandaria" />
+                        <p:outputLabel id="secuandaria" value="#{usuarioController.selected.infoAdicionalAlumno.secuandaria}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_secundariaorientacion}" for="secundariaorientacion" />
+                        <p:outputLabel id="secundariaorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.secundariaorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_secundariaorientacion}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_tramitecarnetsalud}" for="tramitecarnetsalud" />
+                        <p:outputLabel id="tramitecarnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.tramitecarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_tramitecarnetsalud}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_turno}" for="turno" />
+                        <p:outputLabel id="turno" value="#{usuarioController.selected.infoAdicionalAlumno.turno}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_turno}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_universidad}" for="universidad" />
+                        <p:outputLabel id="universidad" value="#{usuarioController.selected.infoAdicionalAlumno.universidad}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_utu}" for="utu" />
+                        <p:outputLabel id="utu" value="#{usuarioController.selected.infoAdicionalAlumno.utu}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_utuorientacion}" for="utuorientacion" />
+                        <p:outputLabel id="utuorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.utuorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_utuorientacion}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vacunaantitetanica}" for="vacunaantitetanica" />
+                        <p:outputLabel id="vacunaantitetanica" value="#{usuarioController.selected.infoAdicionalAlumno.vacunaantitetanica}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vencimcarnetsalud}" for="vencimcarnetsalud" />
+                        <p:outputLabel id="vencimcarnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.vencimcarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimcarnetsalud}" />
+                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vencimvacunaantitetanica}" for="vencimvacunaantitetanica" />
+                        <p:outputLabel id="vencimvacunaantitetanica" value="#{usuarioController.selected.infoAdicionalAlumno.vencimvacunaantitetanica}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimvacunaantitetanica}" />
+                    </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

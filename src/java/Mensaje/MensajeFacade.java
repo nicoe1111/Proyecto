@@ -31,4 +31,11 @@ public class MensajeFacade extends AbstractFacade<Mensaje> {
         List<Mensaje> msjs = query.getResultList();
         return msjs;
     }
+    
+    public List<Mensaje> getMensajesEnviados(String para) {
+        Query query = em.createQuery("SELECT m FROM Mensaje m WHERE m.para = :para");
+        query.setParameter("para", para);
+        List<Mensaje> msjs = query.getResultList();
+        return msjs;
+    }
 }

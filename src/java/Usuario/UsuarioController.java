@@ -6,7 +6,6 @@ import Rol.Administrador;
 import Rol.Administrativo;
 import Rol.Alumno;
 import Rol.Docente;
-import Rol.TipoRol;
 import Usuario.util.JsfUtil;
 import Usuario.util.JsfUtil.PersistAction;
 import java.io.File;
@@ -384,11 +383,13 @@ public class UsuarioController implements Serializable {
 
     public void verificarRolesUserUpdate(){
         selected.getRoles().clear();
-        List<TipoRol> listRoles = new ArrayList<>();
-        listRoles = ejbRol.findRolUser(selected.getId_user());
-        for (int i = 0; i < listRoles.size(); i++) {
-            ejbRol.remove(listRoles.get(i));
-        }     
+//        List<TipoRol> listRoles = new ArrayList<>();
+//        listRoles = ejbRol.findRolUser(selected.getId_user());
+//        for (int i = 0; i < listRoles.size(); i++) {
+//            if(!listRoles.get(i).getClass().getName().contains("Alumno")){
+//                ejbRol.remove(listRoles.get(i));
+//            }
+//        }     
         for (int i = 0; i < rolesSelectedUser.size(); i++) {
            addRolUser(rolesSelectedUser.get(i));
         }
@@ -476,9 +477,14 @@ public class UsuarioController implements Serializable {
         if(selected != null){
             for (int i = 0; i < selectedRoles.size(); i++) {
                 if(selectedRoles.get(i).equals("Alumno")){
-                    selected.setInfoAdicionalAlumno(new Infoadicionalalumno());
+                    if(selected.getInfoAdicionalAlumno() == null){
+                        selected.setInfoAdicionalAlumno(new Infoadicionalalumno());//como es alumno creo la info
+                    }
                     return boolAlumno = true;
                 }
+            }
+            if(selected.getInfoAdicionalAlumno() != null){
+                return boolAlumno = true;/// no tiene el rol de estudiante pero tiene la informacion adicional de cuando fue alumno
             }
         }
         return boolAlumno = false;

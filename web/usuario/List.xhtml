@@ -15,6 +15,8 @@
             <ui:define name="title">
                 <h:outputText value="#{bundle.ListUsuarioTitle}"></h:outputText>
             </ui:define>
+            
+            
 
             <ui:define name="centro">
                 <div style="width: 800px; text-align: center; margin: auto;">
@@ -29,7 +31,7 @@
                                     rowKey="#{item.id_user}"
                                     rows="10"
                                     rowsPerPageTemplate="10,20,30,40,50"
-                                    scrollable="true">
+                                    scrollable="true" >
 
                                     <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
@@ -60,8 +62,8 @@
                                     </p:column>
                                     <f:facet name="footer">
                                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateRolForm" oncomplete="PF('UsuarioCreateRolDialog').show()"/>
-                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
-                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{usuarioController.isAlumno()}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{usuarioController.isAlumno()}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
                                         <p:commandButton id="uploadImage" icon=""  value="#{bundle.SubirImage}" update=":UploadImageForm"  oncomplete="PF('UsuarioUploadDialog').show()" />
                                         <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl,datalist" disabled="#{empty usuarioController.selected}"/>
                                     </f:facet>
@@ -73,6 +75,9 @@
                     <ui:include src="Edit.xhtml"/>
                     <ui:include src="View.xhtml"/>
                     <ui:include src="UploadImage.xhtml"/> 
+                    
+                        <p:link value="Gestion Pais-Dpto-Localidad" id="Gestion_Pais_Dpto_Loc" href="/CasosDeUso/GestionPaisDptoLocalidad.xhtml"/>
+                    
                 </div>
             </ui:define>
         </ui:composition>

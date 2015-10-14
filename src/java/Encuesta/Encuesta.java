@@ -7,7 +7,6 @@ package Encuesta;
 
 import Curso.Curso;
 import Pregunta.Pregunta;
-import RespuestaPregunta.RespuestaPregunta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
