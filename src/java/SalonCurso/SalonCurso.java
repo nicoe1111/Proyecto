@@ -25,8 +25,8 @@ public class SalonCurso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idSalonMateria;
-    private int horaInicio;
-    private int horaFin;
+    private String horaInicio;
+    private String horaFin;
     private String DiadelaSemana;
     
     @ManyToOne(fetch=FetchType.LAZY)
@@ -41,15 +41,15 @@ public class SalonCurso implements Serializable {
        
     public SalonCurso() {
     }
-    
-    public SalonCurso(int idSalonMateria, int horaInicio, int horaFin, String DiadelaSemana, Curso curso, Salon salon) {
+
+    public SalonCurso(int idSalonMateria, String horaInicio, String horaFin, String DiadelaSemana) {
         this.idSalonMateria = idSalonMateria;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.DiadelaSemana = DiadelaSemana;
-        this.curso = curso;
-        this.salon = salon;
     }
+    
+    
   
 //+++++++++++++++++++++SETTERS++++++++++++++++++++++++++
 
@@ -57,11 +57,11 @@ public class SalonCurso implements Serializable {
         this.idSalonMateria = idSalonMateria;
     }
 
-    public void setHoraInicio(int horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public void setHoraFin(int horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 
@@ -83,11 +83,11 @@ public class SalonCurso implements Serializable {
         return idSalonMateria;
     }
 
-    public int getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public int getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 

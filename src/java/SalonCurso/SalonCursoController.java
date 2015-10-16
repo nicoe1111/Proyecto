@@ -1,4 +1,4 @@
-package Salon;
+package SalonCurso;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,22 +7,22 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 
-@Named("salonController")
+@Named("salonCursoController")
 @ViewScoped
-public class SalonController implements Serializable{
+public class SalonCursoController implements Serializable{
     
     @EJB
-    private SalonFacade ejbSalon;
+    private SalonCursoFacade ejbSalon;
     
-    private List<Salon> items = null;
-    private Salon selected = null;
+    private List<SalonCurso> items = null;
+    private SalonCurso selected = null;
     
     @PostConstruct
     private void init(){
         updateItems();
     }
     
-    public List<Salon> getItems() {
+    public List<SalonCurso> getItems() {
         return items;
     }
     
@@ -37,18 +37,18 @@ public class SalonController implements Serializable{
 //        return nicks;
 //    }
     
-    public void setItems(List<Salon> items) {
+    public void setItems(List<SalonCurso> items) {
         this.items = items;
     }
     
-    public Salon getSelected() {
+    public SalonCurso getSelected() {
         if(selected==null){
-            selected = new Salon();
+            selected = new SalonCurso();
         }
         return selected;
     }
     
-    public void setSelected(Salon selected) {
+    public void setSelected(SalonCurso selected) {
         this.selected = selected;
     }
     
@@ -59,7 +59,7 @@ public class SalonController implements Serializable{
     }
     
     public void update(int id){
-        Salon u = ejbSalon.find(id);
+        SalonCurso u = ejbSalon.find(id);
         ejbSalon.edit(u);
         updateItems();
         selected = null;
@@ -72,7 +72,7 @@ public class SalonController implements Serializable{
     }
     
     public void delete(int id) {
-        Salon u = ejbSalon.find(id);
+        SalonCurso u = ejbSalon.find(id);
         ejbSalon.remove(u);
         updateItems();
         selected = null;
