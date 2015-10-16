@@ -20,13 +20,16 @@ public class DynamicColumn implements Serializable{
     @EJB
     private SalonFacade ejbSalon;
     
+    @EJB
+    CursoFacade ejbCurso;
+    
     @PostConstruct
     private void init() {
         getGenerateRows();
     }
     
     @Inject
-            SalonCursoController salonCursoController;
+    SalonCursoController salonCursoController;
     
     List<horariosGrid> rows = new ArrayList<>();
     
@@ -200,8 +203,7 @@ public class DynamicColumn implements Serializable{
         this.rows = rows;
     }
     
-    @EJB
-            CursoFacade ejbCurso;
+    
     
     List<SalonCurso> getPruebaSalonCurso(){
         List<SalonCurso> items = new ArrayList();
