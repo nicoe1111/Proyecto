@@ -1,11 +1,20 @@
 package SalonCurso;
 
+import Curso.Curso;
+import Curso.CursoController;
+import Curso.CursoFacade;
+import Materia.Materia;
+import Materia.MateriaFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 
 @Named("salonCursoController")
 @ViewScoped
@@ -14,11 +23,18 @@ public class SalonCursoController implements Serializable{
     @EJB
     private SalonCursoFacade ejbSalon;
     
+    @EJB
+    private CursoFacade ejbCurso;
+    
+    @EJB
+    private MateriaFacade ejbMateria;
+    
     private List<SalonCurso> items = null;
     private SalonCurso selected = null;
     
     @PostConstruct
     private void init(){
+        ejbCurso.getCursosSemestreAnio(null, 2013);
         updateItems();
     }
     
@@ -92,4 +108,95 @@ public class SalonCursoController implements Serializable{
         selected=ejbSalon.find(id);
     }
     
+    //////////////
+    
+    @Inject
+            CursoController cursoController;
+    
+    private String semestreSelected;
+    private int anioSelected;
+    private int year = Calendar.getInstance().get(Calendar.YEAR);
+    private List<String> years = loadyears();
+    private int materiaSelectedID;
+    
+    private List<String> loadyears(){
+        List<String> years = new ArrayList();
+        for(int i=(year-5); i<=year+5 ;i++){
+            years.add(String.valueOf(i));
+        }
+        return years;
+    }
+    
+    public void obtenerCursos(AjaxBehaviorEvent event){
+        if(semestreSelected!=null && anioSelected!=0){
+            cursoController.setItems(ejbCurso.getCursosSemestreAnio(semestreSelected, anioSelected));
+        }
+        if(semestreSelected!=null && anioSelected==0){
+            cursoController.setItems(ejbCurso.getCursosSemestre(semestreSelected));
+        }
+        if((semestreSelected==null || semestreSelected.equals("")) && anioSelected!=0){
+            cursoController.setItems(ejbCurso.getCursosAnio(anioSelected));
+        }
+        if(semestreSelected==null && anioSelected==0){
+            cursoController.setItems(ejbCurso.findAll());
+        }
+    }
+    
+//    public void getMateriasSemestre(){
+//        List<Curso> cursos= new ArrayList<>();
+//        for(Curso c:ejbCurso.findAll()){
+//            if(semestreSelected!=null && anioSelected!=null){
+//                if(c.getMateria().getSemestre().equalsIgnoreCase(semestreSelected)&&c.getAnio()==Integer.valueOf(anioSelected)){
+//                    cursos.add(c);
+//                }
+//            }
+//            if(semestreSelected!=null && anioSelected==null){
+//                if(c.getMateria().getSemestre().equalsIgnoreCase(semestreSelected)){
+//                    cursos.add(c);
+//                }
+//            }
+//            if(semestreSelected==null && anioSelected!=null){
+//                if(c.getAnio()==Integer.valueOf(anioSelected)){
+//                    cursos.add(c);
+//                }
+//            }
+//            if(semestreSelected==null && anioSelected==null){
+//                cursos.add(c);
+//            }
+//        }
+//        cursoController.setItems(cursos);
+//    }
+    
+    public String getSemestreSelected() {
+        return semestreSelected;
+    }
+    
+    public void setSemestreSelected(String semestreSelected) {
+        this.semestreSelected = semestreSelected;
+    }
+    
+    public int getAnioSelected() {
+        return anioSelected;
+    }
+    
+    public void setAnioSelected(int anioSelected) {
+        this.anioSelected = anioSelected;
+    }
+    
+    public List<String> getYears() {
+        return years;
+    }
+    
+    public void setYears(List<String> years) {
+        this.years = years;
+    }
+    
+    public int getMateriaSelectedID() {
+        return materiaSelectedID;
+    }
+    
+    public void setMateriaSelectedID(int materiaSelectedID) {
+        this.materiaSelectedID = materiaSelectedID;
+    }
+    //////////////
 }

@@ -11,6 +11,7 @@ import RolDocente.DocenteController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -128,7 +129,7 @@ public class CursoController implements Serializable {
         docenteController.setIdSelected(selected.getDocente().getIdRol());
         materiaController.setSelected(selected.getMateria());
     }
-     
+    
     //arbol
     private List<String> semestres=Arrays.asList("Primer Semestre", "Segundo Semestre", "Tercer Semestre", "Cuarto Semestre", "Quinto Semestre", "Sexto Semestre");
     
@@ -207,17 +208,17 @@ public class CursoController implements Serializable {
         ver=verSelectedNodes();
         return ver;
     }
-
+    
     public void setVer(String ver) {
         this.ver = ver;
     }
     
     private TreeNode selectedNode;
-
+    
     public TreeNode getSelectedNode() {
         return selectedNode;
     }
-
+    
     public void setSelectedNode(TreeNode selectedNode) {
         selected = (Curso) selectedNode.getData();
         this.selectedNode = selectedNode;
@@ -229,5 +230,6 @@ public class CursoController implements Serializable {
         }
         return false;
     }
+    ///////////////////////////////
     
 }

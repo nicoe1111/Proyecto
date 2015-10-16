@@ -17,7 +17,23 @@
     <h:body>
         
         <h:form id="asd">
-            
+            Semestre: 
+            <p:selectOneMenu id="semestre" value="#{salonCursoController.semestreSelected}" style="width:200px;" onchange="submit()">
+                <p:ajax listener="#{salonCursoController.obtenerCursos}" />
+                <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                <f:selectItems value="#{materiaController.semestres}"/>
+            </p:selectOneMenu><br/>
+            Año: 
+            <p:selectOneMenu id="anio" value="#{salonCursoController.anioSelected}" style="width:200px;" onchange="submit()">
+                <p:ajax listener="#{salonCursoController.obtenerCursos}"/>
+                <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                <f:selectItems value="#{salonCursoController.years}" />
+            </p:selectOneMenu><br/>
+            Curso: 
+            <p:selectOneMenu id="materia" value="#{salonCursoController.materiaSelectedID}" style="width:200px;">
+                <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
+            </p:selectOneMenu>
         </h:form>
     </h:body>
 </html>

@@ -36,4 +36,11 @@ public class MateriaFacade extends AbstractFacade<Materia> {
         List<Materia> mats = query.getResultList();
         return mats;
     }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<String> getAllNombres() {
+        Query query = em.createQuery("SELECT m.nombre FROM Materia m");
+        return query.getResultList();
+    }
+    
 }
