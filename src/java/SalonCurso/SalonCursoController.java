@@ -46,7 +46,7 @@ public class SalonCursoController implements Serializable{
     
     @PostConstruct
     private void init(){
-        //ejbCurso.getCursosSemestreAnio(null, 2013);
+        //ejbCurso.getCursosSemestreAnio("Primer Semestre", 2013);
         updateItems();
     }
     
@@ -121,6 +121,8 @@ public class SalonCursoController implements Serializable{
     
     public void beforCreate(){
         selected.setDiadelaSemana(semestreAnioController.getDiaSemanaSelected());
+        selected.setHoraInicio(semestreAnioController.getInicioSelected());
+        selected.setHoraFin(semestreAnioController.getFinSelected());
         selected.setCurso(cursoController.getSelected());
         selected.setSalon(salonController.getSelected());
     }
@@ -131,16 +133,18 @@ public class SalonCursoController implements Serializable{
     public void vaciarControllersSelecteds(){
         setSelected(null);
         salonController.setSelected(null);
-        semestreAnioController.setDiaSemanaSelected(null);
         cursoController.setSelected(null);
         semestreAnioController.setDiaSemanaSelected(null);
+        semestreAnioController.setInicioSelected(null);
+        semestreAnioController.setFinSelected(null);
     }
     
     public void cargarControllersSelecteds(){
         salonController.setSalonID(selected.getSalon().getIdSalon());
-        semestreAnioController.setDiaSemanaSelected(selected.getDiadelaSemana());
         cursoController.setSelected(selected.getCurso());
         semestreAnioController.setDiaSemanaSelected(selected.getDiadelaSemana());
+        semestreAnioController.setInicioSelected(selected.getHoraInicio());
+        semestreAnioController.setFinSelected(selected.getHoraFin());
     }
     
     ///////////////////////////////////////////////////////////////////////////////////////////

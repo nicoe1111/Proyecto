@@ -211,8 +211,8 @@ public class DynamicColumn implements Serializable{
         sc.setDiadelaSemana("jueves");
         sc.setHoraInicio("12:30");
         sc.setHoraFin("20:00");
-        sc.setCurso(ejbCurso.find(5));
-        sc.setSalon(ejbSalon.find(6));
+        sc.setCurso(ejbCurso.find(3));
+        sc.setSalon(ejbSalon.find(1));
         items.add(sc);
         return items;
     }

@@ -43,6 +43,18 @@
                                 <f:selectItems value="#{semestreAnioController.diasSemana}"/>
                             </p:selectOneMenu>
                             
+                            Hora Inicial:
+                            <p:selectOneMenu id="inicio" value="#{semestreAnioController.inicioSelected}" appendTo="@this" style="width:200px;">
+                                <f:selectItem itemLabel="Seleciona Hora Inicio" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                <f:selectItems value="#{semestreAnioController.inicios}"/>
+                            </p:selectOneMenu>
+                            
+                            Hora Final: 
+                            <p:selectOneMenu id="fin" value="#{semestreAnioController.finSelected}" appendTo="@this" style="width:200px;">
+                                <f:selectItem itemLabel="Seleciona Hora Fin" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                <f:selectItems value="#{semestreAnioController.fines}"/>
+                            </p:selectOneMenu>
+                            
                             <p:dataTable id="datalist" var="curso" value="#{cursoController.items}" 
                                          selectionMode="single" selection="#{cursoController.selected}"
                                          scrollable="true" 
@@ -77,7 +89,7 @@
                             <div class="col-sm-2">
                                 <c:choose>
                                     <c:when test="#{salonCursoController.selected.idSalonCurso>0}">
-                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{salonCursoController.updateSelected()}"/>
+                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{salonCursoController.updateSelected()}" />
                                     </c:when>
                                     <c:otherwise>
                                         <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{salonCursoController.createSelected()}" />
