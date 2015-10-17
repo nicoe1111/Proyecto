@@ -104,7 +104,7 @@ public class DynamicColumn implements Serializable{
     
     void setDiasHorario(horariosGrid nuevo, SalonCurso sc){
         if(sc.getDiadelaSemana().equalsIgnoreCase("lunes")){
-            nuevo.lunes.dato=sc.getSalon().getNombreNumero()+" "+sc.getIdSalonMateria();
+            nuevo.lunes.dato=sc.getSalon().getNombreNumero()+" "+sc.getIdSalonCurso();
         }
         if(sc.getDiadelaSemana().equalsIgnoreCase("martes")){
             if(sc.getSalon()!=null&&sc.getCurso()!=null){

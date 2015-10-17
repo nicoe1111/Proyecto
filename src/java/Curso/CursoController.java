@@ -130,6 +130,18 @@ public class CursoController implements Serializable {
         materiaController.setSelected(selected.getMateria());
     }
     
+    private int CursoSelectedID;
+    
+    public int getCursoSelectedID() {
+        return CursoSelectedID;
+    }
+    
+    public void setCursoSelectedID(int CursoSelectedID) {
+        setSelected(ejbCurso.find(CursoSelectedID));
+        this.CursoSelectedID = CursoSelectedID;
+    }
+    
+    
     //arbol
     private List<String> semestres=Arrays.asList("Primer Semestre", "Segundo Semestre", "Tercer Semestre", "Cuarto Semestre", "Quinto Semestre", "Sexto Semestre");
     

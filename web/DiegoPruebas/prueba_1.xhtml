@@ -18,21 +18,35 @@
         
         <h:form id="asd">
             Semestre: 
-            <p:selectOneMenu id="semestre" value="#{salonCursoController.semestreSelected}" style="width:200px;" onchange="submit()">
+            <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;" onchange="submit()">
                 <p:ajax listener="#{salonCursoController.obtenerCursos}" />
                 <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                <f:selectItems value="#{materiaController.semestres}"/>
+                <f:selectItems value="#{semestreAnioController.semestres}"/>
             </p:selectOneMenu><br/>
             Año: 
-            <p:selectOneMenu id="anio" value="#{salonCursoController.anioSelected}" style="width:200px;" onchange="submit()">
+            <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" style="width:200px;" onchange="submit()">
                 <p:ajax listener="#{salonCursoController.obtenerCursos}"/>
                 <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                <f:selectItems value="#{salonCursoController.years}" />
+                <f:selectItems value="#{semestreAnioController.years}" />
             </p:selectOneMenu><br/>
             Curso: 
-            <p:selectOneMenu id="materia" value="#{salonCursoController.materiaSelectedID}" style="width:200px;">
+            <!--podria ir una tabla-->
+            <p:selectOneMenu id="curso" value="#{CursoController.cursoSelectedID}" style="width:200px;">
                 <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
                 <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
+            </p:selectOneMenu><br/>
+            
+            
+            
+            Salon:
+            <p:selectOneMenu id="salon" value="#{salonController.salonID}" style="width:200px;">
+                <f:selectItem itemLabel="Seleciona salon" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                <f:selectItems value="#{salonController.items}" var="salon" itemLabel="#{salon.nombreNumero}" itemValue="#{salon.idSalon}"/>
+            </p:selectOneMenu><br/>
+            Dia:
+            <p:selectOneMenu id="dia" value="#{semestreAnioController.diaSemanaSelected}" style="width:200px;">
+                <f:selectItem itemLabel="Seleciona Dia" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                <f:selectItems value="#{semestreAnioController.diasSemana}"/>
             </p:selectOneMenu>
         </h:form>
     </h:body>

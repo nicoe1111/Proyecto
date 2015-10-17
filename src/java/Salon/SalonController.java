@@ -92,4 +92,14 @@ public class SalonController implements Serializable{
         selected=ejbSalon.find(id);
     }
     
+    private int SalonID;
+    
+    public int getSalonID() {
+        return SalonID;
+    }
+
+    public void setSalonID(int SalonID) {
+        setSelected(ejbSalon.find(SalonID));
+        this.SalonID = SalonID;
+    }
 }

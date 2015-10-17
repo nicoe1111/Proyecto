@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <h:head>
+        <h:outputStylesheet name="css/bootstrap.css" />
+        <h:outputStylesheet library="js" name="bootstrap.js" />
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <title> Gestion SalonCurso   </title>
+    </h:head>
+    
+    
+    <ui:composition>
+        <div id="ModalGestionarSalonCurso" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <h:form id="getionarSalonCursoForm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <c:choose>
+                                <c:when test="#{salonCursoController.selected.idSalonCurso>0}">
+                                    <h4 class="modal-title">Editar SalonCurso</h4>
+                                </c:when>
+                                <c:otherwise>
+                                    <h4 class="modal-title">Registrar SalonCurso</h4>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="modal-body">
+                            Salon:
+                            <p:selectOneMenu id="salon" value="#{salonController.salonID}" appendTo="@this" style="width:200px;">
+                                <f:selectItem itemLabel="Seleciona salon" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                <f:selectItems value="#{salonController.items}" var="salon" itemLabel="#{salon.nombreNumero}" itemValue="#{salon.idSalon}"/>
+                            </p:selectOneMenu><br/>
+                            Dia:
+                            <p:selectOneMenu id="dia" value="#{semestreAnioController.diaSemanaSelected}" appendTo="@this" style="width:200px;">
+                                <f:selectItem itemLabel="Seleciona Dia" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                <f:selectItems value="#{semestreAnioController.diasSemana}"/>
+                            </p:selectOneMenu>
+                            
+                            <p:dataTable id="datalist" var="curso" value="#{cursoController.items}" 
+                                         selectionMode="single" selection="#{cursoController.selected}"
+                                         scrollable="true" 
+                                         rowKey="#{curso.idCurso}"
+                                         filteredValue="#{filtersList.filteredItems}"
+                                         emptyMessage="No cursos encontrados"
+                                         widgetVar="studentsTable">
+                                
+                                
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                    </p:outputPanel>
+                                </f:facet>
+                                
+                                <p:column headerText="ID" width="200" filterStyle="display:none" filterBy="idCurso" filterMatchMode="contains" sortBy="#{curso.idCurso}">
+                                    <h:outputText value="#{curso.idCurso}"/>
+                                </p:column>
+                                <p:column headerText="Nombre Materia"  width="200" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{curso.materia.nombre}">
+                                    <h:outputText value="#{curso.materia.nombre}" />
+                                </p:column>
+                                <p:column headerText="semestre"  width="200" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains" sortBy="#{curso.materia.semestre}">
+                                    <h:outputText value="#{curso.materia.semestre}" />
+                                </p:column>
+                                <p:column headerText="anio" width="200" filterStyle="display:none" filterBy="anio" filterMatchMode="contains" sortBy="#{curso.anio}">
+                                    <h:outputText value="#{curso.anio}" />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-2">
+                                <c:choose>
+                                    <c:when test="#{salonCursoController.selected.idSalonCurso>0}">
+                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{salonCursoController.updateSelected()}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{salonCursoController.createSelected()}" />
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:composition>
+</html>
+
