@@ -4,6 +4,7 @@ import Curso.*;
 import Salon.SalonFacade;
 import SalonCurso.SalonCurso;
 import SalonCurso.SalonCursoController;
+import SalonCurso.SalonCursoFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +32,18 @@ public class DynamicColumn implements Serializable{
     @Inject
     SalonCursoController salonCursoController;
     
-    List<horariosGrid> rows = new ArrayList<>();
+    List<HorariosGrid> rows = new ArrayList<>();
     
     public void getGenerateRows(){
-        horaMinuto HM= new horaMinuto(9,00);
-        horaMinuto HMfin= new horaMinuto(23,00);
+        HoraMinuto HM= new HoraMinuto(9,00);
+        HoraMinuto HMfin= new HoraMinuto(23,00);
         
         
         while(HM.compare(HMfin)==-1){
-            horaMinuto inicio=new horaMinuto(HM.getHora(), HM.getMinuto());
+            HoraMinuto inicio=new HoraMinuto(HM.getHora(), HM.getMinuto());
             HM.addMinutos(30);
-            horaMinuto fin = new horaMinuto(HM.getHora(), HM.getMinuto());
-            horariosGrid nuevo= new horariosGrid();
+            HoraMinuto fin = new HoraMinuto(HM.getHora(), HM.getMinuto());
+            HorariosGrid nuevo= new HorariosGrid();
             nuevo.inicio=inicio.combertir();
             nuevo.fin=fin.combertir();
             spanRow(inicio, fin, nuevo);
@@ -50,12 +51,12 @@ public class DynamicColumn implements Serializable{
         }
     }
     
-    void spanRow(horaMinuto inicio, horaMinuto fin, horariosGrid nuevo){
+    void spanRow(HoraMinuto inicio, HoraMinuto fin, HorariosGrid nuevo){
         List<SalonCurso> horarios = getPruebaSalonCurso();
         for(SalonCurso sc : horarios){
-            horaMinuto scInicio= new horaMinuto();
+            HoraMinuto scInicio= new HoraMinuto();
             scInicio.transformarStringEnHoraMinuto(sc.getHoraInicio());
-            horaMinuto scfin= new horaMinuto();
+            HoraMinuto scfin= new HoraMinuto();
             scfin.transformarStringEnHoraMinuto(sc.getHoraFin());
             if(scInicio.compare(inicio)==0){
                 if(scfin.compare(fin)==1){
@@ -67,13 +68,13 @@ public class DynamicColumn implements Serializable{
             }
             if(scInicio.compare(inicio)==-1&&(scfin.compare(fin)==1||scfin.compare(fin)==0)){
                 desabilitarCol(nuevo, sc);
-            }else abilitarCol(nuevo, sc);
+            }//else abilitarCol(nuevo, sc);
         }
     }
     
-    void setSpanrow(horariosGrid nuevo, SalonCurso sc, horaMinuto inicio, horaMinuto fin, horaMinuto scInicio, horaMinuto scfin){
+    void setSpanrow(HorariosGrid nuevo, SalonCurso sc, HoraMinuto inicio, HoraMinuto fin, HoraMinuto scInicio, HoraMinuto scfin){
         if(scInicio.compare(inicio)==0&&scfin.compare(fin)==1){
-            horaMinuto helper = new horaMinuto();
+            HoraMinuto helper = new HoraMinuto();
             helper.setHora(fin.getHora());
             helper.setMinuto(fin.getMinuto());
             int i=1;
@@ -102,7 +103,7 @@ public class DynamicColumn implements Serializable{
         }
     }
     
-    void setDiasHorario(horariosGrid nuevo, SalonCurso sc){
+    void setDiasHorario(HorariosGrid nuevo, SalonCurso sc){
         if(sc.getDiadelaSemana().equalsIgnoreCase("lunes")){
             nuevo.lunes.dato=sc.getSalon().getNombreNumero()+" "+sc.getIdSalonCurso();
         }
@@ -133,7 +134,7 @@ public class DynamicColumn implements Serializable{
         }
     }
     
-    void desabilitarCol(horariosGrid nuevo, SalonCurso sc){
+    void desabilitarCol(HorariosGrid nuevo, SalonCurso sc){
         if(sc.getDiadelaSemana().equalsIgnoreCase("lunes")){
             nuevo.lunes.enable=false;
         }
@@ -164,57 +165,29 @@ public class DynamicColumn implements Serializable{
         }
     }
     
-    void abilitarCol(horariosGrid nuevo, SalonCurso sc){
-        if(sc.getDiadelaSemana().equalsIgnoreCase("lunes")){
-            nuevo.lunes.enable=true;
-        }
-        if(sc.getDiadelaSemana().equalsIgnoreCase("martes")){
-            if(sc.getSalon()!=null&&sc.getCurso()!=null){
-                nuevo.martes.enable=true;
-            }
-        }
-        if(sc.getDiadelaSemana().equalsIgnoreCase("miercoles")){
-            if(sc.getSalon()!=null&&sc.getCurso()!=null){
-                nuevo.miercoles.enable=true;
-            }
-        }
-        if(sc.getDiadelaSemana().equalsIgnoreCase("jueves")){
-            if(sc.getSalon()!=null&&sc.getCurso()!=null){
-                nuevo.jueves.enable=true;
-            }
-        }
-        if(sc.getDiadelaSemana().equalsIgnoreCase("viernes")){
-            if(sc.getSalon()!=null&&sc.getCurso()!=null){
-                nuevo.viernes.enable=true;
-            }
-        }
-        if(sc.getDiadelaSemana().equalsIgnoreCase("sabado")){
-            if(sc.getSalon()!=null&&sc.getCurso()!=null){
-                nuevo.sabado.enable=true;
-            }
-        }
-    }
-    
-    public List<horariosGrid> getRows() {
+    public List<HorariosGrid> getRows() {
         return rows;
     }
     
-    public void setRows(List<horariosGrid> rows) {
+    public void setRows(List<HorariosGrid> rows) {
         this.rows = rows;
     }
     
+    @EJB
+    SalonCursoFacade ejbSalonCurso;
     
     
     List<SalonCurso> getPruebaSalonCurso(){
-        List<SalonCurso> items = new ArrayList();
-        SalonCurso sc = new SalonCurso();
-        sc.setDiadelaSemana("jueves");
-        sc.setHoraInicio("12:30");
-        sc.setHoraFin("20:00");
-        sc.setCurso(ejbCurso.find(3));
-        sc.setSalon(ejbSalon.find(1));
-        items.add(sc);
-        return items;
+//        List<SalonCurso> items = new ArrayList();
+//        SalonCurso sc = new SalonCurso();
+//        sc.setDiadelaSemana("jueves");
+//        sc.setHoraInicio("12:30");
+//        sc.setHoraFin("20:00");
+//        sc.setCurso(ejbCurso.find(3));
+//        sc.setSalon(ejbSalon.find(1));
+//        items.add(sc);
+        
+        return ejbSalonCurso.findAll();
     }
     
 }

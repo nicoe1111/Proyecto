@@ -2,11 +2,12 @@ package SalonCurso;
 
 import Curso.CursoController;
 import Curso.CursoFacade;
+import InterfazUtil.HoraMinuto;
 import InterfazUtil.SemestreAnioController;
+import Pais.util.JsfUtil;
 import Salon.SalonController;
 import Salon.SalonFacade;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -71,8 +72,13 @@ public class SalonCursoController implements Serializable{
     
     public void updateSelected(){
         beforCreate();
-        ejbSalonCurso.edit(selected);
-        updateItems();
+        if(controlHorarios()){
+            ejbSalonCurso.edit(selected);
+            updateItems();
+        }else{
+            vaciarControllersSelecteds();
+            JsfUtil.addErrorMessage("Los horarios coinciden con anteriores");
+        }
         selected = null;
     }
     
@@ -99,8 +105,13 @@ public class SalonCursoController implements Serializable{
     
     public void createSelected(){
         beforCreate();
-        ejbSalonCurso.create(selected);
-        updateItems();
+        if(controlHorarios()){
+            ejbSalonCurso.create(selected);
+            updateItems();
+        }else{
+            vaciarControllersSelecteds();
+            JsfUtil.addErrorMessage("Los horarios coinciden con anteriores");
+        }
         selected = null;
     }
     
@@ -112,6 +123,32 @@ public class SalonCursoController implements Serializable{
         selected=ejbSalonCurso.find(id);
     }
     ///////////////////////////  Control de relaciones  //////////////////////////////////////////////////
+    
+    private boolean controlHorarios(){
+        List<SalonCurso> horariosAnteriores = ejbSalonCurso.getSalonCursoAñoSemestre(selected.getDiadelaSemana(), selected.getCurso().getAnio(), selected.getCurso().getMateria().getSemestre());
+        boolean result= true;
+        for(SalonCurso sc : horariosAnteriores){
+            if(!verificarCoincidenciaHorarios(selected, sc)){
+                result=false;
+            }
+        }
+        return result;
+    }
+    
+    private boolean verificarCoincidenciaHorarios(SalonCurso nuevo, SalonCurso viejo){
+        HoraMinuto nuevoInicio = new HoraMinuto();
+        nuevoInicio.transformarStringEnHoraMinuto(nuevo.getHoraInicio());
+        HoraMinuto nuevoFin = new HoraMinuto();
+        nuevoFin.transformarStringEnHoraMinuto(nuevo.getHoraFin());
+        HoraMinuto viejoInicio = new HoraMinuto();
+        viejoInicio.transformarStringEnHoraMinuto(viejo.getHoraInicio());
+        HoraMinuto viejoFin = new HoraMinuto();
+        viejoFin.transformarStringEnHoraMinuto(viejo.getHoraFin());
+        if(((nuevoInicio.compare(viejoInicio)==1 || nuevoInicio.compare(viejoInicio)==0) && nuevoInicio.compare(viejoFin)==-1)  ||
+                nuevoFin.compare(viejoInicio)==1 && (nuevoFin.compare(viejoFin)==-1 || nuevoFin.compare(viejoFin)==0) ){
+            return false;
+        }else return true;
+    }
     
     private void beforeDelete(){
         selected.setCurso(null);

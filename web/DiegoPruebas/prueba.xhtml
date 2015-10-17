@@ -34,12 +34,12 @@
                     <p:row>
                         <p:column>#{row.inicio}</p:column>
                         <p:column>#{row.fin}</p:column>
-                        <p:column>#{row.lunes.dato}</p:column>
-                        <p:column>#{row.martes.dato}</p:column>
-                        <p:column>#{row.miercoles.dato}</p:column>
+                        <p:column rowspan="#{row.lunes.rowspan}" rendered="#{row.lunes.enable}">#{row.lunes.dato}</p:column>
+                        <p:column rowspan="#{row.martes.rowspan}" rendered="#{row.martes.enable}">#{row.martes.dato}</p:column>
+                        <p:column rowspan="#{row.miercoles.rowspan}" rendered="#{row.miercoles.enable}">#{row.miercoles.dato}</p:column>
                         <p:column rowspan="#{row.jueves.rowspan}" rendered="#{row.jueves.enable}">#{row.jueves.dato}</p:column>
-                        <p:column>#{row.viernes.dato}</p:column>
-                        <p:column>#{row.sabado.dato}</p:column>
+                        <p:column rowspan="#{row.viernes.rowspan}" rendered="#{row.viernes.enable}">#{row.viernes.dato}</p:column>
+                        <p:column rowspan="#{row.sabado.rowspan}" rendered="#{row.sabado.enable}">#{row.sabado.dato}</p:column>
                     </p:row>
                 </c:forEach>
             </p:panelGrid>

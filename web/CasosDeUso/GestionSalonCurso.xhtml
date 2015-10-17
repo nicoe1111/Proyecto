@@ -46,6 +46,12 @@
                             <p:column headerText="Dia de la Semana" footerText="Dia de la Semana" width="200" filterStyle="display:none" filterBy="diadelaSemana" filterMatchMode="contains">
                                 <h:outputText value="#{salonCurso.diadelaSemana}" />
                             </p:column>
+                            <p:column headerText="Hora Inicio" footerText="Hora Inicio" width="200" >
+                                <h:outputText value="#{salonCurso.horaInicio}" />
+                            </p:column>
+                            <p:column headerText="Hora Fin" footerText="Hora Fin" width="200" >
+                                <h:outputText value="#{salonCurso.horaFin}" />
+                            </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="deleteButton1" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarSalonCursoForm" actionListener="#{salonCursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty salonCursoController.items}"/>
                                 <p:commandButton id="editButton1" class="btn btn-default" value="#{bundle.Edit}" update=":getionarSalonCursoForm" actionListener="#{salonCursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty salonCursoController.items}">

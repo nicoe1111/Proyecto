@@ -100,14 +100,14 @@ public class SemestreAnioController implements Serializable{
         inicios = new ArrayList<>();
         fines = new ArrayList<>();
         
-        horaMinuto HM= new horaMinuto(9,00);
-        horaMinuto HMfin= new horaMinuto(23,00);
+        HoraMinuto HM= new HoraMinuto(9,00);
+        HoraMinuto HMfin= new HoraMinuto(23,00);
         
         while(HM.compare(HMfin)==-1){
-            horaMinuto inicio=new horaMinuto(HM.getHora(), HM.getMinuto());
+            HoraMinuto inicio=new HoraMinuto(HM.getHora(), HM.getMinuto());
             inicios.add(inicio.combertir());
             HM.addMinutos(30);
-            horaMinuto fin = new horaMinuto(HM.getHora(), HM.getMinuto());
+            HoraMinuto fin = new HoraMinuto(HM.getHora(), HM.getMinuto());
             fines.add(fin.combertir());
         }
     }
