@@ -14,14 +14,14 @@
             
             <h:form id="asd">
                 Semestre: 
-                <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;" onchange="submit()">
-                    <p:ajax listener="#{salonCursoController.obtenerCursos}" />
+                <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;">
+                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
                     <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{semestreAnioController.semestres}"/>
                 </p:selectOneMenu><br/>
                 Año: 
-                <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" style="width:200px;" onchange="submit()">
-                    <p:ajax listener="#{salonCursoController.obtenerCursos}"/>
+                <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" style="width:200px;">
+                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
                     <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{semestreAnioController.years}" />
                 </p:selectOneMenu><br/>

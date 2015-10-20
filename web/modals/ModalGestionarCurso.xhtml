@@ -48,7 +48,7 @@
                                         <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty usuarioController2.selected || empty materiaController.selected}"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{cursoController.createSelected()}" disabled="#{empty cursoController.selected || empty usuarioController2.selected || empty materiaController.selected}"/>
+                                        <h:commandButton id="createButton" value="#{bundle.Create}" actionListener="#{cursoController.createSelected()}" disabled="#{empty cursoController.selected || empty usuarioController2.selected || empty materiaController.selected}"/>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
