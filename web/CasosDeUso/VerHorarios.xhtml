@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:composition template="/index.xhtml">
+        <ui:define name="pasarLista">
+            
+            
+            
+            <h:form id="asd">
+                Semestre: 
+                <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;">
+                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
+                    <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                    <f:selectItems value="#{semestreAnioController.semestres}"/>
+                </p:selectOneMenu><br/>
+                Año: 
+                <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" style="width:200px;">
+                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
+                    <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                    <f:selectItems value="#{semestreAnioController.years}" />
+                </p:selectOneMenu><br/>
+                Curso: 
+                <!--podria ir una tabla-->
+                <p:selectOneMenu id="curso" value="#{cursoController.cursoSelectedID}" style="width:200px;">
+                    <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                    <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
+                    <f:ajax render=":content" event="change"/>
+                </p:selectOneMenu><br/>
+                
+                <p:commandButton value="ver horarios" update=":horarios" actionListener="#{dynamicColumn.getGenerateRows()}" action="#{buttonBean.setDisabled(false)}" >
+                    <f:passThroughAttribute name="data-toggle" value="modal"/>
+                    <f:passThroughAttribute name="data-target" value="#ModalHorarios"/>
+                </p:commandButton>
+            </h:form>
+            
+            
+        </ui:define>
+    </ui:composition>
+</html>
+

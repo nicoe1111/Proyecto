@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SalonCurso;
 
 import Curso.Curso;
@@ -16,52 +11,48 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-/**
- * Representa la asignacion de un Salon a un Curso.
- * @author Matias
- */
 @Entity
 public class SalonCurso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int idSalonMateria;
-    private int horaInicio;
-    private int horaFin;
+    private int idSalonCurso;
+    private String horaInicio;
+    private String horaFin;
     private String DiadelaSemana;
     
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_Curso")
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "idCurso")
     private Curso curso;
     
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_Salon")
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "idSalon")
     private Salon salon;
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++  
        
     public SalonCurso() {
     }
-    
-    public SalonCurso(int idSalonMateria, int horaInicio, int horaFin, String DiadelaSemana, Curso curso, Salon salon) {
-        this.idSalonMateria = idSalonMateria;
+
+    public SalonCurso(int idSalonMateria, String horaInicio, String horaFin, String DiadelaSemana) {
+        this.idSalonCurso = idSalonMateria;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.DiadelaSemana = DiadelaSemana;
-        this.curso = curso;
-        this.salon = salon;
     }
+    
+    
   
 //+++++++++++++++++++++SETTERS++++++++++++++++++++++++++
 
-    public void setIdSalonMateria(int idSalonMateria) {
-        this.idSalonMateria = idSalonMateria;
+    public void setIdSalonCurso(int idSalonCurso) {
+        this.idSalonCurso = idSalonCurso;
     }
 
-    public void setHoraInicio(int horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public void setHoraFin(int horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 
@@ -79,15 +70,15 @@ public class SalonCurso implements Serializable {
 
 //+++++++++++++++++++++GETTERS++++++++++++++++++++++++++
 
-    public int getIdSalonMateria() {
-        return idSalonMateria;
+    public int getIdSalonCurso() {
+        return idSalonCurso;
     }
 
-    public int getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public int getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 

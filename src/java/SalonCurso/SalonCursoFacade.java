@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Materia;
-
+package SalonCurso;
 
 import General.AbstractFacade;
 import java.util.List;
@@ -15,8 +14,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+/**
+ *
+ * @author Agus
+ */
 @Stateless
-public class MateriaFacade extends AbstractFacade<Materia> {
+public class SalonCursoFacade extends AbstractFacade<SalonCurso> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
 
@@ -25,22 +28,17 @@ public class MateriaFacade extends AbstractFacade<Materia> {
         return em;
     }
 
-    public MateriaFacade() {
-        super(Materia.class);
+    public SalonCursoFacade() {
+        super(SalonCurso.class);
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Materia> findByNick(String nombremat) {
-        Query query = em.createQuery("SELECT m FROM Materia m WHERE m.nombre = :nombre");
-        query.setParameter("nombre", nombremat);
-        List<Materia> mats = query.getResultList();
-        return mats;
+    public List<SalonCurso> getSalonCursoAñoSemestre(String DiadelaSemana, int anio, String semestre) {
+        Query query = em.createQuery("SELECT sc FROM SalonCurso sc WHERE sc.DiadelaSemana = :DiadelaSemana AND sc.curso.anio = :anio AND sc.curso.materia.semestre = :semestre");
+        query.setParameter("DiadelaSemana", DiadelaSemana);
+        query.setParameter("anio", anio);
+        query.setParameter("semestre", semestre);
+        List<SalonCurso> users = query.getResultList();
+        return users;
     }
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<String> getAllNombres() {
-        Query query = em.createQuery("SELECT m.nombre FROM Materia m");
-        return query.getResultList();
-    }
-    
 }

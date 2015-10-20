@@ -17,7 +17,7 @@
                                      rowKey="#{salon.idSalon}"
                                      filteredValue="#{filtersList.filteredItems}"
                                      emptyMessage="No users encontrados"
-                                     widgetVar="studentsTable">
+                                     widgetVar="GS">
                             
                             <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
                             <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
@@ -25,7 +25,7 @@
                             <f:facet name="header">
                                 <p:outputPanel>
                                     <h:outputText value="Search all fields:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('GS').filter()" style="width:150px" placeholder="Enter keyword"/>
                                 </p:outputPanel>
                             </f:facet>
                             

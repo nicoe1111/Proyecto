@@ -1,9 +1,6 @@
 package Salon;
 
-import Usuario.*;
-import Rol.RolFacade;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -95,4 +92,14 @@ public class SalonController implements Serializable{
         selected=ejbSalon.find(id);
     }
     
+    private int SalonID;
+    
+    public int getSalonID() {
+        return SalonID;
+    }
+
+    public void setSalonID(int SalonID) {
+        setSelected(ejbSalon.find(SalonID));
+        this.SalonID = SalonID;
+    }
 }

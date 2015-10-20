@@ -6,9 +6,13 @@
 package Curso;
 
 import General.AbstractFacade;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +30,30 @@ public class CursoFacade extends AbstractFacade<Curso> {
 
     public CursoFacade() {
         super(Curso.class);
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursosSemestreAnio(String semestre, int anio) {
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio= :anio");
+        query.setParameter("semestre", semestre);
+        query.setParameter("anio", anio);
+        List<Curso> users = query.getResultList();
+        return users;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursosSemestre(String semestre) {
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre");
+        query.setParameter("semestre", semestre);
+        List<Curso> users = query.getResultList();
+        return users;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursosAnio(int anio) {
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.anio= :anio");
+        query.setParameter("anio", anio);
+        List<Curso> users = query.getResultList();
+        return users;
     }
 }

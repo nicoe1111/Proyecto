@@ -20,6 +20,7 @@
                 <ui:insert name="footer"/>
             </p:layoutUnit>
             <h:form id="UsuarioViewForm">
+                
                 <p:panel header="#{bundle.ListUsuarioTitle}">
                     <p:dataTable id="datalist" var="user" value="#{usuarioController2.items}" 
                                  selectionMode="single" selection="#{usuarioController2.selected}"
@@ -27,7 +28,7 @@
                                  rowKey="#{user.id_user}"
                                  filteredValue="#{filtersList.filteredItems}"
                                  emptyMessage="No users encontrados"
-                                 widgetVar="studentsTable">
+                                 widgetVar="PL">
                                      
                         <p:ajax event="rowSelect" update="deleteButton" listener="#{buttonBean.onRowSelect}" />
                         <p:ajax event="rowUnselect" update="deleteButton" listener="#{buttonBean.onRowUnselect}" />
@@ -35,7 +36,7 @@
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Search all fields:" />
-                                <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('PL').filter()" style="width:150px" placeholder="Enter keyword"/>
                             </p:outputPanel>
                                 
                                 

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:composition>
+        <div id="ModalHorarios" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-body">
+                    <h:form id="horarios" >
+                        <p:panelGrid>
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column>Inicio</p:column>
+                                    <p:column>Fin</p:column>
+                                    <p:column>Lunes</p:column>
+                                    <p:column>Martes</p:column>
+                                    <p:column>Miercoles</p:column>
+                                    <p:column>Jueves</p:column>
+                                    <p:column>Viernes</p:column>
+                                    <p:column>Sabado</p:column>
+                                </p:row>
+                            </f:facet>
+                            <div id="foreach">
+                                <c:forEach items="#{dynamicColumn.rows}" var="row">
+                                    <p:row>
+                                        <p:column>#{row.inicio}</p:column>
+                                        <p:column>#{row.fin}</p:column>
+                                        <p:column rowspan="#{row.lunes.rowspan}" rendered="#{row.lunes.enable}">#{row.lunes.dato}</p:column>
+                                        <p:column rowspan="#{row.martes.rowspan}" rendered="#{row.martes.enable}">#{row.martes.dato}</p:column>
+                                        <p:column rowspan="#{row.miercoles.rowspan}" rendered="#{row.miercoles.enable}">#{row.miercoles.dato}</p:column>
+                                        <p:column rowspan="#{row.jueves.rowspan}" rendered="#{row.jueves.enable}">#{row.jueves.dato}</p:column>
+                                        <p:column rowspan="#{row.viernes.rowspan}" rendered="#{row.viernes.enable}">#{row.viernes.dato}</p:column>
+                                        <p:column rowspan="#{row.sabado.rowspan}" rendered="#{row.sabado.enable}">#{row.sabado.dato}</p:column>
+                                    </p:row>
+                                </c:forEach>
+                            </div>
+                        </p:panelGrid>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:composition>
+</html>
+
