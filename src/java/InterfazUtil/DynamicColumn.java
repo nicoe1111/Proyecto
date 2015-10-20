@@ -1,7 +1,6 @@
 package InterfazUtil;
 
 import Curso.*;
-import Salon.SalonFacade;
 import SalonCurso.SalonCurso;
 import SalonCurso.SalonCursoController;
 import SalonCurso.SalonCursoFacade;
@@ -18,12 +17,6 @@ import javax.inject.Inject;
 @ViewScoped
 public class DynamicColumn implements Serializable{
     
-    @EJB
-    private SalonFacade ejbSalon;
-    
-    @EJB
-    CursoFacade ejbCurso;
-    
     @PostConstruct
     private void init() {
         getGenerateRows();
@@ -32,9 +25,13 @@ public class DynamicColumn implements Serializable{
     @Inject
     SalonCursoController salonCursoController;
     
+    @Inject
+    CursoController cursoController;
+    
     List<HorariosGrid> rows = new ArrayList<>();
     
     public void getGenerateRows(){
+        rows = new ArrayList<>();
         HoraMinuto HM= new HoraMinuto(9,00);
         HoraMinuto HMfin= new HoraMinuto(23,00);
         
@@ -52,7 +49,7 @@ public class DynamicColumn implements Serializable{
     }
     
     void spanRow(HoraMinuto inicio, HoraMinuto fin, HorariosGrid nuevo){
-        List<SalonCurso> horarios = getPruebaSalonCurso();
+        List<SalonCurso> horarios = cursoController.getSelected().getSalonesCurso();
         for(SalonCurso sc : horarios){
             HoraMinuto scInicio= new HoraMinuto();
             scInicio.transformarStringEnHoraMinuto(sc.getHoraInicio());
@@ -176,18 +173,18 @@ public class DynamicColumn implements Serializable{
     @EJB
     SalonCursoFacade ejbSalonCurso;
     
-    
-    List<SalonCurso> getPruebaSalonCurso(){
-//        List<SalonCurso> items = new ArrayList();
-//        SalonCurso sc = new SalonCurso();
-//        sc.setDiadelaSemana("jueves");
-//        sc.setHoraInicio("12:30");
-//        sc.setHoraFin("20:00");
-//        sc.setCurso(ejbCurso.find(3));
-//        sc.setSalon(ejbSalon.find(1));
-//        items.add(sc);
-        
-        return ejbSalonCurso.findAll();
-    }
+//    
+//    List<SalonCurso> getListaSalonCurso(){
+////        List<SalonCurso> items = new ArrayList();
+////        SalonCurso sc = new SalonCurso();
+////        sc.setDiadelaSemana("jueves");
+////        sc.setHoraInicio("12:30");
+////        sc.setHoraFin("20:00");
+////        sc.setCurso(ejbCurso.find(3));
+////        sc.setSalon(ejbSalon.find(1));
+////        items.add(sc);
+//        
+//        return 
+//    }
     
 }
