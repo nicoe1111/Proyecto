@@ -11,11 +11,12 @@
     <f:view contentType="text/html">
         <h:head>
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <h:outputStylesheet library="css" name="jsfcrud.css"/>
             <h:outputScript library="js" name="jsfcrud.js"/>
+            <!--<h:outputScript library="js" name="bootstrap.js" />-->
+            <h:outputScript library="js" name="bootstrap.min.js" />
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
             <h:outputStylesheet name="css/bootstrap.css" />
-            <h:outputStylesheet library="js" name="bootstrap.js" />
-            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <h:outputStylesheet name="css/bootstrap.min.css" />
             
             <f:facet name="first">
                 <title>Sistema Administracion Tecnolgo en Informatica</title>
@@ -26,10 +27,7 @@
             
             <p:layout fullPage="true">
                 <p:layoutUnit style="background-color:#FFFFFF" position="north" size="75" resizable="false" closable="false" collapsible="false" gutter="0">
-                    <p:graphicImage value="/resources/Images/logo_fing1.GIF" width="60" height="60" alt=""></p:graphicImage>
-                    <p:graphicImage value="/resources/Images/log_utu2.gif" width="60" height="60" alt=""></p:graphicImage>
-                    <p:outputLabel style="font-family: Segoe UI, Helvetica, Arial, sans-serif; color: #e3ddc9;font-size:36px; font-weight: bold; alignment-adjust: central">Tecnologo en Informatica</p:outputLabel>
-                    <ui:include src="/Items/header.xhtml"/>
+                   <ui:include src="/Items/header.xhtml"/>
                 </p:layoutUnit>
                 
                 <div align="center">
