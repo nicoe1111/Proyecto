@@ -24,7 +24,7 @@ public abstract class TipoRol implements Serializable{
     
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_user")
-    private Usuario usuario;
+    private Usuario usuario = new Usuario();
     
     public int getIdRol() {
         return idRol;

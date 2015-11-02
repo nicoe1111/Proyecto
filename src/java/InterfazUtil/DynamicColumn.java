@@ -49,7 +49,15 @@ public class DynamicColumn implements Serializable{
     }
     
     void spanRow(HoraMinuto inicio, HoraMinuto fin, HorariosGrid nuevo){
-        List<SalonCurso> horarios = cursoController.getSelected().getSalonesCurso();
+        
+        //traer todos los cursos de un semestre y año
+        List<SalonCurso> horarios = new ArrayList();
+        for(Curso curso:cursoController.getItems()){
+            horarios.addAll(curso.getSalonesCurso());
+        }
+        
+//        List<SalonCurso> horarios = cursoController.getSelected().getSalonesCurso();
+        //
         for(SalonCurso sc : horarios){
             HoraMinuto scInicio= new HoraMinuto();
             scInicio.transformarStringEnHoraMinuto(sc.getHoraInicio());
@@ -102,7 +110,7 @@ public class DynamicColumn implements Serializable{
     
     void setDiasHorario(HorariosGrid nuevo, SalonCurso sc){
         if(sc.getDiadelaSemana().equalsIgnoreCase("lunes")){
-            nuevo.lunes.dato=sc.getSalon().getNombreNumero()+" "+sc.getIdSalonCurso();
+            nuevo.lunes.dato=sc.getSalon().getNombreNumero()+" "+sc.getCurso().getMateria().getNombre();
         }
         if(sc.getDiadelaSemana().equalsIgnoreCase("martes")){
             if(sc.getSalon()!=null&&sc.getCurso()!=null){

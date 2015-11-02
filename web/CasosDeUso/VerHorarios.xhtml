@@ -11,32 +11,38 @@
         <ui:define name="pasarLista">
             <h:form id="asd">
                 Semestre: 
-                <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;">
-                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
-                    <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}"  style="width:200px;">
+                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="asd"/>
                     <f:selectItems value="#{semestreAnioController.semestres}"/>
                 </p:selectOneMenu><br/>
                 Año: 
-                <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" style="width:200px;">
-                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
-                    <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                
+                <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" editable="true" style="width:200px;">
+                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="asd"/>
                     <f:selectItems value="#{semestreAnioController.years}" />
                 </p:selectOneMenu><br/>
-                Curso: 
-                <!--podria ir una tabla-->
-                <p:selectOneMenu id="curso" value="#{cursoController.cursoSelectedID}" style="width:200px;">
-                    <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                    <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
-                    <f:ajax render=":content" event="change"/>
-                </p:selectOneMenu><br/>
-                
-                <p:commandButton value="ver horarios" update=":horarios" actionListener="#{dynamicColumn.getGenerateRows()}" action="#{buttonBean.setDisabled(false)}" >
-                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                    <f:passThroughAttribute name="data-target" value="#ModalHorarios"/>
-                </p:commandButton>
+                <!--                Curso: 
+                                podria ir una tabla
+                                <p:selectOneMenu id="curso" value="#{cursoController.cursoSelectedID}" style="width:200px;">
+                                    <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
+                                    <f:ajax render=":content" event="change"/>
+                                </p:selectOneMenu><br/>-->
+                <c:if test="#{not empty cursoController.items}">
+                    Materias:<br/>
+                    <c:forEach id="for" items="#{cursoController.items}" var="curso">
+                        #{curso.materia.nombre} <br/>
+                    </c:forEach>
+                    <p:commandButton value="ver horarios" update=":horarios" actionListener="#{dynamicColumn.getGenerateRows()}" action="#{buttonBean.setDisabled(false)}" >
+                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                        <f:passThroughAttribute name="data-target" value="#ModalHorarios"/>
+                    </p:commandButton>
+                </c:if>
+                <c:if test="#{empty cursoController.items}">
+                    no materias
+                </c:if>
             </h:form>
-            
-            
+            <ui:include src="/modals/ModalHorarios.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>

@@ -1,5 +1,6 @@
 package SalonCurso;
 
+import Curso.Curso;
 import Curso.CursoController;
 import Curso.CursoFacade;
 import InterfazUtil.HoraMinuto;
@@ -8,6 +9,7 @@ import Pais.util.JsfUtil;
 import Salon.SalonController;
 import Salon.SalonFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -47,8 +49,8 @@ public class SalonCursoController implements Serializable{
     
     @PostConstruct
     private void init(){
-        //ejbCurso.getCursosSemestreAnio("Primer Semestre", 2013);
         updateItems();
+        obtenerCursos();
     }
     
     public List<SalonCurso> getItems() {
@@ -190,19 +192,24 @@ public class SalonCursoController implements Serializable{
         String semestreSelected=semestreAnioController.getSemestreSelected();
         int anioSelected = semestreAnioController.getAnioSelected();
         
-        if(semestreSelected!=null && anioSelected!=0){
-            cursoController.setItems(ejbCurso.getCursosSemestreAnio(semestreSelected, anioSelected));
-        }
-        if(semestreSelected!=null && anioSelected==0){
-            cursoController.setItems(ejbCurso.getCursosSemestre(semestreSelected));
-        }
-        if((semestreSelected==null || semestreSelected.equals("")) && anioSelected!=0){
-            cursoController.setItems(ejbCurso.getCursosAnio(anioSelected));
-        }
-        if(semestreSelected==null && anioSelected==0){
-            cursoController.setItems(ejbCurso.findAll());
-        }
+//        if(semestreSelected!=null && anioSelected!=0){
+          cursoController.setItems(ejbCurso.getCursosSemestreAnio(semestreSelected, anioSelected));
+//        }
+//        if(semestreSelected!=null && anioSelected==0){
+////            cursoController.setItems(ejbCurso.getCursosSemestre(semestreSelected));
+//        }
+//        if((semestreSelected==null || semestreSelected.equals("")) && anioSelected!=0){
+////            cursoController.setItems(ejbCurso.getCursosAnio(anioSelected));
+//        }
+//        if(semestreSelected==null && anioSelected==0){
+////            cursoController.setItems(ejbCurso.findAll());
+//        }
     }
     
+    public void obtenerCursos(){
+        String semestreSelected=semestreAnioController.getSemestreSelected();
+        int anioSelected = semestreAnioController.getAnioSelected();
+        cursoController.setItems(ejbCurso.getCursosSemestreAnio(semestreSelected, anioSelected));
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
+//combobox controller
 @Named("semestreAnioController")
 @ViewScoped
 public class SemestreAnioController implements Serializable{
@@ -31,6 +31,16 @@ public class SemestreAnioController implements Serializable{
         }
         return years;
     }
+
+    public int getActualYear() {
+        return actualYear;
+    }
+
+    public void setActualYear(int actualYear) {
+        this.actualYear = actualYear;
+    }
+    
+    
     
     public String getSemestreSelected() {
         return semestreSelected;
@@ -94,6 +104,8 @@ public class SemestreAnioController implements Serializable{
     @PostConstruct
     private void init(){
         loadIniciosFines();
+        anioSelected=actualYear;
+        semestreSelected="Primer Semestre";
     }
     
     private void loadIniciosFines(){
@@ -142,5 +154,24 @@ public class SemestreAnioController implements Serializable{
 
     public void setFinSelected(String finSelected) {
         this.finSelected = finSelected;
+    }
+    
+    private String tipoInstanciaSelected;
+    private List<String> tipoInstancia = Arrays.asList("Examen", "Parcial", "Laboratorio");
+
+    public List<String> getTipoInstancia() {
+        return tipoInstancia;
+    }
+
+    public void setTipoInstancia(List<String> tipoInstancia) {
+        this.tipoInstancia = tipoInstancia;
+    }
+
+    public String getTipoInstanciaSelected() {
+        return tipoInstanciaSelected;
+    }
+
+    public void setTipoInstanciaSelected(String tipoInstanciaSelected) {
+        this.tipoInstanciaSelected = tipoInstanciaSelected;
     }
 }

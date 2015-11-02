@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.transaction.Transactional;
 
 @Entity
 public class Materia  implements Serializable {
@@ -27,11 +28,12 @@ public class Materia  implements Serializable {
     private String cargaHorariaSemanal;
     private String semestre;
     
-    @OneToMany(mappedBy = "materia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "materia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Curso> cursos = new ArrayList<>();
 
     public Materia() {    }
 
+    @Transactional
     public List<Curso> getCursos() {
         return cursos;
     }

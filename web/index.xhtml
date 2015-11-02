@@ -17,17 +17,23 @@
             <h:outputStylesheet library="css" name="jsfcrud.css"/>
             <h:outputStylesheet name="css/bootstrap.css" />
             <h:outputStylesheet name="css/bootstrap.min.css" />
+            <h:outputStylesheet name="css/custom.css" />
             
             <f:facet name="first">
                 <title>Sistema Administracion Tecnolgo en Informatica</title>
             </f:facet>
+            <script>
+                function init() {
+                    document.getElementById("centroID").style.zIndex = "initial";
+                }
+            </script>
         </h:head>
         
-        <h:body>
+        <h:body onload="init()">
             
             <p:layout fullPage="true">
                 <p:layoutUnit style="background-color:#FFFFFF" position="north" size="75" resizable="false" closable="false" collapsible="false" gutter="0">
-                   <ui:include src="/Items/header.xhtml"/>
+                    <ui:include src="/Items/header.xhtml"/>
                 </p:layoutUnit>
                 
                 <div align="center">
@@ -47,7 +53,7 @@
                     <ui:include src="/Items/Menu.xhtml"/>
                 </p:layoutUnit>
                 
-                <p:layoutUnit position="center"> 
+                <p:layoutUnit id="centroID" position="center" style="element.style{z-index: initial;}"> 
                     <p:growl id="growl" life="3000" />
                     <ui:insert name="centro"/>
                     <ui:insert name="pasarLista"/>
@@ -58,20 +64,20 @@
                     <ui:insert name="GestionSalon"/>
                     <ui:insert name="GestionarSalonCurso"/>
                     <ui:insert name="verHorarios"/>
+                    
                 </p:layoutUnit>
                 
-                <ui:include src="/modals/ModalGestionarUsuario.xhtml"/>
-                <ui:include src="/modals/ModalGestionarCurso.xhtml"/>
-                <ui:include src="/modals/ModalGestionarSalon.xhtml"/>
-                <ui:include src="/modals/ModalGestionarSalonCurso.xhtml"/>
-                
-                <ui:include src="/modals/ModalHorarios.xhtml"/>
-                
-                <ui:include src="/modals/ModalVerMensaje.xhtml"/>
-                <ui:include src="/modals/ModalNuevoMensaje.xhtml"/>
+                                                <ui:include src="/modals/ModalGestionarUsuario.xhtml"/>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
                 
             </p:layout>
-
+            
         </h:body>
         
         

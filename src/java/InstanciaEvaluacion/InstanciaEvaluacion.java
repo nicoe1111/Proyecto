@@ -34,7 +34,7 @@ public class InstanciaEvaluacion implements Serializable {
     protected Date fecha;
     protected String nombre;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_Curso")
     private Curso curso;
     

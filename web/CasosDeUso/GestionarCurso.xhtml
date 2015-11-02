@@ -8,7 +8,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="/index.xhtml">
         <ui:define name="GestionarCurso">
-            <h:body>
                 <h:form id="GestionarCursoForm">
                     <p:panel header="Gestionar Curso">
                         <p:dataTable id="datalist" var="curso" value="#{cursoController.items}" 
@@ -55,7 +54,7 @@
                         </p:dataTable>
                     </p:panel>
                 </h:form>
-            </h:body>
+                <ui:include src="/modals/ModalGestionarCurso.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>

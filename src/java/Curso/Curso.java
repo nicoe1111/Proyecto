@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package Curso;
 
 import ClaseDada.ClaseDada;
@@ -28,6 +28,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.transaction.Transactional;
 
 @Entity
 public class Curso implements Serializable{
@@ -37,13 +38,13 @@ public class Curso implements Serializable{
     private int anio;
     private Date FechaInicio;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "id_materia")
-    private Materia materia;
-
-    @ManyToOne(fetch=FetchType.EAGER)
+    private Materia materia = new Materia();
+    
+    @ManyToOne
     @JoinColumn(name = "id_docente")
-    private Docente docente;
+    private Docente docente = new Docente();
     
     @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
     private List<Alumno> alumnos = new ArrayList<>();
@@ -60,9 +61,9 @@ public class Curso implements Serializable{
     @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Encuesta encuesta;
-
+    
     public Curso() {    }
-
+    
     public Curso(int idCurso, int anio, Date FechaInicio, Materia materia, Docente docente, Encuesta encuesta) {
         this.idCurso = idCurso;
         this.anio = anio;
@@ -71,85 +72,87 @@ public class Curso implements Serializable{
         this.docente = docente;
         this.encuesta = encuesta;
     }
-
     
-
+    
+    
     public int getIdCurso() {
         return idCurso;
     }
-
+    
     public void setIdCurso(int idCurso) {
         this.idCurso = idCurso;
     }
-
+    
     public int getAnio() {
         return anio;
     }
-
+    
     public void setAnio(int anio) {
         this.anio = anio;
     }
-
+    
     public Date getFechaInicio() {
         return FechaInicio;
     }
-
+    
     public void setFechaInicio(Date FechaInicio) {
         this.FechaInicio = FechaInicio;
     }
-
+    
+    @Transactional
     public Materia getMateria() {
         return materia;
     }
-
+    
     public void setMateria(Materia materia) {
         this.materia = materia;
     }
-
+    
+    @Transactional
     public Docente getDocente() {
         return docente;
     }
-
+    
     public void setDocente(Docente docente) {
         this.docente = docente;
     }
-
+    
     public List<Alumno> getAlumnos() {
         return alumnos;
     }
-
+    
     public void setAlumnos(List<Alumno> alumnos) {
         this.alumnos = alumnos;
     }
-
+    
     public List<ClaseDada> getClasesDadas() {
         return clasesDadas;
     }
-
+    
     public void setClasesDadas(List<ClaseDada> clasesDadas) {
         this.clasesDadas = clasesDadas;
     }
-
+    
     public List<SalonCurso> getSalonesCurso() {
         return salonesCurso;
     }
-
+    
     public void setSalonesCurso(List<SalonCurso> salonesCurso) {
         this.salonesCurso = salonesCurso;
     }
-
+    
     public List<InstanciaEvaluacion> getInstanciasEvaluaciones() {
         return instanciasEvaluaciones;
     }
-
+    
     public void setInstanciasEvaluaciones(List<InstanciaEvaluacion> instanciasEvaluaciones) {
         this.instanciasEvaluaciones = instanciasEvaluaciones;
     }
-
+    
     public Encuesta getEncuesta() {
         return encuesta;
     }
-
+    
     public void setEncuesta(Encuesta encuesta) {
         this.encuesta = encuesta;
     }
