@@ -13,11 +13,10 @@
         <h:outputStylesheet name="css/bootstrap.css" />
         <h:outputStylesheet name="css/bootstrap.min.css" />
         <style>
-            .ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all{
-                z-index: 9999 !important;
+            #ui-datepicker-div{
+                z-index: 1051 !important;
             }
         </style>
-        
     </h:head>
     
     
@@ -43,20 +42,21 @@
                 <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
                 <f:ajax render=":content" event="change"/>
             </p:selectOneMenu><br/>
-            <p:commandButton value="ver Evaluaciones" update=":GestionEvaluacionForm" actionListener="#{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
+            <p:commandButton value="ver Evaluaciones" update=":GestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
         </h:form>
-        <h:form id="GestionEvaluacionForm">
-            <p:panel header="#{bundle.ListUsuarioTitle}">
+        
+        <h:form id="GestionarEvaluacionForm" >
+            <p:panel rendered="#{(cursoController.selected.idCurso >0)}" header="Listar Evaluaciones de #{cursoController.selected.materia.nombre} #{cursoController.selected.anio}">
                 <p:dataTable id="datalist" var="evaluacion" value="#{instanciaEvaluacionController.items}" 
                              selectionMode="single" selection="#{instanciaEvaluacionController.selected}"
                              scrollable="true" 
-                             rowKey="#{evaluacion.idInstanciaEvaluacion}"
+                             rowKey="#{evaluacion.idEvaluacion}"
                              filteredValue="#{filtersList.filteredItems}"
                              emptyMessage="No users encontrados"
                              widgetVar="IE">
                     
-<!--                    <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
-                    <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />-->
+                    <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                    <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
                     
                     <f:facet name="header">
                         <p:outputPanel>
@@ -74,9 +74,16 @@
                     <p:column headerText="Fecha" footerText="Fecha" width="200" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
                         <h:outputText value="#{evaluacion.fecha}" />
                     </p:column>
+                    <p:column headerText="Fecha" footerText="Fecha" width="200" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
+                        <h:outputText value="#{evaluacion.tipoInstancia}" />
+                    </p:column>
                     <f:facet name="footer">
-                        
-                        <p:commandButton id="createButton" class="btn btn-default" update=":gestionarEvaluacionForm" value="#{bundle.Create}" action="#{instanciaEvaluacionController.setSelected(null)}">
+                        <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.deleteSelected()}" disabled="#{buttonBean.disabled || empty instanciaEvaluacionController.items}"/>
+                        <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":gestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty instanciaEvaluacionController.items}">
+                            <f:passThroughAttribute name="data-toggle" value="modal"/>
+                            <f:passThroughAttribute name="data-target" value="#ModalGestionarEvaluacion"/>
+                        </p:commandButton>
+                        <p:commandButton id="createButton" class="btn btn-default" update=":gestionarEvaluacionForm" value="#{bundle.Create}" action="#{instanciaEvaluacionController.setSelected(null)}" disabled="#{not (cursoController.selected.idCurso >0)}">
                             <f:passThroughAttribute name="data-toggle" value="modal"/>
                             <f:passThroughAttribute name="data-target" value="#ModalGestionarEvaluacion"/>
                         </p:commandButton>
@@ -85,7 +92,5 @@
             </p:panel>
         </h:form>
         <ui:include src="/DiegoPruebas/ModalGestionarEvaluacion.xhtml"/>
-        
     </h:body>
 </html>
-

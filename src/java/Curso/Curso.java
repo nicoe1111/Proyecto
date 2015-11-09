@@ -7,7 +7,7 @@ package Curso;
 
 import ClaseDada.ClaseDada;
 import Encuesta.Encuesta;
-import InstanciaEvaluacion.InstanciaEvaluacion;
+import InstanciaEvaluacion.Evaluacion;
 import Materia.Materia;
 import Rol.Alumno;
 import Rol.Docente;
@@ -56,7 +56,7 @@ public class Curso implements Serializable{
     private List<SalonCurso> salonesCurso= new ArrayList<>();
     
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<InstanciaEvaluacion> instanciasEvaluaciones= new ArrayList<>();
+    private List<Evaluacion> instanciasEvaluaciones= new ArrayList<>();
     
     @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
@@ -141,11 +141,11 @@ public class Curso implements Serializable{
         this.salonesCurso = salonesCurso;
     }
     
-    public List<InstanciaEvaluacion> getInstanciasEvaluaciones() {
+    public List<Evaluacion> getInstanciasEvaluaciones() {
         return instanciasEvaluaciones;
     }
     
-    public void setInstanciasEvaluaciones(List<InstanciaEvaluacion> instanciasEvaluaciones) {
+    public void setInstanciasEvaluaciones(List<Evaluacion> instanciasEvaluaciones) {
         this.instanciasEvaluaciones = instanciasEvaluaciones;
     }
     

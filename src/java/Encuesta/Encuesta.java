@@ -21,10 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-/**
- * Representa una cuesta de un Curso dado, contiene N Pregunta.
- * @author Matias
- */
 @Entity
 public class Encuesta implements Serializable{
     @Id

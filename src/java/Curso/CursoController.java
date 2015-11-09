@@ -103,11 +103,11 @@ public class CursoController implements Serializable {
     private MateriaController materiaController;
     
     private void beforeDelete(){
-        selected.setAlumnos(null);
+        selected.setAlumnos(new ArrayList());
         selected.setEncuesta(null);
-        selected.setSalonesCurso(null);
-        selected.setInstanciasEvaluaciones(null);
-        selected.setClasesDadas(null);
+        selected.setSalonesCurso(new ArrayList());
+        selected.setInstanciasEvaluaciones(new ArrayList());
+        selected.setClasesDadas(new ArrayList());
         selected.setDocente(null);
         selected.setMateria(null);
         ejbCurso.edit(selected);

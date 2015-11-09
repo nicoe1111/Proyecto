@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InstanciaEvaluacion;
 
 import Curso.Curso;
@@ -21,18 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-/**
- * Representa instancias de evaluacion de un Curso dado, y contiene N ResultadoInstancia.
- * Tiene como clases hijas Laboratorio, Parcial y Examen.
- * @author Matias
- */
 @Entity
-public class InstanciaEvaluacion implements Serializable {
+public class Evaluacion implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    protected int idInstanciaEvaluacion;
-    protected Date fecha;
-    protected String nombre;
+    private int idEvaluacion;
+    
+    private Date fecha;
+    private String nombre;
     
     @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_Curso")
@@ -43,21 +34,15 @@ public class InstanciaEvaluacion implements Serializable {
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++
 
-    public InstanciaEvaluacion() {
+    public Evaluacion() {
     }
 
-    public InstanciaEvaluacion(int idInstanciaEvaluacion, Date fecha, String nombre, Curso curso) {
-        this.idInstanciaEvaluacion = idInstanciaEvaluacion;
-        this.fecha = fecha;
-        this.nombre = nombre;
-        this.curso = curso;
-    }
     
 
 //++++++++++++++++++++SETTERS+++++++++++++++++++++++++++
 
-    public void setIdInstanciaEvaluacion(int idInstanciaEvaluacion) {
-        this.idInstanciaEvaluacion = idInstanciaEvaluacion;
+    public void setIdEvaluacion(int idEvaluacion) {
+        this.idEvaluacion = idEvaluacion;
     }
 
     public void setFecha(Date fecha) {
@@ -78,8 +63,8 @@ public class InstanciaEvaluacion implements Serializable {
 
 //++++++++++++++++++++GETTERS+++++++++++++++++++++++++++
 
-    public int getIdInstanciaEvaluacion() {
-        return idInstanciaEvaluacion;
+    public int getIdEvaluacion() {
+        return idEvaluacion;
     }
 
     public Date getFecha() {
@@ -98,5 +83,7 @@ public class InstanciaEvaluacion implements Serializable {
         return resultadosInstancias;
     }
     
-    
+    public String getTipoInstancia(){
+        return this.getClass().getName();
+    }
 }

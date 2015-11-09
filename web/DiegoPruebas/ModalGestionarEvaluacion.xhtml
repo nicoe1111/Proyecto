@@ -9,18 +9,18 @@
     
     <ui:composition>
         <div id="ModalGestionarEvaluacion" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div id="MODAL" class="modal-dialog">
                 <h:form id="gestionarEvaluacionForm">
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <c:choose>
-                                <c:when test="#{instanciaEvaluacionController.selected.idInstanciaEvaluacion > 0}">
-                                    <h4 class="modal-title">Editar Salon</h4>
+                                <c:when test="#{instanciaEvaluacionController.selected.idEvaluacion > 0}">
+                                    <h4 class="modal-title">Editar Evaluacion</h4>
                                 </c:when>
                                 <c:otherwise>
-                                    <h4 class="modal-title">Registrar Salon</h4>
+                                    <h4 class="modal-title">Registrar Evaluacion</h4>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -43,11 +43,11 @@
                         <div class="modal-footer">
                             <div class="col-sm-2">
                                 <c:choose>
-                                    <c:when test="#{instanciaEvaluacionController.selected.idInstanciaEvaluacion > 0}">
-                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{instanciaEvaluacionController.updateSelected()}"/>
+                                    <c:when test="#{instanciaEvaluacionController.selected.idEvaluacion > 0}">
+                                        <h:commandButton id="modaleEditButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{instanciaEvaluacionController.updateSelected()}"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{instanciaEvaluacionController.createSelected()}" disabled="#{empty salonController.selected}"/>
+                                        <h:commandButton id="modalCreateButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{instanciaEvaluacionController.createSelected()}" disabled="#{empty instanciaEvaluacionController.selected}"/>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

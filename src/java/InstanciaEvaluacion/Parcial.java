@@ -5,11 +5,10 @@
  */
 package InstanciaEvaluacion;
 
-/**
- * Representa un Parcial como tipo de InstanciaEvaluacion.
- * @author Matias
- */
-public class Parcial extends InstanciaEvaluacion{
+import javax.persistence.Entity;
+
+@Entity(name="Parcial")
+public class Parcial extends Evaluacion{
     private int porcentajeCurso;
 
     public int getPorcentajeCurso() {
@@ -19,7 +18,8 @@ public class Parcial extends InstanciaEvaluacion{
     public void setPorcentajeCurso(int porcentajeCurso) {
         this.porcentajeCurso = porcentajeCurso;
     }
-    
-    
-    
+
+    public Parcial() {
+    }
+
 }

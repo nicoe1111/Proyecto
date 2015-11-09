@@ -20,7 +20,7 @@ import javax.persistence.Query;
  * @author Agus
  */
 @Stateless
-public class InstanciaEvaluacionFacade extends AbstractFacade<InstanciaEvaluacion> {
+public class InstanciaEvaluacionFacade extends AbstractFacade<Evaluacion> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
 
@@ -30,11 +30,11 @@ public class InstanciaEvaluacionFacade extends AbstractFacade<InstanciaEvaluacio
     }
 
     public InstanciaEvaluacionFacade() {
-        super(InstanciaEvaluacion.class);
+        super(Evaluacion.class);
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<InstanciaEvaluacion> findInstanciaByCurso(int idCurso) {
+    public List<Evaluacion> findInstanciaByCurso(int idCurso) {
         Query query = em.createQuery("SELECT ie FROM InstanciaEvaluacion ie WHERE ie.curso.idCurso = :id");
         query.setParameter("id", idCurso);
         return query.getResultList();

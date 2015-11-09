@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -60,9 +61,11 @@ public class LoginMB implements Serializable{
             this.logged=true;
             setUsuarioActual();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Success" ,"Bien benido " + nick));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Success" ,"Bien benido " + nick));
             FacesContext.getCurrentInstance().getExternalContext().dispatch("index.xhtml");
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "No existe ese usuario"));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "No existe ese usuario"));
             FacesContext.getCurrentInstance().getExternalContext().dispatch("login.xhtml");
         }
     }
@@ -73,7 +76,7 @@ public class LoginMB implements Serializable{
         user.setSelected(u);///seteo usuario logeado del controlador
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        session.setAttribute("controladorUsuario2", user);
+        session.setAttribute("usuarioController2", user);
     }
     
     public String logout() {

@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ResultadoInstancia;
 
-import InstanciaEvaluacion.InstanciaEvaluacion;
+import InstanciaEvaluacion.Evaluacion;
 import Rol.Alumno;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -16,10 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-/**
- * Representa el resultado de una InstanciaEvaluacion para un Alumno dado.
- * @author Matias
- */
 @Entity
 public class ResultadoInstancia implements Serializable {
     @Id
@@ -29,8 +20,8 @@ public class ResultadoInstancia implements Serializable {
     private boolean isPresento;
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_InstanciaEvaluacion")
-    private InstanciaEvaluacion instanciaEvaluacion;
+    @JoinColumn(name = "id_Evaluacion")
+    private Evaluacion instanciaEvaluacion;
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_Alumno")
@@ -41,7 +32,7 @@ public class ResultadoInstancia implements Serializable {
     public ResultadoInstancia() {
     }
 
-    public ResultadoInstancia(int idResultadoInstancia, int calificacion, boolean isPresento, InstanciaEvaluacion instanciaEvaluacion, Alumno alumno) {
+    public ResultadoInstancia(int idResultadoInstancia, int calificacion, boolean isPresento, Evaluacion instanciaEvaluacion, Alumno alumno) {
         this.idResultadoInstancia = idResultadoInstancia;
         this.calificacion = calificacion;
         this.isPresento = isPresento;
@@ -63,7 +54,7 @@ public class ResultadoInstancia implements Serializable {
         this.isPresento = isPresento;
     }
 
-    public void setInstanciaEvaluacion(InstanciaEvaluacion instanciaEvaluacion) {
+    public void setInstanciaEvaluacion(Evaluacion instanciaEvaluacion) {
         this.instanciaEvaluacion = instanciaEvaluacion;
     }
 
@@ -85,7 +76,7 @@ public class ResultadoInstancia implements Serializable {
         return isPresento;
     }
 
-    public InstanciaEvaluacion getInstanciaEvaluacion() {
+    public Evaluacion getInstanciaEvaluacion() {
         return instanciaEvaluacion;
     }
 
