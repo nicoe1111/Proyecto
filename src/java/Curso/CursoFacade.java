@@ -42,6 +42,16 @@ public class CursoFacade extends AbstractFacade<Curso> {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursosSemestreNombreAnio(String semestrecurs, int aniocurs, String materiacurs) {
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio = :anio AND c.materia.nombre = :materia");
+        query.setParameter("semestre", semestrecurs);
+        query.setParameter("anio", aniocurs);
+        query.setParameter("materia", materiacurs);
+        List<Curso> users = query.getResultList();
+        return users;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Curso> getCursosSemestre(String semestre) {
         Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre");
         query.setParameter("semestre", semestre);

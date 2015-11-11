@@ -23,57 +23,56 @@
                                         <h:outputLabel class="control-label" value="Pregunta"/>
                                         <h:inputText class="form-control" value="#{preguntaController.selected.pregunta}"/>
                                     </div>
-
                                 </div>
                             </div>
                       <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                                <c:choose>
-                                                    <c:when test="#{preguntaController.selected.idPregunta > 0 }">
-                                                        <h:inputHidden value="#{preguntaController.selected.idPregunta}" />
-                                                        <h:commandButton action="#{preguntaController.updateSelected()}" value="Actualizar" styleClass="btn btn-default"/>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <h:commandLink action="#{preguntaController.createSelected()}" styleClass="btn btn-default">
-                                                            Crear
-                                                        </h:commandLink>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </div>
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <c:choose>
+                                        <c:when test="#{preguntaController.selected.idPregunta > 0 }">
+                                            <h:inputHidden value="#{preguntaController.selected.idPregunta}" />
+                                            <h:commandButton action="#{preguntaController.updateSelected()}" value="Actualizar" styleClass="btn btn-default"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h:commandLink action="#{preguntaController.createSelected()}"  styleClass="btn btn-default">
+                                                Crear
+                                            </h:commandLink>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
                          </div>
                     </div>
                     
                 </h:form>
                 <table class="table table-hover table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Pregunta</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <ui:repeat var="pregunta" value="#{preguntaController.items}">
-                                                <tr>
-                                                    <td>#{pregunta.pregunta}</td>
-                                                    <td>
-                                                        
-                                                        <h:form styleClass="text-center">
-                                                            <h:commandLink action="#{preguntaController.loadSelected(pregunta.idPregunta)}" styleClass="btn btn-primary btn-xs">
-                                                                Actualizar
-                                                            </h:commandLink>
-                                                        </h:form>
-                                                    </td>
-                                                    <td>
-                                                        <h:form styleClass="text-center">
-                                                            <h:commandLink action="#{preguntaController.delete(pregunta.idPregunta)}" styleClass="btn btn-warning btn-xs">
-                                                                Eliminar
-                                                            </h:commandLink>
-                                                        </h:form>
-                                                    </td>
-                                                </tr>
-                                            </ui:repeat>
-                                        </tbody>
-                                    </table>
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat var="pregunta" value="#{preguntaController.items}">
+                            <tr>
+                                <td>#{pregunta.pregunta}</td>
+                                <td>
+
+                                    <h:form styleClass="text-center">
+                                        <h:commandLink action="#{preguntaController.loadSelected(pregunta.idPregunta)}" styleClass="btn btn-primary btn-xs">
+                                            Actualizar
+                                        </h:commandLink>
+                                    </h:form>
+                                </td>
+                                <td>
+                                    <h:form styleClass="text-center">
+                                        <h:commandLink action="#{preguntaController.delete(pregunta.idPregunta)}" styleClass="btn btn-warning btn-xs">
+                                            Eliminar
+                                        </h:commandLink>
+                                    </h:form>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
             </ui:define>
          </ui:composition>
     </h:body>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestionar preguntas</title>
+    </h:head>
+    <body>
+        <ui:composition template="/index.xhtml">
+            <ui:define name="centro">
+                <f:event type="preRenderView" listener="#{respupreguntaControl.obtenerDatos}" />
+                <h:form id="idFormEncuesta" style="width:900px; margin: auto" styleClass="text-center">
+                    <h3 style="margin-top:0">Realizar encuesta</h3>
+                    <h:outputLabel class="control-label" value="Curso: #{respupreguntaControl.materia}"/> <br></br>
+                    <h:outputLabel class="control-label" value="Profesor: #{respupreguntaControl.profesor}"/>
+                <table class="table table-hover table-bordered">
+                    <tbody>
+                        <ui:repeat var="encuesta" value="#{respupreguntaControl.itemsEncuesta}">
+                            <tr>
+                                <td>#{encuesta.pregunta.pregunta}</td>
+                                <td>
+                                    <p:selectManyCheckbox id="puntaje" value="#{respupreguntaControl.selectedlistaRespPreguntas}" required="true" layout="grid" columns="5">
+                                        <f:selectItems value="#{respupreguntaControl.obtenerDatosChek(encuesta.idRespuestaPregunta)}"
+                                                       var="item" itemLabel="#{item.get(1)}" itemValue="#{item}" />
+                                    </p:selectManyCheckbox>  
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                 </table>
+                    <h:commandButton action="#{respupreguntaControl.realizarEncuesta}" value="Enviar" styleClass="btn btn-warning btn-xs" >
+                          
+                    </h:commandButton>
+                    <br></br> <br></br>
+                    <h:outputLabel class="label-danger" value="#{respupreguntaControl.mensaje}"/>
+              </h:form> 
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

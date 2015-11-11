@@ -6,8 +6,6 @@ import Rol.Administrador;
 import Rol.Administrativo;
 import Rol.Alumno;
 import Rol.Docente;
-import Rol.RolFacade;
-import Rol.TipoRol;
 import Usuario.util.JsfUtil;
 import Usuario.util.JsfUtil.PersistAction;
 import java.io.File;
@@ -49,8 +47,6 @@ public class UsuarioController implements Serializable {
     
     @EJB
     private UsuarioFacade ejbUsuario;
-    @EJB
-    private Rol.RolFacade ejbRol;
     
     private List<Usuario> items = null;
     private Usuario selected;    

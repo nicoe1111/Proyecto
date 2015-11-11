@@ -7,9 +7,9 @@ package Encuesta;
 
 import Curso.Curso;
 import Pregunta.Pregunta;
+import RespuestaPregunta.RespuestaPregunta;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,33 +17,33 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Encuesta implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idEncuesta;
-    private Date fecha;
+    private int fecha;
     
-    @OneToMany(mappedBy = "encuesta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
     private List<Pregunta> preguntas= new ArrayList<>();
     
-    @OneToOne(mappedBy = "encuesta")
-    @PrimaryKeyJoinColumn
-    private Curso curso;
+    @OneToMany(mappedBy = "encuesta", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Curso> cursos;
+    
+    @OneToMany(mappedBy = "encuesta", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<RespuestaPregunta> respPregunta;
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++
 
-    public Encuesta() {
-    }
+    public Encuesta() { }
 
-    public Encuesta(int idEncuesta, Date fecha, Curso curso) {
+    public Encuesta(int idEncuesta, int fecha, List<Curso> cursos) {
         this.idEncuesta = idEncuesta;
         this.fecha = fecha;
-        this.curso = curso;
+        this.cursos = cursos;
     }
     
 //+++++++++++++++++++++SETTERS++++++++++++++++++++++++++
@@ -52,7 +52,7 @@ public class Encuesta implements Serializable{
         this.idEncuesta = idEncuesta;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(int fecha) {
         this.fecha = fecha;
     }
 
@@ -60,8 +60,12 @@ public class Encuesta implements Serializable{
         this.preguntas = preguntas;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public void setRespPregunta(List<RespuestaPregunta> respPregunta) {
+        this.respPregunta = respPregunta;
     }
     
 //+++++++++++++++++++++GETTERS++++++++++++++++++++++++++
@@ -70,7 +74,7 @@ public class Encuesta implements Serializable{
         return idEncuesta;
     }
 
-    public Date getFecha() {
+    public int getFecha() {
         return fecha;
     }
 
@@ -78,8 +82,12 @@ public class Encuesta implements Serializable{
         return preguntas;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public List<RespuestaPregunta> getRespPregunta() {
+        return respPregunta;
     }
     
 }

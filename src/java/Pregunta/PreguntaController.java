@@ -13,8 +13,6 @@ public class PreguntaController implements Serializable{
     
     @EJB
     private PreguntaFacade ejbPregunta;
-    @EJB
-    private Rol.RolFacade ejbRol;
     private List<Pregunta> items = null;
     private Pregunta selected = null;
     

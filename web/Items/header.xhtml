@@ -30,9 +30,19 @@
                                 <li><h:link outcome="/Items/HeaderOptions/UIMensajes.xhtml" value="Elementos Enviados">
                                         <f:param name="vista" value="SALIDA"/>
                                     </h:link></li>
+                            </ul> 
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Perfil
+                                <span class="caret"></span>
+                            </a>  
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="/usuario/EditarPerfil.xhtml" value ="Editar Perfil"> 
+                                    </h:link></li>
+                                <li><h:link outcome="/Encuesta/ListarEncuestas.xhtml" value ="Realizar Encuesta"> 
+                                    </h:link></li>                                
                             </ul>
                         </li>
-                        <li><a href="/Proyecto/usuario/EditarPerfil.xhtml">Editar Perfil</a></li>
                         <li><a href="#">Ayuda</a></li>
                     </ul>
                     <form class="navbar-form navbar-right">

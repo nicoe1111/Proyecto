@@ -9,6 +9,7 @@ import ClaseDada.ClaseDada;
 import Encuesta.Encuesta;
 import InstanciaEvaluacion.Evaluacion;
 import Materia.Materia;
+import RespuestaPregunta.RespuestaPregunta;
 import Rol.Alumno;
 import Rol.Docente;
 import SalonCurso.SalonCurso;
@@ -26,8 +27,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.transaction.Transactional;
 
 @Entity
@@ -46,22 +45,25 @@ public class Curso implements Serializable{
     @JoinColumn(name = "id_docente")
     private Docente docente = new Docente();
     
-    @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST})
+    @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
     private List<Alumno> alumnos = new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ClaseDada> clasesDadas= new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<SalonCurso> salonesCurso= new ArrayList<>();
     
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Evaluacion> instanciasEvaluaciones= new ArrayList<>();
     
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idEncuesta")
     private Encuesta encuesta;
-    
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<RespuestaPregunta> respPregunta = new ArrayList<>();
+
     public Curso() {    }
     
     public Curso(int idCurso, int anio, Date FechaInicio, Materia materia, Docente docente, Encuesta encuesta) {
@@ -155,6 +157,14 @@ public class Curso implements Serializable{
     
     public void setEncuesta(Encuesta encuesta) {
         this.encuesta = encuesta;
+    }
+
+    public List<RespuestaPregunta> getRespPregunta() {
+        return respPregunta;
+    }
+
+    public void setRespPregunta(List<RespuestaPregunta> respPregunta) {
+        this.respPregunta = respPregunta;
     }
     
 }

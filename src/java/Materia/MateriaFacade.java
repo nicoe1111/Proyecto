@@ -43,4 +43,13 @@ public class MateriaFacade extends AbstractFacade<Materia> {
         return query.getResultList();
     }
     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Materia> findByNombreSemestre(String nombremat, String semestremat) {
+        Query query = em.createQuery("SELECT m FROM Materia m WHERE m.nombre = :nombre AND m.semestre = :semestre");
+        query.setParameter("nombre", nombremat);
+        query.setParameter("semestre", semestremat);
+        List<Materia> mats = query.getResultList();
+        return mats;
+    }
+    
 }
