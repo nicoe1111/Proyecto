@@ -6,6 +6,7 @@
 package InstanciaEvaluacion;
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity(name="Parcial")
 public class Parcial extends Evaluacion{

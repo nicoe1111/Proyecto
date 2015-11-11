@@ -27,11 +27,11 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <p:outputLabel value="Nombre" />
-                                <p:inputText value="#{instanciaEvaluacionController.selected.nombre}" />
+                                <p:inputText value="#{instanciaEvaluacionController.nombreEv}" />
                             </div>
                             <div class="form-group">
                                 <p:outputLabel value="Fecha (dd/MM/yyyy)"/>
-                                <p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy" value="#{instanciaEvaluacionController.selected.fecha}" mask="true"/>
+                                <p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy" value="#{instanciaEvaluacionController.fechEv}" mask="true"/>
                             </div>
                             <div class="form-group">
                                 <p:outputLabel value="Seleccione una tipo de instancia:" />
@@ -47,7 +47,7 @@
                                         <h:commandButton id="modaleEditButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{instanciaEvaluacionController.updateSelected()}"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <h:commandButton id="modalCreateButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{instanciaEvaluacionController.createSelected()}" disabled="#{empty instanciaEvaluacionController.selected}"/>
+                                        <h:commandButton id="modalCreateButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{instanciaEvaluacionController.createSelected()}"/>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

@@ -15,12 +15,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author Agus
- */
 @Stateless
-public class InstanciaEvaluacionFacade extends AbstractFacade<Evaluacion> {
+public class EvaluacionFacade extends AbstractFacade<Evaluacion> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
 
@@ -29,13 +25,13 @@ public class InstanciaEvaluacionFacade extends AbstractFacade<Evaluacion> {
         return em;
     }
 
-    public InstanciaEvaluacionFacade() {
+    public EvaluacionFacade() {
         super(Evaluacion.class);
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Evaluacion> findInstanciaByCurso(int idCurso) {
-        Query query = em.createQuery("SELECT ie FROM InstanciaEvaluacion ie WHERE ie.curso.idCurso = :id");
+        Query query = em.createQuery("SELECT e FROM Evaluacion e WHERE e.curso.idCurso = :id");
         query.setParameter("id", idCurso);
         return query.getResultList();
     }

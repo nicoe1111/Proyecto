@@ -18,7 +18,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 @Named("mailBean")
 @ViewScoped

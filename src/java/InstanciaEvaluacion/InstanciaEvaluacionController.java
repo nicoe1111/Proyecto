@@ -1,5 +1,9 @@
 package InstanciaEvaluacion;
 
+import Curso.Curso;
+import Curso.CursoController;
+import Curso.CursoFacade;
+import InterfazUtil.SemestreAnioController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,17 +19,36 @@ import javax.inject.Inject;
 public class InstanciaEvaluacionController implements Serializable{
     
     @EJB
-    private InstanciaEvaluacionFacade ejbInstancia;
+    private EvaluacionFacade ejbInstancia;
+    
+    @EJB
+    private CursoFacade ejbCurso;
     
     private List<Evaluacion> items=new ArrayList();
     private Evaluacion selected;
     
-//    private String nombreEv;
-//    private Date fechEv;
+    private String nombreEv;
+    private Date fechEv;
+    
+    public String getNombreEv() {
+        return nombreEv;
+    }
+    
+    public void setNombreEv(String nombreEv) {
+        this.nombreEv = nombreEv;
+    }
+    
+    public Date getFechEv() {
+        return fechEv;
+    }
+    
+    public void setFechEv(Date fechEv) {
+        this.fechEv = fechEv;
+    }
     
     @PostConstruct
     private void init(){
-        items=ejbInstancia.findAll();
+        initItems();
     }
     
     public List<Evaluacion> getItems() {
@@ -37,9 +60,6 @@ public class InstanciaEvaluacionController implements Serializable{
     }
     
     public Evaluacion getSelected() {
-        if(selected==null){
-            selected= new Evaluacion();
-        }
         return selected;
     }
     
@@ -48,56 +68,41 @@ public class InstanciaEvaluacionController implements Serializable{
     }
     
     @Inject
-    private Curso.CursoController cursoController;
+    private CursoController cursoController;
     
     @Inject
-    private InterfazUtil.SemestreAnioController comboBoxController;
+    private SemestreAnioController comboBoxController;
     
     public void cargarInstanciasDelCurso(){
         items = ejbInstancia.findInstanciaByCurso(cursoController.getSelected().getIdCurso());
     }
     
-//    public void prepareToCreate(){
-//        selected = null;
-//        nombreEv = null;
-//        fechEv = null;
-//        comboBoxController.setTipoInstanciaSelected(null);
-//    }
-//    
-//    public void prepareToUpdate(){
-//        nombreEv = selected.getNombre();
-//        fechEv = selected.getFecha();
-//        comboBoxController.setTipoInstanciaSelected(null);
-//    }
+    public void prepareToCreate(){
+        selected = null;
+        nombreEv = null;
+        fechEv = null;
+        comboBoxController.setTipoInstanciaSelected(null);
+    }
     
     public void createSelected(){
         InicializarSelectedInstanciaChild();
-//        selected.setFecha(fechEv);
-//        selected.setNombre(nombreEv);
-        selected.setCurso(cursoController.getSelected());
+        selected.setFecha(fechEv);
+        selected.setNombre(nombreEv);
+        Curso c = cursoController.getSelected();
+        selected.setCurso(c);
         ejbInstancia.edit(selected);
-    }
-    
-    public void updateSelected(){
-        InicializarSelectedInstanciaChild();
-//        selected.setFecha(fechEv);
-//        selected.setNombre(nombreEv);
-        selected.setCurso(cursoController.getSelected());
-        ejbInstancia.edit(selected);
+        updateItems();
     }
     
     private void InicializarSelectedInstanciaChild(){
         if(comboBoxController.getTipoInstanciaSelected().equals("Examen")){
-//            selected = new Examen();
-            selected= (Examen)selected;
+            selected = new Examen();
         }
         if(comboBoxController.getTipoInstanciaSelected().equals("Laboratorio")){
-//            selected = new Laboratorio();
-            selected= (Laboratorio)selected;
+            selected = new Laboratorio();
         }
         if(comboBoxController.getTipoInstanciaSelected().equals("Parcial")){
-//            selected = new Parcial();
-            selected= (Parcial)selected;
+            selected = new Parcial();
         }
     }
     
@@ -109,17 +114,19 @@ public class InstanciaEvaluacionController implements Serializable{
     }
     
     private void beforeDelete(){
+        selected.getCurso().getInstanciasEvaluaciones().remove(selected);
         selected.setCurso(null);
+        
         selected.setResultadosInstancias(new ArrayList());
         ejbInstancia.edit(selected);
     }
     
-    private void updateItems(){
+    private void initItems(){
         items=ejbInstancia.findAll();
     }
     
-     public void cargarControllersSelecteds(){
-        comboBoxController.setTipoInstanciaSelected(selected.getClass().toString());
-        //cursoController.setSelected(selected.getCurso());
+    private void updateItems(){
+        cursoController.setSelected(ejbCurso.find(cursoController.getSelected().getIdCurso()));
+        items=cursoController.getSelected().getInstanciasEvaluaciones();
     }
 }
