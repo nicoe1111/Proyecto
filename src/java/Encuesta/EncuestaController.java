@@ -209,13 +209,13 @@ public class EncuestaController implements Serializable{
             UsuarioFacade ejbUsuario;
     public void cargarAlumnosCurso(){
         Usuario u1 = new Usuario();
-        u1.setCedula(555);
-        u1.setNick("555");
-        u1.setPass("555");
+        u1.setCedula(888);
+        u1.setNick("888");
+        u1.setPass("888");
         Usuario u2 = new Usuario();
-        u2.setCedula(666);
-        u1.setNick("666");
-        u1.setPass("666");
+        u2.setCedula(999);
+        u1.setNick("999");
+        u1.setPass("999");
         List<TipoRol> lista1= new ArrayList<>();
         List<TipoRol> lista2= new ArrayList<>();
         Alumno a1 = new Alumno();
