@@ -23,4 +23,17 @@ public class FiltersList implements Serializable{
     public void setFilteredItems(List<?> filteredItems) {
         this.filteredItems = filteredItems;
     }
+    
+    
+    //en caso de 2 tablas
+    private List<?> filteredItems2;
+
+    public List<?> getFilteredItems2() {
+        return filteredItems2;
+    }
+
+    public void setFilteredItems2(List<?> filteredItems2) {
+        this.filteredItems2 = filteredItems2;
+    }
+    
 }

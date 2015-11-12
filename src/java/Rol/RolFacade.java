@@ -47,4 +47,13 @@ public class RolFacade extends AbstractFacade<TipoRol> {
         List<? extends TipoRol> docentes =  query.getResultList();
         return  (List<Docente>)docentes;
     }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Alumno> getAlumnos() {
+        Query query = em.createQuery("SELECT r FROM TipoRol r WHERE TYPE(r) = :tipo");
+        query.setParameter("tipo", Alumno.class);
+        List<? extends TipoRol> alumnos =  query.getResultList();
+        return  (List<Alumno>)alumnos;
+    }
+    
 }

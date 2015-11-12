@@ -5,6 +5,7 @@
  */
 package Usuario;
 
+import Rol.Alumno;
 import Rol.Docente;
 import Rol.TipoRol;
 import java.io.Serializable;
@@ -276,6 +277,13 @@ public class Usuario implements Serializable {
     public Docente getRolDocente(){
         for(TipoRol rol:roles){
             if(rol instanceof Docente) return (Docente)rol;
+        }
+        return null;
+    }
+    
+    public Alumno getRolAlumno(){
+        for(TipoRol rol:roles){
+            if(rol instanceof Alumno) return (Alumno)rol;
         }
         return null;
     }
