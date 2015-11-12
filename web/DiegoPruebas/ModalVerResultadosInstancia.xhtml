@@ -20,25 +20,13 @@
                         <div class="modal-body">
                             <p:panel header="Listar Resultados de #{instanciaEvaluacionController.selected.curso.materia.nombre} #{instanciaEvaluacionController.selected.curso.anio}">
                                 <p:dataTable id="datalist" var="resultado" value="#{resultadosEvaluacionController.items}"
-                                             selection="#{resultadosEvaluacionController.selected}"
-                                             scrollable="true" 
-                                             rowKey="#{resultado.idResultadoInstancia}"
-                                             filteredValue="#{filtersList.filteredItems}"
-                                             emptyMessage="No alumnos encontrados"
-                                             widgetVar="RE">
+                                             scrollable="true" emptyMessage="No alumnos encontrados" >
                                     
-                                    <f:facet name="header">
-                                        <p:outputPanel>
-                                            <h:outputText value="Search all fields:" />
-                                            <p:inputText id="globalFilter" onkeyup="PF('RE').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                        </p:outputPanel>
-                                    </f:facet>
-                                    
-                                    <p:column headerText="Alumno" footerText="Alumno" width="200" filterStyle="display:none" filterBy="usuario.nombre" filterMatchMode="contains" sortBy="#{resultado.alumno.usuario.nombre}">
-                                        <h:outputText value="#{resultado.alumno.usuario.nombre}"/>
+                                    <p:column headerText="Alumno" footerText="Alumno" width="200">
+                                        <h:outputText value="#{resultado.alumno.usuario.primerNombre}"/>
                                     </p:column>
-                                    <p:column headerText="Resultado" footerText="Resultado" width="200" filterStyle="display:none" filterBy="calificacion" filterMatchMode="contains" sortBy="#{resultado.calificacion}">
-                                        <h:outputText value="#{resultado.calificacion}" />
+                                    <p:column headerText="Resultado" footerText="Resultado" width="200">
+                                        <h:inputText value="#{resultado.calificacion}" />
                                     </p:column>
                                 </p:dataTable>
                             </p:panel>

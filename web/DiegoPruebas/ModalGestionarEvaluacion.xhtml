@@ -15,14 +15,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <c:choose>
-                                <c:when test="#{instanciaEvaluacionController.selected.idEvaluacion > 0}">
-                                    <h4 class="modal-title">Editar Evaluacion</h4>
-                                </c:when>
-                                <c:otherwise>
-                                    <h4 class="modal-title">Registrar Evaluacion</h4>
-                                </c:otherwise>
-                            </c:choose>
+                            <h4 class="modal-title">Registrar Evaluacion</h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
@@ -42,14 +35,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="col-sm-2">
-                                <c:choose>
-                                    <c:when test="#{instanciaEvaluacionController.selected.idEvaluacion > 0}">
-                                        <h:commandButton id="modaleEditButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{instanciaEvaluacionController.updateSelected()}"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <h:commandButton id="modalCreateButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{instanciaEvaluacionController.createSelected()}"/>
-                                    </c:otherwise>
-                                </c:choose>
+                                <h:commandButton id="modalCreateButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{instanciaEvaluacionController.createSelected()}"/>
                             </div>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>

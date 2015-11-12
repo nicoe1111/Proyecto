@@ -4,6 +4,8 @@ import Curso.Curso;
 import Curso.CursoController;
 import Curso.CursoFacade;
 import InterfazUtil.SemestreAnioController;
+import ResultadoInstancia.ResultadoInstancia;
+import Rol.Alumno;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
