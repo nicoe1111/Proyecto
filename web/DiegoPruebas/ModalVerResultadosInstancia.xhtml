@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:composition>
+        <div id="ModalVerResultadosEvaluacion" class="modal fade" role="dialog">
+            <div id="MODAL" class="modal-dialog">
+                <h:form id="formResultadosEvaluacion">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ver Resultados Evaluacion</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:panel header="Listar Resultados de #{instanciaEvaluacionController.selected.curso.materia.nombre} #{instanciaEvaluacionController.selected.curso.anio}">
+                                <p:dataTable id="datalist" var="resultado" value="#{resultadosEvaluacionController.items}"
+                                             scrollable="true" emptyMessage="No alumnos encontrados" >
+                                    
+                                    <p:column headerText="Alumno" footerText="Alumno" width="200">
+                                        <h:outputText value="#{resultado.alumno.usuario.primerNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Resultado" footerText="Resultado" width="200">
+                                        <h:inputText value="#{resultado.calificacion}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-2">
+                                <h:commandButton id="modalGuardarButton" class="btn btn-default" value="Guardar Cambios" actionListener="#{resultadosEvaluacionController.guardar()}"/>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:composition>
+</html>
+

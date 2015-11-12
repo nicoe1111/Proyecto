@@ -1,6 +1,8 @@
 package Usuario;
 
+import Rol.Alumno;
 import Rol.RolFacade;
+import Rol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,9 @@ public class UsuarioController2 implements Serializable{
     private List<Usuario> items = null;
     private Usuario selected = null;
     
+    
+    
     public List<Usuario> getItems() {
-        items = ejbUsuario.findAll();
         return items;
     }
     
@@ -111,6 +114,14 @@ public class UsuarioController2 implements Serializable{
     
     public void loadSelected(int id){
         selected=ejbUsuario.find(id);
+    }
+    
+    public void loadAlumnos(){
+        items=new ArrayList();
+        List<Alumno> alumnosFacade = ejbRol.getAlumnos();
+        for(TipoRol alumno : alumnosFacade){
+                items.add(alumno.getUsuario());
+        }
     }
     
 }
