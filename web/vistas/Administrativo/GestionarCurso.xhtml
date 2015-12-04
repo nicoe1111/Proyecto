@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <ui:composition template="/index.xhtml">
+    <ui:composition template="../index.xhtml">
         <ui:define name="centro">
                 <h:form id="GestionarCursoForm">
                     <p:panel header="Gestionar Curso">
@@ -54,7 +54,7 @@
                         </p:dataTable>
                     </p:panel>
                 </h:form>
-                <ui:include src="/modals/ModalGestionarCurso.xhtml"/>
+                <ui:include src="modals/ModalGestionarCurso.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>

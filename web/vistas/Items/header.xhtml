@@ -23,26 +23,16 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><h:link outcome="/Items/HeaderOptions/UIMensajes.xhtml" value="Bandeja de Entrada">
+                                <li><h:link outcome="/vistas/UIMensajes.xhtml" value="Bandeja de Entrada">
                                         <span class="badge pull-right">42</span>
                                         <f:param name="vista" value="ENTRADA"/>
                                     </h:link></li>
-                                <li><h:link outcome="/Items/HeaderOptions/UIMensajes.xhtml" value="Elementos Enviados">
+                                <li><h:link outcome="/vistas/UIMensajes.xhtml" value="Elementos Enviados">
                                         <f:param name="vista" value="SALIDA"/>
                                     </h:link></li>
-                            </ul> 
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Perfil
-                                <span class="caret"></span>
-                            </a>  
-                            <ul class="dropdown-menu">
-                                <li><h:link outcome="/usuario/EditarPerfil.xhtml" value ="Editar Perfil"> 
-                                    </h:link></li>
-                                <li><h:link outcome="/Encuesta/ListarEncuestas.xhtml" value ="Realizar Encuesta"> 
-                                    </h:link></li>                                
                             </ul>
                         </li>
+                        <li><h:link outcome="/vistas/EditarPerfil.xhtml" value="Editar Perfil"/></li>
                         <li><a href="#">Ayuda</a></li>
                     </ul>
                     <form class="navbar-form navbar-right">

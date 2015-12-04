@@ -14,7 +14,7 @@
             <h:outputScript library="js" name="jsfcrud.js"/>
             <!--<h:outputScript library="js" name="bootstrap.js" />-->
             <h:outputScript library="js" name="bootstrap.min.js" />
-            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <!--<h:outputStylesheet library="css" name="jsfcrud.css"/>-->
             <h:outputStylesheet name="css/bootstrap.css" />
             <h:outputStylesheet name="css/bootstrap.min.css" />
             <h:outputStylesheet name="css/custom.css" />
@@ -33,7 +33,7 @@
             
             <p:layout fullPage="true">
                 <p:layoutUnit style="background-color:#FFFFFF" position="north" size="75" resizable="false" closable="false" collapsible="false" gutter="0">
-                    <ui:include src="/Items/header.xhtml"/>
+                    <ui:include src="Items/header.xhtml"/>
                 </p:layoutUnit>
                 
                 <div align="center">
@@ -50,13 +50,16 @@
                     </p:layoutUnit>
                 </div>
                 <p:layoutUnit position="west" size="175" collapsible="true" gutter="0">
-                    <ui:include src="/Items/Menu.xhtml"/>
+                    <ui:include src="Items/Menu.xhtml"/>
                 </p:layoutUnit>
                 
                 <p:layoutUnit id="centroID" position="center" style="element.style{z-index: initial;}"> 
                     <p:growl id="growl" life="3000" />
                     <ui:insert name="centro"/>
                 </p:layoutUnit>
+                
+                <!--<ui:include src="/modals/ModalGestionarUsuario.xhtml"/>-->
+                
             </p:layout>
         </h:body>
     </f:view>

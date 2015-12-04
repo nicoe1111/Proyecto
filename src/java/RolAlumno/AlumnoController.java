@@ -13,10 +13,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 @Named("alumnoController")
 @ViewScoped
@@ -30,9 +34,21 @@ public class AlumnoController implements Serializable{
     
     private Curso cursoSelected;
     
-    public void cargarResultadosDeEvaluacion(){
+    
+    public void cargarAlumnosCurso() {
         cursoSelected = cursoController.getSelected();
-        items = cursoSelected.getAlumnos();
+//        Session session = factory.openSession();  
+//        UserTransaction userTxn = sessionContext.getUserTransaction();
+//        
+//        List<Alumno> alumnos=null;
+//        try {
+//            userTxn.begin();
+//            alumnos=cursoSelected.getAlumnos();
+//            userTxn.commit();
+//        } catch (Throwable e) {
+//            userTxn.rollback();
+//        }
+         items =cursoSelected.getAlumnos();
     }
     
     public Alumno getSelected() {

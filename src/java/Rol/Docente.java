@@ -15,7 +15,6 @@ public class Docente extends TipoRol{
     @OneToMany(mappedBy = "docente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Curso> cursos = new ArrayList<>();
 
-    @Transactional
     public List<Curso> getCursos() {
         return cursos;
     }

@@ -16,14 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-/**
- * Representa las asistencias de una ClaseDada por un Alumno en particular
- * @author Matías Quintana
- */
 @Entity
 public class Asistencia implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idAsistencia;
     private boolean isPresente;
     

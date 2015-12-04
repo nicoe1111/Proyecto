@@ -19,9 +19,9 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Alumno extends TipoRol{
-
-    @ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Curso> cursos = new ArrayList<>();
+    
+    @ManyToMany(mappedBy="alumnos")
+    private List<Curso> cursos;
     
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Asistencia> asistencias= new ArrayList<>();

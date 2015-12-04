@@ -48,13 +48,13 @@
                             <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
                             <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
                             <p:ajax listener="#{usuarioController2.loadAlumnos()}" update=":GestionarAlumnosForm"/>
-                            <p:ajax listener="#{alumnoController.cargarResultadosDeEvaluacion()}"/>
+                            <p:ajax listener="#{alumnoController.cargarAlumnosCurso()}"/>
                         </p:selectOneMenu><br/>
                     </p:column>
                         
                 </p:row>
             </p:panelGrid>
-            <p:commandButton value="ver Alumnos" update=":GestionarAlumnosForm" actionListener="#{alumnoController.cargarResultadosDeEvaluacion()}" action="#{usuarioController2.loadAlumnos()}"/>
+            <p:commandButton value="ver Alumnos" update=":GestionarAlumnosForm" actionListener="#{alumnoController.cargarAlumnosCurso()}" action="#{usuarioController2.loadAlumnos()}"/>
         </h:form>
             
         <h:form id="GestionarAlumnosForm">
