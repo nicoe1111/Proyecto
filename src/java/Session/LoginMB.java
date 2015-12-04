@@ -71,7 +71,7 @@ public class LoginMB implements Serializable{
             setUsuarioActual();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bien benido " + nick, "Success"));
 //            FacesContext.getCurrentInstance().getExternalContext().dispatch("index.xhtml");
-            return "vistas/index.xhtml";
+            return "/vistas/index.xhtml";
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No existe ese usuario", "Error"));
 //            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "No existe ese usuario"));

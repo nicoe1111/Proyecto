@@ -5,6 +5,8 @@
  */
 package Usuario;
 
+import Rol.Administrador;
+import Rol.Administrativo;
 import Rol.Alumno;
 import Rol.Docente;
 import Rol.TipoRol;
@@ -286,5 +288,23 @@ public class Usuario implements Serializable {
             if(rol instanceof Alumno) return (Alumno)rol;
         }
         return null;
+    }
+    
+    public boolean hasRol(String rolStr){
+        for(TipoRol rol:roles){
+            if(rolStr=="Alumno"){
+                if(rol instanceof Alumno) return true;
+            }
+            if(rolStr=="Docente"){
+                if(rol instanceof Docente) return true;
+            }
+            if(rolStr=="Administrativo"){
+                if(rol instanceof Administrativo) return true;
+            }
+            if(rolStr=="Administrador"){
+                if(rol instanceof Administrador) return true;
+            }
+        }
+        return false;
     }
 }
