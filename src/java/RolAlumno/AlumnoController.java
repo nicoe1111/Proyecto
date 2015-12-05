@@ -3,6 +3,7 @@ package RolAlumno;
 import Curso.Curso;
 import Curso.CursoController;
 import Curso.CursoFacade;
+import InterfazUtil.PassThroughBean;
 import Rol.Alumno;
 import RolDocente.*;
 import Rol.Docente;
@@ -29,25 +30,24 @@ public class AlumnoController implements Serializable{
     @Inject
     private CursoController cursoController;
     
+    @Inject
+    private PassThroughBean passThroughBean;
+    
     private List<Alumno> items = null;
     private Alumno selected = null;
     
     private Curso cursoSelected;
     
+    @EJB
+    RolFacade ejbRol;
+    
+    @PostConstruct
+    private void init(){
+        items = ejbRol.getAlumnos();
+    }
     
     public void cargarAlumnosCurso() {
         cursoSelected = cursoController.getSelected();
-//        Session session = factory.openSession();  
-//        UserTransaction userTxn = sessionContext.getUserTransaction();
-//        
-//        List<Alumno> alumnos=null;
-//        try {
-//            userTxn.begin();
-//            alumnos=cursoSelected.getAlumnos();
-//            userTxn.commit();
-//        } catch (Throwable e) {
-//            userTxn.rollback();
-//        }
          items =cursoSelected.getAlumnos();
     }
     
@@ -99,5 +99,16 @@ public class AlumnoController implements Serializable{
             }
         }
         return false;
+    }
+    
+    public String passThroughSelected(){
+        List<Alumno> lista = new ArrayList<>();
+        lista.add(selected);
+        passThroughBean.setItems(lista);
+        return "";
+    }
+    
+    public void getPassedAttrb(){
+        selected = (Alumno) passThroughBean.getItems().get(0);
     }
 }

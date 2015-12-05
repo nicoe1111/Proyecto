@@ -28,12 +28,6 @@ public class MensajeController implements Serializable{
     
     private Usuario UserLogged =null;
 
-    
-    
-//    public void sendSelected(){
-//        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("selected", selected);
-//    selected = (Mensaje) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("selected");
-//
     @PostConstruct
     public void init() {
         UserLogged = getUserLoged();
@@ -68,28 +62,11 @@ public class MensajeController implements Serializable{
         obtenerParameterOnItems();
     }
     
-    public void deleteSelected() {
-        ejbMensaje.remove(selected);
-        updateItems();
-        selected = null;
-    }
-    
-    public void delete(int id) {
-        Mensaje u = ejbMensaje.find(id);
-        ejbMensaje.remove(u);
-        updateItems();
-        selected = null;
-    }
-    
     public void createSelected(){
         selected.setFecha(new Date());
         ejbMensaje.create(selected);
         obtenerParameterOnItems();
         selected = new Mensaje();
-    }
-    
-    private void updateItems(){
-        items=ejbMensaje.findAll();
     }
     
     public String rowColor(Mensaje msj){
@@ -142,5 +119,4 @@ public class MensajeController implements Serializable{
     public int getMensajesSinLeer(){
         return ejbMensaje.getCauntMensajesRecividosSinLeer(UserLogged.getNick());
     }
-    
 }
