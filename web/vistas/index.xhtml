@@ -14,7 +14,7 @@
             <h:outputScript library="js" name="jsfcrud.js"/>
             <!--<h:outputScript library="js" name="bootstrap.js" />-->
             <h:outputScript library="js" name="bootstrap.min.js" />
-            <!--<h:outputStylesheet library="css" name="jsfcrud.css"/>-->
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
             <h:outputStylesheet name="css/bootstrap.css" />
             <h:outputStylesheet name="css/bootstrap.min.css" />
             <h:outputStylesheet name="css/custom.css" />
@@ -32,7 +32,7 @@
         <h:body onload="init()">
             
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" size="75" gutter="0">
+                <p:layoutUnit id="headerID" position="north" size="75" gutter="0">
                     <ui:include src="Items/header.xhtml"/>
                 </p:layoutUnit>
                 
@@ -49,7 +49,7 @@
                         </p:outputLabel>
                     </p:layoutUnit>
                 </div>
-                <p:layoutUnit position="west" size="200" header="Menu" collapsible="true">
+                <p:layoutUnit position="west" size="200" header="Menu">
                     <ui:include src="Items/Menu.xhtml"/>
                 </p:layoutUnit>
                 

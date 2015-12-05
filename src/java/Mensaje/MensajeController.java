@@ -36,8 +36,8 @@ public class MensajeController implements Serializable{
 //
     @PostConstruct
     public void init() {
-        //obtenerParameterOnItems();
         UserLogged = getUserLoged();
+        obtenerParameterOnItems();
     }
     
     public List<Mensaje> getItems() {

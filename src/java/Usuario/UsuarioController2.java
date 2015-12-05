@@ -6,6 +6,7 @@ import Rol.TipoRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -31,7 +32,7 @@ public class UsuarioController2 implements Serializable{
         List<Usuario> users = ejbUsuario.findAll();
         List<String> nicks=new ArrayList<>();
         for(Usuario u:users){
-            if(u.getNick().toLowerCase().startsWith(query)){
+            if(u.getNick().toLowerCase().startsWith(query) || u.getNick().toUpperCase().startsWith(query)){
                 nicks.add(u.getNick());
             }
         }
@@ -42,7 +43,7 @@ public class UsuarioController2 implements Serializable{
         List<String> datos = obtenerNicksNobresConcatenados();
         List<String> result= new ArrayList<>();
         for(String dato : datos){
-        if(dato.toLowerCase().startsWith(query)){
+        if(dato.toLowerCase().startsWith(query) || dato.toUpperCase().startsWith(query)){
                 result.add(dato);
             }
         }
