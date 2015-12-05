@@ -306,4 +306,20 @@ public class Usuario implements Serializable {
         }
         return false;
     }
+    
+    public String getRolesString(){
+        String result = "";
+        int i=0;
+        for(TipoRol rol:roles){
+            if(rol instanceof Alumno) result += "Alumno" ;
+            else if(rol instanceof Docente) result += "Docente";
+            else if(rol instanceof Administrativo) result += "Administrativo";
+            else if(rol instanceof Administrador) result += "Administrador";
+            i++;
+            if(i>roles.size()){
+                result += ", ";
+            }
+        }
+        return result;
+    }
 }
