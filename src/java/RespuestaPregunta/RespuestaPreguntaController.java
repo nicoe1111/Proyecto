@@ -294,7 +294,7 @@ public class RespuestaPreguntaController implements Serializable{
     LoginMB login;
     public void getUserSession(){
         userLog = new Usuario();
-        userLog = login.getUserSession();
+        userLog = login.getUserLoged();
     }
     
     public List<Encuesta> obtenerEncuesta(){
