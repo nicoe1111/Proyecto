@@ -32,11 +32,17 @@ public class MensajeFacade extends AbstractFacade<Mensaje> {
         return msjs;
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Mensaje> getMensajesRecividos(String para) {
         Query query = em.createQuery("SELECT m FROM Mensaje m WHERE m.para = :para");
         query.setParameter("para", para);
         List<Mensaje> msjs = query.getResultList();
         return msjs;
+    }
+    
+    public int getCauntMensajesRecividosSinLeer(String para) {
+        Query query = em.createQuery("SELECT m FROM Mensaje m WHERE m.para = :para AND m.readed = false");
+        query.setParameter("para", para);
+        List<Mensaje> msjs = query.getResultList();
+        return msjs.size();
     }
 }

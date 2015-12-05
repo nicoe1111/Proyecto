@@ -26,6 +26,10 @@ public class MensajeController implements Serializable{
     private List<Mensaje> items = new ArrayList<>();
     private Mensaje selected = new Mensaje();
     
+    private Usuario UserLogged =null;
+
+    
+    
 //    public void sendSelected(){
 //        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("selected", selected);
 //    selected = (Mensaje) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("selected");
@@ -33,6 +37,7 @@ public class MensajeController implements Serializable{
     @PostConstruct
     public void init() {
         //obtenerParameterOnItems();
+        UserLogged = getUserLoged();
     }
     
     public List<Mensaje> getItems() {
@@ -98,18 +103,18 @@ public class MensajeController implements Serializable{
     
     public void prepareToCreate(){
         selected = new Mensaje();
-//        selected.setDesde(loginMB.getUserSession().getNick());
+        selected.setDesde(UserLogged.getNick());
     }
     
     
     public void obtenerParameterOnItems(){
         
-//        if(bandejaDeSalida()){
-//            items=ejbMensaje.getMensajesEnviados(loginMB.getUserSession().getNick());
-//        }else{
-//            items=ejbMensaje.getMensajesRecividos(loginMB.getUserSession().getNick());
-//        }
-        items=ejbMensaje.findAll();
+        if(bandejaDeSalida()){
+            items=ejbMensaje.getMensajesEnviados(UserLogged.getNick());
+        }else{
+            items=ejbMensaje.getMensajesRecividos(UserLogged.getNick());
+        }
+//        items=ejbMensaje.findAll();
         
     }
     
@@ -120,11 +125,11 @@ public class MensajeController implements Serializable{
         return (vista!=null && vista.equals("SALIDA"));
     }
     
-    public Usuario getUserSession(){
+    public Usuario getUserLoged(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        UsuarioController2 uc = (UsuarioController2) session.getAttribute("usuarioController2");
-        return uc.getSelected();
+        LoginMB uc = (LoginMB) session.getAttribute("login");
+        return uc.getUserLoged();
     }
     
     public void responder(){
@@ -134,6 +139,8 @@ public class MensajeController implements Serializable{
         selected=nuevo;
     }
     
-//    @Inject
-//    LoginMB loginMB;
+    public int getMensajesSinLeer(){
+        return ejbMensaje.getCauntMensajesRecividosSinLeer(UserLogged.getNick());
+    }
+    
 }

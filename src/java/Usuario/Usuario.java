@@ -292,18 +292,17 @@ public class Usuario implements Serializable {
     
     public boolean hasRol(String rolStr){
         for(TipoRol rol:roles){
-            if(rolStr=="Alumno"){
+            if(rolStr.equals("Alumno")){
                 if(rol instanceof Alumno) return true;
             }
-            if(rolStr=="Docente"){
+            if(rolStr.equals("Docente")){
                 if(rol instanceof Docente) return true;
             }
-            if(rolStr=="Administrativo"){
+            if(rolStr.equals("Administrativo")){
                 if(rol instanceof Administrativo) return true;
+                
             }
-            if(rolStr=="Administrador"){
-                if(rol instanceof Administrador) return true;
-            }
+            if(rol instanceof Administrador) return true;
         }
         return false;
     }
