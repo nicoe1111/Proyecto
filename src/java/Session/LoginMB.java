@@ -6,25 +6,17 @@
 package Session;
 
 import Usuario.Usuario;
-import Usuario.UsuarioController;
 import Usuario.UsuarioController2;
 import Usuario.UsuarioFacade;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Map;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.primefaces.context.RequestContext;
 
-/**
- *
- * @author Diego
- */
 @ManagedBean(name="login")
 @SessionScoped
 public class LoginMB implements Serializable{
@@ -35,6 +27,23 @@ public class LoginMB implements Serializable{
     private String nick;
     private String password;
     boolean logged = false;
+    private Usuario userLoged = null;
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+
+    public Usuario getUserLoged() {
+        return userLoged;
+    }
+
+    public void setUserLoged(Usuario userLoged) {
+        this.userLoged = userLoged;
+    }
     
     public boolean getLogged() {
         return logged;
@@ -56,27 +65,23 @@ public class LoginMB implements Serializable{
         this.password = password;
     }
     
-    public void login() throws IOException{
+    public String login() throws IOException{
         if(persistUser.validarUsuario(nick, password)){
             this.logged=true;
             setUsuarioActual();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Success" ,"Bien benido " + nick));
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Success" ,"Bien benido " + nick));
-            FacesContext.getCurrentInstance().getExternalContext().dispatch("index.xhtml");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bien benido " + nick, "Success"));
+//            FacesContext.getCurrentInstance().getExternalContext().dispatch("index.xhtml");
+            return "/vistas/index.xhtml";
         }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "No existe ese usuario"));
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "No existe ese usuario"));
-            FacesContext.getCurrentInstance().getExternalContext().dispatch("login.xhtml");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No existe ese usuario", "Error"));
+//            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  "No existe ese usuario"));
+//            FacesContext.getCurrentInstance().getExternalContext().dispatch("login.xhtml");
+            return "login.xhtml";
         }
     }
  
     public void setUsuarioActual(){
-        Usuario u = persistUser.findByNick(nick).get(0);
-        UsuarioController2 user = new UsuarioController2();
-        user.setSelected(u);///seteo usuario logeado del controlador
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        session.setAttribute("usuarioController2", user);
+        userLoged = persistUser.findByNick(nick).get(0);
     }
     
     public String logout() {
@@ -86,23 +91,16 @@ public class LoginMB implements Serializable{
         return "Logout";
     }
     
-    public void obtenerParametros(){
-        FacesContext facesContext = FacesContext. getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        Map params = externalContext.getRequestParameterMap();
-        if(params.size() > 0){
-            Boolean categorySelected = new Boolean((String) params.get("login"));
-          if(!categorySelected){
-              logout();
-          }
-        }
-    }
-    
-    public Usuario getUserSession(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        UsuarioController2 uc = (UsuarioController2) session.getAttribute("usuarioController2");
-        return uc.getSelected();
-    }
+//    public void obtenerParametros(){
+//        FacesContext facesContext = FacesContext. getCurrentInstance();
+//        ExternalContext externalContext = facesContext.getExternalContext();
+//        Map params = externalContext.getRequestParameterMap();
+//        if(params.size() > 0){
+//            Boolean categorySelected = new Boolean((String) params.get("login"));
+//          if(!categorySelected){
+//              logout();
+//          }
+//        }
+//    }
 }
 

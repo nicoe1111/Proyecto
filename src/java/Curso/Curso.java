@@ -24,10 +24,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.transaction.Transactional;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Curso implements Serializable{
@@ -39,43 +41,49 @@ public class Curso implements Serializable{
     
     @ManyToOne
     @JoinColumn(name = "id_materia")
-    private Materia materia = new Materia();
+    private Materia materia;
     
     @ManyToOne
     @JoinColumn(name = "id_docente")
-    private Docente docente = new Docente();
+    private Docente docente;
     
-    @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
-    private List<Alumno> alumnos = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name="alumno_curso",
+            joinColumns={@JoinColumn(name="curso_idCurso", referencedColumnName="IdCurso")},
+            inverseJoinColumns={@JoinColumn(name="rol_idRol", referencedColumnName="idRol")})
+    private List<Alumno> alumnos;
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ClaseDada> clasesDadas= new ArrayList<>();
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<ClaseDada> clasesDadas;
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<SalonCurso> salonesCurso= new ArrayList<>();
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<SalonCurso> salonesCurso;
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Evaluacion> instanciasEvaluaciones= new ArrayList<>();
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Evaluacion> instanciasEvaluaciones;
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idEncuesta")
     private Encuesta encuesta;
-
+    
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RespuestaPregunta> respPregunta = new ArrayList<>();
-
-    public Curso() {    }
     
-    public Curso(int idCurso, int anio, Date FechaInicio, Materia materia, Docente docente, Encuesta encuesta) {
+    public Curso() {    }
+
+    public Curso(int idCurso, int anio, Date FechaInicio, Materia materia, Docente docente, List<Alumno> alumnos, List<ClaseDada> clasesDadas, List<SalonCurso> salonesCurso, List<Evaluacion> instanciasEvaluaciones, Encuesta encuesta) {
         this.idCurso = idCurso;
         this.anio = anio;
         this.FechaInicio = FechaInicio;
         this.materia = materia;
         this.docente = docente;
+        this.alumnos = alumnos;
+        this.clasesDadas = clasesDadas;
+        this.salonesCurso = salonesCurso;
+        this.instanciasEvaluaciones = instanciasEvaluaciones;
         this.encuesta = encuesta;
     }
-    
-    
     
     public int getIdCurso() {
         return idCurso;
@@ -101,7 +109,6 @@ public class Curso implements Serializable{
         this.FechaInicio = FechaInicio;
     }
     
-    @Transactional
     public Materia getMateria() {
         return materia;
     }
@@ -110,7 +117,6 @@ public class Curso implements Serializable{
         this.materia = materia;
     }
     
-    @Transactional
     public Docente getDocente() {
         return docente;
     }
@@ -157,13 +163,12 @@ public class Curso implements Serializable{
     
     public void setEncuesta(Encuesta encuesta) {
         this.encuesta = encuesta;
-       // if(!encuesta.getCursos().contains(this))encuesta.getCursos().add(this);
     }
-
+    
     public List<RespuestaPregunta> getRespPregunta() {
         return respPregunta;
     }
-
+    
     public void setRespPregunta(List<RespuestaPregunta> respPregunta) {
         this.respPregunta = respPregunta;
     }

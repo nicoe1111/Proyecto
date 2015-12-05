@@ -1,33 +1,37 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package Curso;
 
 import General.AbstractFacade;
 import java.util.List;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-
 /**
  *
  * @author Agus
  */
-@Stateless
+@Stateful
 public class CursoFacade extends AbstractFacade<Curso> {
-    @PersistenceContext(unitName = "ProyectoPU")
+    @PersistenceContext(unitName = "ProyectoPU", type=PersistenceContextType.EXTENDED)
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
+    
+    
+    
     public CursoFacade() {
         super(Curso.class);
     }
@@ -37,16 +41,6 @@ public class CursoFacade extends AbstractFacade<Curso> {
         Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio= :anio");
         query.setParameter("semestre", semestre);
         query.setParameter("anio", anio);
-        List<Curso> users = query.getResultList();
-        return users;
-    }
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Curso> getCursosSemestreNombreAnio(String semestrecurs, int aniocurs, String materiacurs) {
-        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio = :anio AND c.materia.nombre = :materia");
-        query.setParameter("semestre", semestrecurs);
-        query.setParameter("anio", aniocurs);
-        query.setParameter("materia", materiacurs);
         List<Curso> users = query.getResultList();
         return users;
     }
@@ -66,4 +60,6 @@ public class CursoFacade extends AbstractFacade<Curso> {
         List<Curso> users = query.getResultList();
         return users;
     }
+    
+    
 }

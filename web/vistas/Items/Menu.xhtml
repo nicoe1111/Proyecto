@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition>
+        <h:form>
+                <p:menu>
+                        <c:if test="#{login.userLoged.hasRol('Administrativo')}" >
+                            <p:menuitem value="Gestion Usuario" id="registroUsuario" url="/vistas/Administrativo/usuario/List.xhtml"/>
+                            <p:menuitem value="Gestionar Curso" id="GestionarCurso" url="/vistas/Administrativo/GestionarCurso.xhtml"/>
+                            <p:menuitem value="Gestionar Materias" id="GestionarMaterias" url="/vistas/Administrativo/GestionMateria.xhtml"/>
+                            <p:menuitem value="Gestionar Salones" id="GestionarSalones" url="/vistas/Administrativo/GestionSalon.xhtml"/>
+                            <p:menuitem value="Gestionar Encuestas" id="GestionarEncuestas" url="/vistas/Administrativo/GestionarEncuestas.xhtml"/>
+                            <p:menuitem value="Gestionar SalonCurso" id="GestionarSalonCurso" url="/vistas/Administrativo/GestionSalonCurso.xhtml"/>
+                        </c:if>
+                        
+                        <p:menuitem value="Ver Horarios Curso" id="verHorarios" url="/vistas/VerHorarios.xhtml"/>
+                        
+                        <p:menuitem value="Pasar Lista" id="pasarLista" url="/CasosDeUso/PasarLista.xhtml"/>
+                        <p:menuitem value="Listar Alumnos" id="ListaAlumnos" url="/CasosDeUso/ListaAlumnos.xhtml"/>
+                </p:menu>
+        </h:form>
+   </ui:composition>
+</html>

@@ -46,7 +46,7 @@ public class ResultadosEvaluacionController implements Serializable{
         crearResultadosAlumno(e);
         items = e.getResultadosInstancias();
     }
-    
+     
     private void crearResultadosAlumno(Evaluacion e){
         for(Alumno a:e.getCurso().getAlumnos()){
             if(!existeResultadoAlumno(e, a)){
