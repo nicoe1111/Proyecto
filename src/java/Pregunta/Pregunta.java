@@ -5,43 +5,28 @@
  */
 package Pregunta;
 
-import Encuesta.Encuesta;
-import RespuestaPregunta.RespuestaPregunta;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 
 @Entity
 public class Pregunta implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idPregunta;
     private String pregunta;
-    
-    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<RespuestaPregunta> respuestasPreguntas = new ArrayList<RespuestaPregunta>();
-    
-    @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
-    private List<Encuesta> encuestas = new ArrayList<Encuesta>();
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++
 
     public Pregunta() {
     }
 
-    public Pregunta(int idPregunta, String pregunta, List<Encuesta> encuesta) {
+    public Pregunta(int idPregunta, String pregunta) {
         this.idPregunta = idPregunta;
         this.pregunta = pregunta;
-        this.encuestas = encuesta;
     }
     
 //+++++++++++++++++++++SETTERS++++++++++++++++++++++++++
@@ -53,14 +38,6 @@ public class Pregunta implements Serializable{
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
     }
-
-    public void setRespuestasPreguntas(List<RespuestaPregunta> respuestasPreguntas) {
-        this.respuestasPreguntas = respuestasPreguntas;
-    }
-
-    public void setEncuesta(List<Encuesta> encuesta) {
-        this.encuestas = encuesta;
-    }
     
  //+++++++++++++++++++++GETTERS++++++++++++++++++++++++++
 
@@ -71,16 +48,4 @@ public class Pregunta implements Serializable{
     public String getPregunta() {
         return pregunta;
     }
-
-    public List<RespuestaPregunta> getRespuestasPreguntas() {
-        return respuestasPreguntas;
-    }
-
-    public List<Encuesta> getEncuesta() {
-        return encuestas;
-    }
-    
-    
-   
-   
 }

@@ -8,10 +8,6 @@ import Pregunta.Pregunta;
 import Pregunta.PreguntaFacade;
 import RespuestaPregunta.RespuestaPregunta;
 import RespuestaPregunta.RespuestaPreguntaFacade;
-import Rol.Alumno;
-import Rol.TipoRol;
-import Usuario.Usuario;
-import Usuario.UsuarioFacade;
 import Usuario.util.JsfUtil;
 import java.io.IOException;
 import java.io.Serializable;
@@ -22,7 +18,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -32,7 +28,7 @@ import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
 @Named("encuestaController")
-@SessionScoped
+@ViewScoped
 public class EncuestaController implements Serializable{
     
     @EJB
@@ -203,43 +199,6 @@ public class EncuestaController implements Serializable{
                 nodoSemestres.getChildren().add(new DefaultTreeNode(cursosTree.get(j).getMateria().getNombre()));
             }
         }
-        //cargarAlumnosCurso();
-    }
-    @EJB
-            UsuarioFacade ejbUsuario;
-    public void cargarAlumnosCurso(){
-        Usuario u1 = new Usuario();
-        u1.setCedula(888);
-        u1.setNick("888");
-        u1.setPass("888");
-        Usuario u2 = new Usuario();
-        u2.setCedula(999);
-        u1.setNick("999");
-        u1.setPass("999");
-        List<TipoRol> lista1= new ArrayList<>();
-        List<TipoRol> lista2= new ArrayList<>();
-        Alumno a1 = new Alumno();
-        Alumno a2 = new Alumno();
-        lista1.add(a1);
-        lista2.add(a2);
-        u1.setRoles(lista1);
-        u2.setRoles(lista2);
-        
-        a1.setUsuario(u1);
-        a2.setUsuario(u2);
-        
-        List<Alumno> tiporolll= new ArrayList<>();
-        Curso c = new Curso();
-        tiporolll.add(a1);
-        tiporolll.add(a2);
-        c.setAlumnos(tiporolll);
-        
-        for(Alumno a:tiporolll){
-            a.getCursos().add(c);
-        }
-        ejbUsuario.create(u1);
-        ejbUsuario.create(u2);
-        ejbCurso.edit(c);
     }
     
     public TreeNode getRoot() {
@@ -275,22 +234,24 @@ public class EncuestaController implements Serializable{
         }
         return false;
     }
-    
     @EJB
-    private RespuestaPreguntaFacade ejbRespuestaPregunta;
-    List<RespuestaPregunta> respuestasPreguntas =new ArrayList<RespuestaPregunta>();
+            RespuestaPreguntaFacade ejbRespuestaPregunta;
     public void createEncuesta() throws IOException{
+        List<RespuestaPregunta> respuestasPreguntas =new ArrayList<RespuestaPregunta>();
         mensaje = "";
         getSelected();
         selected.setFecha(anioSelected);
         selected.setPreguntas(obtenerPreguntas());
         List<Curso> cursos = obtenerCursos();
-        selected.setCursos(cursos);
         if(!selected.getPreguntas().isEmpty() && selected.getFecha() != 0){
+            selected.setCursos(cursos);
             for(Curso curso: cursos){
                 if(curso.getRespPregunta().isEmpty()){
-                    curso.setEncuesta(selected);
                     /// obtengo todos los alumnos de curso para mandarle las respuestasPreguntas
+                    if(curso.getAlumnos().isEmpty()){
+                        JsfUtil.addErrorMessage("No se creo las encuestas el curso "+ curso.getMateria().getNombre() + " no tiene alumnos asociados");
+                    }
+                    curso.setEncuesta(selected);
                     for (int i = 0; i < curso.getAlumnos().size(); i++) {
                         for (int j = 0; j < selected.getPreguntas().size(); j++) {
                             RespuestaPregunta respuestaPregunta = new RespuestaPregunta();
@@ -301,18 +262,18 @@ public class EncuestaController implements Serializable{
                             respuestaPregunta.setPregunta(selected.getPreguntas().get(j));
                             respuestasPreguntas.add(respuestaPregunta);
                         }
-                    }
-                    curso.setRespPregunta(respuestasPreguntas);
-                    if(!curso.getRespPregunta().isEmpty()){
-                        ejbCurso.edit(curso);
-                        JsfUtil.addSuccessMessage("Se crearon las encuestas correctamente "  + curso.getMateria().getNombre());
-                    }else{
-                        JsfUtil.addErrorMessage("No se creo las encuestas del curso " + curso.getMateria().getNombre() + " no tiene alumnos asociados");
+                        //curso.setRespPregunta(respuestasPreguntas);
                     }
                 }else{
                     JsfUtil.addErrorMessage("No fue posible crear las encuestas verifique que no exista encuesta asociada al curso " + curso.getMateria().getNombre());
                 }
+                selected.setRespPregunta(respuestasPreguntas);
             }
+            if(!selected.getRespPregunta().isEmpty()){
+                ejbEncuesta.edit(selected);
+                JsfUtil.addSuccessMessage("Se creo la encuesta correctamente");
+            }
+            
         }else{
             JsfUtil.addErrorMessage("No fue posible crear las encuestas faltan ingresar datos");
         }
@@ -393,6 +354,15 @@ public class EncuestaController implements Serializable{
     public LineChartModel getLineModel1() {
         if(lineModel1 == null){
             lineModel1 = new LineChartModel();
+            lineModel1.setTitle("Cursos:  ");
+            lineModel1.setLegendPosition("e");
+            Axis yAxis = lineModel1.getAxis(AxisType.Y);
+            int Max = 6;
+            yAxis.setMin(0);
+            yAxis.setMax(Max);
+            LineChartSeries series = new LineChartSeries();
+            series.set(1 , 1);
+            lineModel1.addSeries(series);
         }
         return lineModel1;
     }
@@ -422,7 +392,7 @@ public class EncuestaController implements Serializable{
             
             for (int j = 0; j < cursos.get(i).getRespPregunta().size(); j++) {
                 if(listRPreguntas.size() < cursos.get(i).getRespPregunta().size()){
-                    int puntaje = 0;
+                    float puntaje = 0;
                     int cantPreg = 0;
                     for (int k = 0; k < cursos.get(i).getRespPregunta().size(); k++) {
                         if(cursos.get(i).getRespPregunta().get(j).getPregunta().getIdPregunta() == cursos.get(i).getRespPregunta().get(k).getPregunta().getIdPregunta()){
@@ -461,8 +431,13 @@ public class EncuestaController implements Serializable{
         for (int i = 0; i < cursos.size(); i++) {
             if(i == 0){
                 listCurso.add(cursos.get(i));
-            }else if(cursos.get(i).getEncuesta().getIdEncuesta() == cursos.get(i-1).getEncuesta().getIdEncuesta()){
-                listCurso.add(cursos.get(i));
+            }else {
+                for (int j = 0; j < cursos.get(i).getRespPregunta().size(); j++) {
+                    if(cursos.get(i).getRespPregunta().get(j).getEncuesta().getIdEncuesta() == cursos.get(i-1).getEncuesta().getIdEncuesta()){
+                        listCurso.add(cursos.get(i));
+                        j = cursos.get(i).getRespPregunta().size();
+                    }
+                }
             }
         }
         return listCurso;

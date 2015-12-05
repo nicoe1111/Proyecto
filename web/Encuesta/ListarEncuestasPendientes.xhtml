@@ -8,10 +8,8 @@
         <title>Lista de encuestas pendientes</title>
     </h:head>
     <h:body>
-        <ui:composition template="/index.xhtml">
-            <ui:define name="centro">
-                
-                <h4 class="panel-heading">Lista de encuestas pendientes</h4>
+        <ui:composition>
+
                 <table class="table table-hover table-bordered" style="width:900px; margin: auto" styleClass="text-center">
                     <tbody>
                         <ui:repeat var="encuesta" value="#{respupreguntaControl.itemsPendientes}">
@@ -37,7 +35,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </ui:define>
         </ui:composition>
     </h:body>
 </html>

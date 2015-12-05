@@ -22,10 +22,10 @@
                             <tr>
                                 <td>#{encuesta.pregunta.pregunta}</td>
                                 <td>
-                                    <p:selectManyCheckbox id="puntaje" value="#{respupreguntaControl.selectedlistaRespPreguntas}" required="true" layout="grid" columns="5">
+                                    <p:selectOneListbox id="puntaje" value="#{respupreguntaControl.itemPreguntaSelec}" required="true">
                                         <f:selectItems value="#{respupreguntaControl.obtenerDatosChek(encuesta.idRespuestaPregunta)}"
                                                        var="item" itemLabel="#{item.get(1)}" itemValue="#{item}" />
-                                    </p:selectManyCheckbox>  
+                                    </p:selectOneListbox>  
                                 </td>
                             </tr>
                         </ui:repeat>

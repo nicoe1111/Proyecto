@@ -6,11 +6,10 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Gestionar preguntas</title>
+        <title>Gestionar Encuestas</title>
     </h:head>
-    <body>
-        <ui:composition template="/index.xhtml">
-            <ui:define name="centro">
+    <body id="bodyGestionEncuesta">
+        <ui:composition >
                 <h:form id="idForm" style="width:900px; margin: auto" styleClass="text-center">
                     <h3 style="margin-top:0">Año</h3>  
                     <p:selectOneMenu id="anio" value="#{encuestaController.anioSelected}" style="width:200px;">
@@ -47,18 +46,15 @@
                             </tbody>
                         </p:panel>
                     </table>
-                    <p:commandButton value="Crear" update=":growl" onchange="this.form.submit();"  actionListener="#{encuestaController.createEncuesta()}" >
+                    <p:commandButton value="Crear" update=":growl"  action="#{encuestaController.createEncuesta()}" >
+                        <f:ajax execute="@form" />
                     </p:commandButton>
                     <br></br> <br></br>
                     <h:outputLabel class="label-danger" value="#{encuestaController.mensaje}"/>
                     <br></br><br></br>
-                    <p:link value="Gestionar Preguntas" id="GestionPreguntas" href="/encuesta/GestionarPreguntas.xhtml"/>
-                    <br></br><br></br>
-                    <p:link value="Listar encuestas pendientes de entrega" id="GestionencuestasPendientes" href="/encuesta/ListarEncuestasPendientes.xhtml"/>
-                    <br></br><br></br>
-                    <p:link value="Graficar encuestas" id="GraficarEncuestas" href="/encuesta/GraficarEncuestas.xhtml"/>
+                    
                 </h:form> 
-            </ui:define>
+
         </ui:composition>
     </body>
 </html>

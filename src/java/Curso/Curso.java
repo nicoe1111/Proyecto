@@ -48,20 +48,20 @@ public class Curso implements Serializable{
     @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
     private List<Alumno> alumnos = new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ClaseDada> clasesDadas= new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SalonCurso> salonesCurso= new ArrayList<>();
     
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Evaluacion> instanciasEvaluaciones= new ArrayList<>();
     
-    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idEncuesta")
     private Encuesta encuesta;
 
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RespuestaPregunta> respPregunta = new ArrayList<>();
 
     public Curso() {    }
@@ -157,6 +157,7 @@ public class Curso implements Serializable{
     
     public void setEncuesta(Encuesta encuesta) {
         this.encuesta = encuesta;
+       // if(!encuesta.getCursos().contains(this))encuesta.getCursos().add(this);
     }
 
     public List<RespuestaPregunta> getRespPregunta() {

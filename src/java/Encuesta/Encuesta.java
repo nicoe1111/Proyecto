@@ -23,17 +23,17 @@ import javax.persistence.OneToMany;
 @Entity
 public class Encuesta implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEncuesta;
     private int fecha;
     
-    @ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @ManyToMany(fetch=FetchType.LAZY, cascade={CascadeType.ALL})
     private List<Pregunta> preguntas= new ArrayList<>();
     
-    @OneToMany(mappedBy = "encuesta", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "encuesta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos;
     
-    @OneToMany(mappedBy = "encuesta", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "encuesta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RespuestaPregunta> respPregunta;
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++

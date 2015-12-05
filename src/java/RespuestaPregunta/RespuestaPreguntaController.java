@@ -1,6 +1,5 @@
 package RespuestaPregunta;
 
-import Correo.Correo;
 import Correo.Mail;
 import Encuesta.Encuesta;
 import Rol.Alumno;
@@ -10,21 +9,19 @@ import Usuario.UsuarioFacade;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 
 @Named("respupreguntaControl")
-@SessionScoped
+@ViewScoped
 public class RespuestaPreguntaController implements Serializable{
     
     @EJB
@@ -117,10 +114,10 @@ public class RespuestaPreguntaController implements Serializable{
     public ArrayList<ArrayList<String>> getListaRespPreguntas() {
         return listaRespPreguntas;
     }
-    
-    ArrayList<ArrayList<String>> selectedlistaRespPreguntas = new ArrayList<>();
-    ArrayList<ArrayList<String>> preguntasContestadas = new ArrayList<>();
-    public void realizarEncuesta() throws IOException{
+    String itemPreguntaSelec;
+    ArrayList<String> selectedlistaRespPreguntas = new ArrayList<>();
+    ArrayList<String> preguntasContestadas = new ArrayList<>();
+    public String realizarEncuesta() throws IOException{
         mensaje = "";
         preguntasContestadas = getSelectedlistaRespPreguntas();
         
@@ -135,12 +132,13 @@ public class RespuestaPreguntaController implements Serializable{
             mensaje =  "Faltan preguntas por contestar!!";
             selectedlistaRespPreguntas.clear();
         }
+        return "ListarEncuestas.xhtml";
     }
     
-    public List<RespuestaPregunta> pasarAlista(ArrayList<ArrayList<String>> preguntasContestadas){
+    public List<RespuestaPregunta> pasarAlista(ArrayList<String> preguntasContestadas){
         List<RespuestaPregunta>listRp = new ArrayList<RespuestaPregunta>();
         for (int i = 0; i < preguntasContestadas.size(); i++) {
-            String rp = preguntasContestadas.get(i).get(0).replace("[", "");
+            String rp = preguntasContestadas.get(i).replace("[", "");
             rp = rp.replace("]", "");
             int largo = rp.length();
             String puntaje = rp.substring(largo-1);
@@ -157,22 +155,29 @@ public class RespuestaPreguntaController implements Serializable{
     public String getMensaje() {
         return mensaje;
     }
-    
-    public void setSelectedlistaRespPreguntas(ArrayList<String> selectedRespPreguntas) {
-        if(selectedRespPreguntas.size() > 0){
-            this.selectedlistaRespPreguntas.add(selectedRespPreguntas);
-        }
+
+    public String getItemPreguntaSelec() {
+        return itemPreguntaSelec;
+    }
+
+    public void setItemPreguntaSelec(String itemPreguntaSelec) {
+        this.itemPreguntaSelec = itemPreguntaSelec;
+        setSelectedlistaRespPreguntas(itemPreguntaSelec);
     }
     
-    public ArrayList<ArrayList<String>> getSelectedlistaRespPreguntas() {
+    public void setSelectedlistaRespPreguntas(String selectedRespPreguntas) {
+            this.selectedlistaRespPreguntas.add(selectedRespPreguntas);
+    }
+    
+    public ArrayList<String> getSelectedlistaRespPreguntas() {
         return selectedlistaRespPreguntas;
     }
     
-    public ArrayList<ArrayList<String>> getPreguntasContestadas() {
+    public ArrayList<String> getPreguntasContestadas() {
         return preguntasContestadas;
     }
     
-    public void setPreguntasContestadas(ArrayList<ArrayList<String>> preguntasContestadas) {
+    public void setPreguntasContestadas(ArrayList<String> preguntasContestadas) {
         this.preguntasContestadas = preguntasContestadas;
     }
     
@@ -317,19 +322,19 @@ public class RespuestaPreguntaController implements Serializable{
         boolean bool = false;
         List<RespuestaPregunta> encuestasRespuestas = new ArrayList<RespuestaPregunta>();
         getUserLog();
-        List<RespuestaPregunta> respuestasPreguntas = userLog.getRolAlumno().getRespuestasPreguntas();
+        Usuario user = ejbUser.find(userLog.getId_user());
+        List<RespuestaPregunta> respuestasPreguntas = ejbRespuestaPregunta.obtenerRespuestasPreguntaIdLog(user.getId_user());
         for (int i = 0; i < respuestasPreguntas.size(); i++) {
             bool = false;
-            if(!respuestasPreguntas.get(i).isContesto()){
                 for (int j = 0; j < encuestasRespuestas.size(); j++) {
-                    if(encuestasRespuestas.get(j).getEncuesta().getIdEncuesta() == respuestasPreguntas.get(i).getEncuesta().getIdEncuesta()){
+                    if(encuestasRespuestas.get(j).getEncuesta().getIdEncuesta() == respuestasPreguntas.get(i).getEncuesta().getIdEncuesta() 
+                            && encuestasRespuestas.get(j).getCurso().getIdCurso() == respuestasPreguntas.get(i).getCurso().getIdCurso()){
                         bool = true;
                     }
                 }
                 if(!bool){
                     encuestasRespuestas.add(respuestasPreguntas.get(i));
                 }
-            }
         }
         return encuestasRespuestas;
     }
@@ -337,7 +342,6 @@ public class RespuestaPreguntaController implements Serializable{
         public List<RespuestaPregunta> obtenerEncuestasPendientes(){
         boolean bool = false;
         List<RespuestaPregunta> encuestasRespuestas = new ArrayList<RespuestaPregunta>();
-        getUserLog();
         List<RespuestaPregunta> respuestasPreguntas = ejbRespuestaPregunta.findAll();
         for (int i = 0; i < respuestasPreguntas.size(); i++) {
             bool = false;

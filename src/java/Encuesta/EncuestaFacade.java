@@ -6,9 +6,13 @@
 package Encuesta;
 
 import General.AbstractFacade;
+import java.util.Calendar;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +30,13 @@ public class EncuestaFacade extends AbstractFacade<Encuesta> {
 
     public EncuestaFacade() {
         super(Encuesta.class);
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public boolean crearEncuesta() {
+        int fecha = Calendar.getInstance().get(Calendar.YEAR);
+        Query query = em.createQuery("INSERT encuesta (fecha) VALUES (:fecha)");
+        query.setParameter("fecha", fecha);
+        return (!query.getResultList().isEmpty());
     }
 }

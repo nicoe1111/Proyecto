@@ -10,12 +10,9 @@
         <title>Gestionar preguntas</title>
     </h:head>
     <h:body>
-        <ui:composition template="/index.xhtml">
-                <ui:define name="centro">
-                
-                <h:form id="form" >
+        <ui:composition >
+                <h:form id="fPreguntas" >
                     <div class="panel panel-default">
-                        <h4 class="panel-heading">Crear Preguntas</h4>
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="row">
@@ -25,7 +22,7 @@
                                     </div>
                                 </div>
                             </div>
-                      <div class="form-group">
+                            <div id="tablaPreguntas" class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <c:choose>
                                         <c:when test="#{preguntaController.selected.idPregunta > 0 }">
@@ -33,8 +30,9 @@
                                             <h:commandButton action="#{preguntaController.updateSelected()}" value="Actualizar" styleClass="btn btn-default"/>
                                         </c:when>
                                         <c:otherwise>
-                                            <h:commandLink action="#{preguntaController.createSelected()}"  styleClass="btn btn-default">
+                                            <h:commandLink action="#" styleClass="btn btn-default">
                                                 Crear
+                                                <p:ajax event="click" update=":fPreguntas:tablaPreguntas" listener="#{preguntaController.createSelected()}"/>
                                             </h:commandLink>
                                         </c:otherwise>
                                     </c:choose>
@@ -73,7 +71,6 @@
                         </ui:repeat>
                     </tbody>
                 </table>
-            </ui:define>
         </ui:composition>
     </h:body>
 </html>

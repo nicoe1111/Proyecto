@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class RespuestaPregunta implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idRespuestaPregunta;
     private int puntaje;
     private boolean contesto;

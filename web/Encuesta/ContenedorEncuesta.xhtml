@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+    <ui:composition template="/index.xhtml">
+        <ui:define name="centro">
+            <ul class="nav nav-tabs">
+             <li class="active"><a data-toggle="tab" href="#home">Crear encuestas</a></li>
+             <li><a data-toggle="tab" href="#menu1">Crear preguntas</a></li>
+             <li><a data-toggle="tab" href="#menu2">Listar encuestas pendientes</a></li>
+             <li><a data-toggle="tab" href="#menu3">Graficar encuestas</a></li>
+           </ul>
+
+           <div class="tab-content">
+             <div id="home" class="tab-pane fade in active">
+                 <h3>Crear Encuesta</h3>
+                 <ui:include src="GestionarEncuestas.xhtml"/>
+             </div>
+             <div id="menu1" class="tab-pane fade">
+               <h3>Crear preguntas</h3>
+               <ui:include src="GestionarPreguntas.xhtml"/>
+             </div>
+             <div id="menu2" class="tab-pane fade">
+               <h3>Listar encuestas pendientes</h3>
+               <ui:include src="ListarEncuestasPendientes.xhtml"/>
+             </div>
+             <div id="menu3" class="tab-pane fade">
+               <h3>Estadistica de encuestas</h3>
+               <ui:include src="GraficarEncuestas.xhtml"/>
+             </div>               
+           </div>
+        </ui:define>
+    </ui:composition>            
+   </h:body>
+</html>
+
