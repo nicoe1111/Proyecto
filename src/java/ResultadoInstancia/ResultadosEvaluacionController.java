@@ -28,6 +28,9 @@ public class ResultadosEvaluacionController implements Serializable{
     @EJB
     private EvaluacionFacade ejbInstancia;
     
+    @EJB
+    private ResultadoFacade ejbResultado;
+    
     private List<ResultadoInstancia> items=new ArrayList();
 
     public List<ResultadoInstancia> getItems() {
@@ -70,5 +73,9 @@ public class ResultadosEvaluacionController implements Serializable{
     
     public void guardar(){
         ejbInstancia.edit(items.get(0).getInstanciaEvaluacion());
+    }
+    
+    public ResultadoInstancia getResultadoAlumno(Evaluacion e, Alumno a){
+       return ejbResultado.findResultadoEvalAlumno(e.getIdEvaluacion(), a.getIdRol());
     }
 }

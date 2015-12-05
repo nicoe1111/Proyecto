@@ -14,8 +14,9 @@
                         <p:tab title="#{curso.materia.nombre} #{curso.anio}">
                             <c:forEach items="#{curso.instanciasEvaluaciones}" var="instancia">
                                 <h:panelGrid columns="2" cellpadding="10">
-                                    <h:outputText value="#{instancia.nombre}" />
-                                    <h:outputText value="#{instancia}" />
+                                    <h:outputText value="Evaluacion : #{instancia.nombre}" />
+                                    <h:outputText value="Calificacion : #{resultadosEvaluacionController.getResultadoAlumno(instancia, alumnoController.selected).calificacion}" />
+                                    <h:outputText value="fecha : #{instancia.fecha}" />
                                 </h:panelGrid>
                             </c:forEach>
                         </p:tab>
