@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Evaluacion implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idEvaluacion;
     
     private Date fecha;

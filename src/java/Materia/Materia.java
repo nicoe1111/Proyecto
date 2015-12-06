@@ -22,7 +22,7 @@ import javax.transaction.Transactional;
 public class Materia  implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idMateria;
     private String nombre;
     private String cargaHorariaSemanal;

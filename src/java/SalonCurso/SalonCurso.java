@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class SalonCurso implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idSalonCurso;
     private String horaInicio;
     private String horaFin;

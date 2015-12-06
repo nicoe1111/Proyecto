@@ -34,7 +34,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 public class Curso implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCurso;
     private int anio;
     private Date FechaInicio;

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Entity
 public class Mensaje implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id_mensaje;
     private String desde;
     private String para;
