@@ -30,7 +30,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class ClaseDada implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idClaseDada;
     private Date fecha;
     private String temaDado;

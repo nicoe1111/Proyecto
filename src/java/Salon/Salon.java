@@ -25,7 +25,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Salon implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idSalon;
     private String nombreNumero;
     private String descripcion;

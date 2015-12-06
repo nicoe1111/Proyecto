@@ -26,7 +26,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><h:link outcome="/vistas/UIMensajes.xhtml" value="Bandeja de Entrada">
-                                        <!--<span class="badge pull-right">#/{mensajeController.getMensajesSinLeer()}</span>-->
+                                        <span class="badge pull-right">#{mensajeController.getMensajesSinLeer()}</span>
                                         <f:param name="vista" value="ENTRADA"/>
                                     </h:link></li>
                                 <li><h:link outcome="/vistas/UIMensajes.xhtml" value="Elementos Enviados">

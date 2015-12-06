@@ -35,14 +35,13 @@
                             <p:selectOneMenu id="curso" value="#{cursoController.cursoSelectedID}" style="width:200px;">
                                 <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                 <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
-                                <p:ajax listener="#{usuarioController2.loadAlumnos()}" update=":GestionarAlumnosForm"/>
-                                <p:ajax listener="#{alumnoController.cargarAlumnosCurso()}"/>
+                                <p:ajax update=":GestionarAlumnosForm"/>
                             </p:selectOneMenu><br/>
                         </p:column>
                         
                     </p:row>
                 </p:panelGrid>
-                <p:commandButton value="ver Alumnos" update=":GestionarAlumnosForm" actionListener="#{alumnoController.cargarAlumnosCurso()}" action="#{usuarioController2.loadAlumnos()}"/>
+                <!--<p:commandButton value="ver Alumnos" update=":GestionarAlumnosForm" actionListener="#/{alumnoController.cargarAlumnosCurso()}" action="#/{usuarioController2.loadAlumnos()}"/>-->
             </h:form>
             
             <h:form id="GestionarAlumnosForm">
@@ -50,13 +49,13 @@
                     <p:row>
                         <p:column>
                             <p:panel header="Listar Alumos Registrados">
-                                <p:dataTable id="datalist" var="usuario" value="#{usuarioController2.items}" 
-                                             selectionMode="single" selection="#{usuarioController2.selected}"
+                                <p:dataTable id="datalist" var="alumno" value="#{asignarAlumnoCursoCnontroller.allAlumnos}" 
+                                             selectionMode="single" selection="#{asignarAlumnoCursoCnontroller.alumnoSelected}"
                                              scrollable="true" 
-                                             rowKey="#{usuario.id_user}"
+                                             rowKey="#{alumno.usuario.id_user}"
                                              filteredValue="#{filtersList.filteredItems}"
                                              emptyMessage="No users encontrados"
-                                             widgetVar="IE">
+                                             widgetVar="AA">
                                     
                                     <p:ajax event="rowSelect" update="agregarButton" listener="#{buttonBean.onRowSelect}" />
                                     <p:ajax event="rowUnselect" update="agregarButton" listener="#{buttonBean.onRowUnselect}" />
@@ -64,42 +63,7 @@
                                     <f:facet name="header">
                                         <p:outputPanel>
                                             <h:outputText value="Search all fields:" />
-                                            <p:inputText id="globalFilter" onkeyup="PF('IE').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                        </p:outputPanel>
-                                    </f:facet>
-                                    
-                                    <p:column headerText="nombre" footerText="nombre" width="200" filterStyle="display:none" filterBy="primerNombre" filterMatchMode="contains" sortBy="#{usuario.primerNombre}">
-                                        <h:outputText value="#{usuario.primerNombre}"/>
-                                    </p:column>
-                                    <p:column headerText="apellido" footerText="apellido" width="200" filterStyle="display:none" filterBy="primerApellido" filterMatchMode="contains" sortBy="#{usuario.primerApellido}">
-                                        <h:outputText value="#{usuario.primerApellido}" />
-                                    </p:column>
-                                    <p:column headerText="CI" footerText="CI" width="200" filterStyle="display:none" filterBy="cedula" filterMatchMode="contains" sortBy="#{usuario.cedula}">
-                                        <h:outputText value="#{usuario.cedula}" />
-                                    </p:column>
-                                    <f:facet name="footer">
-                                        <p:commandButton id="agregarButton" class="btn btn-default" value="agregar" actionListener="#{alumnoController.agregarAlumnoACurso()}" update=":GestionarAlumnosForm" disabled="#{buttonBean.disabled || empty usuarioController2.items}"/>
-                                    </f:facet>
-                                </p:dataTable>
-                            </p:panel>
-                        </p:column>
-                        <p:column>
-                            <p:panel header="Alumos agregados a #{cursoController.selected.materia.nombre} #{cursoController.selected.anio}">
-                                <p:dataTable id="datalist1" var="alumno" value="#{alumnoController.items}" 
-                                             selectionMode="single" selection="#{alumnoController.selected}"
-                                             scrollable="true" 
-                                             rowKey="#{alumno.usuario.id_user}"
-                                             filteredValue="#{filtersList.filteredItems2}"
-                                             emptyMessage="El curso no posee alumnos registrados"
-                                             widgetVar="AA">
-                                    
-                                    <p:ajax event="rowSelect" update="quitarButton" listener="#{buttonBean.onRowSelect}" />
-                                    <p:ajax event="rowUnselect" update="quitarButton" listener="#{buttonBean.onRowUnselect}" />
-                                    
-                                    <f:facet name="header">
-                                        <p:outputPanel>
-                                            <h:outputText value="Search all fields:" />
-                                            <p:inputText id="globalFilter1" onkeyup="PF('AA').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                            <p:inputText id="globalFilter" onkeyup="PF('AA').filter()" style="width:150px" placeholder="Enter keyword"/>
                                         </p:outputPanel>
                                     </f:facet>
                                     
@@ -113,8 +77,43 @@
                                         <h:outputText value="#{alumno.usuario.cedula}" />
                                     </p:column>
                                     <f:facet name="footer">
-                                        <p:commandButton id="quitarButton" class="btn btn-default" value="quitar" actionListener="#{alumnoController.quitarAlumnoACurso}" update=":GestionarAlumnosForm" disabled="#{buttonBean.disabled || empty alumnoController.items}"/>
-                                        <p:commandButton id="guardarButton" class="btn btn-default" value="guardar cambios" actionListener="#{alumnoController.guardarCambios()}" disabled="#{buttonBean.disabled || empty alumnoController.items}"/>
+                                        <p:commandButton id="agregarButton" class="btn btn-default" value="agregar" actionListener="#{asignarAlumnoCursoCnontroller.agregarAlumnoACurso()}" update=":GestionarAlumnosForm" disabled="#{buttonBean.disabled}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:column>
+                        <p:column>
+                            <p:panel header="Alumos agregados a #{cursoController.selected.materia.nombre} #{cursoController.selected.anio}">
+                                <p:dataTable id="datalist1" var="alumno" value="#{asignarAlumnoCursoCnontroller.alumnosCursoSelected}" 
+                                             selectionMode="single" selection="#{asignarAlumnoCursoCnontroller.alumnoCursoSelected}"
+                                             scrollable="true" 
+                                             rowKey="#{alumno.usuario.id_user}"
+                                             filteredValue="#{filtersList.filteredItems2}"
+                                             emptyMessage="El curso no posee alumnos registrados"
+                                             widgetVar="AC">
+                                    
+                                    <p:ajax event="rowSelect" update="quitarButton" listener="#{buttonBean.onRowSelect}" />
+                                    <p:ajax event="rowUnselect" update="quitarButton" listener="#{buttonBean.onRowUnselect}" />
+                                    
+                                    <f:facet name="header">
+                                        <p:outputPanel>
+                                            <h:outputText value="Search all fields:" />
+                                            <p:inputText id="globalFilter1" onkeyup="PF('AC').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                        </p:outputPanel>
+                                    </f:facet>
+                                    
+                                    <p:column headerText="nombre" footerText="nombre" width="200" filterStyle="display:none" filterBy="usuario.primerNombre" filterMatchMode="contains" >
+                                        <h:outputText value="#{alumno.usuario.primerNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="apellido" footerText="apellido" width="200" filterStyle="display:none" filterBy="usuario.primerApellido" filterMatchMode="contains" >
+                                        <h:outputText value="#{alumno.usuario.primerApellido}" />
+                                    </p:column>
+                                    <p:column headerText="CI" footerText="CI" width="200" filterStyle="display:none" filterBy="usuario.cedula" filterMatchMode="contains" >
+                                        <h:outputText value="#{alumno.usuario.cedula}" />
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton id="quitarButton" class="btn btn-default" value="quitar" actionListener="#{asignarAlumnoCursoCnontroller.quitarAlumnoACurso}" update=":GestionarAlumnosForm" disabled="#{buttonBean.disabled}"/>
+                                        <p:commandButton id="guardarButton" class="btn btn-default" value="guardar cambios" actionListener="#{asignarAlumnoCursoCnontroller.guardarCambios}"/>
                                     </f:facet>
                                 </p:dataTable>
                             </p:panel>
