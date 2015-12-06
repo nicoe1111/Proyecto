@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}" showEffect="clip" hideEffect="clip">
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display" rendered="#{usuarioController.selected != null}" style="alignment-adjust: central">
                     <p:panelGrid columns="4" style="text-align: center; margin: auto;">

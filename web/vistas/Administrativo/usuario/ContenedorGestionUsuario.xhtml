@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../index.xhtml">
+            <ui:define name="centro">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Gestionar Usuarios</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Gestionar Pais - Departamento - Localidad</a></li>
+                </ul>
+                
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <h3>Gestionar Usuarios</h3>
+                        <ui:include src="List.xhtml"/>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <h3>Gestionar Pais - Departamento - Localidad</h3>
+                        <ui:include src="GestionPaisDptoLocalidad.xhtml"/>
+                    </div>            
+                </div>
+            </ui:define>
+        </ui:composition> 
+    </h:body>
+</html>
+

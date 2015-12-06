@@ -9,32 +9,35 @@
     </h:head>
     <h:body>
         <ui:composition>
-
-                <table class="table table-hover table-bordered" style="width:900px; margin: auto" styleClass="text-center">
-                    <tbody>
-                        <ui:repeat var="encuesta" value="#{respupreguntaControl.itemsPendientes}">
-                            <tr>
-                                <td>#{respupreguntaControl.getCurso(encuesta.idRespuestaPregunta)}</td>
-                                <ui:repeat var="alumnos" value="#{respupreguntaControl.getAlumnoPendiente(encuesta.idRespuestaPregunta)}"> 
-                                    <h:form styleClass="text-center">
-                                        <td> #{alumnos.usuario.primerNombre}  #{alumnos.usuario.primerApellido}</td>
-                                        <td><h:commandLink value="Enviar Correo"  styleClass="btn btn-primary btn-xs" action="#{respupreguntaControl.enviarCorreoUsuario(alumnos.usuario.id_user)}">
-                                            </h:commandLink>  </td>
-                                    </h:form> 
-                                </ui:repeat>   
-                            </tr>
-                        </ui:repeat>
+            
+            <table class="table table-hover table-bordered" style="width:900px; margin: auto" styleClass="text-center">
+                <tbody>
+                    <ui:repeat var="encuesta" value="#{respupreguntaControl.itemsPendientes}">
                         <tr>
-                            <td>
+                            <td>#{respupreguntaControl.getCurso(encuesta.idRespuestaPregunta)}</td>
+                            <ui:repeat var="alumnos" value="#{respupreguntaControl.getAlumnoPendiente(encuesta.idRespuestaPregunta)}"> 
                                 <h:form styleClass="text-center">
-                                    <td><h:commandLink action="#{respupreguntaControl.crearCorreoTodos}" value="Enviar Correo a todos"  styleClass="btn btn-primary btn-xs">
-                                        </h:commandLink>
+                                    <td> #{alumnos.usuario.primerNombre}  #{alumnos.usuario.primerApellido}</td>
+                                    <td>
+                                        <h:commandButton value="Enviar Correo"  styleClass="btn btn-primary btn-xs">
+                                            <f:ajax listener="#{respupreguntaControl.enviarCorreoUsuario(alumnos.usuario.id_user)}" execute="@form" event="click" render=":growl" />
+                                        </h:commandButton>
                                     </td>
-                                </h:form>
-                            </td>
+                                </h:form> 
+                            </ui:repeat>   
                         </tr>
-                    </tbody>
-                </table>
+                    </ui:repeat>
+                    <tr>
+                        <td>
+                            <h:form styleClass="text-center">
+                                <td><h:commandLink action="#{respupreguntaControl.crearCorreoTodos}" value="Enviar Correo a todos"  styleClass="btn btn-primary btn-xs">
+                                    </h:commandLink>
+                                </td>
+                            </h:form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </ui:composition>
     </h:body>
 </html>

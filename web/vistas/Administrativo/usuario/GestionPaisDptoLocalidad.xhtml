@@ -8,12 +8,11 @@
         <title><ui:insert name="title">Gestor de Paises - Departamentos - Localidades</ui:insert></title>
     </h:head>
     <h:body>
-        <ui:composition template="../index.xhtml">
-            <ui:define name="centro">
-                <ui:include src="GestionPais/pais/ListPais.xhtml"/>
-                <ui:include src="GestionPais/departamento/List.xhtml"/>
-                <ui:include src="GestionPais/localidad/List.xhtml"/>
-            </ui:define>
+        <ui:composition>
+                <ui:include src="../GestionPais/pais/ListPais.xhtml"/>
+                <ui:include src="../GestionPais/departamento/List.xhtml"/>
+                <ui:include src="../GestionPais/localidad/List.xhtml"/>
+
         </ui:composition>
     </h:body>
 </html>

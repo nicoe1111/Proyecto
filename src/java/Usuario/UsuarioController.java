@@ -83,13 +83,16 @@ public class UsuarioController implements Serializable {
         return selected;
     }
     
-    public void create() {
+    public String create() {
         
         seteoRolesSeleccionados();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        selectedRoles.clear();
+        selected = null;
+        return "List.xhtml";
     }
     
     public void update() {
@@ -97,6 +100,7 @@ public class UsuarioController implements Serializable {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
         selectedRoles.clear();
         items = getFacade().findAll();
+        selected = null;
     }
     
     public void destroy() {
@@ -359,7 +363,11 @@ public class UsuarioController implements Serializable {
         rolesSelectedUser = selectedRoles;
         return rolesSelectedUser;
     }
-
+    
+    public void resetSelectedRoles(){
+        selectedRoles.clear();
+    }
+    
     public void setRolesSelectedUser(List<String> rolesSelectedUser) {
         this.rolesSelectedUser = rolesSelectedUser;
     }

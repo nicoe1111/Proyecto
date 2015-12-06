@@ -6,6 +6,7 @@ import Rol.Alumno;
 import Session.LoginMB;
 import Usuario.Usuario;
 import Usuario.UsuarioFacade;
+import Usuario.util.JsfUtil;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -17,7 +18,6 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.inject.Inject;
 import javax.mail.MessagingException;
 
 @Named("respupreguntaControl")
@@ -39,15 +39,15 @@ public class RespuestaPreguntaController implements Serializable{
     private Alumno alumnoPendiente;
     
     public List<RespuestaPregunta> getItems() {
-            items = obtenerRespuestaPregunta();
+        items = obtenerRespuestaPregunta();
         return items;
     }
-
+    
     public List<RespuestaPregunta> getItemsPendientes() {
-            itemsPendientes = obtenerEncuestasPendientes();
+        itemsPendientes = obtenerEncuestasPendientes();
         return itemsPendientes;
     }
-
+    
     public void setItemsPendientes(List<RespuestaPregunta> itemsPendientes) {
         this.itemsPendientes = itemsPendientes;
     }
@@ -124,7 +124,7 @@ public class RespuestaPreguntaController implements Serializable{
         List<RespuestaPregunta> listRp = pasarAlista(preguntasContestadas);
         
         if(preguntasContestadas.size() == itemsEncuesta.size()){
-             
+            
             for (int i = 0; i < listRp.size(); i++) {
                 ejbRespuestaPregunta.edit(listRp.get(i));
             }
@@ -155,18 +155,18 @@ public class RespuestaPreguntaController implements Serializable{
     public String getMensaje() {
         return mensaje;
     }
-
+    
     public String getItemPreguntaSelec() {
         return itemPreguntaSelec;
     }
-
+    
     public void setItemPreguntaSelec(String itemPreguntaSelec) {
         this.itemPreguntaSelec = itemPreguntaSelec;
         setSelectedlistaRespPreguntas(itemPreguntaSelec);
     }
     
     public void setSelectedlistaRespPreguntas(String selectedRespPreguntas) {
-            this.selectedlistaRespPreguntas.add(selectedRespPreguntas);
+        this.selectedlistaRespPreguntas.add(selectedRespPreguntas);
     }
     
     public ArrayList<String> getSelectedlistaRespPreguntas() {
@@ -289,7 +289,7 @@ public class RespuestaPreguntaController implements Serializable{
     public void loadSelected(int id){
         selected=ejbRespuestaPregunta.find(id);
     }
-
+    
     public void getUserSession(){
         LoginMB login = new LoginMB();
         userLog = new Usuario();
@@ -322,23 +322,23 @@ public class RespuestaPreguntaController implements Serializable{
         List<RespuestaPregunta> encuestasRespuestas = new ArrayList<RespuestaPregunta>();
         getUserLog();
         Usuario user = ejbUser.find(userLog.getId_user());
-        List<RespuestaPregunta> respuestasPreguntas = ejbRespuestaPregunta.obtenerRespuestasPreguntaIdLog(user.getId_user());
+        List<RespuestaPregunta> respuestasPreguntas = ejbRespuestaPregunta.obtenerRespuestasPreguntaIdLog(user.getRolAlumno().getIdRol());
         for (int i = 0; i < respuestasPreguntas.size(); i++) {
             bool = false;
-                for (int j = 0; j < encuestasRespuestas.size(); j++) {
-                    if(encuestasRespuestas.get(j).getEncuesta().getIdEncuesta() == respuestasPreguntas.get(i).getEncuesta().getIdEncuesta() 
-                            && encuestasRespuestas.get(j).getCurso().getIdCurso() == respuestasPreguntas.get(i).getCurso().getIdCurso()){
-                        bool = true;
-                    }
+            for (int j = 0; j < encuestasRespuestas.size(); j++) {
+                if(encuestasRespuestas.get(j).getEncuesta().getIdEncuesta() == respuestasPreguntas.get(i).getEncuesta().getIdEncuesta()
+                        && encuestasRespuestas.get(j).getCurso().getIdCurso() == respuestasPreguntas.get(i).getCurso().getIdCurso()){
+                    bool = true;
                 }
-                if(!bool){
-                    encuestasRespuestas.add(respuestasPreguntas.get(i));
-                }
+            }
+            if(!bool){
+                encuestasRespuestas.add(respuestasPreguntas.get(i));
+            }
         }
         return encuestasRespuestas;
     }
     
-        public List<RespuestaPregunta> obtenerEncuestasPendientes(){
+    public List<RespuestaPregunta> obtenerEncuestasPendientes(){
         boolean bool = false;
         List<RespuestaPregunta> encuestasRespuestas = new ArrayList<RespuestaPregunta>();
         List<RespuestaPregunta> respuestasPreguntas = ejbRespuestaPregunta.findAll();
@@ -347,7 +347,7 @@ public class RespuestaPreguntaController implements Serializable{
             if(!respuestasPreguntas.get(i).isContesto()){
                 for (int j = 0; j < encuestasRespuestas.size(); j++) {
                     if(encuestasRespuestas.get(j).getEncuesta().getIdEncuesta() == respuestasPreguntas.get(i).getEncuesta().getIdEncuesta() &&
-                        encuestasRespuestas.get(j).getAlumno().getUsuario().getId_user() ==  respuestasPreguntas.get(i).getAlumno().getUsuario().getId_user()){
+                            encuestasRespuestas.get(j).getAlumno().getUsuario().getId_user() ==  respuestasPreguntas.get(i).getAlumno().getUsuario().getId_user()){
                         bool = true;
                     }
                 }
@@ -358,7 +358,7 @@ public class RespuestaPreguntaController implements Serializable{
         }
         return encuestasRespuestas;
     }
-        
+    
     public RespuestaPregunta getRespuestaPregunta(int id) {
         return ejbRespuestaPregunta.find(id);
     }
@@ -380,15 +380,15 @@ public class RespuestaPreguntaController implements Serializable{
         alumnoPendiente = respuesta.getAlumno();
         return alumnoPendiente;
     }
-
+    
     public Alumno getAlumnoPendiente() {
         return alumnoPendiente;
     }
-
+    
     public void setAlumnoPendiente(Alumno alumnoPendiente) {
         this.alumnoPendiente = alumnoPendiente;
     }
-
+    
     
     public void crearCorreoTodos() throws MessagingException, UnsupportedEncodingException{
         Mail MailCorreo = new Mail();
@@ -409,12 +409,18 @@ public class RespuestaPreguntaController implements Serializable{
     @EJB
     UsuarioFacade ejbUser;
     public void enviarCorreoUsuario(int idUser) throws MessagingException, UnsupportedEncodingException{
-        Mail MailCorreo = new Mail();
-        MailCorreo.getCorreo().setMensaje(ResourceBundle.getBundle("/Bundle").getString("msjEncuesta"));
-        MailCorreo.getCorreo().setAsunto(ResourceBundle.getBundle("/Bundle").getString("AsuntoEncuesta"));
         Usuario user = ejbUser.find(idUser);
-        MailCorreo.getCorreo().setTo(user.getMail());
-        MailCorreo.function(); 
+        if(!user.getMail().isEmpty()){
+            Mail MailCorreo = new Mail();
+            MailCorreo.getCorreo().setMensaje(ResourceBundle.getBundle("/Bundle").getString("msjEncuesta"));
+            MailCorreo.getCorreo().setAsunto(ResourceBundle.getBundle("/Bundle").getString("AsuntoEncuesta"));
+            
+            MailCorreo.getCorreo().setTo(user.getMail());
+            MailCorreo.function();
+        }else{
+            JsfUtil.addErrorMessage("No fue posible enviarle correo a " + user.getPrimerNombre() + " "+ user.getPrimerApellido() +
+                    " verifique que el usuario tenga un mail valido");
+        }
     }
     
 }

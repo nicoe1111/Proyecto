@@ -11,14 +11,15 @@
     </h:head>
     <h:body>
         <ui:composition >
-                <h:form id="fPreguntas" >
+            <h:form id="fPreguntas" >
+                <h:panelGroup id="PanelInsert">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <h:outputLabel class="control-label" value="Pregunta"/>
-                                        <h:inputText class="form-control" value="#{preguntaController.selected.pregunta}"/>
+                                        <h:inputText id="pregunta" class="form-control" value="#{preguntaController.selected.pregunta}"/>
                                     </div>
                                 </div>
                             </div>
@@ -27,49 +28,48 @@
                                     <c:choose>
                                         <c:when test="#{preguntaController.selected.idPregunta > 0 }">
                                             <h:inputHidden value="#{preguntaController.selected.idPregunta}" />
-                                            <h:commandButton action="#{preguntaController.updateSelected()}" value="Actualizar" styleClass="btn btn-default"/>
+                                            <h:commandButton value="Actualizar" styleClass="btn btn-default">
+                                                <f:ajax listener="#{preguntaController.updateSelected()}" execute="@form" event="click" render="fPreguntas:PanelInsert fPreguntas:PanelTable" />
+                                            </h:commandButton>
                                         </c:when>
                                         <c:otherwise>
-                                            <h:commandLink action="#{preguntaController.createSelected()}" styleClass="btn btn-default">
-                                                Crear
-                                            </h:commandLink>
+                                            <h:commandButton styleClass="btn btn-default" value="Crear">
+                                                <f:ajax listener="#{preguntaController.createSelected()}" execute="@form" event="click" render="fPreguntas:PanelTable fPreguntas:pregunta" />
+                                            </h:commandButton>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
                             </div>
-                         </div>
+                        </div>
                     </div>
-                        
-                </h:form>
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Pregunta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ui:repeat var="pregunta" value="#{preguntaController.items}">
+                </h:panelGroup>
+                <h:panelGroup id="PanelTable">
+                    <table class="table table-hover table-bordered">
+                        <thead>
                             <tr>
-                                <td>#{pregunta.pregunta}</td>
-                                <td>
-
-                                    <h:form styleClass="text-center">
-                                        <h:commandLink action="#{preguntaController.loadSelected(pregunta.idPregunta)}" styleClass="btn btn-primary btn-xs">
-                                            Actualizar
-                                        </h:commandLink>
-                                    </h:form>
-                                </td>
-                                <td>
-                                    <h:form styleClass="text-center">
-                                        <h:commandLink action="#{preguntaController.delete(pregunta.idPregunta)}" styleClass="btn btn-warning btn-xs">
-                                            Eliminar
-                                        </h:commandLink>
-                                    </h:form>
-                                </td>
+                                <th>Pregunta</th>
                             </tr>
-                        </ui:repeat>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <ui:repeat var="pregunta" value="#{preguntaController.items}">
+                                <tr>
+                                    <td>#{pregunta.pregunta}</td>
+                                    <td>
+                                        <h:commandButton value="Actualizar" styleClass="btn btn-primary btn-xs">
+                                            <f:ajax listener="#{preguntaController.loadSelected(pregunta.idPregunta)}" execute="@form" event="click" render="fPreguntas:PanelInsert" />
+                                        </h:commandButton>
+                                    </td>
+                                    <td>
+                                        <h:commandButton value="Eliminar" styleClass="btn btn-warning btn-xs">
+                                            <f:ajax listener="#{preguntaController.delete(pregunta.idPregunta)}" execute="@form" event="click" render="fPreguntas:PanelTable" />
+                                        </h:commandButton>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </h:panelGroup>
+            </h:form>
         </ui:composition>
     </h:body>
 </html>

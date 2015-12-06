@@ -10,51 +10,46 @@
     </h:head>
     <body id="bodyGestionEncuesta">
         <ui:composition >
-                <h:form id="idForm" style="width:900px; margin: auto" styleClass="text-center">
-                    <h3 style="margin-top:0">Año</h3>  
-                    <p:selectOneMenu id="anio" value="#{encuestaController.anioSelected}" style="width:200px;">
-                        <p:ajax listener="#{encuestaController.init()}" update="tree"/>
-                        <f:selectItem  itemLabel="Selecionar año" noSelectionOption="true"/>
-                        <f:selectItems value="#{encuestaController.years}" />
-                    </p:selectOneMenu><br/>
-                    <h3 style="margin-top:0">Seleccionar curso o semestre</h3>
-                    <p:tree id="tree" value="#{encuestaController.root}" var="node" orientation="horizontal"
-                            selectionMode="multiple" dynamic="true" cache="false" selection="#{encuestaController.selectedNode}">
-                        <p:treeNode>
-                            <h:outputText value="#{node}" />
-                        </p:treeNode>
-                    </p:tree>
-                    <h3 style="margin-top:0">Seleccionar preguntas</h3>
+            <h:form id="idForm" style="width:900px; margin: auto" styleClass="text-center">
+                <br/>
+                <h3 style="margin-top:0">Seleccionar curso o semestre</h3>
+                <p:tree id="tree" value="#{encuestaController.root}" var="node" orientation="horizontal"
+                        selectionMode="multiple" dynamic="true" cache="false" selection="#{encuestaController.selectedNode}">
+                    <p:treeNode>
+                        <h:outputText value="#{node}" />
+                    </p:treeNode>
+                </p:tree>
+                <h3 style="margin-top:0">Seleccionar preguntas</h3>
+                <h:panelGroup id="PanelRefresh">
                     <table class="table table-hover table-bordered">
-                        <p:panel id="PanelRefresh"> 
-                            <tbody>
-                                <ui:repeat var="pregunta" value="#{preguntaController.items}">
-                                    <tr>
-                                        <td>#{pregunta.pregunta}</td>
-                                        <td style="width:110px;">
-                                            <p:commandLink rendered="#{!(encuestaController.preguntaSelect(pregunta.idPregunta))}" update=":idForm" actionListener="#{encuestaController.addIdsPregunta(pregunta.idPregunta)}" styleClass="btn btn-primary btn-xs">
-                                                Seleccionar
-                                            </p:commandLink>
-                                        </td>
-                                        <td  style="width:110px;">  
-                                            <p:commandLink rendered="#{encuestaController.preguntaSelect(pregunta.idPregunta)}" update=":idForm" actionListener="#{encuestaController.DeleteIdsPregunta(pregunta.idPregunta)}" styleClass="btn btn-warning btn-xs">
-                                                Eliminar
-                                            </p:commandLink>
-                                        </td>
-                                    </tr>    
-                                </ui:repeat>
-                            </tbody>
-                        </p:panel>
+                        <tbody>
+                            <ui:repeat var="pregunta" value="#{preguntaController.items}">
+                                <tr>
+                                    <td>#{pregunta.pregunta}</td>
+                                    <td style="width:110px;">
+                                        <h:commandButton rendered="#{!(encuestaController.preguntaSelect(pregunta.idPregunta))}" value="Seleccionar" styleClass="btn btn-primary btn-xs">
+                                            <f:ajax listener="#{encuestaController.addIdsPregunta(pregunta.idPregunta)}" execute="@form" event="click" render="idForm:PanelRefresh" />
+                                        </h:commandButton>
+                                    </td>
+                                    <td  style="width:110px;">  
+                                        <h:commandButton rendered="#{encuestaController.preguntaSelect(pregunta.idPregunta)}" value="Eliminar" styleClass="btn btn-warning btn-xs">
+                                            <f:ajax listener="#{encuestaController.DeleteIdsPregunta(pregunta.idPregunta)}" execute="@form" event="click" render="idForm:PanelRefresh" />
+                                        </h:commandButton>
+                                    </td>
+                                </tr>    
+                            </ui:repeat>
+                        </tbody>
                     </table>
-                    <p:commandButton value="Crear" update=":growl"  action="#{encuestaController.createEncuesta()}" >
-                        <f:ajax execute="@form" />
-                    </p:commandButton>
-                    <br></br> <br></br>
-                    <h:outputLabel class="label-danger" value="#{encuestaController.mensaje}"/>
-                    <br></br><br></br>
-                    
-                </h:form> 
-
+                </h:panelGroup>
+                <h:commandButton styleClass="btn btn-default" value="Crear" >
+                    <f:ajax listener="#{encuestaController.createEncuesta()}" execute="@form" event="click" render=":growl idForm:PanelRefresh" />
+                </h:commandButton>
+                <br></br> <br></br>
+                <h:outputLabel class="label-danger" value="#{encuestaController.mensaje}"/>
+                <br></br><br></br>
+                
+            </h:form> 
+            
         </ui:composition>
     </body>
 </html>

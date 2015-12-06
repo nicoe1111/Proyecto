@@ -84,10 +84,10 @@ public class LoginMB implements Serializable{
     }
     
     public String logout() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         session.invalidate();
         this.logged = false;
-        return "Logout";
+        return "../../";
     }
     
     public Usuario getUsuarioLogeado(){
@@ -96,5 +96,7 @@ public class LoginMB implements Serializable{
         LoginMB uc = (LoginMB) session.getAttribute("login");
         return uc.getUserLoged();
     }
+    
+    
 }
 
