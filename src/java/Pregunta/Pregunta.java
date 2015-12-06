@@ -5,48 +5,27 @@
  */
 package Pregunta;
 
-import Encuesta.Encuesta;
-import RespuestaPregunta.RespuestaPregunta;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-/**
- * Representa una Pregunta de una Encuesta, contiene N RespuestaPregunta.
- * @author Matias
- */
 @Entity
 public class Pregunta implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idPregunta;
     private String pregunta;
-    
-    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<RespuestaPregunta> respuestasPreguntas= new ArrayList<>();
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_encuesta")
-    private Encuesta encuesta;
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++
 
     public Pregunta() {
     }
 
-    public Pregunta(int idPregunta, String pregunta, Encuesta encuesta) {
+    public Pregunta(int idPregunta, String pregunta) {
         this.idPregunta = idPregunta;
         this.pregunta = pregunta;
-        this.encuesta = encuesta;
     }
     
 //+++++++++++++++++++++SETTERS++++++++++++++++++++++++++
@@ -58,14 +37,6 @@ public class Pregunta implements Serializable{
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
     }
-
-    public void setRespuestasPreguntas(List<RespuestaPregunta> respuestasPreguntas) {
-        this.respuestasPreguntas = respuestasPreguntas;
-    }
-
-    public void setEncuesta(Encuesta encuesta) {
-        this.encuesta = encuesta;
-    }
     
  //+++++++++++++++++++++GETTERS++++++++++++++++++++++++++
 
@@ -76,16 +47,4 @@ public class Pregunta implements Serializable{
     public String getPregunta() {
         return pregunta;
     }
-
-    public List<RespuestaPregunta> getRespuestasPreguntas() {
-        return respuestasPreguntas;
-    }
-
-    public Encuesta getEncuesta() {
-        return encuesta;
-    }
-    
-    
-   
-   
 }

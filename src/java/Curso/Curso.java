@@ -9,6 +9,7 @@ import ClaseDada.ClaseDada;
 import Encuesta.Encuesta;
 import InstanciaEvaluacion.Evaluacion;
 import Materia.Materia;
+import RespuestaPregunta.RespuestaPregunta;
 import Rol.Alumno;
 import Rol.Docente;
 import SalonCurso.SalonCurso;
@@ -16,8 +17,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,9 +63,12 @@ public class Curso implements Serializable{
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Evaluacion> instanciasEvaluaciones;
     
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idEncuesta")
     private Encuesta encuesta;
+    
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<RespuestaPregunta> respPregunta = new ArrayList<>();
     
     public Curso() {    }
 
@@ -161,6 +163,14 @@ public class Curso implements Serializable{
     
     public void setEncuesta(Encuesta encuesta) {
         this.encuesta = encuesta;
+    }
+    
+    public List<RespuestaPregunta> getRespPregunta() {
+        return respPregunta;
+    }
+    
+    public void setRespPregunta(List<RespuestaPregunta> respPregunta) {
+        this.respPregunta = respPregunta;
     }
     
 }

@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Usuario;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -45,10 +43,21 @@ public class Infoadicionalalumno implements Serializable  {
     private Boolean vacunaantitetanica;
     private Date  vencimcarnetsalud;
     private Date  vencimvacunaantitetanica;
+    
+    @OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST}, orphanRemoval = true)
+    @JoinColumn(name="id_user")
+    Usuario userAlumno;
 
     public Infoadicionalalumno() {    }
 
+    public Usuario getUserAlumno() {
+        return userAlumno;
+    }
 
+    public void setUserAlumno(Usuario userAlumno) {
+        this.userAlumno = userAlumno;
+    }
+    
     public int getIdinfoalumno() {
         return idinfoalumno;
     }

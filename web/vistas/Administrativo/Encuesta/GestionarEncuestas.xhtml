@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestionar Encuestas</title>
+    </h:head>
+    <body id="bodyGestionEncuesta">
+        <ui:composition >
+                <h:form id="idForm" style="width:900px; margin: auto" styleClass="text-center">
+                    <h3 style="margin-top:0">Año</h3>  
+                    <p:selectOneMenu id="anio" value="#{encuestaController.anioSelected}" style="width:200px;">
+                        <p:ajax listener="#{encuestaController.init()}" update="tree"/>
+                        <f:selectItem  itemLabel="Selecionar año" noSelectionOption="true"/>
+                        <f:selectItems value="#{encuestaController.years}" />
+                    </p:selectOneMenu><br/>
+                    <h3 style="margin-top:0">Seleccionar curso o semestre</h3>
+                    <p:tree id="tree" value="#{encuestaController.root}" var="node" orientation="horizontal"
+                            selectionMode="multiple" dynamic="true" cache="false" selection="#{encuestaController.selectedNode}">
+                        <p:treeNode>
+                            <h:outputText value="#{node}" />
+                        </p:treeNode>
+                    </p:tree>
+                    <h3 style="margin-top:0">Seleccionar preguntas</h3>
+                    <table class="table table-hover table-bordered">
+                        <p:panel id="PanelRefresh"> 
+                            <tbody>
+                                <ui:repeat var="pregunta" value="#{preguntaController.items}">
+                                    <tr>
+                                        <td>#{pregunta.pregunta}</td>
+                                        <td style="width:110px;">
+                                            <p:commandLink rendered="#{!(encuestaController.preguntaSelect(pregunta.idPregunta))}" update=":idForm" actionListener="#{encuestaController.addIdsPregunta(pregunta.idPregunta)}" styleClass="btn btn-primary btn-xs">
+                                                Seleccionar
+                                            </p:commandLink>
+                                        </td>
+                                        <td  style="width:110px;">  
+                                            <p:commandLink rendered="#{encuestaController.preguntaSelect(pregunta.idPregunta)}" update=":idForm" actionListener="#{encuestaController.DeleteIdsPregunta(pregunta.idPregunta)}" styleClass="btn btn-warning btn-xs">
+                                                Eliminar
+                                            </p:commandLink>
+                                        </td>
+                                    </tr>    
+                                </ui:repeat>
+                            </tbody>
+                        </p:panel>
+                    </table>
+                    <p:commandButton value="Crear" update=":growl"  action="#{encuestaController.createEncuesta()}" >
+                        <f:ajax execute="@form" />
+                    </p:commandButton>
+                    <br></br> <br></br>
+                    <h:outputLabel class="label-danger" value="#{encuestaController.mensaje}"/>
+                    <br></br><br></br>
+                    
+                </h:form> 
+
+        </ui:composition>
+    </body>
+</html>

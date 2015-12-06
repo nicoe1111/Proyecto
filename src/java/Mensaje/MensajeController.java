@@ -2,7 +2,6 @@ package Mensaje;
 
 import Session.LoginMB;
 import Usuario.Usuario;
-import Usuario.UsuarioController2;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -91,7 +89,6 @@ public class MensajeController implements Serializable{
         }else{
             items=ejbMensaje.getMensajesRecividos(UserLogged.getNick());
         }
-//        items=ejbMensaje.findAll();
         
     }
     
