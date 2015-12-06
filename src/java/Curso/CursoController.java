@@ -136,7 +136,8 @@ public class CursoController implements Serializable {
     }
     
     public void setCursoSelectedID(int CursoSelectedID) {
-        setSelected(ejbCurso.find(CursoSelectedID));
+        Curso c = ejbCurso.find(CursoSelectedID);
+        setSelected(c);
         this.CursoSelectedID = CursoSelectedID;
     }
     
