@@ -30,9 +30,8 @@
                                             <h:commandButton action="#{preguntaController.updateSelected()}" value="Actualizar" styleClass="btn btn-default"/>
                                         </c:when>
                                         <c:otherwise>
-                                            <h:commandLink action="#" styleClass="btn btn-default">
+                                            <h:commandLink action="#{preguntaController.createSelected()}" styleClass="btn btn-default">
                                                 Crear
-                                                <p:ajax event="click" update=":fPreguntas:tablaPreguntas" listener="#{preguntaController.createSelected()}"/>
                                             </h:commandLink>
                                         </c:otherwise>
                                     </c:choose>

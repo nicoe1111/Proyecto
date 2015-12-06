@@ -289,12 +289,11 @@ public class RespuestaPreguntaController implements Serializable{
     public void loadSelected(int id){
         selected=ejbRespuestaPregunta.find(id);
     }
-    
-    @Inject
-    LoginMB login;
+
     public void getUserSession(){
+        LoginMB login = new LoginMB();
         userLog = new Usuario();
-        userLog = login.getUserLoged();
+        userLog = login.getUsusarioLogeado();
     }
     
     public List<Encuesta> obtenerEncuesta(){
