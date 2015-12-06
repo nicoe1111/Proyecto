@@ -16,6 +16,10 @@
                             <p:menuitem value="Gestionar Encuestas" id="GestionarEncuestas" url="/vistas/Administrativo/GestionarEncuestas.xhtml"/>
                             <p:menuitem value="Gestionar SalonCurso" id="GestionarSalonCurso" url="/vistas/Administrativo/GestionSalonCurso.xhtml"/>
                         </c:if>
+                    
+                        <c:if test="#{login.userLoged.hasRol('Docente')}" >
+                            <p:menuitem value="Asignar Estudiante a curso" id="GestionarSalonCurso" url="/vistas/Docente/AsignarEstudianteCurso.xhtml"/>
+                        </c:if>
                         
                         <p:menuitem value="Ver Horarios Curso" id="verHorarios" url="/vistas/VerHorarios.xhtml"/>
                         

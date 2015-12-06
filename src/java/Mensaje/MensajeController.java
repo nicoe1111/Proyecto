@@ -103,10 +103,8 @@ public class MensajeController implements Serializable{
     }
     
     public Usuario getUserLoged(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        LoginMB uc = (LoginMB) session.getAttribute("login");
-        return uc.getUserLoged();
+        LoginMB login = new LoginMB();
+        return login.getUsuarioLogeado();
     }
     
     public void responder(){

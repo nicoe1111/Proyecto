@@ -91,16 +91,11 @@ public class LoginMB implements Serializable{
         return "Logout";
     }
     
-//    public void obtenerParametros(){
-//        FacesContext facesContext = FacesContext. getCurrentInstance();
-//        ExternalContext externalContext = facesContext.getExternalContext();
-//        Map params = externalContext.getRequestParameterMap();
-//        if(params.size() > 0){
-//            Boolean categorySelected = new Boolean((String) params.get("login"));
-//          if(!categorySelected){
-//              logout();
-//          }
-//        }
-//    }
+    public Usuario getUsuarioLogeado(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        LoginMB uc = (LoginMB) session.getAttribute("login");
+        return uc.getUserLoged();
+    }
 }
 
