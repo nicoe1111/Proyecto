@@ -48,11 +48,11 @@
                     </p:outputLabel>
                 </p:layoutUnit>
             </div>
-            <p:layoutUnit position="west" size="200" header="Menu">
+            <p:layoutUnit position="west" size="200" header="Menu" collapsible="true">
                 <ui:include src="Items/Menu.xhtml"/>
             </p:layoutUnit>
             
-            <p:layoutUnit id="centroID" position="center"> 
+            <p:layoutUnit id="centroID" position="center" > 
                 <p:growl id="growl" life="3000" />
                 <ui:insert name="centro"/>
             </p:layoutUnit>     
