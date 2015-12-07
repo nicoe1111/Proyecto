@@ -4,11 +4,8 @@ import Curso.Curso;
 import Curso.CursoController;
 import Curso.CursoFacade;
 import InterfazUtil.SemestreAnioController;
-import ResultadoInstancia.ResultadoInstancia;
-import Rol.Alumno;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -29,25 +26,6 @@ public class InstanciaEvaluacionController implements Serializable{
     private List<Evaluacion> items=new ArrayList();
     private Evaluacion selected;
     
-    private String nombreEv;
-    private Date fechEv;
-    
-    public String getNombreEv() {
-        return nombreEv;
-    }
-    
-    public void setNombreEv(String nombreEv) {
-        this.nombreEv = nombreEv;
-    }
-    
-    public Date getFechEv() {
-        return fechEv;
-    }
-    
-    public void setFechEv(Date fechEv) {
-        this.fechEv = fechEv;
-    }
-    
     @PostConstruct
     private void init(){
         initItems();
@@ -62,6 +40,9 @@ public class InstanciaEvaluacionController implements Serializable{
     }
     
     public Evaluacion getSelected() {
+        if(selected==null){
+            selected = new Evaluacion();
+        }
         return selected;
     }
     
@@ -81,31 +62,14 @@ public class InstanciaEvaluacionController implements Serializable{
     
     public void prepareToCreate(){
         selected = null;
-        nombreEv = null;
-        fechEv = null;
         comboBoxController.setTipoInstanciaSelected(null);
     }
     
     public void createSelected(){
-        InicializarSelectedInstanciaChild();
-        selected.setFecha(fechEv);
-        selected.setNombre(nombreEv);
         Curso c = cursoController.getSelected();
         selected.setCurso(c);
         ejbInstancia.edit(selected);
         updateItems();
-    }
-    
-    private void InicializarSelectedInstanciaChild(){
-        if(comboBoxController.getTipoInstanciaSelected().equals("Examen")){
-            selected = new Examen();
-        }
-        if(comboBoxController.getTipoInstanciaSelected().equals("Laboratorio")){
-            selected = new Laboratorio();
-        }
-        if(comboBoxController.getTipoInstanciaSelected().equals("Parcial")){
-            selected = new Parcial();
-        }
     }
     
     public void deleteSelected() {

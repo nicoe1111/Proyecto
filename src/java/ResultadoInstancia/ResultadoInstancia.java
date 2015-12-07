@@ -4,7 +4,6 @@ import InstanciaEvaluacion.Evaluacion;
 import Rol.Alumno;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,25 +18,17 @@ public class ResultadoInstancia implements Serializable {
     private int calificacion;
     private boolean isPresento;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_Evaluacion")
     private Evaluacion instanciaEvaluacion;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_Alumno")
     private Alumno alumno;
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++
 
     public ResultadoInstancia() {
-    }
-
-    public ResultadoInstancia(int idResultadoInstancia, int calificacion, boolean isPresento, Evaluacion instanciaEvaluacion, Alumno alumno) {
-        this.idResultadoInstancia = idResultadoInstancia;
-        this.calificacion = calificacion;
-        this.isPresento = isPresento;
-        this.instanciaEvaluacion = instanciaEvaluacion;
-        this.alumno = alumno;
     }
     
 //++++++++++++++++++++SETTERS+++++++++++++++++++++++++++
