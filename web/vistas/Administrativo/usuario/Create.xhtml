@@ -10,6 +10,7 @@
 
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}" showEffect="clip" hideEffect="clip">
             <h:form id="UsuarioCreateForm">
+                 <p:growl id="growl" life="3000" />
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_primerNombre}" for="primerNombre" />
@@ -128,7 +129,7 @@
                         <p:calendar id="vencimvacunaantitetanica" pattern="MM/dd/yyyy" value="#{usuarioController.selected.infoAdicionalAlumno.vencimvacunaantitetanica}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimvacunaantitetanica}"  showOn="button"/>
                     </p:panelGrid>
                     
-                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display :UsuarioListForm:datalist :growl" oncomplete="PF('UsuarioCreateRolDialog').hide(); handleSubmit(args,'UsuarioCreateDialog');" />
+                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display :UsuarioListForm:datalist,:growl" oncomplete="PF('UsuarioCreateRolDialog').hide(); handleSubmit(args,'UsuarioCreateDialog');" />
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

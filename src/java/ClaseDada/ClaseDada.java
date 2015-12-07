@@ -23,10 +23,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-/**
- * Representa una claseDada de un curso
- * @author Matias
- */
 @Entity
 public class ClaseDada implements Serializable {
     @Id

@@ -57,7 +57,7 @@
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{usuarioController.isAlumno()}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{usuarioController.isAlumno()}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
                                 <p:commandButton id="uploadImage" icon=""  value="#{bundle.SubirImage}" update=":UploadImageForm"  oncomplete="PF('UsuarioUploadDialog').show()" />
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl,datalist" disabled="#{empty usuarioController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl, datalist" disabled="#{empty usuarioController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
