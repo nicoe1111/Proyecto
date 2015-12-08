@@ -11,7 +11,7 @@
             <h:form id="VerInfoAlumnoForm">
                 <div style="width: 800px; text-align: center; margin: auto;">
                     <p:accordionPanel multiple="true" style="">
-                        <c:forEach items="#{sessionAlumnoController.selected.cursos}" var="curso">
+                        <c:forEach items="#{sessionAlumnoController.selectedCursosOrderByYear}" var="curso">
                             <p:tab title="#{curso.materia.nombre} #{curso.anio}" titleStyle="background-color : #2196f3; color : #FFF; font-size : 16px;" >
                                 <p:panelGrid columns="3">
                                     <c:forEach items="#{curso.instanciasEvaluaciones}" var="instancia">
