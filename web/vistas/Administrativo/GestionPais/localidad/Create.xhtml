@@ -12,8 +12,6 @@
             <h:form id="LocalidadCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localidadController.selected != null}">
-                        <p:outputLabel value="#{bundle1.CreateLocalidadLabel_idLocalidad}" for="idLocalidad" />
-                        <p:inputText id="idLocalidad" value="#{localidadController.selected.idLocalidad}" title="#{bundle1.CreateLocalidadTitle_idLocalidad}" />
                         <p:outputLabel value="#{bundle1.CreateLocalidadLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{localidadController.selected.nombre}" title="#{bundle1.CreateLocalidadTitle_nombre}" />
                         <p:outputLabel value="#{bundle1.CreateLocalidadLabel_departamento}" for="departamento" />

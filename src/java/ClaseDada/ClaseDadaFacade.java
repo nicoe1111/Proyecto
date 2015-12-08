@@ -29,13 +29,13 @@ public class ClaseDadaFacade extends AbstractFacade<ClaseDada> {
         super(ClaseDada.class);
     }
 
-//    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-//    public List<RespuestaPregunta> obtenerRespuestasPreguntaIdLog(int id) {
-//        Query query = em.createQuery("SELECT r FROM RespuestaPregunta r WHERE r.alumno.idRol = :idUser AND r.contesto = FALSE");
-//        query.setParameter("idUser", id);
-//        List<RespuestaPregunta> encuesta = query.getResultList();
-//        return encuesta;
-//    }
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<ClaseDada> obtenerClasesDadasIdCurso(int id) {
+        Query query = em.createQuery("SELECT cd FROM clasesDadas cd WHERE cd..alumno.idRol = :idUser AND r.contesto = FALSE");
+        query.setParameter("idUser", id);
+        List<ClaseDada> clasesDadas = query.getResultList();
+        return clasesDadas;
+    }
 //    
 //        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 //    public List<RespuestaPregunta> obtenerRespPreguntaIdLogCurso(int idEncuesta, int idUserLog, int idCurso) {

@@ -23,11 +23,11 @@ public class Asistencia implements Serializable{
     private int idAsistencia;
     private boolean isPresente;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_ClaseDada")
     private ClaseDada claseDada;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_Alumno")
     private Alumno alumno;
 
