@@ -11,7 +11,7 @@
                 <h:form id="ListaAlumnosForm">
                     <p:panel header="Lista de Alumnos">
                         <p:dataTable id="datalist" var="alumno" value="#{alumnoController.items}" 
-                                     selectionMode="single" selection="#{alumnoController.selected}"
+                                     selectionMode="single" selection="#{sessionAlumnoController.selected}"
                                      scrollable="true" 
                                      rowKey="#{alumno.idRol}"
                                      filteredValue="#{filtersList.filteredItems}"
@@ -47,7 +47,7 @@
                                 <h:outputText value="#{alumno.usuario.celular}" />
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="verInfo" class="btn btn-default" value="Ver Info" actionListener="#" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
+                                <h:commandButton id="verInfo" class="btn btn-default" value="Ver Info" action="VerInfoAlumno.xhtml" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
