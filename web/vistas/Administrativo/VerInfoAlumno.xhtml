@@ -9,19 +9,27 @@
     <ui:composition template="../index.xhtml">
         <ui:define name="centro">
             <h:form id="VerInfoAlumnoForm">
-                <p:accordionPanel multiple="true">
-                    <c:forEach items="#{alumnoController.selected.cursos}" var="curso">
-                        <p:tab title="#{curso.materia.nombre} #{curso.anio}">
-                            <c:forEach items="#{curso.instanciasEvaluaciones}" var="instancia">
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <h:outputText value="Evaluacion : #{instancia.nombre}" />
-                                    <h:outputText value="Calificacion : #{resultadosEvaluacionController.getResultadoAlumno(instancia, alumnoController.selected).calificacion}" />
-                                    <h:outputText value="fecha : #{instancia.fecha}" />
-                                </h:panelGrid>
-                            </c:forEach>
-                        </p:tab>
-                    </c:forEach>
-                </p:accordionPanel>
+                <div style="width: 800px; text-align: center; margin: auto;">
+                    <p:accordionPanel multiple="true" style="">
+                        <c:forEach items="#{sessionAlumnoController.selected.cursos}" var="curso">
+                            <p:tab title="#{curso.materia.nombre} #{curso.anio}" titleStyle="background-color : #2196f3; color : #FFF; font-size : 16px;" >
+                                <p:panelGrid columns="3">
+                                    <c:forEach items="#{curso.instanciasEvaluaciones}" var="instancia">
+                                        <p:row>
+                                            <h:outputText value="Evaluacion : #{instancia.tipo}" />
+                                        </p:row>
+                                        <p:row>
+                                            <h:outputText value="fecha : #{instancia.fecha}" />
+                                        </p:row>
+                                        <p:row>
+                                            <h:outputText value="Resultado : #{resultadosEvaluacionController.getResultadoAlumno(instancia ,sessionAlumnoController.selected).calificacion}" />
+                                        </p:row>
+                                    </c:forEach>
+                                </p:panelGrid>
+                            </p:tab>
+                        </c:forEach>
+                    </p:accordionPanel>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>

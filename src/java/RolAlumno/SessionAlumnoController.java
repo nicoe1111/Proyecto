@@ -6,13 +6,13 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
-@Named("alumnoController")
-@ViewScoped
-public class AlumnoController implements Serializable{
+@Named("sessionAlumnoController")
+@SessionScoped
+public class SessionAlumnoController implements Serializable{
     
     private List<Alumno> items = null;
     private Alumno selected = null;
@@ -26,7 +26,7 @@ public class AlumnoController implements Serializable{
     }
     
     public Alumno getSelected() {
-        if(selected==null){
+         if(selected==null){
             selected=new Alumno();
         }
         return selected;
@@ -43,5 +43,4 @@ public class AlumnoController implements Serializable{
     public void setItems(List<Alumno> Items) {
         this.items = Items;
     }
-    
 }

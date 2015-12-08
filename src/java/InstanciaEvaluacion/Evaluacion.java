@@ -24,9 +24,8 @@ public class Evaluacion implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idEvaluacion;
-    
+    private String Tipo;
     private Date fecha;
-    private String nombre;
     
     @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_Curso")
@@ -34,6 +33,7 @@ public class Evaluacion implements Serializable{
     
     @OneToMany(mappedBy = "instanciaEvaluacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ResultadoInstancia> resultadosInstancias= new ArrayList<>();
+    
     
 //++++++++++++++++++CONSTRUCTORES+++++++++++++++++++++++
 
@@ -52,10 +52,6 @@ public class Evaluacion implements Serializable{
         this.fecha = fecha;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
@@ -64,6 +60,11 @@ public class Evaluacion implements Serializable{
         this.resultadosInstancias = resultadosInstancias;
     }
 
+    
+
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
+    }
 //++++++++++++++++++++GETTERS+++++++++++++++++++++++++++
 
     public int getIdEvaluacion() {
@@ -74,10 +75,6 @@ public class Evaluacion implements Serializable{
         return fecha;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public Curso getCurso() {
         return curso;
     }
@@ -86,7 +83,7 @@ public class Evaluacion implements Serializable{
         return resultadosInstancias;
     }
     
-    public String getTipoInstancia(){
-        return this.getClass().getSimpleName();
-    }
-}
+    public String getTipo() {
+        return Tipo;
+    }}
+

@@ -19,16 +19,12 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <p:outputLabel value="Nombre" />
-                                <p:inputText value="#{instanciaEvaluacionController.nombreEv}" />
-                            </div>
-                            <div class="form-group">
                                 <p:outputLabel value="Fecha (dd/MM/yyyy)"/>
-                                <p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy" value="#{instanciaEvaluacionController.fechEv}" mask="true"/>
+                                <p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy" value="#{instanciaEvaluacionController.selected.fecha}" mask="true"/>
                             </div>
                             <div class="form-group">
                                 <p:outputLabel value="Seleccione una tipo de instancia:" />
-                                <p:selectOneMenu id="semestre" value="#{semestreAnioController.tipoInstanciaSelected}" appendTo="@this" style="width:200px;">
+                                <p:selectOneMenu id="semestre" value="#{instanciaEvaluacionController.selected.tipo}" appendTo="@this" style="width:200px;">
                                     <f:selectItems value="#{semestreAnioController.tipoInstancia}"/>
                                 </p:selectOneMenu><br/>
                             </div>

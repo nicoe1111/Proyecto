@@ -1,8 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
 package InterfazUtil;
 
 import java.io.Serializable;
@@ -157,7 +152,7 @@ public class SemestreAnioController implements Serializable{
     }
     
     private String tipoInstanciaSelected;
-    private List<String> tipoInstancia = Arrays.asList("Examen", "Parcial", "Laboratorio");
+    private List<String> tipoInstancia = Arrays.asList("Examen", "Primer Parcial", "Segundo Parcial", "Laboratorio", "Resultado Curso");
 
     public List<String> getTipoInstancia() {
         return tipoInstancia;

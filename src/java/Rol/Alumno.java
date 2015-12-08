@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Alumno extends TipoRol{
     
-    @ManyToMany(mappedBy="alumnos")
+    @ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos;
 
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -34,8 +34,6 @@ public class Alumno extends TipoRol{
     public List<Curso> getCursos() {
         return cursos;
     }
-    
-
     
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
