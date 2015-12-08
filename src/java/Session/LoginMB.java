@@ -87,7 +87,7 @@ public class LoginMB implements Serializable{
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         session.invalidate();
         this.logged = false;
-        return "../../";
+        return "/login.xhtml";
     }
     
     public Usuario getUsuarioLogeado(){

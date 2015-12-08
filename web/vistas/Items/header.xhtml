@@ -45,8 +45,9 @@
                                 </c:if>
                             </ul>
                         </li>
-                        <li><h:link value="Cerrar Session"> </h:link></li>
-
+                        <li><h:form class="navbar-form navbar-right"> 
+                                <h:commandLink class="form-control" value="Cerrar Session" action="#{login.logout()}"/> 
+                            </h:form></li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         <input type="text" class="form-control" placeholder="Buscar..." />
