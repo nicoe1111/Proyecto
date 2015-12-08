@@ -3,26 +3,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Gestionar Encuestas</title>
     </h:head>
-    <h:body>
+    <body id="bodyGestionEncuesta">
         <ui:composition template="../../index.xhtml">
             <ui:define name="centro">
-                <h3>Clase del dia</h3>
-                <h:form>
-                    <p:outputLabel value="Fecha: " for="fechaClaseDada" />
-                    <p:calendar id="fechaClaseDada" pattern="dd/MM/yyyy" value="#{claseDadaController.claseDada.fecha}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimcarnetsalud}" showOn="button"/>
-                    <p:outputLabel value="Curso:  " for="cursoClaseDada" />
-                    <p:selectOneMenu id="cursoClaseDada" value="#{claseDadaController.claseDada.curso}" style="width:150px">
-                        <f:selectItem itemLabel="Selecc Curso" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{claseDadaController.cursos}" />
-                    </p:selectOneMenu>
-                </h:form>  
+                <h:form id="idFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-4"><p:outputLabel value="Seleccionar Curso: " for="fechaClaseDada" /></div>
+                        <div class="col-sm-4">
+                            <h:selectOneMenu id="cursoClaseDada" value="#{claseDadaController.cursoSeleccionado}" style="width:150px">
+                                <f:selectItem itemLabel="Seleccinar Curso..." itemValue="" />
+                                <f:selectItems value="#{claseDadaController.cursos}"  var="curso" itemLabel="#{curso.materia.nombre} - #{curso.docente.usuario.primerNombre},  #{curso.docente.usuario.primerApellido}" itemValue="#{curso.idCurso}" />
+                                <p:ajax event="change" update=":idFormPanelRefresh, :idFormPanelRefresh:panelAsistencia" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-4"><p:outputLabel value="Fecha: " for="fechaClaseDada" /></div>
+                        <div class="col-sm-4">
+                            <p:calendar id="fechaClaseDada" pattern="dd/mm/yyyy" value="#{claseDadaController.fecha}" mask="true">
+                                <p:ajax event="dateSelect" listener="#{claseDadaController.onDateSelect}" update=":idFormClaseDada:fechaRefresh" />
+                            </p:calendar>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-4"><p:outputLabel value="Tema dado en Clase " for="textClaseDada" /></div>
+                        <div class="col-sm-4"><p:inputTextarea id="textClaseDada" maxlength="255" value="#{claseDadaController.temaDado}" rows="6" cols="33" >
+                                <p:ajax event="change" />
+                            </p:inputTextarea>
+                        </div>
+                    </div>
+                    <h:panelGroup id="fechaRefresh">
+                        <h4> Asistencias al curso  #{claseDadaController.claseDada.curso.materia.nombre} - #{claseDadaController.fechaString}</h4>
+                    </h:panelGroup>
+                </h:form>
+                <h:form id="idFormPanelRefresh" style="width:900px; margin: auto" styleClass="text-center">
+                    <h:panelGroup id="panelAsistencia" rendered="#{claseDadaController.cursoSeleccionado != null}">
+                        
+                        <ui:repeat var="alumno" value="#{claseDadaController.claseDada.curso.alumnos}">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p:outputLabel value="#{alumno.usuario.primerNombre}  #{alumno.usuario.primerApellido}"/>
+                                </div>
+                                <div class="col-sm-1">
+                                    <p:selectBooleanCheckbox id="isPresente" value="#{claseDadaController.isAsistio}">
+                                        <p:ajax listener="#{claseDadaController.setAlumnoAsistio(alumno.idRol)}" />
+                                    </p:selectBooleanCheckbox>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </h:panelGroup>
+                    <h:panelGroup id="panelAsistencia1" rendered="#{claseDadaController.cursoSeleccionado != null}">
+                        <ui:repeat var="alumno1" value="#{claseDadaController.obtenerAlumnos(cursoSeleccionado)}">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p:outputLabel value="#{alumno1.usuario.primerNombre}"/>
+                                </div>
+                                <div class="col-sm-1">
+                                    <p:selectBooleanCheckbox id="isPresente" value="#{claseDadaController.isAsistio}">
+                                        <p:ajax listener="#{claseDadaController.setAlumnoAsistio(alumno.idRol)}" />
+                                    </p:selectBooleanCheckbox>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </h:panelGroup>
+                    <h:commandButton type="submit" action="#{claseDadaController.crearClaseDada()}" styleClass="btn btn-default" value="Crear" >
+                    </h:commandButton>
+                </h:form> 
             </ui:define>
         </ui:composition> 
-    </h:body>
+    </body>
 </html>
-

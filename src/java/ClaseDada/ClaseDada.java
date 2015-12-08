@@ -8,7 +8,6 @@ package ClaseDada;
 
 import Asistencia.Asistencia;
 import Curso.Curso;
-import Materia.Materia;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,15 +27,16 @@ public class ClaseDada implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idClaseDada;
+    
     private Date fecha;
     private String temaDado;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_curso")
     private Curso curso;
     
     @OneToMany(mappedBy = "claseDada", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Asistencia> asistencias= new ArrayList<>();
+    private List<Asistencia> asistencias = new ArrayList<>();
 
     
 //++++++++++++++CONSTRUCTORES++++++++++++++++
@@ -52,9 +52,6 @@ public class ClaseDada implements Serializable {
 
     
 //+++++++++++++++SETTERS+++++++++++++++++++++
-    public void setIdClaseDada(int idClaseDada) {
-        this.idClaseDada = idClaseDada;
-    }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;

@@ -12,8 +12,6 @@
             <h:form id="PaisCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{paisController.selected != null}">
-                        <p:outputLabel value="#{bundle1.CreatePaisLabel_idPais}" for="idPais" />
-                        <p:inputText id="idPais" value="#{paisController.selected.idPais}" title="#{bundle1.CreatePaisTitle_idPais}" />
                         <p:outputLabel value="#{bundle1.CreatePaisLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{paisController.selected.nombre}" title="#{bundle1.CreatePaisTitle_nombre}" />
                     </p:panelGrid>
