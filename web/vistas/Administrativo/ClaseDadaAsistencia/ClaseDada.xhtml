@@ -45,7 +45,7 @@
                     </h:panelGroup>
                 </h:form>
                 <h:form id="idFormPanelRefresh" style="width:900px; margin: auto" styleClass="text-center">
-                    <h:panelGroup id="panelAsistencia" rendered="#{claseDadaController.cursoSeleccionado != null}">
+                    <h:panelGroup id="panelAsistencia" rendered="#{claseDadaController.cursoSeleccionado > 0}">
                         
                         <ui:repeat var="alumno" value="#{claseDadaController.claseDada.curso.alumnos}">
                             <div class="row">
@@ -59,23 +59,8 @@
                                 </div>
                             </div>
                         </ui:repeat>
+                        <h:commandButton type="submit" action="#{claseDadaController.crearClaseDada()}" styleClass="btn btn-default" value="Crear"/>
                     </h:panelGroup>
-                    <h:panelGroup id="panelAsistencia1" rendered="#{claseDadaController.cursoSeleccionado != null}">
-                        <ui:repeat var="alumno1" value="#{claseDadaController.obtenerAlumnos(cursoSeleccionado)}">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p:outputLabel value="#{alumno1.usuario.primerNombre}"/>
-                                </div>
-                                <div class="col-sm-1">
-                                    <p:selectBooleanCheckbox id="isPresente" value="#{claseDadaController.isAsistio}">
-                                        <p:ajax listener="#{claseDadaController.setAlumnoAsistio(alumno.idRol)}" />
-                                    </p:selectBooleanCheckbox>
-                                </div>
-                            </div>
-                        </ui:repeat>
-                    </h:panelGroup>
-                    <h:commandButton type="submit" action="#{claseDadaController.crearClaseDada()}" styleClass="btn btn-default" value="Crear" >
-                    </h:commandButton>
                 </h:form> 
             </ui:define>
         </ui:composition> 

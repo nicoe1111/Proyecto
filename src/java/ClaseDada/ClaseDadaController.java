@@ -67,6 +67,7 @@ public class ClaseDadaController implements Serializable{
     private String fechaString;
     
     public void setCursoSeleccionado(int id){
+        cursoSeleccionado = id;
         claseDada.setCurso(ejbCurso.find(id));
     }
     
