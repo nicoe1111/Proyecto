@@ -1,8 +1,12 @@
 package RolAlumno;
 
+import Curso.Curso;
 import Rol.Alumno;
 import Rol.RolFacade;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -42,5 +46,16 @@ public class SessionAlumnoController implements Serializable{
     
     public void setItems(List<Alumno> Items) {
         this.items = Items;
+    }
+    
+    public List<Curso> getSelectedCursosOrderByYear(){
+        List<Curso> list = selected.getCursos();
+        Collections.sort(list, new Comparator<Curso>() {
+            @Override 
+            public int compare(Curso c1, Curso c2) {
+                return c2.getAnio() - c1.getAnio(); // de mayor a menor
+            }
+        });
+        return list;
     }
 }
