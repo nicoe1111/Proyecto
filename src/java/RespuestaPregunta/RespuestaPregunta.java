@@ -31,11 +31,11 @@ public class RespuestaPregunta implements Serializable{
     @JoinColumn(name = "id_Alumno")
     private Alumno alumno;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "idPregunta")
     private Pregunta pregunta;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "idEncuesta")
     private Encuesta encuesta;
     
@@ -55,10 +55,6 @@ public class RespuestaPregunta implements Serializable{
 
     public void setContesto(boolean contesto) {
         this.contesto = contesto;
-    }
-
-    public void setIdRespuestaPregunta(int idRespuestaPregunta) {
-        this.idRespuestaPregunta = idRespuestaPregunta;
     }
 
     public void setPuntaje(int puntaje) {

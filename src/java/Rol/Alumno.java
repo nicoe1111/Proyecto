@@ -5,7 +5,6 @@
 */
 package Rol;
 
-import Asistencia.Asistencia;
 import Curso.Curso;
 import RespuestaPregunta.RespuestaPregunta;
 import ResultadoInstancia.ResultadoInstancia;
@@ -23,7 +22,7 @@ public class Alumno extends TipoRol{
     @ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos;
 
-    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RespuestaPregunta> respuestasPreguntas= new ArrayList<>();
     
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

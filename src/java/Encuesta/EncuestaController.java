@@ -428,26 +428,7 @@ public class EncuestaController implements Serializable{
     }
     
     private List<String> graficaPreguntas = new ArrayList<>();
-    
-    
-    
-//    public List<Curso> filtarCursosEncuesta(){
-//        List<Curso> listCurso = new ArrayList<Curso>();
-//        List<Curso> cursos = obtenerCursos();
-//        for (int i = 0; i < cursos.size(); i++) {
-//            if(i == 0){
-//                listCurso.add(cursos.get(i));
-//            }else {
-//                for (int j = 0; j < cursos.get(i).getRespPregunta().size(); j++) {
-//                    if(cursos.get(i).getRespPregunta().get(j).getEncuesta().getIdEncuesta() == cursos.get(i-1).getEncuesta().getIdEncuesta()){
-//                        listCurso.add(cursos.get(i));
-//                        j = cursos.get(i).getRespPregunta().size();
-//                    }
-//                }
-//            }
-//        }
-//        return listCurso;
-//    }
+
 
     public List<String> getGraficaPreguntas() {
         return graficaPreguntas;

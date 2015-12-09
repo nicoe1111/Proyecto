@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html  lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -14,8 +14,8 @@
                 <h:form id="idFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
                     <br/>
                     <div class="row">
-                        <div class="col-sm-4"><p:outputLabel value="Seleccionar Curso: " for="fechaClaseDada" /></div>
-                        <div class="col-sm-4">
+                        <div class="col-md-4"><p:outputLabel value="Seleccionar Curso: " for="fechaClaseDada" /></div>
+                        <div class="col-md-4">
                             <h:selectOneMenu id="cursoClaseDada" value="#{claseDadaController.cursoSeleccionado}" style="width:150px">
                                 <f:selectItem itemLabel="Seleccinar Curso..." itemValue="" />
                                 <f:selectItems value="#{claseDadaController.cursos}"  var="curso" itemLabel="#{curso.materia.nombre} - #{curso.docente.usuario.primerNombre},  #{curso.docente.usuario.primerApellido}" itemValue="#{curso.idCurso}" />
@@ -25,17 +25,17 @@
                     </div>
                     <br/>
                     <div class="row">
-                        <div class="col-sm-4"><p:outputLabel value="Fecha: " for="fechaClaseDada" /></div>
-                        <div class="col-sm-4">
-                            <p:calendar id="fechaClaseDada" pattern="dd/mm/yyyy" value="#{claseDadaController.fecha}" mask="true">
-                                <p:ajax event="dateSelect" listener="#{claseDadaController.onDateSelect}" update=":idFormClaseDada:fechaRefresh" />
+                        <div class="col-md-4"><p:outputLabel value="Fecha: " for="fechaClaseDada" /></div>
+                        <div class="col-md-4">
+                            <p:calendar id="fechaClaseDada" pattern="yyyy-MM-dd" value="#{claseDadaController.fecha}" mask="true">
+                                <p:ajax event="dateSelect" listener="#{claseDadaController.onDateSelect}" update=":idFormClaseDada:fechaRefresh, :idFormPanelRefresh:fechaSelec" />
                             </p:calendar>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
-                        <div class="col-sm-4"><p:outputLabel value="Tema dado en Clase " for="textClaseDada" /></div>
-                        <div class="col-sm-4"><p:inputTextarea id="textClaseDada" maxlength="255" value="#{claseDadaController.temaDado}" rows="6" cols="33" >
+                        <div class="col-md-4"><p:outputLabel value="Tema dado en Clase " for="textClaseDada" /></div>
+                        <div class="col-md-4"><p:inputTextarea id="textClaseDada" maxlength="255" value="#{claseDadaController.temaDado}" rows="6" cols="33" >
                                 <p:ajax event="change" />
                             </p:inputTextarea>
                         </div>
@@ -44,24 +44,40 @@
                         <h4> Asistencias al curso  #{claseDadaController.claseDada.curso.materia.nombre} - #{claseDadaController.fechaString}</h4>
                     </h:panelGroup>
                 </h:form>
-                <h:form id="idFormPanelRefresh" style="width:900px; margin: auto" styleClass="text-center">
+                <h:form id="idFormPanelRefresh" style="width:1100px; margin: auto">
                     <h:panelGroup id="panelAsistencia" rendered="#{claseDadaController.cursoSeleccionado > 0}">
                         
-                        <ui:repeat var="alumno" value="#{claseDadaController.claseDada.curso.alumnos}">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p:outputLabel value="#{alumno.usuario.primerNombre}  #{alumno.usuario.primerApellido}"/>
-                                </div>
-                                <div class="col-sm-1">
-                                    <p:selectBooleanCheckbox id="isPresente" value="#{claseDadaController.isAsistio}">
-                                        <p:ajax listener="#{claseDadaController.setAlumnoAsistio(alumno.idRol)}" />
-                                    </p:selectBooleanCheckbox>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p:outputLabel id="fechaSelec" value="#{claseDadaController.fechaString}"/>
+                                <ui:repeat var="alumno" value="#{claseDadaController.claseDada.curso.alumnos}">
+                                    <div>
+                                        <p:outputLabel value="#{alumno.usuario.primerNombre}  #{alumno.usuario.primerApellido}"/>
+                                        <p:selectBooleanCheckbox id="isPresente" value="#{claseDadaController.isAsistio}">
+                                            <p:ajax listener="#{claseDadaController.setAlumnoAsistio(alumno.idRol)}" />
+                                        </p:selectBooleanCheckbox>
+                                    </div>
+                                </ui:repeat>
+                                <h:commandButton type="submit" action="#{claseDadaController.crearClaseDada()}" styleClass="btn btn-default" value="Crear"/>
                             </div>
-                        </ui:repeat>
-                        <h:commandButton type="submit" action="#{claseDadaController.crearClaseDada()}" styleClass="btn btn-default" value="Crear"/>
+                            <ui:repeat var="claseDada" value="#{claseDadaController.obtenerAlumnos(claseDadaController.claseDada.curso)}">
+                                <div class="col-md-2">
+                                    <p:outputLabel value="#{claseDada.fecha}"/>
+                                    <ui:repeat var="asistencia" value="#{claseDadaController.asistenciasClaseDada(claseDada)}"> 
+                                        <div>
+                                            <p:outputLabel value="#{asistencia.alumno.usuario.primerNombre}  #{asistencia.alumno.usuario.primerApellido}"/>
+                                            <p:selectBooleanCheckbox id="isPresente" value="#{asistencia.isPresente}" disabled="true"/>
+                                        </div>
+                                    </ui:repeat>
+                                    <h:commandButton id="modificarClaseDada" styleClass="btn btn-default" value="Modificar" >
+                                        <p:ajax event="click" listener="#{claseDadaController.setSelected(claseDada)}" update=":ClaseDadaEditForm" oncomplete="PF('ClaseDadaEditDialog').show()" />
+                                    </h:commandButton>
+                                </div>
+                            </ui:repeat>   
+                        </div>
                     </h:panelGroup>
                 </h:form> 
+                <ui:include src="EditClaseDada.xhtml"/>
             </ui:define>
         </ui:composition> 
     </body>

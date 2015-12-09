@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ClaseDada;
+package Asistencia;
 
 import General.AbstractFacade;
 import java.util.List;
@@ -16,7 +16,7 @@ import javax.persistence.Query;
 
 
 @Stateless
-public class ClaseDadaFacade extends AbstractFacade<ClaseDada> {
+public class AsistenciaFacade extends AbstractFacade<Asistencia> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
 
@@ -25,16 +25,16 @@ public class ClaseDadaFacade extends AbstractFacade<ClaseDada> {
         return em;
     }
 
-    public ClaseDadaFacade() {
-        super(ClaseDada.class);
+    public AsistenciaFacade() {
+        super(Asistencia.class);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<ClaseDada> obtenerClasesDadasIdCurso(int id) {
-        Query query = em.createQuery("SELECT cd FROM ClaseDada cd WHERE cd.curso.idCurso = :idCurso");
-        query.setParameter("idCurso", id);
-        List<ClaseDada> clasesDadas = query.getResultList();
-        return clasesDadas;
+    public List<Asistencia> getAsistenciaClaseDada(int id) {
+        Query query = em.createQuery("SELECT a FROM Asistencia a WHERE a.claseDada.idClaseDada = :idClaseDada ORDER BY a.claseDada.fecha DESC");
+        query.setParameter("idClaseDada", id);
+        List<Asistencia> asistencias = query.getResultList();
+        return asistencias;
     }
 //    
 //        @TransactionAttribute(TransactionAttributeType.REQUIRED)

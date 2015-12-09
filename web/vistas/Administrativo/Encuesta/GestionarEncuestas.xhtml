@@ -41,9 +41,7 @@
                         </tbody>
                     </table>
                 </h:panelGroup>
-                <h:commandButton styleClass="btn btn-default" value="Crear" >
-                    <f:ajax listener="#{encuestaController.createEncuesta()}" execute="@form" event="click" render=":growl idForm:PanelRefresh" />
-                </h:commandButton>
+                <h:commandButton styleClass="btn btn-default" action="#{encuestaController.createEncuesta()}" type="submit" value="Crear" />
                 <br></br> <br></br>
                 <h:outputLabel class="label-danger" value="#{encuestaController.mensaje}"/>
                 <br></br><br></br>

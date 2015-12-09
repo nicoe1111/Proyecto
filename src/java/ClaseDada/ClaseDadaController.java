@@ -6,11 +6,13 @@
 package ClaseDada;
 
 import Asistencia.Asistencia;
+import Asistencia.AsistenciaFacade;
 import Curso.Curso;
 import Curso.CursoFacade;
 import Rol.Alumno;
 import Rol.RolFacade;
 import Rol.TipoRol;
+import Usuario.util.JsfUtil;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -34,6 +36,7 @@ public class ClaseDadaController implements Serializable{
     private String temaDado;
     private Boolean isAsistio;
     private Date fecha;
+    private ClaseDada selected;
     
     @EJB
             ClaseDadaFacade ejbClaseDada;
@@ -47,6 +50,14 @@ public class ClaseDadaController implements Serializable{
         return claseDada;
     }
     
+    public ClaseDada getSelected() {
+        return selected;
+    }
+    
+    public void setSelected(ClaseDada selected) {
+        this.selected = selected;
+    }
+    
     public void setClaseDada(ClaseDada claseDada) {
         this.claseDada = claseDada;
     }
@@ -56,11 +67,23 @@ public class ClaseDadaController implements Serializable{
         return cursos;
     }
     
-    public List<Alumno>obtenerAlumnos(int id){
-        Curso curso = ejbCurso.find(id);
-        List<ClaseDada> clasesDadasCursos = ejbClaseDada.obtenerClasesDadasIdCurso(curso.getIdCurso());
-        return curso.getAlumnos();
-        
+    public List<ClaseDada>obtenerAlumnos(Curso cursoSelec){
+        List<ClaseDada> clasesDadasCursos = new ArrayList<ClaseDada>();
+        Curso curso = ejbCurso.find(cursoSelec.getIdCurso());
+        if(curso != null){
+            clasesDadasCursos = ejbClaseDada.obtenerClasesDadasIdCurso(curso.getIdCurso());
+        }
+        return clasesDadasCursos;
+    }
+    
+    @EJB
+            AsistenciaFacade ejbAsistencia;
+    public List<Asistencia> asistenciasClaseDada(ClaseDada claseDada){
+        List<Asistencia> listAsistencia = new ArrayList<Asistencia>();
+        if(claseDada != null){
+            listAsistencia = ejbAsistencia.getAsistenciaClaseDada(claseDada.getIdClaseDada());
+        }
+        return listAsistencia;
     }
     
     private int cursoSeleccionado;
@@ -78,7 +101,7 @@ public class ClaseDadaController implements Serializable{
     public void onDateSelect(SelectEvent event) throws ParseException {
         Date fecha = ((Date)event.getObject());
         setFecha(fecha);
-        DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         setFechaString(formatter.format(fecha));
     }
     
@@ -90,7 +113,7 @@ public class ClaseDadaController implements Serializable{
         this.isAsistio = isAsistio;
     }
     @EJB
-    RolFacade ejbRol;
+            RolFacade ejbRol;
     public void setAlumnoAsistio(int id){
         if(isAsistio){
             asistencia = new Asistencia();
@@ -118,12 +141,17 @@ public class ClaseDadaController implements Serializable{
     }
     
     public String crearClaseDada() throws ParseException{
-        DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         seteoAsistenciasFalse();
         claseDada.setAsistencias(asistencias);
         claseDada.setTemaDado(temaDado);
         claseDada.setFecha(fecha);
-        ejbClaseDada.create(claseDada);
+        if(claseDada.getFecha() == null || claseDada.getFecha().equals("") || claseDada.getAsistencias().isEmpty()){
+            JsfUtil.addErrorMessage("No fue posible crear la clase faltan ingresar datos");
+        }else{
+            ejbClaseDada.create(claseDada);
+            JsfUtil.addSuccessMessage("Se creo la clase y sus asistencias correctamente");
+        }
         return "ClaseDada.xhtml";
     }
     
@@ -182,14 +210,27 @@ public class ClaseDadaController implements Serializable{
     public void setTemaDado(String temaDado) {
         this.temaDado = temaDado;
     }
-
+    
     public Date getFecha() {
         return fecha;
     }
-
+    
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     
+    public void setModificarAsistencia(Asistencia asistencia, Boolean asistio){
+        asistencia.setIsPresente(asistio);
+    }
+    
+    public void updateClaseDada(){
+        if(selected == null){
+            JsfUtil.addErrorMessage("No fue posible modificar la clase faltan ingresar datos");
+        }else{
+            ejbClaseDada.edit(selected);
+            JsfUtil.addSuccessMessage("Se modifico la clase y sus asistencias correctamente");
+        }
+        
+    }
     
 }
