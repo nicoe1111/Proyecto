@@ -50,7 +50,7 @@ public class SalonCursoController implements Serializable{
     @PostConstruct
     private void init(){
         updateItems();
-        obtenerCursos();
+//        obtenerCursos();
     }
     
     public List<SalonCurso> getItems() {

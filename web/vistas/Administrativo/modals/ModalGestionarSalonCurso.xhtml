@@ -55,13 +55,13 @@
                                 <f:selectItems value="#{semestreAnioController.fines}"/>
                             </p:selectOneMenu>
                             
-                            <p:dataTable id="datalist" var="curso" value="#{cursoController.items}" 
+                            <p:dataTable id="datalist2" var="curso" value="#{cursoController.items}" 
                                          selectionMode="single" selection="#{cursoController.selected}"
                                          scrollable="true" 
                                          rowKey="#{curso.idCurso}"
-                                         filteredValue="#{filtersList.filteredItems}"
+                                         filteredValue="#{filtersList.filteredItems2}"
                                          emptyMessage="No cursos encontrados"
-                                         widgetVar="studentsTable">
+                                         widgetVar="studentsTable" scrollHeight="340">
                                 
                                 
                                 <f:facet name="header">
@@ -71,16 +71,16 @@
                                     </p:outputPanel>
                                 </f:facet>
                                 
-                                <p:column headerText="ID" width="200" filterStyle="display:none" filterBy="idCurso" filterMatchMode="contains" sortBy="#{curso.idCurso}">
+                                <p:column headerText="ID" footerText="ID"  filterStyle="display:none" filterBy="idCurso" filterMatchMode="contains" sortBy="#{curso.idCurso}">
                                     <h:outputText value="#{curso.idCurso}"/>
                                 </p:column>
-                                <p:column headerText="Nombre Materia"  width="200" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{curso.materia.nombre}">
+                                <p:column headerText="Nombre Materia" footerText="Nombre Materia" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{curso.materia.nombre}">
                                     <h:outputText value="#{curso.materia.nombre}" />
                                 </p:column>
-                                <p:column headerText="semestre"  width="200" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains" sortBy="#{curso.materia.semestre}">
+                                <p:column headerText="semestre" footerText="semestre" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains" sortBy="#{curso.materia.semestre}">
                                     <h:outputText value="#{curso.materia.semestre}" />
                                 </p:column>
-                                <p:column headerText="anio" width="200" filterStyle="display:none" filterBy="anio" filterMatchMode="contains" sortBy="#{curso.anio}">
+                                <p:column headerText="anio" footerText="anio" filterStyle="display:none" filterBy="anio" filterMatchMode="contains" sortBy="#{curso.anio}">
                                     <h:outputText value="#{curso.anio}" />
                                 </p:column>
                             </p:dataTable>

@@ -9,6 +9,7 @@
     
     <ui:composition template="index.xhtml">
         <ui:define name="centro">
+            <h:outputLabel value="#{salonCursoController.obtenerCursos()}" style="display: none;"/>
             <h:form id="asd">
                 Semestre: 
                 <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}"  style="width:200px;">
@@ -16,7 +17,6 @@
                     <f:selectItems value="#{semestreAnioController.semestres}"/>
                 </p:selectOneMenu><br/>
                 Año: 
-                
                 <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" editable="true" style="width:200px;">
                     <p:ajax listener="#{salonCursoController.obtenerCursos}" update="asd"/>
                     <f:selectItems value="#{semestreAnioController.years}" />

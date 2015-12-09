@@ -11,6 +11,7 @@ import RolDocente.DocenteController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -113,6 +114,7 @@ public class CursoController implements Serializable {
     }
     
     public void beforCreate(){
+        selected.setAnio(Calendar.getInstance().get(Calendar.YEAR));
         selected.setDocente(docenteController.getSelected().getRolDocente());
         selected.setMateria(materiaController.getSelected());
     }

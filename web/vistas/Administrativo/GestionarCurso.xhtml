@@ -17,7 +17,7 @@
                                      rowKey="#{curso.idCurso}"
                                      filteredValue="#{filtersList.filteredItems}"
                                      emptyMessage="No cursos encontrados"
-                                     widgetVar="GC">
+                                     widgetVar="GC" scrollHeight="340">
                             
                             <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
                             <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
@@ -42,8 +42,8 @@
                                 <h:outputText value="#{curso.docente.usuario.primerNombre} #{curso.docente.usuario.primerApellido}" />
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarCursoForm" actionListener="#{cursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty cursoController.items}"/>
-                                <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":getionarCursoForm" actionListener="#{cursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty cursoController.items}">
+                                <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarCursoForm" actionListener="#{cursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty cursoController.items || not (cursoController.selected.idCurso > 0)}"/>
+                                <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":getionarCursoForm" actionListener="#{cursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty cursoController.items || not (cursoController.selected.idCurso > 0)}">
                                     <f:passThroughAttribute name="data-toggle" value="modal"/>
                                     <f:passThroughAttribute name="data-target" value="#ModalGestionarCurso"/>
                                 </p:commandButton>

@@ -31,12 +31,6 @@
                                 </p:selectOneMenu>
                             </div>
                             <div class="form-group">
-                                Año: 
-                                <p:selectOneMenu id="anio" value="#{cursoController.selected.anio}" editable="true" appendTo="@this" style="width:200px;">
-                                    <f:selectItems value="#{semestreAnioController.years}" />
-                                </p:selectOneMenu>
-                            </div>
-                            <div class="form-group">
                                 <p:tree value="#{materiaController.root}" selectionMode="single" selection="#{materiaController.selectedNode}" var="node" dynamic="true" animate="true">
                                     <p:treeNode >
                                         <h:outputText value="#{node}" />
