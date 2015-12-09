@@ -20,26 +20,35 @@
             <h:body>
                 
                 <h:form id="asd">
-                    Semestre: 
-                    <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;">
-                        <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
-                        <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                        <f:selectItems value="#{semestreAnioController.semestres}"/>
-                    </p:selectOneMenu><br/>
-                    Año: 
-                    <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" editable="true" style="width:200px;">
-                        <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
-                        <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                        <f:selectItems value="#{semestreAnioController.years}" />
-                    </p:selectOneMenu><br/>
-                    Curso: 
-                    <!--podria ir una tabla-->
-                    <p:selectOneMenu id="curso" value="#{cursoController.cursoSelectedID}" style="width:200px;">
-                        <f:selectItem itemLabel="Seleciona materia" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                        <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
-                        <!--                <f:ajax render=":content" event="change"/>-->
-                    </p:selectOneMenu><br/>
-                    <p:commandButton value="ver Evaluaciones" update=":GestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
+                    <p:panelGrid >
+                        <p:row>
+                            <p:column>
+                                Semestre: 
+                                <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;">
+                                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
+                                    <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{semestreAnioController.semestres}"/>
+                                </p:selectOneMenu><br/>
+                            </p:column>
+                            <p:column>
+                                Año: 
+                                <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" editable="true" style="width:200px;">
+                                    <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
+                                    <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{semestreAnioController.years}" />
+                                </p:selectOneMenu><br/>
+                            </p:column>
+                            <p:column>
+                                Curso: 
+                                <p:selectOneListbox id="curso" value="#{cursoController.cursoSelectedID}" scrollHeight="180">
+                                    <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
+                                </p:selectOneListbox>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="ver Evaluaciones" update=":GestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
                 </h:form>
                     
                 <h:form id="GestionarEvaluacionForm">
@@ -51,7 +60,7 @@
                                      filteredValue="#{filtersList.filteredItems}"
                                      emptyMessage="No users encontrados"
                                      widgetVar="IE">
-                                         
+                            
                             <p:ajax event="rowSelect" update="deleteButton verButton" listener="#{buttonBean.onRowSelect}" />
                             <p:ajax event="rowUnselect" update="deleteButton verButton" listener="#{buttonBean.onRowUnselect}" />
                                 

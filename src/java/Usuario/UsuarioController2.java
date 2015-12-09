@@ -57,7 +57,8 @@ public class UsuarioController2 implements Serializable{
             String nombre = (((Object[]) users.get(i))[0]).toString();
             String pellido1 = (((Object[]) users.get(i))[1]).toString();
             String apellido2 = (((Object[]) users.get(i))[2]).toString();
-            datos.add(nombre+ " " + pellido1 + " " +apellido2);
+//            datos.add(nombre+ " " + pellido1 + " " +apellido2);
+            datos.add(nombre+ " " + pellido1);
         }
         return datos;
     }
