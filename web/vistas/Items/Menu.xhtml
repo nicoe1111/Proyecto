@@ -21,12 +21,12 @@
                     
                         <c:if test="#{login.userLoged.hasRol('Docente')}" >
                             <p:menuitem value="Asignar Estudiante a curso" id="AsignarEstudiante" url="/vistas/Docente/AsignarEstudianteCurso.xhtml"/>
+                            <p:menuitem value="Pasar Lista" id="pasarLista" url="/vistas/Administrativo/ClaseDadaAsistencia/ClaseDada.xhtml"/>
                         </c:if>
                         
                         <p:menuitem value="Ver Horarios Curso" id="verHorarios" url="/vistas/VerHorarios.xhtml"/>
                         
-                        <p:menuitem value="Pasar Lista" id="pasarLista" url="/vistas/Administrativo/PasarLista.xhtml"/>
-                        <p:menuitem value="Listar Alumnos" id="ListaAlumnos" url="/vistas/Administrativo/ClaseDadaAsistencia/ClaseDada.xhtml"/>
+                        
                 </p:menu>
         </h:form>
    </ui:composition>
