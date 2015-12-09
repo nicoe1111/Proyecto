@@ -31,7 +31,7 @@ public class RespuestaPregunta implements Serializable{
     @JoinColumn(name = "id_Alumno")
     private Alumno alumno;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "idPregunta")
     private Pregunta pregunta;
     
