@@ -113,7 +113,7 @@
                                     </p:column>
                                     <f:facet name="footer">
                                         <p:commandButton id="quitarButton" class="btn btn-default" value="quitar" actionListener="#{asignarAlumnoCursoCnontroller.quitarAlumnoACurso}" update=":GestionarAlumnosForm" disabled="#{buttonBean.disabled}"/>
-                                        <p:commandButton id="guardarButton" class="btn btn-default" value="guardar cambios" actionListener="#{asignarAlumnoCursoCnontroller.guardarCambios}"/>
+                                        <p:commandButton id="guardarButton" class="btn btn-default" value="guardar cambios" actionListener="#{asignarAlumnoCursoCnontroller.guardarCambios}" update=":growl"/>
                                     </f:facet>
                                 </p:dataTable>
                             </p:panel>

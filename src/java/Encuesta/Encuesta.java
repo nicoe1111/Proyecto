@@ -48,10 +48,6 @@ public class Encuesta implements Serializable{
     
 //+++++++++++++++++++++SETTERS++++++++++++++++++++++++++
 
-    public void setIdEncuesta(int idEncuesta) {
-        this.idEncuesta = idEncuesta;
-    }
-
     public void setFecha(int fecha) {
         this.fecha = fecha;
     }

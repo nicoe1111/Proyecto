@@ -6,6 +6,7 @@ import Curso.CursoFacade;
 import InterfazUtil.SemestreAnioController;
 import Rol.Alumno;
 import Rol.RolFacade;
+import Usuario.util.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -74,6 +75,7 @@ public class AsignarAlumnoCursoCnontroller implements Serializable{
     public void guardarCambios(){
         Curso cursoSelected = cursoController.getSelected();
         ejbCurso.edit(cursoSelected);
+        JsfUtil.addSuccessMessage("Se asignaron los alumnos al curso");
     }
     
     private boolean existeAlumnoEnLista(Alumno alumno, List<Alumno> lista){
