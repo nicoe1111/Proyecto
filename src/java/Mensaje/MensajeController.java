@@ -77,16 +77,16 @@ public class MensajeController implements Serializable{
     
     public void prepareToCreate(){
         selected = new Mensaje();
-        selected.setDesde(UserLogged.getNick());
+        selected.setDesde(UserLogged.getPrimerNombre()+" "+ UserLogged.getPrimerApellido());
     }
     
     
     public void obtenerParameterOnItems(){
         
         if(bandejaDeSalida()){
-            items=ejbMensaje.getMensajesEnviados(UserLogged.getNick());
+            items=ejbMensaje.getMensajesEnviados(UserLogged.getPrimerNombre()+" "+ UserLogged.getPrimerApellido());
         }else{
-            items=ejbMensaje.getMensajesRecividos(UserLogged.getNick());
+            items=ejbMensaje.getMensajesRecividos(UserLogged.getPrimerNombre()+" "+ UserLogged.getPrimerApellido());
         }
         
     }
@@ -111,6 +111,6 @@ public class MensajeController implements Serializable{
     }
     
     public int getMensajesSinLeer(){
-        return ejbMensaje.getCauntMensajesRecividosSinLeer(UserLogged.getNick());
+        return ejbMensaje.getCauntMensajesRecividosSinLeer(UserLogged.getPrimerNombre()+" "+ UserLogged.getPrimerApellido());
     }
 }
