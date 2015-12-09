@@ -42,11 +42,12 @@
                                 Curso: 
                                 <p:selectOneListbox id="curso" value="#{cursoController.cursoSelectedID}" scrollHeight="180">
                                     <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
+                                    <p:ajax update=":GestionarEvaluacionForm" listener="#{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
                                 </p:selectOneListbox>
                             </p:column>
-                            <p:column>
-                                <p:commandButton value="ver Evaluaciones" update=":GestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
-                            </p:column>
+<!--                            <p:column>
+                                <p:commandButton value="ver Evaluaciones" update=":GestionarEvaluacionForm" actionListener="#/{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
+                            </p:column>-->
                         </p:row>
                     </p:panelGrid>
                 </h:form>

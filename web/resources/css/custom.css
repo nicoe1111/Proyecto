@@ -27,3 +27,7 @@
     /* To center horizontally */
     margin: 0 auto;
 }
+.ui-widget-header{
+    border: 1px solid #2196f3;
+    background-color: #2196f3;
+}
