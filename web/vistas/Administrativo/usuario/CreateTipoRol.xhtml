@@ -13,14 +13,17 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
-                        <p:selectManyCheckbox id="rol" value="#{usuarioController.selectedRoles}" layout="grid" columns="4" required="true">
+                        <p:selectManyCheckbox  id="rol" value="#{usuarioController.selectedRoles}" layout="grid" columns="4">
                             <f:selectItems value="#{usuarioController.roles}"
                                            var="rol" itemLabel="#{rol}" itemValue="#{rol}" />
+                            <p:ajax update="UsuarioCreateRolForm:siguiente" />
                         </p:selectManyCheckbox>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Siguiente}" update=":UsuarioCreateForm" actionListener="#{usuarioController.isAlumno()}" oncomplete="PF('UsuarioCreateDialog').show();">
+                    
+                    <p:commandButton id="siguiente" value="#{bundle.Siguiente}" disabled="#{not (usuarioController.selectedRoles.size() > 0)}" update=":UsuarioCreateForm" actionListener="#{usuarioController.isAlumno()}" oncomplete="PF('UsuarioCreateDialog').show();">
                         <f:ajax event="click" render="UsuarioCreateForm:display"/>
                     </p:commandButton>
+                    
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateRolDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

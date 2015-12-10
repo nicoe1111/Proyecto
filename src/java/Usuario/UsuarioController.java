@@ -517,6 +517,10 @@ public class UsuarioController implements Serializable {
         selected.setPass(cedula);
         selected.setNick(cedula);
     }
+    
+    public Boolean verificarNick(int id){
+        return ejbUsuario.existeCedula(id);
+    }
 
     public void setNickUserCreate(String cedula){
         selected.setNick(cedula);

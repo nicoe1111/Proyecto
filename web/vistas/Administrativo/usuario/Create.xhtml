@@ -27,6 +27,7 @@
                         <p:inputText style="width:150px" id="segundoApellido" value="#{usuarioController.selected.segundoApellido}" title="#{bundle.CreateUsuarioTitle_segundoApellido}" />
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_cedula}" for="cedula"/>
                         <p:inputText style="width:150px" id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.CreateUsuarioTitle_cedula}" required="true" requiredMessage="Ingrese la cedula... Se va a utilizar como User">
+                            <p:ajax event="blur" listener="#{usuarioController.verificarNick(usuarioController.selected.cedula)}"/>
                             <p:ajax event="blur" update="nick, pass" listener="#{usuarioController.setPassnickUserCreate(usuarioController.selected.cedula)}"/>
                         </p:inputText>
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_direccion}" for="direccion" />
