@@ -5,128 +5,130 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
+    
     <ui:composition>
-
+        
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}" showEffect="clip" hideEffect="clip">
             <h:form id="UsuarioCreateForm">
-                 <p:growl id="growl" life="3000" />
+                <p:growl id="growl" life="8000" />
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_primerNombre}" for="primerNombre" />
-                        <p:inputText id="primerNombre" value="#{usuarioController.selected.primerNombre}" title="#{bundle.CreateUsuarioTitle_primerNombre}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_segundoNombre}" for="segundoNombre" />
-                        <p:inputText id="segundoNombre" value="#{usuarioController.selected.segundoNombre}" title="#{bundle.CreateUsuarioTitle_segundoNombre}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_primerApellido}" for="primerApellido" />
-                        <p:inputText id="primerApellido" value="#{usuarioController.selected.primerApellido}" title="#{bundle.CreateUsuarioTitle_primerApellido}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_segundoApellido}" for="segundoApellido" />
-                        <p:inputText id="segundoApellido" value="#{usuarioController.selected.segundoApellido}" title="#{bundle.CreateUsuarioTitle_segundoApellido}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_cedula}" for="cedula"/>
-                        <p:inputText id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.CreateUsuarioTitle_cedula}" required="true" requiredMessage="Ingrese la cedula... Se va a utilizar como User">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.boolAlumno == true}">
+                            <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_nromatricula}" for="nromatricula" />
+                            <p:inputText id="nromatricula" style="width:150px" value="#{usuarioController.selected.infoAdicionalAlumno.nromatricula}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_nromatricula}" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="8" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_primerNombre}" for="primerNombre" />
+                        <p:inputText style="width:150px" id="primerNombre" value="#{usuarioController.selected.primerNombre}" title="#{bundle.CreateUsuarioTitle_primerNombre}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_segundoNombre}" for="segundoNombre" />
+                        <p:inputText style="width:150px" id="segundoNombre" value="#{usuarioController.selected.segundoNombre}" title="#{bundle.CreateUsuarioTitle_segundoNombre}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_primerApellido}" for="primerApellido" />
+                        <p:inputText style="width:150px" id="primerApellido" value="#{usuarioController.selected.primerApellido}" title="#{bundle.CreateUsuarioTitle_primerApellido}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_segundoApellido}" for="segundoApellido" />
+                        <p:inputText style="width:150px" id="segundoApellido" value="#{usuarioController.selected.segundoApellido}" title="#{bundle.CreateUsuarioTitle_segundoApellido}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_cedula}" for="cedula"/>
+                        <p:inputText style="width:150px" id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.CreateUsuarioTitle_cedula}" required="true" requiredMessage="Ingrese la cedula... Se va a utilizar como User">
                             <p:ajax event="blur" update="nick, pass" listener="#{usuarioController.setPassnickUserCreate(usuarioController.selected.cedula)}"/>
                         </p:inputText>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{usuarioController.selected.direccion}" title="#{bundle.CreateUsuarioTitle_direccion}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_mail}" for="mail" />
-                        <p:inputText id="mail" value="#{usuarioController.selected.mail}" title="#{bundle.CreateUsuarioTitle_mail}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_fechaNacimiento}" for="fechaNacimiento" />
-                        <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy" value="#{usuarioController.selected.fechaNacimiento}" title="#{bundle.EditUsuarioTitle_fechaNacimiento}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_sexo}" for="sexo" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_direccion}" for="direccion" />
+                        <p:inputText style="width:150px" id="direccion" value="#{usuarioController.selected.direccion}" title="#{bundle.CreateUsuarioTitle_direccion}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_mail}" for="mail" />
+                        <p:inputText style="width:150px" id="mail" value="#{usuarioController.selected.mail}" title="#{bundle.CreateUsuarioTitle_mail}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_fechaNacimiento}" for="fechaNacimiento" />
+                        <p:calendar style="width:150px" id="fechaNacimiento" pattern="yyyy-MM-dd" value="#{usuarioController.selected.fechaNacimiento}" title="#{bundle.EditUsuarioTitle_fechaNacimiento}"  showOn="button"/>
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_sexo}" for="sexo" />
                         
                         <p:selectOneMenu id="sexo" value="#{usuarioController.selected.sexo}" style="width:150px">
-                                <f:selectItem itemLabel="Seleccione..." itemValue="" />
-                                <f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />
-                                <f:selectItem itemLabel="FEMENINO" itemValue="FEMENINO" />
+                            <f:selectItem itemLabel="Seleccione..." itemValue="" />
+                            <f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />
+                            <f:selectItem itemLabel="FEMENINO" itemValue="FEMENINO" />
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_credencial}" for="credencial" />
-                        <p:inputText id="credencial" value="#{usuarioController.selected.credencial}" title="#{bundle.CreateUsuarioTitle_credencial}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_estadoCivil}" for="estadoCivil" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_credencial}" for="credencial" />
+                        <p:inputText style="width:150px" id="credencial" value="#{usuarioController.selected.credencial}" title="#{bundle.CreateUsuarioTitle_credencial}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_estadoCivil}" for="estadoCivil" />
                         <p:selectOneMenu id="estadoCivil" value="#{usuarioController.selected.estadoCivil}" style="width:150px">
-                                <f:selectItem itemLabel="Seleccione..." itemValue="" />
-                                <f:selectItem itemLabel="CASAD@" itemValue="CASAD@" />
-                                <f:selectItem itemLabel="SOLETER@" itemValue="SOLETER@" />
-                                <f:selectItem itemLabel="DIVORCIAD@" itemValue="DIVORCIAD@" />
-                                <f:selectItem itemLabel="VIUD@" itemValue="VIUD@" />
+                            <f:selectItem itemLabel="Seleccione..." itemValue="" />
+                            <f:selectItem itemLabel="CASAD@" itemValue="CASAD@" />
+                            <f:selectItem itemLabel="SOLETER@" itemValue="SOLETER@" />
+                            <f:selectItem itemLabel="DIVORCIAD@" itemValue="DIVORCIAD@" />
+                            <f:selectItem itemLabel="VIUD@" itemValue="VIUD@" />
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_nacionalidad}" for="nacionalidad" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_nacionalidad}" for="nacionalidad" />
                         <p:selectOneMenu id="nacionalidad" value="#{usuarioController.selected.nacionalidad}"  style="width:150px">
                             <p:ajax listener="#{usuarioController.onCountryChange}" update="departamento" />
                             <f:selectItem itemLabel="Selecc Nacionalidad" itemValue="" noSelectionOption="true" />
                             <f:selectItems value="#{usuarioController.paises}" />
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_departamento}" for="departamento" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_departamento}" for="departamento" />
                         <p:selectOneMenu id="departamento" value="#{usuarioController.selected.departamento}" style="width:150px">
                             <p:ajax listener="#{usuarioController.onDepartamentoChange}" update="localidad" />
                             <f:selectItem itemLabel="Selecc Departamento" itemValue="" noSelectionOption="true" />
                             <f:selectItems value="#{usuarioController.departamentos}" />
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_localidad}" for="localidad" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_localidad}" for="localidad" />
                         <p:selectOneMenu id="localidad" value="#{usuarioController.selected.localidad}" style="width:150px">
                             <f:selectItem itemLabel="Selecc Localidad" itemValue="" noSelectionOption="true" />
                             <f:selectItems value="#{usuarioController.localidades}" />
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_celular}" for="celular" />
-                        <p:inputText id="celular" value="#{usuarioController.selected.celular}" title="#{bundle.CreateUsuarioTitle_celular}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{usuarioController.selected.telefono}" title="#{bundle.CreateUsuarioTitle_telefono}" />
-                        <p:outputLabel  value="#{bundle.CreateUsuarioLabel_nick}" for="nick" />
-                        <p:inputText id="nick" value="#{usuarioController.selected.nick}" title="#{bundle.CreateUsuarioTitle_nick}" disabled="true" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_pass}" for="pass" />
-                        <p:inputText id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}" disabled="true" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_lugarNacimiento}" for="lugarNacimiento" />
-                        <p:inputText id="lugarNacimiento" value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.CreateUsuarioTitle_lugarNacimiento}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_celular}" for="celular" />
+                        <p:inputText style="width:150px" id="celular" value="#{usuarioController.selected.celular}" title="#{bundle.CreateUsuarioTitle_celular}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_telefono}" for="telefono" />
+                        <p:inputText style="width:150px" id="telefono" value="#{usuarioController.selected.telefono}" title="#{bundle.CreateUsuarioTitle_telefono}" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_nick}" for="nick" />
+                        <p:inputText style="width:150px" id="nick" value="#{usuarioController.selected.nick}" title="#{bundle.CreateUsuarioTitle_nick}" disabled="true" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_pass}" for="pass" />
+                        <p:inputText style="width:150px" id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}" disabled="true" />
+                        <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_lugarNacimiento}" for="lugarNacimiento" />
+                        <p:inputText style="width:150px" id="lugarNacimiento" value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.CreateUsuarioTitle_lugarNacimiento}" />
                     </p:panelGrid>
                     
-                    <p:panelGrid columns="6" rendered="#{usuarioController.boolAlumno == true}">
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_carnetsalud}" for="carnetsalud" />
-                        <p:selectBooleanCheckbox id="carnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.carnetsalud}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_certificadoestudio}" for="certificadoestudio" />
-                        <p:selectBooleanCheckbox id="certificadoestudio" value="#{usuarioController.selected.infoAdicionalAlumno.certificadoestudio}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_expedidocarnetsalud}" for="expedidocarnetsalud" />
-                        <p:calendar id="expedidocarnetsalud" pattern="MM/dd/yyyy" value="#{usuarioController.selected.infoAdicionalAlumno.expedidocarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_expedidocarnetsalud}"  showOn="button"/>
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fdocente}" for="fdocente" />
-                        <p:selectBooleanCheckbox id="fdocente" value="#{usuarioController.selected.infoAdicionalAlumno.fdocente}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fdocenteorientacion}" for="fdocenteorientacion" />
-                        <p:inputText id="fdocenteorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.fdocenteorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_fdocenteorientacion}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_facultaduniversidad}" for="facultaduniversidad" />
-                        <p:inputText id="facultaduniversidad" value="#{usuarioController.selected.infoAdicionalAlumno.facultaduniversidad}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_facultaduniversidad}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fechainscripcion}" for="fechainscripcion" />
-                        <p:calendar id="fechainscripcion" pattern="MM/dd/yyyy" value="#{usuarioController.selected.infoAdicionalAlumno.fechainscripcion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_fechainscripcion}"  showOn="button"/>
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fotocarnet}" for="fotocarnet" />
-                        <p:selectBooleanCheckbox id="fotocarnet" value="#{usuarioController.selected.infoAdicionalAlumno.fotocarnet}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_generacion}" for="generacion" />
-                        <p:inputText id="generacion" value="#{usuarioController.selected.infoAdicionalAlumno.generacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_generacion}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_militar}" for="militar" />
-                        <p:selectBooleanCheckbox id="militar" value="#{usuarioController.selected.infoAdicionalAlumno.militar}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_militarorientacion}" for="militarorientacion" />
-                        <p:inputText id="militarorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.militarorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_militarorientacion}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_nromatricula}" for="nromatricula" />
-                        <p:inputText id="nromatricula" value="#{usuarioController.selected.infoAdicionalAlumno.nromatricula}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_nromatricula}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_secuandaria}" for="secuandaria" />
-                        <p:selectBooleanCheckbox id="secuandaria" value="#{usuarioController.selected.infoAdicionalAlumno.secuandaria}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_secundariaorientacion}" for="secundariaorientacion" />
-                        <p:inputText id="secundariaorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.secundariaorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_secundariaorientacion}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_tramitecarnetsalud}" for="tramitecarnetsalud" />
-                        <p:inputText id="tramitecarnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.tramitecarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_tramitecarnetsalud}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_turno}" for="turno" />
-                        <p:inputText id="turno" value="#{usuarioController.selected.infoAdicionalAlumno.turno}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_turno}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_universidad}" for="universidad" />
-                        <p:selectBooleanCheckbox id="universidad" value="#{usuarioController.selected.infoAdicionalAlumno.universidad}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_utu}" for="utu" />
+                    <p:panelGrid columns="8" rendered="#{usuarioController.boolAlumno == true}">
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_carnetsalud}" for="carnetsalud" />
+                        <p:selectBooleanCheckbox style="width:150px" id="carnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.carnetsalud}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_certificadoestudio}" for="certificadoestudio" />
+                        <p:selectBooleanCheckbox style="width:150px" id="certificadoestudio" value="#{usuarioController.selected.infoAdicionalAlumno.certificadoestudio}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_expedidocarnetsalud}" for="expedidocarnetsalud" />
+                        <p:calendar style="width:150px" id="expedidocarnetsalud" pattern="yyyy-MM-dd" value="#{usuarioController.selected.infoAdicionalAlumno.expedidocarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_expedidocarnetsalud}" mask="true"/>
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fdocente}" for="fdocente" />
+                        <p:selectBooleanCheckbox style="width:150px" id="fdocente" value="#{usuarioController.selected.infoAdicionalAlumno.fdocente}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fdocenteorientacion}" for="fdocenteorientacion" />
+                        <p:inputText style="width:150px" id="fdocenteorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.fdocenteorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_fdocenteorientacion}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_facultaduniversidad}" for="facultaduniversidad" />
+                        <p:inputText style="width:150px" id="facultaduniversidad" value="#{usuarioController.selected.infoAdicionalAlumno.facultaduniversidad}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_facultaduniversidad}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fechainscripcion}" for="fechainscripcion" />
+                        <p:calendar style="width:150px" id="fechainscripcion" pattern="yyyy-MM-dd" value="#{usuarioController.selected.infoAdicionalAlumno.fechainscripcion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_fechainscripcion}" mask="true"/>
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_fotocarnet}" for="fotocarnet" />
+                        <p:selectBooleanCheckbox style="width:150px" id="fotocarnet" value="#{usuarioController.selected.infoAdicionalAlumno.fotocarnet}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_generacion}" for="generacion" />
+                        <p:inputText style="width:150px" id="generacion" value="#{usuarioController.selected.infoAdicionalAlumno.generacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_generacion}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_militar}" for="militar" />
+                        <p:selectBooleanCheckbox style="width:150px" id="militar" value="#{usuarioController.selected.infoAdicionalAlumno.militar}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_militarorientacion}" for="militarorientacion" />
+                        <p:inputText style="width:150px" id="militarorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.militarorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_militarorientacion}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_secuandaria}" for="secuandaria" />
+                        <p:selectBooleanCheckbox style="width:150px" id="secuandaria" value="#{usuarioController.selected.infoAdicionalAlumno.secuandaria}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_secundariaorientacion}" for="secundariaorientacion" />
+                        <p:inputText style="width:150px" id="secundariaorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.secundariaorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_secundariaorientacion}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_tramitecarnetsalud}" for="tramitecarnetsalud" />
+                        <p:inputText style="width:150px" id="tramitecarnetsalud" value="#{usuarioController.selected.infoAdicionalAlumno.tramitecarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_tramitecarnetsalud}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_turno}" for="turno" />
+                        <p:inputText style="width:150px" id="turno" value="#{usuarioController.selected.infoAdicionalAlumno.turno}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_turno}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_universidad}" for="universidad" />
+                        <p:selectBooleanCheckbox style="width:150px" id="universidad" value="#{usuarioController.selected.infoAdicionalAlumno.universidad}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_utu}" for="utu" />
                         <p:selectBooleanCheckbox id="utu" value="#{usuarioController.selected.infoAdicionalAlumno.utu}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_utuorientacion}" for="utuorientacion" />
-                        <p:inputText id="utuorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.utuorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_utuorientacion}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vacunaantitetanica}" for="vacunaantitetanica" />
-                        <p:selectBooleanCheckbox id="vacunaantitetanica" value="#{usuarioController.selected.infoAdicionalAlumno.vacunaantitetanica}" />
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vencimcarnetsalud}" for="vencimcarnetsalud" />
-                        <p:calendar id="vencimcarnetsalud" pattern="MM/dd/yyyy" value="#{usuarioController.selected.infoAdicionalAlumno.vencimcarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimcarnetsalud}"  showOn="button"/>
-                        <p:outputLabel value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vencimvacunaantitetanica}" for="vencimvacunaantitetanica" />
-                        <p:calendar id="vencimvacunaantitetanica" pattern="MM/dd/yyyy" value="#{usuarioController.selected.infoAdicionalAlumno.vencimvacunaantitetanica}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimvacunaantitetanica}"  showOn="button"/>
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_utuorientacion}" for="utuorientacion" />
+                        <p:inputText style="width:150px" id="utuorientacion" value="#{usuarioController.selected.infoAdicionalAlumno.utuorientacion}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_utuorientacion}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vacunaantitetanica}" for="vacunaantitetanica" />
+                        <p:selectBooleanCheckbox style="width:150px" id="vacunaantitetanica" value="#{usuarioController.selected.infoAdicionalAlumno.vacunaantitetanica}" />
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vencimcarnetsalud}" for="vencimcarnetsalud" />
+                        <p:calendar style="width:150px" id="vencimcarnetsalud" pattern="yyyy-MM-dd" value="#{usuarioController.selected.infoAdicionalAlumno.vencimcarnetsalud}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimcarnetsalud}" mask="true"/>
+                        <p:outputLabel style="width:150px" value="#{bundleInfoAdicional.CreateInfoadicionalalumnoLabel_vencimvacunaantitetanica}" for="vencimvacunaantitetanica" />
+                        <p:calendar style="width:150px" id="vencimvacunaantitetanica" pattern="yyyy-MM-dd" value="#{usuarioController.selected.infoAdicionalAlumno.vencimvacunaantitetanica}" title="#{bundleInfoAdicional.CreateInfoadicionalalumnoTitle_vencimvacunaantitetanica}" mask="true"/>
                     </p:panelGrid>
                     
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display :UsuarioListForm:datalist,:growl" oncomplete="PF('UsuarioCreateRolDialog').hide(); handleSubmit(args,'UsuarioCreateDialog');" />

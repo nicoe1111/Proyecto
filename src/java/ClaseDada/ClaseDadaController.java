@@ -31,7 +31,7 @@ public class ClaseDadaController implements Serializable{
     
     private ClaseDada claseDada = null;
     private List<Curso> cursos = new ArrayList<>();
-    private List<Asistencia> asistencias = new ArrayList<Asistencia>();
+    private List<Asistencia> asistencias = new ArrayList<>();
     private Asistencia asistencia;
     private String temaDado;
     private Boolean isAsistio;
@@ -67,19 +67,22 @@ public class ClaseDadaController implements Serializable{
         return cursos;
     }
     
-    public List<ClaseDada>obtenerAlumnos(Curso cursoSelec){
-        List<ClaseDada> clasesDadasCursos = new ArrayList<ClaseDada>();
-        Curso curso = ejbCurso.find(cursoSelec.getIdCurso());
-        if(curso != null){
-            clasesDadasCursos = ejbClaseDada.obtenerClasesDadasIdCurso(curso.getIdCurso());
+    public List<ClaseDada>obtenerCasesDadas(Curso cursoSelec){
+        List<ClaseDada> clasesDadasCursos = new ArrayList<>();
+        if(cursoSelec != null){
+            clasesDadasCursos = ejbClaseDada.obtenerClasesDadasIdCurso(cursoSelec.getIdCurso());
         }
         return clasesDadasCursos;
+    }
+    
+    public List<Alumno> obtenerAlumnosClaseDada(){
+        return claseDada.getCurso().getAlumnos();
     }
     
     @EJB
             AsistenciaFacade ejbAsistencia;
     public List<Asistencia> asistenciasClaseDada(ClaseDada claseDada){
-        List<Asistencia> listAsistencia = new ArrayList<Asistencia>();
+        List<Asistencia> listAsistencia = new ArrayList<>();
         if(claseDada != null){
             listAsistencia = ejbAsistencia.getAsistenciaClaseDada(claseDada.getIdClaseDada());
         }
@@ -146,7 +149,7 @@ public class ClaseDadaController implements Serializable{
         claseDada.setAsistencias(asistencias);
         claseDada.setTemaDado(temaDado);
         claseDada.setFecha(fecha);
-        if(claseDada.getFecha() == null || claseDada.getFecha().equals("") || claseDada.getAsistencias().isEmpty()){
+        if(claseDada.getFecha() == null || claseDada.getAsistencias().isEmpty()){
             JsfUtil.addErrorMessage("No fue posible crear la clase faltan ingresar datos");
         }else{
             ejbClaseDada.create(claseDada);
@@ -157,7 +160,7 @@ public class ClaseDadaController implements Serializable{
     
     public void seteoAsistenciasFalse(){
         Boolean atributoFalse;
-        List<Asistencia> listAsistenciaFalse = new ArrayList<Asistencia>();
+        List<Asistencia> listAsistenciaFalse = new ArrayList<>();
         if(claseDada != null){
             for (int i = 0; i < claseDada.getCurso().getAlumnos().size(); i++) {
                 atributoFalse = false;
@@ -178,8 +181,8 @@ public class ClaseDadaController implements Serializable{
                 }
             }
             ///agrego a la lista de asistencias true las asistencias en false////
-            for (int i = 0; i < listAsistenciaFalse.size(); i++) {
-                asistencias.add(listAsistenciaFalse.get(i));
+            for (Asistencia listAsistenciaFalse1 : listAsistenciaFalse) {
+                asistencias.add(listAsistenciaFalse1);
             }
         }
     }

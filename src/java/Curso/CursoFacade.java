@@ -12,7 +12,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 /**
  *
@@ -56,7 +55,7 @@ public class CursoFacade extends AbstractFacade<Curso> {
         List<Curso> users = query.getResultList();
         return users;
     }
-
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Curso> getCursosSemestreNombreAnio(String semestrecurs, int aniocurs, String materiacurs){
         Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio = :anio AND c.materia.nombre = :materia");
@@ -66,5 +65,4 @@ public class CursoFacade extends AbstractFacade<Curso> {
         List<Curso> users = query.getResultList();
         return users;
     }
-    
 }

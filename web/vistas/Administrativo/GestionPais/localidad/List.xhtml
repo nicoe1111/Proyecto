@@ -19,9 +19,6 @@
                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
                     
                     <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle1.ListLocalidadTitle_nombre}"/>
-                        </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                     </p:column>
                     <f:facet name="footer">

@@ -7,12 +7,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.transaction.Transactional;
 
 @Entity
 public class Docente extends TipoRol{
     
-    @OneToMany(mappedBy = "docente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "docente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos = new ArrayList<>();
 
     public List<Curso> getCursos() {
