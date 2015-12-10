@@ -24,9 +24,6 @@ public class Alumno extends TipoRol{
 
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RespuestaPregunta> respuestasPreguntas= new ArrayList<>();
-    
-    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ResultadoInstancia> resultadosInstancias= new ArrayList<>();
 
     public Alumno() {    }
     
@@ -45,12 +42,4 @@ public class Alumno extends TipoRol{
     public void setRespuestasPreguntas(List<RespuestaPregunta> respuestasPreguntas) {
         this.respuestasPreguntas = respuestasPreguntas;
     }
-    
-    public List<ResultadoInstancia> getResultadosInstancias() {
-        return resultadosInstancias;
-    }
-    
-    public void setResultadosInstancias(List<ResultadoInstancia> resultadosInstancias) {
-        this.resultadosInstancias = resultadosInstancias;
-    }  
 }
