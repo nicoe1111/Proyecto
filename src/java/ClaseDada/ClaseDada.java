@@ -31,7 +31,7 @@ public class ClaseDada implements Serializable {
     private Date fecha;
     private String temaDado;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_curso")
     private Curso curso;
     

@@ -6,7 +6,6 @@ import Rol.Administrador;
 import Rol.Administrativo;
 import Rol.Alumno;
 import Rol.Docente;
-import Rol.RolFacade;
 import Rol.TipoRol;
 import Session.LoginMB;
 import Usuario.util.JsfUtil;
@@ -50,13 +49,11 @@ public class UsuarioController implements Serializable {
     
     @EJB
     private UsuarioFacade ejbUsuario;
-    @EJB
-    private Rol.RolFacade ejbRol;
     
     private List<Usuario> items = null;
-    private Usuario selected;    
+    private Usuario selected;
     private UploadedFile fileImagen;
-
+    
     public UsuarioController() {    }
     
     public Usuario getSelected() {
@@ -84,30 +81,73 @@ public class UsuarioController implements Serializable {
     }
     
     public String create() {
-        
-        seteoRolesSeleccionados();
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if(!verificarCedulaCreate(selected.getCedula())){
+            seteoRolesSeleccionados();
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+            selectedRoles.clear();
+            selected = null;
+            
+        }else{
+            JsfUtil.addErrorMessage("No fue posible crear el Usuario ya existe un usuario con esa cedula");
         }
-        selectedRoles.clear();
-        selected = null;
-        return "List.xhtml";
+        return "ContenedorGestionUsuario.xhtml";
+    }
+    
+    public Boolean verificarCedulaCreate(int id){
+        if(ejbUsuario.existeCedula(id)){
+            return true;
+        }
+        return false;
     }
     
     public void update() {
-        verificarRolesUserUpdate();
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
-        selectedRoles.clear();
-        items = getFacade().findAll();
-        selected = null;
+        if(!verificarCedulaUpdate(selected.getCedula())){
+            verificarRolesUserUpdate();
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+            selectedRoles.clear();
+            items = getFacade().findAll();
+            selected = null;
+        }else{
+            JsfUtil.addErrorMessage("No fue posible modificar el Usuario ya existe un usuario con esa cedula");
+            items = getFacade().findAll();
+        }
+    }
+    
+    public Boolean verificarCedulaUpdate(int id){
+        Usuario user = ejbUsuario.existeCedulaUpdate(id);
+        if(user != null){
+            return user.getId_user() != selected.getId_user();
+        }else{
+            return false;
+        }
     }
     
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UsuarioDeleted"));
-        if (!JsfUtil.isValidationFailed()) {
-            selected = null;
+        Boolean delete = true;
+        
+        if(selected.getRolAlumno() != null){
+            if((selected.getRolAlumno().getCursos().size() > 0)){
+                delete = false;
+            }
         }
+        if(selected.getRolDocente() != null && delete){
+            if((selected.getRolDocente().getCursos().size() > 0)){
+                delete = false;
+            }
+        }
+        
+        if(delete){
+            persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UsuarioDeleted"));
+            if (!JsfUtil.isValidationFailed()) {
+                selected = null;
+            }
+        }else{
+            JsfUtil.addErrorMessage("El usuario no se puede eliminar tiene asociado informacion importante");
+        }
+        selected = null;
         selectedRoles.clear();
         items = getFacade().findAll();
     }
@@ -205,7 +245,6 @@ public class UsuarioController implements Serializable {
         try {
             copyFile(event.getFile().getContentType(), event.getFile().getInputstream());
         } catch (IOException e) {
-            e.printStackTrace();
         }
         
     }
@@ -253,52 +292,52 @@ public class UsuarioController implements Serializable {
     private Map<String,String> deptos;
     private Map<String,String> localidades;
     @EJB
-    PaisFacade ejbPais;
+            PaisFacade ejbPais;
     @PostConstruct
-        void init(){
-            roles.add("Alumno");
-            roles.add("Administrativo");
-            roles.add("Docente");
-            roles.add("Administrador");
+    void init(){
+        roles.add("Alumno");
+        roles.add("Administrativo");
+        roles.add("Docente");
+        roles.add("Administrador");
 
-            List<Pais> listPaises = ejbPais.findAll();
-            paises  = new HashMap<String, String>();
-            deptos  = new HashMap<String, String>();
-            Map<String,String> map = null;
-            Map<String,String> map1 = null;
-            for (int i = 0; i < listPaises.size(); i++) {
-                paises.put(listPaises.get(i).getNombre(), listPaises.get(i).getNombre());
-                map = new HashMap<String, String>();
-                for (int j = 0; j < listPaises.get(i).getDepartemento().size(); j++) {
-                    if(listPaises.get(i).getIdPais() == listPaises.get(i).getDepartemento().get(j).getPais().getIdPais()){
-                        map.put(listPaises.get(i).getDepartemento().get(j).getNombre(), listPaises.get(i).getDepartemento().get(j).getNombre());
-                        data.put(listPaises.get(i).getNombre(), map);
+        List<Pais> listPaises = ejbPais.findAll();
+        paises  = new HashMap<String, String>();
+        deptos  = new HashMap<String, String>();
+        Map<String,String> map = null;
+        Map<String,String> map1 = null;
+        for (int i = 0; i < listPaises.size(); i++) {
+            paises.put(listPaises.get(i).getNombre(), listPaises.get(i).getNombre());
+            map = new HashMap<String, String>();
+            for (int j = 0; j < listPaises.get(i).getDepartemento().size(); j++) {
+                if(listPaises.get(i).getIdPais() == listPaises.get(i).getDepartemento().get(j).getPais().getIdPais()){
+                    map.put(listPaises.get(i).getDepartemento().get(j).getNombre(), listPaises.get(i).getDepartemento().get(j).getNombre());
+                    data.put(listPaises.get(i).getNombre(), map);
 
-                        deptos.put(listPaises.get(i).getDepartemento().get(j).getNombre(), listPaises.get(i).getDepartemento().get(j).getNombre());
-                        map1 = new HashMap<String, String>();
-                        for (int k = 0; k < listPaises.get(i).getDepartemento().get(j).getLocalidad().size(); k++) {
-                            if(listPaises.get(i).getDepartemento().get(j).getIdDepartamento() == listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getDepartamento().getIdDepartamento()){
-                                map1.put(listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getNombre(), listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getNombre());
-                                data1.put(listPaises.get(i).getDepartemento().get(j).getNombre(), map1);
-                            }
+                    deptos.put(listPaises.get(i).getDepartemento().get(j).getNombre(), listPaises.get(i).getDepartemento().get(j).getNombre());
+                    map1 = new HashMap<String, String>();
+                    for (int k = 0; k < listPaises.get(i).getDepartemento().get(j).getLocalidad().size(); k++) {
+                        if(listPaises.get(i).getDepartemento().get(j).getIdDepartamento() == listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getDepartamento().getIdDepartamento()){
+                            map1.put(listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getNombre(), listPaises.get(i).getDepartemento().get(j).getLocalidad().get(k).getNombre());
+                            data1.put(listPaises.get(i).getDepartemento().get(j).getNombre(), map1);
                         }
                     }
                 }
             }
         }
+    }
     public void onCountryChange() {
         if(selected.getNacionalidad() !=null && !selected.getNacionalidad().equals(""))
             departamentos = data.get(selected.getNacionalidad());
         else
             departamentos = new HashMap<String, String>();
     }
-    
+
     public void onDepartamentoChange() {
         if(selected.getDepartamento()!=null && !selected.getDepartamento().equals(""))
             localidades = data1.get(selected.getDepartamento());
         else
             localidades = new HashMap<String, String>();
-    } 
+    }
 
     public Map<String, Map<String, String>> getData() {
         return data;
@@ -323,7 +362,7 @@ public class UsuarioController implements Serializable {
     public Map<String, String> getLocalidades() {
         return localidades;
     }
-    
+
     public List<String> getRoles() {
         return roles;
     }
@@ -344,7 +383,7 @@ public class UsuarioController implements Serializable {
         }
         selectedRoles.clear();//luego de agregados los roles a la lista de usuarios borro los datos
     }
-    //obtengo los roles del usuario seleccionado
+//    //obtengo los roles del usuario seleccionado
     public List<String> getRolesSelectedUser() {
         selectedRoles.clear();
         if(selected != null){
@@ -363,11 +402,11 @@ public class UsuarioController implements Serializable {
         rolesSelectedUser = selectedRoles;
         return rolesSelectedUser;
     }
-    
+
     public void resetSelectedRoles(){
         selectedRoles.clear();
     }
-    
+
     public void setRolesSelectedUser(List<String> rolesSelectedUser) {
         this.rolesSelectedUser = rolesSelectedUser;
     }
@@ -393,16 +432,21 @@ public class UsuarioController implements Serializable {
     }
 
     public void verificarRolesUserUpdate(){
-        selected.getRoles().clear();
-//        List<TipoRol> listRoles = new ArrayList<>();
-//        listRoles = ejbRol.findRolUser(selected.getId_user());
-//        for (int i = 0; i < listRoles.size(); i++) {
-//            if(!listRoles.get(i).getClass().getName().contains("Alumno")){
-//                ejbRol.remove(listRoles.get(i));
-//            }
-//        }     
+        Boolean agregar;
         for (int i = 0; i < rolesSelectedUser.size(); i++) {
-           addRolUser(rolesSelectedUser.get(i));
+            //lista de roles seleccionado es un String
+            agregar = false;
+            for (int j = 0; j < selected.getRoles().size(); j++) {
+                if (rolesSelectedUser.get(i).equals(selected.getRoles().get(j).getClass().getSimpleName())) {
+                    agregar = false;
+                    j = selected.getRoles().size();
+                } else {
+                    agregar =  true;
+                }
+            }
+            if(agregar){
+                addRolUser(rolesSelectedUser.get(i));
+            }
         }
         rolesSelectedUser.clear();
     }
@@ -473,17 +517,21 @@ public class UsuarioController implements Serializable {
         selected.setPass(cedula);
         selected.setNick(cedula);
     }
+    
+    public Boolean verificarNick(int id){
+        return ejbUsuario.existeCedula(id);
+    }
 
     public void setNickUserCreate(String cedula){
         selected.setNick(cedula);
-    } 
-    
+    }
+
     private Boolean boolAlumno = false;
 
     public Boolean getBoolAlumno() {
         return boolAlumno;
     }
-    
+
     public Boolean isAlumno(){
         if(selected != null){
             for (int i = 0; i < selectedRoles.size(); i++) {

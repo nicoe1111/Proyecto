@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <p:outputLabel id="fechaSelec" value="#{claseDadaController.fechaString}"/>
-                                <ui:repeat var="alumno" value="#{claseDadaController.claseDada.curso.alumnos}">
+                                <ui:repeat var="alumno" value="#{claseDadaController.obtenerAlumnosClaseDada()}">
                                     <div>
                                         <p:outputLabel value="#{alumno.usuario.primerNombre}  #{alumno.usuario.primerApellido}"/>
                                         <p:selectBooleanCheckbox id="isPresente" value="#{claseDadaController.isAsistio}">
@@ -60,7 +60,7 @@
                                 </ui:repeat>
                                 <h:commandButton type="submit" action="#{claseDadaController.crearClaseDada()}" styleClass="btn btn-default" value="Crear"/>
                             </div>
-                            <ui:repeat var="claseDada" value="#{claseDadaController.obtenerAlumnos(claseDadaController.claseDada.curso)}">
+                            <ui:repeat var="claseDada" value="#{claseDadaController.obtenerCasesDadas(claseDadaController.claseDada.curso)}">
                                 <div class="col-md-2">
                                     <p:outputLabel value="#{claseDada.fecha}"/>
                                     <ui:repeat var="asistencia" value="#{claseDadaController.asistenciasClaseDada(claseDada)}"> 

@@ -45,10 +45,6 @@ public class Asistencia implements Serializable{
  
 //+++++++++++++SETTERS++++++++++++++++++++++++
 
-    public void setIdAsistencia(int idAsistencia) {
-        this.idAsistencia = idAsistencia;
-    }
-
     public void setIsPresente(boolean isPresente) {
         this.isPresente = isPresente;
     }

@@ -30,10 +30,6 @@ public class Pregunta implements Serializable{
     
 //+++++++++++++++++++++SETTERS++++++++++++++++++++++++++
 
-    public void setIdPregunta(int idPregunta) {
-        this.idPregunta = idPregunta;
-    }
-
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
     }

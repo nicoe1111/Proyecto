@@ -6,7 +6,6 @@
 package Rol;
 
 import Curso.Curso;
-import RespuestaPregunta.RespuestaPregunta;
 import ResultadoInstancia.ResultadoInstancia;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +21,6 @@ public class Alumno extends TipoRol{
     @ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos;
 
-    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<RespuestaPregunta> respuestasPreguntas= new ArrayList<>();
-
     public Alumno() {    }
     
     public List<Curso> getCursos() {
@@ -33,13 +29,5 @@ public class Alumno extends TipoRol{
     
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
-    }
-    
-    public List<RespuestaPregunta> getRespuestasPreguntas() {
-        return respuestasPreguntas;
-    }
-    
-    public void setRespuestasPreguntas(List<RespuestaPregunta> respuestasPreguntas) {
-        this.respuestasPreguntas = respuestasPreguntas;
     }
 }
