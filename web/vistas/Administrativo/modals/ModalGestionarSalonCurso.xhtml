@@ -32,29 +32,28 @@
                             </c:choose>
                         </div>
                         <div class="modal-body">
+                            <p:panelGrid columns="4">
                             Salon:
                             <p:selectOneMenu id="salon" value="#{salonController.salonID}" appendTo="@this" style="width:200px;">
                                 <f:selectItem itemLabel="Seleciona salon" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                 <f:selectItems value="#{salonController.items}" var="salon" itemLabel="#{salon.nombreNumero}" itemValue="#{salon.idSalon}"/>
-                            </p:selectOneMenu><br/>
+                            </p:selectOneMenu>
                             Dia:
                             <p:selectOneMenu id="dia" value="#{semestreAnioController.diaSemanaSelected}" appendTo="@this" style="width:200px;">
                                 <f:selectItem itemLabel="Seleciona Dia" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                 <f:selectItems value="#{semestreAnioController.diasSemana}"/>
                             </p:selectOneMenu>
-                            
                             Hora Inicial:
                             <p:selectOneMenu id="inicio" value="#{semestreAnioController.inicioSelected}" appendTo="@this" style="width:200px;">
                                 <f:selectItem itemLabel="Seleciona Hora Inicio" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                 <f:selectItems value="#{semestreAnioController.inicios}"/>
                             </p:selectOneMenu>
-                            
                             Hora Final: 
                             <p:selectOneMenu id="fin" value="#{semestreAnioController.finSelected}" appendTo="@this" style="width:200px;">
                                 <f:selectItem itemLabel="Seleciona Hora Fin" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                 <f:selectItems value="#{semestreAnioController.fines}"/>
                             </p:selectOneMenu>
-                            
+                            </p:panelGrid>
                             <p:dataTable id="datalist2" var="curso" value="#{cursoController.items}" 
                                          selectionMode="single" selection="#{cursoController.selected}"
                                          scrollable="true" 

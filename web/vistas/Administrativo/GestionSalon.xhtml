@@ -11,10 +11,10 @@
             <h:body>
                 <div style="width: 800px; text-align: center; margin: auto;">
                     <h:form id="GestionSalonForm">
-                        <p:panel header="#{bundle.ListUsuarioTitle}">
+                        <p:panel header="Lista de Salones Registrados">
                             <p:dataTable id="datalist" var="salon" value="#{salonController.items}" 
                                          selectionMode="single" selection="#{salonController.selected}"
-                                         scrollable="true" 
+                                         scrollable="true" scrollHeight="340"
                                          rowKey="#{salon.idSalon}"
                                          filteredValue="#{filtersList.filteredItems}"
                                          emptyMessage="No users encontrados"
@@ -30,9 +30,6 @@
                                     </p:outputPanel>
                                 </f:facet>
                                 
-                                <p:column headerText="ID" footerText="ID" width="200" filterStyle="display:none" filterBy="idSalon" filterMatchMode="contains" sortBy="#{salon.idSalon}">
-                                    <h:outputText value="#{salon.idSalon}"/>
-                                </p:column>
                                 <p:column headerText="Nombre" footerText="Nombre" width="200" filterStyle="display:none" filterBy="nombreNumero" filterMatchMode="contains" sortBy="#{salon.nombreNumero}">
                                     <h:outputText value="#{salon.nombreNumero}" />
                                 </p:column>

@@ -519,6 +519,7 @@ public class UsuarioController implements Serializable {
     }
     
     public Boolean verificarNick(int id){
+        if(id == 0)return true;
         return ejbUsuario.existeCedula(id);
     }
 

@@ -26,14 +26,16 @@
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_segundoApellido}" for="segundoApellido" />
                         <p:inputText style="width:150px" id="segundoApellido" value="#{usuarioController.selected.segundoApellido}" title="#{bundle.CreateUsuarioTitle_segundoApellido}" />
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_cedula}" for="cedula"/>
-                        <p:inputText style="width:150px" id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.CreateUsuarioTitle_cedula}" required="true" requiredMessage="Ingrese la cedula... Se va a utilizar como User">
-                            <p:ajax event="blur" listener="#{usuarioController.verificarNick(usuarioController.selected.cedula)}"/>
+                        <p:inputText style="width:150px" id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.CreateUsuarioTitle_cedula}" required="true" validatorMessage="Ingrese cedula valida" requiredMessage="Ingrese cedula valida" >
+                            <f:validateLength minimum="8" maximum="8" />
                             <p:ajax event="blur" update="nick, pass" listener="#{usuarioController.setPassnickUserCreate(usuarioController.selected.cedula)}"/>
                         </p:inputText>
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_direccion}" for="direccion" />
                         <p:inputText style="width:150px" id="direccion" value="#{usuarioController.selected.direccion}" title="#{bundle.CreateUsuarioTitle_direccion}" />
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_mail}" for="mail" />
-                        <p:inputText style="width:150px" id="mail" value="#{usuarioController.selected.mail}" title="#{bundle.CreateUsuarioTitle_mail}" />
+                        <p:inputText style="width:150px" id="mail" value="#{usuarioController.selected.mail}" title="#{bundle.CreateUsuarioTitle_mail}">
+                            <!--<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />-->
+                        </p:inputText>
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_fechaNacimiento}" for="fechaNacimiento" />
                         <p:calendar style="width:150px" id="fechaNacimiento" pattern="yyyy-MM-dd" value="#{usuarioController.selected.fechaNacimiento}" title="#{bundle.EditUsuarioTitle_fechaNacimiento}"  showOn="button"/>
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_sexo}" for="sexo" />
@@ -82,7 +84,9 @@
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_nick}" for="nick" />
                         <p:inputText style="width:150px" id="nick" value="#{usuarioController.selected.nick}" title="#{bundle.CreateUsuarioTitle_nick}" disabled="true" />
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_pass}" for="pass" />
-                        <p:inputText style="width:150px" id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}" disabled="true" />
+                        <p:inputText style="width:150px" id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}" disabled="true" required="true" requiredMessage="Ingrese contrasena entre 6 y 12 caracteres" validatorMessage="Ingrese contrasena entre 6 y 12 caracteres" >
+                            <f:validateLength minimum="6" maximum="12" />
+                        </p:inputText>
                         <p:outputLabel style="width:150px" value="#{bundle.CreateUsuarioLabel_lugarNacimiento}" for="lugarNacimiento" />
                         <p:inputText style="width:150px" id="lugarNacimiento" value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.CreateUsuarioTitle_lugarNacimiento}" />
                     </p:panelGrid>
