@@ -112,7 +112,7 @@ public class SalonCursoController implements Serializable{
             updateItems();
         }else{
             vaciarControllersSelecteds();
-            JsfUtil.addErrorMessage("Los horarios coinciden con anteriores");
+            JsfUtil.addErrorMessage("Verifique el ingreso de horarios");
         }
         selected = null;
     }
@@ -133,6 +133,13 @@ public class SalonCursoController implements Serializable{
             if(!verificarCoincidenciaHorarios(selected, sc)){
                 result=false;
             }
+        }
+        HoraMinuto horaInicio = new HoraMinuto();
+        horaInicio.transformarStringEnHoraMinuto(selected.getHoraInicio());
+        HoraMinuto horaFin = new HoraMinuto();
+        horaFin.transformarStringEnHoraMinuto(selected.getHoraFin());
+        if(horaInicio.compare(horaFin)==1 || horaInicio.compare(horaFin)==0){
+            return false;
         }
         return result;
     }
@@ -176,6 +183,7 @@ public class SalonCursoController implements Serializable{
         semestreAnioController.setDiaSemanaSelected(null);
         semestreAnioController.setInicioSelected(null);
         semestreAnioController.setFinSelected(null);
+        salonController.setSalonID(0);
     }
     
     public void cargarControllersSelecteds(){

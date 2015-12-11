@@ -53,23 +53,25 @@
                                                      rowKey="#{evaluacion.idEvaluacion}"
                                                      filteredValue="#{filtersList.filteredItems}"
                                                      emptyMessage="El curso no posee ninguna evaluacion"
-                                            widgetVar="IE">
-                                            
+                                                     widgetVar="IE">
+                                                         
                                             <p:ajax event="rowSelect" update="deleteButton verButton" listener="#{buttonBean.onRowSelect}" />
                                             <p:ajax event="rowUnselect" update="deleteButton verButton" listener="#{buttonBean.onRowUnselect}" />
-                                            
+                                                
                                             <f:facet name="header">
                                                 <p:outputPanel>
                                                     <h:outputText value="Buscar en todos los Campos:" />
                                                     <p:inputText id="globalFilter" onkeyup="PF('IE').filter()" style="width:150px" placeholder="Ingresa algo"/>
                                                 </p:outputPanel>
                                             </f:facet>
-                                            
+                                                
                                             <p:column headerText="materia" footerText="materia" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{evaluacion.curso.materia.nombre}">
                                                 <h:outputText value="#{evaluacion.curso.materia.nombre}" />
                                             </p:column>
                                             <p:column headerText="Fecha" footerText="Fecha" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
-                                                <h:outputText value="#{evaluacion.fecha}" />
+                                                <h:outputText value="#{evaluacion.fecha}" >
+                                                    <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                </h:outputText>
                                             </p:column>
                                             <p:column headerText="Tipo de Evaluacion" footerText="Tipo de Evaluacion" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
                                                 <h:outputText value="#{evaluacion.tipo}" />
