@@ -3,6 +3,7 @@ package RolAlumno;
 import Curso.Curso;
 import Rol.Alumno;
 import Rol.RolFacade;
+import Session.LoginMB;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,6 +50,10 @@ public class SessionAlumnoController implements Serializable{
     }
     
     public List<Curso> getSelectedCursosOrderByYear(){
+        if(selected == null){
+            LoginMB login = new LoginMB();
+            selected=login.getUsuarioLogeado().getRolAlumno();
+        }
         List<Curso> list = selected.getCursos();
         Collections.sort(list, new Comparator<Curso>() {
             @Override 
