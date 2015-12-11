@@ -9,8 +9,8 @@
     <ui:composition template="../index.xhtml">
         <ui:define name="centro">
             
-                
-                
+            
+            
             <h:body>
                 <style>
                     #ui-datepicker-div{
@@ -43,56 +43,58 @@
                                     <p:ajax update=":GestionarEvaluacionForm" listener="#{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
                                 </p:selectOneListbox>
                             </p:column>
-<!--                            <p:column>
-                                <p:commandButton value="ver Evaluaciones" update=":GestionarEvaluacionForm" actionListener="#/{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
-                            </p:column>-->
+                            <!--                            <p:column>
+                                                            <p:commandButton value="ver Evaluaciones" update=":GestionarEvaluacionForm" actionListener="#/{instanciaEvaluacionController.cargarInstanciasDelCurso()}"/>
+                                                        </p:column>-->
                         </p:row>
                     </p:panelGrid>
                 </h:form>
                     
-                <h:form id="GestionarEvaluacionForm">
-                    <p:panel rendered="#{cursoController.selected.idCurso > 0}" header="Listar Evaluaciones de #{cursoController.selected.materia.nombre} #{cursoController.selected.anio}">
-                        <p:dataTable id="datalist" var="evaluacion" value="#{instanciaEvaluacionController.items}" 
-                                     selectionMode="single" selection="#{instanciaEvaluacionController.selected}"
-                                     scrollable="true" 
-                                     rowKey="#{evaluacion.idEvaluacion}"
-                                     filteredValue="#{filtersList.filteredItems}"
-                                     emptyMessage="No users encontrados"
-                                     widgetVar="IE">
-                            
-                            <p:ajax event="rowSelect" update="deleteButton verButton" listener="#{buttonBean.onRowSelect}" />
-                            <p:ajax event="rowUnselect" update="deleteButton verButton" listener="#{buttonBean.onRowUnselect}" />
-                                
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Search all fields:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('IE').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                </p:outputPanel>
-                            </f:facet>
-                                
-                            <p:column headerText="materia" footerText="materia" width="200" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{evaluacion.curso.materia.nombre}">
-                                <h:outputText value="#{evaluacion.curso.materia.nombre}" />
-                            </p:column>
-                            <p:column headerText="Fecha" footerText="Fecha" width="200" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
-                                <h:outputText value="#{evaluacion.fecha}" />
-                            </p:column>
-                            <p:column headerText="Fecha" footerText="Fecha" width="200" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
-                                <h:outputText value="#{evaluacion.tipo}" />
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.deleteSelected()}" disabled="#{buttonBean.disabled || empty instanciaEvaluacionController.items}"/>
-                                <p:commandButton id="createButton" class="btn btn-default" update=":gestionarEvaluacionForm" value="#{bundle.Create}" action="#{instanciaEvaluacionController.prepareToCreate()}" disabled="#{!(cursoController.selected.idCurso>0)}">
-                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                    <f:passThroughAttribute name="data-target" value="#ModalGestionarEvaluacion"/>
-                                </p:commandButton>
-                                <p:commandButton id="verButton" class="btn btn-default" value="ver Resultados" update=":formResultadosEvaluacion" actionListener="#{resultadosEvaluacionController.cargarResultadosDeEvaluacion()}" disabled="#{buttonBean.disabled || empty instanciaEvaluacionController.items}">
-                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                    <f:passThroughAttribute name="data-target" value="#ModalVerResultadosEvaluacion"/>
-                                </p:commandButton>
-                            </f:facet>
-                        </p:dataTable>
-                    </p:panel>
-                </h:form>
+                <div style="width: 800px; text-align: center; margin: auto;">
+                    <h:form id="GestionarEvaluacionForm">
+                        <p:panel rendered="#{cursoController.selected.idCurso > 0}" header="Listar Evaluaciones de #{cursoController.selected.materia.nombre} #{cursoController.selected.anio}">
+                            <p:dataTable id="datalist" var="evaluacion" value="#{instanciaEvaluacionController.items}" 
+                                         selectionMode="single" selection="#{instanciaEvaluacionController.selected}"
+                                         scrollable="true" scrollHeight="340"
+                                         rowKey="#{evaluacion.idEvaluacion}"
+                                         filteredValue="#{filtersList.filteredItems}"
+                                         emptyMessage="El curso no posee ninguna evaluacion"
+                                         widgetVar="IE">
+                                             
+                                <p:ajax event="rowSelect" update="deleteButton verButton" listener="#{buttonBean.onRowSelect}" />
+                                <p:ajax event="rowUnselect" update="deleteButton verButton" listener="#{buttonBean.onRowUnselect}" />
+                                    
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Search all fields:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('IE').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                    </p:outputPanel>
+                                </f:facet>
+                                    
+                                <p:column headerText="materia" footerText="materia" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{evaluacion.curso.materia.nombre}">
+                                    <h:outputText value="#{evaluacion.curso.materia.nombre}" />
+                                </p:column>
+                                <p:column headerText="Fecha" footerText="Fecha" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
+                                    <h:outputText value="#{evaluacion.fecha}" />
+                                </p:column>
+                                <p:column headerText="Tipo de Evaluacion" footerText="Tipo de Evaluacion" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains" sortBy="#{evaluacion.fecha}">
+                                    <h:outputText value="#{evaluacion.tipo}" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarEvaluacionForm" actionListener="#{instanciaEvaluacionController.deleteSelected()}" disabled="#{buttonBean.disabled || empty instanciaEvaluacionController.items}"/>
+                                    <p:commandButton id="createButton" class="btn btn-default" update=":gestionarEvaluacionForm" value="#{bundle.Create}" action="#{instanciaEvaluacionController.prepareToCreate()}" disabled="#{!(cursoController.selected.idCurso>0)}">
+                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                        <f:passThroughAttribute name="data-target" value="#ModalGestionarEvaluacion"/>
+                                    </p:commandButton>
+                                    <p:commandButton id="verButton" class="btn btn-default" value="ver Resultados" update=":formResultadosEvaluacion" actionListener="#{resultadosEvaluacionController.cargarResultadosDeEvaluacion()}" disabled="#{buttonBean.disabled || empty instanciaEvaluacionController.items}">
+                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                        <f:passThroughAttribute name="data-target" value="#ModalVerResultadosEvaluacion"/>
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
                 <ui:include src="modals/ModalGestionarEvaluacion.xhtml"/>
                 <ui:include src="modals/ModalVerResultadosInstancia.xhtml"/>
             </h:body>

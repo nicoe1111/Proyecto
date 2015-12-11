@@ -50,7 +50,7 @@
                             <p:panel header="Listar Alumos Registrados">
                                 <p:dataTable id="datalist" var="alumno" value="#{asignarAlumnoCursoCnontroller.allAlumnos}" 
                                              selectionMode="single" selection="#{asignarAlumnoCursoCnontroller.alumnoSelected}"
-                                             scrollable="true" 
+                                             scrollable="true" scrollHeight="340"
                                              rowKey="#{alumno.usuario.id_user}"
                                              filteredValue="#{filtersList.filteredItems}"
                                              emptyMessage="No users encontrados"
@@ -85,7 +85,7 @@
                             <p:panel header="Alumos agregados a #{cursoController.selected.materia.nombre} #{cursoController.selected.anio}">
                                 <p:dataTable id="datalist1" var="alumno" value="#{asignarAlumnoCursoCnontroller.alumnosCursoSelected}" 
                                              selectionMode="single" selection="#{asignarAlumnoCursoCnontroller.alumnoCursoSelected}"
-                                             scrollable="true" 
+                                             scrollable="true" scrollHeight="340"
                                              rowKey="#{alumno.usuario.id_user}"
                                              filteredValue="#{filtersList.filteredItems2}"
                                              emptyMessage="El curso no posee alumnos registrados"

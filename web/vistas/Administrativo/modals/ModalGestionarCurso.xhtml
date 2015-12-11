@@ -42,10 +42,10 @@
                             <div class="col-sm-2">
                                 <c:choose>
                                     <c:when test="#{cursoController.selected.idCurso>0}">
-                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty usuarioController2.selected || empty materiaController.selected}"/>
+                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty docenteController.selected || empty materiaController.selected}"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <h:commandButton id="createButton" value="#{bundle.Create}" class="btn btn-default" actionListener="#{cursoController.createSelected()}" disabled="#{empty cursoController.selected || empty usuarioController2.selected || empty materiaController.selected}"/>
+                                        <h:commandButton id="createButton" value="#{bundle.Create}" class="btn btn-default" actionListener="#{cursoController.createSelected()}" disabled="#{empty cursoController.selected || empty docenteController.selected || empty materiaController.selected}"/>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
