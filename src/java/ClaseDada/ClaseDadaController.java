@@ -12,6 +12,8 @@ import Curso.CursoFacade;
 import Rol.Alumno;
 import Rol.RolFacade;
 import Rol.TipoRol;
+import Session.LoginMB;
+import Usuario.Usuario;
 import Usuario.util.JsfUtil;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -63,8 +65,12 @@ public class ClaseDadaController implements Serializable{
     }
     
     public List<Curso> getCursos() {
-        cursos = ejbCurso.findAll();
-        return cursos;
+        if(getUserLog().hasRol("Administrativo") || getUserLog().hasRol("Administrador")){
+            return ejbCurso.findAll();
+        }else if(getUserLog().hasRol("Docente")){
+            return ejbCurso.getCursoDocente(getUserLog().getRolDocente().getIdRol());
+        }
+        return new ArrayList<>();
     }
     
     public List<ClaseDada>obtenerCasesDadas(Curso cursoSelec){
@@ -78,6 +84,20 @@ public class ClaseDadaController implements Serializable{
     public List<Alumno> obtenerAlumnosClaseDada(){
         return claseDada.getCurso().getAlumnos();
     }
+    
+    private Usuario userLog;
+    
+    public void getUserSession(){
+        LoginMB login = new LoginMB();
+        userLog = new Usuario();
+        userLog = login.getUsuarioLogeado();
+    }
+    
+    public Usuario getUserLog() {
+        getUserSession();
+        return userLog;
+    }
+    
     
     @EJB
             AsistenciaFacade ejbAsistencia;

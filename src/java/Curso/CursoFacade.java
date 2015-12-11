@@ -65,4 +65,12 @@ public class CursoFacade extends AbstractFacade<Curso> {
         List<Curso> users = query.getResultList();
         return users;
     }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursoDocente(int idRolDocente){
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.docente.idRol = :idRolDocente");
+        query.setParameter("idRolDocente", idRolDocente);
+        List<Curso> cursos = query.getResultList();
+        return cursos;
+    }
 }

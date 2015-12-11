@@ -55,7 +55,9 @@
                             <h:outputText value="#{bundle.ViewUsuarioLabel_nick}"/>
                             <h:outputText value="#{usuarioController.selected.nick}" title="#{bundle.ViewUsuarioTitle_nick}"/>
                             <h:outputText value="#{bundle.ViewUsuarioLabel_pass}"/>
-                            <p:password id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}"/>
+                            <p:password id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}" required="true" requiredMessage="Ingrese contrasena entre 6 y 12 caracteres" validatorMessage="Ingrese contrasena entre 6 y 12 caracteres">
+                                <f:validateLength minimum="6" maximum="12" />
+                            </p:password>
                             <h:outputText value="#{bundle.ViewUsuarioLabel_lugarNacimiento}"/>
                             <h:outputText value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.ViewUsuarioTitle_lugarNacimiento}"/>
                             <h:outputText value="#{bundle.ViewUsuarioLabel_rol}"/>

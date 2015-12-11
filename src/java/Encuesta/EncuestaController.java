@@ -8,6 +8,7 @@ import Pregunta.Pregunta;
 import Pregunta.PreguntaFacade;
 import RespuestaPregunta.RespuestaPregunta;
 import RespuestaPregunta.RespuestaPreguntaFacade;
+import Rol.Alumno;
 import Usuario.util.JsfUtil;
 import java.io.IOException;
 import java.io.Serializable;
@@ -40,18 +41,24 @@ public class EncuestaController implements Serializable{
     private List<String> years = loadyears();
     private List<String> semestres=Arrays.asList("Primer Semestre", "Segundo Semestre", "Tercer Semestre", "Cuarto Semestre", "Quinto Semestre", "Sexto Semestre");
     private List<Integer> selectIdsPreguntas = new ArrayList<>();
+    private int fechaSeleccionada;
     String mensaje = "";
+    
+    public int getFechaSeleccionada() {
+        return fechaSeleccionada;
+    }
+    
+    public void setFechaSeleccionada(int fechaSeleccionada) {
+        this.fechaSeleccionada = fechaSeleccionada;
+    }
     
     public String getMensaje() {
         return mensaje;
     }
     
-    
     public List<String> getYears() {
         return years;
     }
-    
-    
     
     public void setYears(List<String> years) {
         this.years = years;
@@ -190,6 +197,20 @@ public class EncuestaController implements Serializable{
         }
     }
     
+    public void cursosAnioTree() {
+        root = new DefaultTreeNode("Root", null);
+        TreeNode nodoSemestres = null;
+        for (int i = 0; i < semestres.size(); i++) {
+            cursosTree = ejbCurso.getCursosSemestreAnio(semestres.get(i), fechaSeleccionada);
+            if(cursosTree.size() > 0){
+                nodoSemestres = new DefaultTreeNode(semestres.get(i), root);
+            }
+            for (int j = 0; j < cursosTree.size(); j++) {
+                nodoSemestres.getChildren().add(new DefaultTreeNode(cursosTree.get(j).getMateria().getNombre()));
+            }
+        }
+    }
+    
     public TreeNode getRoot() {
         return root;
     }
@@ -224,9 +245,9 @@ public class EncuestaController implements Serializable{
         return false;
     }
     @EJB
-    RespuestaPreguntaFacade ejbRespuestaPregunta;
+            RespuestaPreguntaFacade ejbRespuestaPregunta;
     public String createEncuesta() throws IOException{
-        List<RespuestaPregunta> respuestasPreguntas =new ArrayList<RespuestaPregunta>();
+        List<RespuestaPregunta> respuestasPreguntas =new ArrayList<>();
         mensaje = "";
         getSelected();
         selected.setFecha(actualYear);
@@ -272,7 +293,7 @@ public class EncuestaController implements Serializable{
     @EJB
     private PreguntaFacade ejbPregunta;
     public List<Pregunta> obtenerPreguntas(){
-        List<Pregunta> preguntas = new ArrayList<Pregunta>();
+        List<Pregunta> preguntas = new ArrayList<>();
         List<Pregunta> listPregunta = ejbPregunta.findAll();
         for (int i = 0; i < selectIdsPreguntas.size(); i++) {
             for (int j = 0; j < listPregunta.size(); j++) {
@@ -290,7 +311,7 @@ public class EncuestaController implements Serializable{
     public List<Curso> obtenerCursos(){
         List<String> semestres = new ArrayList<>();
         //List<String> cursos = new ArrayList<>();
-        List<Curso> listCursosSemestre = new ArrayList<Curso>();
+        List<Curso> listCursosSemestre = new ArrayList<>();
         ArrayList<ArrayList<String>> cursosString = new ArrayList<ArrayList<String>>();
         ArrayList<String> datosCursosString = null;
         //separo lo que es curso de semestre
@@ -321,7 +342,7 @@ public class EncuestaController implements Serializable{
             listCursosSemestre =  mergeListaCursos(listCursosSemestre, ejbCurso.getCursosSemestreAnio(semestres.get(i), actualYear));
         }
         
-        List<Materia> materiaCurso = new ArrayList<Materia>();
+        List<Materia> materiaCurso = new ArrayList<>();
         //paso la lista de cursosString a objeto curso pero tengo que traer la materia primero
         for (int i = 0; i < cursosString.size(); i++) {
             materiaCurso = ejbMateria.findByNombreSemestre(cursosString.get(i).get(1), cursosString.get(i).get(0));
@@ -375,7 +396,11 @@ public class EncuestaController implements Serializable{
     }
     int n = 0;
     private LineChartModel initLinearModel(List<Curso> cursos) {
+        int cant = 0;
+        List<String> alumnosPendiente = new ArrayList<>();
         graficaPreguntas.clear();
+        alumnosPendientesEncuesta.clear();
+        List<Pregunta> listPreguntas = new ArrayList<>();
         for (int i = 0; i < cursos.size(); i++) {
             if(i == 0){
                 n = i;
@@ -383,37 +408,53 @@ public class EncuestaController implements Serializable{
                 n = i-1;
             }
             if(cursos.get(i).getEncuesta().getIdEncuesta() == cursos.get(n).getEncuesta().getIdEncuesta()){
-                graficaPreguntas.clear();
                 LineChartSeries series = new LineChartSeries();
                 series.setLabel(cursos.get(i).getDocente().getUsuario().getPrimerNombre() + " " + cursos.get(i).getDocente().getUsuario().getPrimerApellido()+ " - " +cursos.get(i).getMateria().getNombre());
                 int key = 1;
                 boolean bool = false;
-                List<RespuestaPregunta> listRPreguntas = new ArrayList<RespuestaPregunta>();
+                List<RespuestaPregunta> listRPreguntas = new ArrayList<>();
                 
                 for (int j = 0; j < cursos.get(i).getRespPregunta().size(); j++) {
-                    if(listRPreguntas.size() < cursos.get(i).getRespPregunta().size()){
+                    if(cursos.get(i).getRespPregunta().get(j).isContesto()){
                         float puntaje = 0;
                         int cantPreg = 0;
                         for (int k = 0; k < cursos.get(i).getRespPregunta().size(); k++) {
-                            if(cursos.get(i).getRespPregunta().get(j).getPregunta().getIdPregunta() == cursos.get(i).getRespPregunta().get(k).getPregunta().getIdPregunta()){
-                                
-                                for (RespuestaPregunta listRPregunta : listRPreguntas) {
-                                    if(listRPregunta.getIdRespuestaPregunta() == cursos.get(i).getRespPregunta().get(k).getIdRespuestaPregunta()){
-                                        bool= true;
+                            if(cursos.get(i).getRespPregunta().get(k).isContesto()){
+                                if(cursos.get(i).getRespPregunta().get(j).getPregunta().getIdPregunta() == cursos.get(i).getRespPregunta().get(k).getPregunta().getIdPregunta()){
+                                    
+                                    for (RespuestaPregunta listRPregunta : listRPreguntas) {
+                                        if(listRPregunta.getIdRespuestaPregunta() == cursos.get(i).getRespPregunta().get(k).getIdRespuestaPregunta()){
+                                            bool= true;
+                                        }
                                     }
-                                }
-                                if(!bool){
-                                    puntaje = puntaje + cursos.get(i).getRespPregunta().get(k).getPuntaje();
-                                    cantPreg++;
-                                    listRPreguntas.add(cursos.get(i).getRespPregunta().get(k));
+                                    if(!bool){
+                                        puntaje = puntaje + cursos.get(i).getRespPregunta().get(k).getPuntaje();
+                                        cantPreg++;
+                                        listRPreguntas.add(cursos.get(i).getRespPregunta().get(k));
+                                    }
+                                    
                                 }
                                 
+                                if(!graficaPreguntas.contains(cursos.get(i).getRespPregunta().get(j).getPregunta().getPregunta())){
+                                    graficaPreguntas.add(cursos.get(i).getRespPregunta().get(j).getPregunta().getPregunta());
+                                }
+                                
+                                if(!listPreguntas.contains(cursos.get(i).getRespPregunta().get(j).getPregunta())){
+                                    listPreguntas.add(cursos.get(i).getRespPregunta().get(j).getPregunta());
+                                    series.set(key, (puntaje / cantPreg));
+                                    key++;
+                                }
                             }
                         }
-                        graficaPreguntas.add(key + "- " + cursos.get(i).getRespPregunta().get(j).getPregunta().getPregunta());
-                        series.set(key, (puntaje / cantPreg));
-                        key++;
+                    }else{
+                        if(!alumnosPendiente.contains(cursos.get(i)+ "" + cursos.get(i).getRespPregunta().get(j).getAlumno().getIdRol())){
+                            alumnosPendientesEncuesta.add("Curso: " + cursos.get(i).getMateria().getNombre()+ " - " +
+                                    cursos.get(i).getRespPregunta().get(j).getAlumno().getUsuario().getPrimerNombre() +
+                                    " " + cursos.get(i).getRespPregunta().get(j).getAlumno().getUsuario().getPrimerApellido());
+                            alumnosPendiente.add(cursos.get(i)+ "" + cursos.get(i).getRespPregunta().get(j).getAlumno().getIdRol());
+                        }
                     }
+                    
                 }
                 lineModel1.addSeries(series);
             }
@@ -421,15 +462,29 @@ public class EncuestaController implements Serializable{
         return lineModel1;
     }
     
+    private List<String> alumnosPendientesEncuesta = new ArrayList<>();
+    
+    public List<String> getAlumnosPendientesEncuesta() {
+        return alumnosPendientesEncuesta;
+    }
+    
+    public void setAlumnosPendientesEncuesta(List<String> alumnosPendientesEncuesta) {
+        this.alumnosPendientesEncuesta = alumnosPendientesEncuesta;
+    }
+    
+    
     public void onNodeSelectTree(NodeSelectEvent event){
-        lineModel1.clear();
+        
         List<Curso> listCurso = obtenerCursos();
-        createLineModels(listCurso);
+        if(listCurso.size() > 0){
+            lineModel1.clear();
+            createLineModels(listCurso);
+        }
     }
     
     private List<String> graficaPreguntas = new ArrayList<>();
-
-
+    
+    
     public List<String> getGraficaPreguntas() {
         return graficaPreguntas;
     }
