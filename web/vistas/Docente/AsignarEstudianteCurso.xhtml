@@ -5,44 +5,38 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
     <ui:composition template="../index.xhtml">
         <ui:define name="centro">
-            
+            <style>
+                .ui-panelgrid tr, .ui-panelgrid td{
+                    border: 0 !important;
+                }
+            </style>
             <h:form id="asd">
-                <p:panelGrid >
-                    <p:row>
-                        <p:column>
-                            Semestre: 
-                            <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;">
-                                <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
-                                <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                                <f:selectItems value="#{semestreAnioController.semestres}"/>
-                            </p:selectOneMenu><br/>
-                        </p:column>
-                        <p:column>
-                            Año: 
-                            <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" editable="true" style="width:200px;">
-                                <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
-                                <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                                <f:selectItems value="#{semestreAnioController.years}" />
-                            </p:selectOneMenu><br/>
-                        </p:column>
-                        <p:column>
-                            Curso: 
-                            <!--podria ir una tabla-->
-                            <p:selectOneListbox id="curso" value="#{cursoController.cursoSelectedID}" scrollHeight="180">
-                                <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
-                                <p:ajax update=":GestionarAlumnosForm"/>
-                            </p:selectOneListbox>
-                        </p:column>
-                            
-                    </p:row>
+                <p:panelGrid columns="6">
+                    Semestre: 
+                    <p:selectOneMenu id="semestre" value="#{semestreAnioController.semestreSelected}" style="width:200px;">
+                        <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
+                        <f:selectItem itemLabel="Seleciona Semestre" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                        <f:selectItems value="#{semestreAnioController.semestres}"/>
+                    </p:selectOneMenu>
+                    Año: 
+                    <p:selectOneMenu id="anio" value="#{semestreAnioController.anioSelected}" editable="true" style="width:200px;">
+                        <p:ajax listener="#{salonCursoController.obtenerCursos}" update="curso"/>
+                        <f:selectItem itemLabel="Seleciona año" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                        <f:selectItems value="#{semestreAnioController.years}" />
+                    </p:selectOneMenu>
+                    Curso: 
+                    <p:selectOneListbox id="curso" value="#{cursoController.cursoSelectedID}" scrollHeight="180">
+                        <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.materia.nombre} #{curso.anio}" itemValue="#{curso.idCurso}"/>
+                        <p:ajax update=":GestionarAlumnosForm"/>
+                    </p:selectOneListbox>
                 </p:panelGrid>
-                <p:commandButton value="ver Alumnos" update=":GestionarAlumnosForm" />
+                <!--<p:commandButton value="ver Alumnos" update=":GestionarAlumnosForm" />-->
             </h:form>
-                
+            
             <h:form id="GestionarAlumnosForm">
                 <p:panelGrid rendered="#{cursoController.selected.idCurso > 0}">
                     <p:row>
@@ -54,18 +48,18 @@
                                              rowKey="#{alumno.usuario.id_user}"
                                              filteredValue="#{filtersList.filteredItems}"
                                              emptyMessage="No users encontrados"
-                                    widgetVar="AA">
-                                                 
+                                             widgetVar="AA">
+                                    
                                     <p:ajax event="rowSelect" update="agregarButton" listener="#{buttonBean.onRowSelect}" />
                                     <p:ajax event="rowUnselect" update="agregarButton" listener="#{buttonBean.onRowUnselect}" />
-                                        
+                                    
                                     <f:facet name="header">
                                         <p:outputPanel>
-                                            <h:outputText value="Search all fields:" />
-                                            <p:inputText id="globalFilter" onkeyup="PF('AA').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                            <h:outputText value="Buscar en todos los Campos:" />
+                                            <p:inputText id="globalFilter" onkeyup="PF('AA').filter()" style="width:150px" placeholder="Ingresa algo"/>
                                         </p:outputPanel>
                                     </f:facet>
-                                        
+                                    
                                     <p:column headerText="nombre" footerText="nombre" width="200" filterStyle="display:none" filterBy="usuario.primerNombre" filterMatchMode="contains" >
                                         <h:outputText value="#{alumno.usuario.primerNombre}"/>
                                     </p:column>
@@ -89,18 +83,18 @@
                                              rowKey="#{alumno.usuario.id_user}"
                                              filteredValue="#{filtersList.filteredItems2}"
                                              emptyMessage="El curso no posee alumnos registrados"
-                                    widgetVar="AC">
-                                                 
+                                             widgetVar="AC">
+                                    
                                     <p:ajax event="rowSelect" update="quitarButton" listener="#{buttonBean.onRowSelect}" />
                                     <p:ajax event="rowUnselect" update="quitarButton" listener="#{buttonBean.onRowUnselect}" />
-                                        
+                                    
                                     <f:facet name="header">
                                         <p:outputPanel>
-                                            <h:outputText value="Search all fields:" />
-                                            <p:inputText id="globalFilter1" onkeyup="PF('AC').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                            <h:outputText value="Buscar en todos los Campos:" />
+                                            <p:inputText id="globalFilter1" onkeyup="PF('AC').filter()" style="width:150px" placeholder="Ingresa algo"/>
                                         </p:outputPanel>
                                     </f:facet>
-                                        
+                                    
                                     <p:column headerText="nombre" footerText="nombre" width="200" filterStyle="display:none" filterBy="usuario.primerNombre" filterMatchMode="contains" >
                                         <h:outputText value="#{alumno.usuario.primerNombre}"/>
                                     </p:column>

@@ -12,7 +12,7 @@
             <h:body>
                 <div style="width: 800px; text-align: center; margin: auto;">
                     <h:form id="GestionarSalonCursoForm">
-                        <p:panel header="Gestionar SalonCurso">
+                        <p:panel header="Gestionar Horarios">
                             <p:dataTable id="datalist" var="salonCurso" value="#{salonCursoController.items}" 
                                          selectionMode="single" selection="#{salonCursoController.selected}"
                                          scrollable="true" 
@@ -27,8 +27,8 @@
                                 
                                 <f:facet name="header">
                                     <p:outputPanel>
-                                        <h:outputText value="Search all fields:" />
-                                        <p:inputText id="globalFilter" onkeyup="PF('GSC').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                        <h:outputText value="Buscar en todos los Campos:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('GSC').filter()" style="width:150px" placeholder="Ingresa algo"/>
                                     </p:outputPanel>
                                 </f:facet>
                                 

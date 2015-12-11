@@ -8,6 +8,11 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:composition>
+        <style>
+            .ui-panelgrid tr, .ui-panelgrid td{
+                border: 0 !important;
+            }
+        </style>
         <div id="ModalGestionarEvaluacion" class="modal fade" role="dialog">
             <div id="MODAL" class="modal-dialog">
                 <h:form id="gestionarEvaluacionForm">
@@ -18,16 +23,14 @@
                             <h4 class="modal-title">Registrar Evaluacion</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
+                            <p:panelGrid columns="2">
                                 <p:outputLabel value="Fecha (dd/MM/yyyy)"/>
                                 <p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy" value="#{instanciaEvaluacionController.selected.fecha}" mask="true"/>
-                            </div>
-                            <div class="form-group">
                                 <p:outputLabel value="Seleccione una tipo de instancia:" />
                                 <p:selectOneMenu id="semestre" value="#{instanciaEvaluacionController.selected.tipo}" appendTo="@this" style="width:200px;">
                                     <f:selectItems value="#{semestreAnioController.tipoInstancia}"/>
                                 </p:selectOneMenu><br/>
-                            </div>
+                            </p:panelGrid>
                         </div>
                         <div class="modal-footer">
                             <div class="col-sm-2">
