@@ -9,49 +9,48 @@
     <ui:composition template="../index.xhtml">
         <ui:define name="centro">
             <h:body>
-                <h:form id="GestionSalonForm">
-                    <p:panel header="#{bundle.ListUsuarioTitle}">
-                        <p:dataTable id="datalist" var="salon" value="#{salonController.items}" 
-                                     selectionMode="single" selection="#{salonController.selected}"
-                                     scrollable="true" 
-                                     rowKey="#{salon.idSalon}"
-                                     filteredValue="#{filtersList.filteredItems}"
-                                     emptyMessage="No users encontrados"
-                                     widgetVar="GS">
-                            
-                            <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
-                            <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
-                            
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Search all fields:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('GS').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                </p:outputPanel>
-                            </f:facet>
-                            
-                            <p:column headerText="ID" footerText="ID" width="200" filterStyle="display:none" filterBy="idSalon" filterMatchMode="contains" sortBy="#{salon.idSalon}">
-                                <h:outputText value="#{salon.idSalon}"/>
-                            </p:column>
-                            <p:column headerText="Nombre" footerText="Nombre" width="200" filterStyle="display:none" filterBy="nombreNumero" filterMatchMode="contains" sortBy="#{salon.nombreNumero}">
-                                <h:outputText value="#{salon.nombreNumero}" />
-                            </p:column>
-                            <p:column headerText="Descripcion" footerText="Descripcion" width="200" filterStyle="display:none" filterBy="descripcion" filterMatchMode="contains" sortBy="#{salon.descripcion}">
-                                <h:outputText value="#{salon.descripcion}" />
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionSalonForm" actionListener="#{salonController.deleteSelected()}" disabled="#{buttonBean.disabled || empty salonController.items}"/>
-                                <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":gestionarSalonForm" disabled="#{buttonBean.disabled || empty salonController.items}">
-                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                    <f:passThroughAttribute name="data-target" value="#ModalGestionarSalon"/>
-                                </p:commandButton>
-                                <p:commandButton id="createButton" class="btn btn-default" update=":gestionarSalonForm" value="#{bundle.Create}" action="#{salonController.setSelected(null)}">
-                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                    <f:passThroughAttribute name="data-target" value="#ModalGestionarSalon"/>
-                                </p:commandButton>
-                            </f:facet>
-                        </p:dataTable>
-                    </p:panel>
-                </h:form>
+                <div style="width: 800px; text-align: center; margin: auto;">
+                    <h:form id="GestionSalonForm">
+                        <p:panel header="Lista de Salones Registrados">
+                            <p:dataTable id="datalist" var="salon" value="#{salonController.items}" 
+                                         selectionMode="single" selection="#{salonController.selected}"
+                                         scrollable="true" scrollHeight="340"
+                                         rowKey="#{salon.idSalon}"
+                                         filteredValue="#{filtersList.filteredItems}"
+                                         emptyMessage="No users encontrados"
+                                         widgetVar="GS">
+                                
+                                <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
+                                <p:ajax event="rowUnselect" update="deleteButton editButton" listener="#{buttonBean.onRowUnselect}" />
+                                
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar en todos los Campos:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('GS').filter()" style="width:150px" placeholder="Ingresa algo"/>
+                                    </p:outputPanel>
+                                </f:facet>
+                                
+                                <p:column headerText="Nombre" footerText="Nombre" width="200" filterStyle="display:none" filterBy="nombreNumero" filterMatchMode="contains" sortBy="#{salon.nombreNumero}">
+                                    <h:outputText value="#{salon.nombreNumero}" />
+                                </p:column>
+                                <p:column headerText="Descripcion" footerText="Descripcion" width="200" filterStyle="display:none" filterBy="descripcion" filterMatchMode="contains" sortBy="#{salon.descripcion}">
+                                    <h:outputText value="#{salon.descripcion}" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="deleteButton" class="btn btn-default" value="#{bundle.Delete}" update=":GestionSalonForm" actionListener="#{salonController.deleteSelected()}" disabled="#{buttonBean.disabled || empty salonController.items || not (salonController.selected.idSalon > 0)}"/>
+                                    <p:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":gestionarSalonForm" disabled="#{buttonBean.disabled || empty salonController.items || not (salonController.selected.idSalon > 0)}">
+                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                        <f:passThroughAttribute name="data-target" value="#ModalGestionarSalon"/>
+                                    </p:commandButton>
+                                    <p:commandButton id="createButton" class="btn btn-default" update=":gestionarSalonForm" value="#{bundle.Create}" action="#{salonController.setSelected(null)}">
+                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                        <f:passThroughAttribute name="data-target" value="#ModalGestionarSalon"/>
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
                 <ui:include src="modals/ModalGestionarSalon.xhtml"/>
             </h:body>
         </ui:define>

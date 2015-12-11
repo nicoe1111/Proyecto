@@ -10,62 +10,64 @@
     <ui:composition template="../index.xhtml">
         <ui:define name="centro">
             <h:body>
-                <h:form id="GestionarSalonCursoForm">
-                    <p:panel header="Gestionar SalonCurso">
-                        <p:dataTable id="datalist" var="salonCurso" value="#{salonCursoController.items}" 
-                                     selectionMode="single" selection="#{salonCursoController.selected}"
-                                     scrollable="true" 
-                                     rowKey="#{salonCurso.idSalonCurso}"
-                                     emptyMessage="No salonCursos encontrados"
-                                     filteredValue="#{filtersList.filteredItems}"
-                                     widgetVar="GSC" scrollHeight="340"
-                                     >
-                            
-                            <p:ajax event="rowSelect" update="deleteButton1 editButton1" listener="#{buttonBean.onRowSelect}" />
-                            <p:ajax event="rowUnselect" update="deleteButton1 editButton1" listener="#{buttonBean.onRowUnselect}" />
-                            
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Search all fields:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('GSC').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                </p:outputPanel>
-                            </f:facet>
-                            
-                            <p:column headerText="Materia" footerText="Materia" width="200" filterStyle="display:none" filterBy="curso.materia.nombre" filterMatchMode="contains">
-                                <p:outputLabel value="#{salonCurso.curso.materia.nombre}"/>
-                            </p:column>
-                            <p:column headerText="Semestre" footerText="Semestre" width="200" filterStyle="display:none" filterBy="curso.materia.semestre" filterMatchMode="contains">
-                                <h:outputText value="#{salonCurso.curso.materia.semestre}" />
-                            </p:column>
-                            <p:column headerText="anio" footerText="anio" width="200" filterStyle="display:none" filterBy="curso.anio" filterMatchMode="contains">
-                                <h:outputText value="#{salonCurso.curso.anio}" />
-                            </p:column>
-                            <p:column headerText="Nombre Salon" footerText="Nombre Salon" width="200" filterStyle="display:none" filterBy="salon.nombreNumero" filterMatchMode="contains">
-                                <h:outputText value="#{salonCurso.salon.nombreNumero}" />
-                            </p:column>
-                            <p:column headerText="Dia de la Semana" footerText="Dia de la Semana" width="200" filterStyle="display:none" filterBy="diadelaSemana" filterMatchMode="contains">
-                                <h:outputText value="#{salonCurso.diadelaSemana}" />
-                            </p:column>
-                            <p:column headerText="Hora Inicio" footerText="Hora Inicio" width="200" >
-                                <h:outputText value="#{salonCurso.horaInicio}" />
-                            </p:column>
-                            <p:column headerText="Hora Fin" footerText="Hora Fin" width="200" >
-                                <h:outputText value="#{salonCurso.horaFin}" />
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:commandButton id="deleteButton1" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarSalonCursoForm" actionListener="#{salonCursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty salonCursoController.items}"/>
-                                <p:commandButton id="editButton1" class="btn btn-default" value="#{bundle.Edit}" update=":getionarSalonCursoForm" actionListener="#{salonCursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty salonCursoController.items}">
-                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                    <f:passThroughAttribute name="data-target" value="#ModalGestionarSalonCurso"/>
-                                </p:commandButton>
-                                <p:commandButton id="createButton1" class="btn btn-default" update=":getionarSalonCursoForm" value="#{bundle.Create}" actionListener="#{salonCursoController.vaciarControllersSelecteds()}" action="#{cursoController.setSelected(null)}">
-                                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                                    <f:passThroughAttribute name="data-target" value="#ModalGestionarSalonCurso"/>
-                                </p:commandButton>
-                            </f:facet>
-                        </p:dataTable>
-                    </p:panel>
-                </h:form>
+                <div style="width: 800px; text-align: center; margin: auto;">
+                    <h:form id="GestionarSalonCursoForm">
+                        <p:panel header="Gestionar Horarios">
+                            <p:dataTable id="datalist" var="salonCurso" value="#{salonCursoController.items}" 
+                                         selectionMode="single" selection="#{salonCursoController.selected}"
+                                         scrollable="true" 
+                                         rowKey="#{salonCurso.idSalonCurso}"
+                                         emptyMessage="No salonCursos encontrados"
+                                         filteredValue="#{filtersList.filteredItems}"
+                                         widgetVar="GSC" scrollHeight="340"
+                                         >
+                                
+                                <p:ajax event="rowSelect" update="deleteButton1 editButton1" listener="#{buttonBean.onRowSelect}" />
+                                <p:ajax event="rowUnselect" update="deleteButton1 editButton1" listener="#{buttonBean.onRowUnselect}" />
+                                
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar en todos los Campos:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('GSC').filter()" style="width:150px" placeholder="Ingresa algo"/>
+                                    </p:outputPanel>
+                                </f:facet>
+                                
+                                <p:column headerText="Materia" footerText="Materia" filterStyle="display:none" filterBy="curso.materia.nombre" filterMatchMode="contains" sortBy="#{salonCurso.curso.materia.nombre}">
+                                    <p:outputLabel value="#{salonCurso.curso.materia.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Semestre" footerText="Semestre" filterStyle="display:none" filterBy="curso.materia.semestre" filterMatchMode="contains" sortBy="#{salonCurso.curso.materia.semestre}">
+                                    <h:outputText value="#{salonCurso.curso.materia.semestre}" />
+                                </p:column>
+                                <p:column headerText="anio" footerText="anio" filterStyle="display:none" filterBy="curso.anio" filterMatchMode="contains" sortBy="#{salonCurso.curso.anio}">
+                                    <h:outputText value="#{salonCurso.curso.anio}" />
+                                </p:column>
+                                <p:column headerText="Nombre Salon" footerText="Nombre Salon" filterStyle="display:none" filterBy="salon.nombreNumero" filterMatchMode="contains" sortBy="#{salonCurso.salon.nombreNumero}">
+                                    <h:outputText value="#{salonCurso.salon.nombreNumero}" />
+                                </p:column>
+                                <p:column headerText="Dia de la Semana" footerText="Dia de la Semana" filterStyle="display:none" filterBy="diadelaSemana" filterMatchMode="contains" sortBy="#{salonCurso.diadelaSemana}">
+                                    <h:outputText value="#{salonCurso.diadelaSemana}" />
+                                </p:column>
+                                <p:column headerText="Hora Inicio" footerText="Hora Inicio" sortBy="#{salonCurso.horaInicio}" >
+                                    <h:outputText value="#{salonCurso.horaInicio}" />
+                                </p:column>
+                                <p:column headerText="Hora Fin" footerText="Hora Fin" sortBy="#{salonCurso.horaFin}" >
+                                    <h:outputText value="#{salonCurso.horaFin}" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="deleteButton1" class="btn btn-default" value="#{bundle.Delete}" update=":GestionarSalonCursoForm" actionListener="#{salonCursoController.deleteSelected()}" disabled="#{buttonBean.disabled || empty salonCursoController.items || not (salonCursoController.selected.idSalonCurso > 0)}"/>
+                                    <p:commandButton id="editButton1" class="btn btn-default" value="#{bundle.Edit}" update=":getionarSalonCursoForm" actionListener="#{salonCursoController.cargarControllersSelecteds()}" disabled="#{buttonBean.disabled || empty salonCursoController.items || not (salonCursoController.selected.idSalonCurso > 0)}">
+                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                        <f:passThroughAttribute name="data-target" value="#ModalGestionarSalonCurso"/>
+                                    </p:commandButton>
+                                    <p:commandButton id="createButton1" class="btn btn-default" update=":getionarSalonCursoForm" value="#{bundle.Create}" actionListener="#{salonCursoController.vaciarControllersSelecteds()}" action="#{cursoController.setSelected(null)}">
+                                        <f:passThroughAttribute name="data-toggle" value="modal"/>
+                                        <f:passThroughAttribute name="data-target" value="#ModalGestionarSalonCurso"/>
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
                 <ui:include src="modals/ModalGestionarSalonCurso.xhtml"/>
             </h:body>
         </ui:define>

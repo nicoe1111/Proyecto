@@ -16,6 +16,11 @@
     
     
     <ui:composition>
+        <style>
+            .ui-panelgrid tr, .ui-panelgrid td{
+                border: 0 !important;
+            }
+        </style>
         <div id="ModalGestionarSalonCurso" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <h:form id="getionarSalonCursoForm">
@@ -24,66 +29,64 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <c:choose>
                                 <c:when test="#{salonCursoController.selected.idSalonCurso>0}">
-                                    <h4 class="modal-title">Editar SalonCurso</h4>
+                                    <h4 class="modal-title">Editar Horario</h4>
                                 </c:when>
                                 <c:otherwise>
-                                    <h4 class="modal-title">Registrar SalonCurso</h4>
+                                    <h4 class="modal-title">Registrar Horario</h4>
                                 </c:otherwise>
                             </c:choose>
                         </div>
                         <div class="modal-body">
-                            Salon:
-                            <p:selectOneMenu id="salon" value="#{salonController.salonID}" appendTo="@this" style="width:200px;">
-                                <f:selectItem itemLabel="Seleciona salon" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                                <f:selectItems value="#{salonController.items}" var="salon" itemLabel="#{salon.nombreNumero}" itemValue="#{salon.idSalon}"/>
-                            </p:selectOneMenu><br/>
-                            Dia:
-                            <p:selectOneMenu id="dia" value="#{semestreAnioController.diaSemanaSelected}" appendTo="@this" style="width:200px;">
-                                <f:selectItem itemLabel="Seleciona Dia" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                                <f:selectItems value="#{semestreAnioController.diasSemana}"/>
-                            </p:selectOneMenu>
-                            
-                            Hora Inicial:
-                            <p:selectOneMenu id="inicio" value="#{semestreAnioController.inicioSelected}" appendTo="@this" style="width:200px;">
-                                <f:selectItem itemLabel="Seleciona Hora Inicio" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                                <f:selectItems value="#{semestreAnioController.inicios}"/>
-                            </p:selectOneMenu>
-                            
-                            Hora Final: 
-                            <p:selectOneMenu id="fin" value="#{semestreAnioController.finSelected}" appendTo="@this" style="width:200px;">
-                                <f:selectItem itemLabel="Seleciona Hora Fin" itemValue="" noSelectionOption="true" itemDisabled="true" />
-                                <f:selectItems value="#{semestreAnioController.fines}"/>
-                            </p:selectOneMenu>
-                            
-                            <p:dataTable id="datalist2" var="curso" value="#{cursoController.items}" 
-                                         selectionMode="single" selection="#{cursoController.selected}"
-                                         scrollable="true" 
-                                         rowKey="#{curso.idCurso}"
-                                         filteredValue="#{filtersList.filteredItems2}"
-                                         emptyMessage="No cursos encontrados"
-                                         widgetVar="studentsTable" scrollHeight="340">
-                                
-                                
-                                <f:facet name="header">
-                                    <p:outputPanel>
-                                        <h:outputText value="Buscar:" />
-                                        <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                    </p:outputPanel>
-                                </f:facet>
-                                
-                                <p:column headerText="ID" footerText="ID"  filterStyle="display:none" filterBy="idCurso" filterMatchMode="contains" sortBy="#{curso.idCurso}">
-                                    <h:outputText value="#{curso.idCurso}"/>
-                                </p:column>
-                                <p:column headerText="Nombre Materia" footerText="Nombre Materia" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{curso.materia.nombre}">
-                                    <h:outputText value="#{curso.materia.nombre}" />
-                                </p:column>
-                                <p:column headerText="semestre" footerText="semestre" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains" sortBy="#{curso.materia.semestre}">
-                                    <h:outputText value="#{curso.materia.semestre}" />
-                                </p:column>
-                                <p:column headerText="anio" footerText="anio" filterStyle="display:none" filterBy="anio" filterMatchMode="contains" sortBy="#{curso.anio}">
-                                    <h:outputText value="#{curso.anio}" />
-                                </p:column>
-                            </p:dataTable>
+                            <p:panelGrid columns="4">
+                                Salon:
+                                <p:selectOneMenu id="salon" value="#{salonController.salonID}" appendTo="@this" style="width:200px;">
+                                    <f:selectItem itemLabel="Seleciona salon" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{salonController.items}" var="salon" itemLabel="#{salon.nombreNumero}" itemValue="#{salon.idSalon}"/>
+                                </p:selectOneMenu>
+                                Dia:
+                                <p:selectOneMenu id="dia" value="#{semestreAnioController.diaSemanaSelected}" appendTo="@this" style="width:200px;">
+                                    <f:selectItem itemLabel="Seleciona Dia" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{semestreAnioController.diasSemana}"/>
+                                </p:selectOneMenu>
+                                Hora Inicial:
+                                <p:selectOneMenu id="inicio" value="#{semestreAnioController.inicioSelected}" appendTo="@this" style="width:200px;">
+                                    <f:selectItem itemLabel="Seleciona Hora Inicio" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{semestreAnioController.inicios}"/>
+                                </p:selectOneMenu>
+                                Hora Final: 
+                                <p:selectOneMenu id="fin" value="#{semestreAnioController.finSelected}" appendTo="@this" style="width:200px;">
+                                    <f:selectItem itemLabel="Seleciona Hora Fin" itemValue="" noSelectionOption="true" itemDisabled="true" />
+                                    <f:selectItems value="#{semestreAnioController.fines}"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:panel header="Lista de Cursos Registrados">
+                                <p:dataTable id="datalist2" var="curso" value="#{cursoController.items}" 
+                                             selectionMode="single" selection="#{cursoController.selected}"
+                                             scrollable="true" 
+                                             rowKey="#{curso.idCurso}"
+                                             filteredValue="#{filtersList.filteredItems2}"
+                                             emptyMessage="No cursos encontrados"
+                                             widgetVar="studentsTable" scrollHeight="200">
+                                    
+                                    
+                                    <f:facet name="header">
+                                        <p:outputPanel>
+                                            <h:outputText value="Buscar en todos los Campos:" />
+                                            <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Ingresa algo"/>
+                                        </p:outputPanel>
+                                    </f:facet>
+                                    
+                                    <p:column headerText="Nombre Materia" footerText="Nombre Materia" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{curso.materia.nombre}">
+                                        <h:outputText value="#{curso.materia.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="semestre" footerText="semestre" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains" sortBy="#{curso.materia.semestre}">
+                                        <h:outputText value="#{curso.materia.semestre}" />
+                                    </p:column>
+                                    <p:column headerText="anio" footerText="anio" filterStyle="display:none" filterBy="anio" filterMatchMode="contains" sortBy="#{curso.anio}">
+                                        <h:outputText value="#{curso.anio}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
                         </div>
                         <div class="modal-footer">
                             <div class="col-sm-2">

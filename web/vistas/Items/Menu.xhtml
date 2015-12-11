@@ -14,7 +14,7 @@
                             <p:menuitem value="Gestionar Materias" id="GestionarMaterias" url="/vistas/Administrativo/GestionMateria.xhtml"/>
                             <p:menuitem value="Gestionar Salones" id="GestionarSalones" url="/vistas/Administrativo/GestionSalon.xhtml"/>
                             <p:menuitem value="Gestionar Encuestas" id="GestionarEncuestas" url="/vistas/Administrativo/Encuesta/ContenedorEncuesta.xhtml"/>
-                            <p:menuitem value="Gestionar SalonCurso" id="GestionarSalonCurso" url="/vistas/Administrativo/GestionSalonCurso.xhtml"/>
+                            <p:menuitem value="Gestionar Horarios" id="GestionarSalonCurso" url="/vistas/Administrativo/GestionSalonCurso.xhtml"/>
                             <p:menuitem value="Gestionar Evaluacion" id="GestionarEvaluacion" url="/vistas/Administrativo/GestionEvaluacion.xhtml"/>
                             <p:menuitem value="Ver Info Alumno" id="InfoAlumno" url="/vistas/Administrativo/ListarAlumnos.xhtml"/>
                         </c:if>
@@ -22,6 +22,10 @@
                         <c:if test="#{login.userLoged.hasRol('Docente')}" >
                             <p:menuitem value="Asignar Estudiante a curso" id="AsignarEstudiante" url="/vistas/Docente/AsignarEstudianteCurso.xhtml"/>
                             <p:menuitem value="Pasar Lista" id="pasarLista" url="/vistas/Docente/ClaseDadaAsistencia/ClaseDada.xhtml"/>
+                        </c:if>
+                        
+                        <c:if test="#{login.userLoged.hasRol('Alumno')}" >
+                            <p:menuitem value="Ver Info Alumno" id="InfoAlumno" url="/vistas/Alumno/VerInfoAlumno.xhtml"/>
                         </c:if>
                         
                         <p:menuitem value="Ver Horarios Curso" id="verHorarios" url="/vistas/VerHorarios.xhtml"/>

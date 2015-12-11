@@ -154,20 +154,22 @@ public class MateriaController implements Serializable {
         ver=verSelectedNodes();
         return ver;
     }
-
+    
     public void setVer(String ver) {
         this.ver = ver;
     }
     
     private TreeNode selectedNode;
-
+    
     public TreeNode getSelectedNode() {
         return selectedNode;
     }
-
+    
     public void setSelectedNode(TreeNode selectedNode) {
-        List<Materia> mats= ejbMateria.findByNick(selectedNode.getData().toString());
-        selected = mats.get(0);
+        if(selectedNode!=null){
+            List<Materia> mats= ejbMateria.findByNick(selectedNode.getData().toString());
+            selected = mats.get(0);
+        }
         this.selectedNode = selectedNode;
     }
     

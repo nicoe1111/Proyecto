@@ -3,7 +3,10 @@ package CasosDeUso;
 import Curso.Curso;
 import Curso.CursoController;
 import Curso.CursoFacade;
+import InstanciaEvaluacion.Evaluacion;
 import InterfazUtil.SemestreAnioController;
+import ResultadoInstancia.ResultadoFacade;
+import ResultadoInstancia.ResultadoInstancia;
 import Rol.Alumno;
 import Rol.RolFacade;
 import Usuario.util.JsfUtil;
@@ -22,29 +25,32 @@ public class AsignarAlumnoCursoCnontroller implements Serializable{
     private CursoController cursoController;
     
     @EJB
-    RolFacade ejbRol;
+            RolFacade ejbRol;
     
     @EJB
-    CursoFacade ejbCurso;
+            CursoFacade ejbCurso;
+    
+    @EJB
+            ResultadoFacade ejbResultado;
     
     private List<Alumno> alumnosCurso;
     private List<Alumno> allAlumnos;
     
     private Alumno alumnoCursoSelected;
     private Alumno AlumnoSelected;
-
+    
     public Alumno getAlumnoCursoSelected() {
         return alumnoCursoSelected;
     }
-
+    
     public void setAlumnoCursoSelected(Alumno alumnoCursoSelected) {
         this.alumnoCursoSelected = alumnoCursoSelected;
     }
-
+    
     public Alumno getAlumnoSelected() {
         return AlumnoSelected;
     }
-
+    
     public void setAlumnoSelected(Alumno AlumnoSelected) {
         this.AlumnoSelected = AlumnoSelected;
     }
@@ -68,8 +74,24 @@ public class AsignarAlumnoCursoCnontroller implements Serializable{
     
     public void quitarAlumnoACurso(){
         if(existeAlumnoEnLista(alumnoCursoSelected, alumnosCurso)){
+            if(!alumnoHasResultado()){    
             alumnosCurso.remove(alumnoCursoSelected);
+            alumnoCursoSelected=null;
+            }else{
+                JsfUtil.addErrorMessage("No se puede eliminar el Alumno, este posee evaluaciones");
+            }
         }
+    }
+    
+    private boolean alumnoHasResultado(){
+        Curso cursoSelected = cursoController.getSelected();
+        for(Evaluacion eva: cursoSelected.getInstanciasEvaluaciones()){
+            ResultadoInstancia res = ejbResultado.findResultadoEvalAlumno(eva.getIdEvaluacion(), alumnoCursoSelected.getIdRol());
+            if(res != null){
+                return true;
+            }
+        }
+        return false;
     }
     
     public void guardarCambios(){
