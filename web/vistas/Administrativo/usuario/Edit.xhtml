@@ -9,7 +9,6 @@
     <ui:composition>
         
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}" showEffect="clip" hideEffect="clip">
-            
             <h:form id="UsuarioEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.boolAlumno == true}">
@@ -26,8 +25,9 @@
                         <p:outputLabel  style="width:150px"  value="#{bundle.EditUsuarioLabel_segundoApellido}" for="segundoApellido" />
                         <p:inputText style="width:150px"  id="segundoApellido" value="#{usuarioController.selected.segundoApellido}" title="#{bundle.EditUsuarioTitle_segundoApellido}" />
                         <p:outputLabel  style="width:150px"  value="#{bundle.EditUsuarioLabel_cedula}" for="cedula" />
-                        <p:inputText style="width:150px"  id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.EditUsuarioTitle_cedula}" required="true" requiredMessage="Ingrese la cedula... Se va a utilizar como User">
-                            <p:ajax event="blur" update="nick" listener="#{usuarioController.setNickUserCreate(usuarioController.selected.cedula)}"/>
+                        <p:inputText style="width:150px"  id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.EditUsuarioTitle_cedula}" required="true" valueChangeListener="#{usuarioController.setNickUserCreate(usuarioController.selected.cedula)}" validatorMessage="Ingrese cedula valida" requiredMessage="Ingrese cedula valida" >
+                            <f:validateLength minimum="8" maximum="8" />
+                            <p:ajax event="blur" update="nick, pass" listener="#{usuarioController.setNickUserCreate(usuarioController.selected.cedula)}"/>
                         </p:inputText>
                         <p:outputLabel  style="width:150px"  value="#{bundle.EditUsuarioLabel_direccion}" for="direccion" />
                         <p:inputText style="width:150px"  id="direccion" value="#{usuarioController.selected.direccion}" title="#{bundle.EditUsuarioTitle_direccion}" />
@@ -81,7 +81,9 @@
                         <p:outputLabel  style="width:150px"  value="#{bundle.EditUsuarioLabel_nick}" for="nick" />
                         <p:inputText style="width:150px"  id="nick" value="#{usuarioController.selected.nick}" title="#{bundle.EditUsuarioTitle_nick}" disabled="true"/>
                         <p:outputLabel  style="width:150px"  value="#{bundle.EditUsuarioLabel_pass}" for="pass" />
-                        <p:password id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.EditUsuarioTitle_pass}" />
+                        <p:password id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.EditUsuarioTitle_pass}" required="true" requiredMessage="Ingrese contrasena entre 6 y 12 caracteres" validatorMessage="Ingrese contrasena entre 6 y 12 caracteres" >
+                            <f:validateLength minimum="6" maximum="12" />
+                        </p:password>
                         <p:outputLabel  style="width:150px"  value="#{bundle.EditUsuarioLabel_lugarNacimiento}" for="lugarNacimiento" />
                         <p:inputText style="width:150px"  id="lugarNacimiento" value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.EditUsuarioTitle_lugarNacimiento}" />
                         <p:outputLabel  style="width:150px"  value="#{bundle.EditUsuarioLabel_rol}" for="rol" />
