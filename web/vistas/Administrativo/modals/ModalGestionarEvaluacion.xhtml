@@ -25,7 +25,7 @@
                         <div class="modal-body">
                             <p:panelGrid columns="2">
                                 <p:outputLabel value="Fecha (dd/MM/yyyy)"/>
-                                <p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy" value="#{instanciaEvaluacionController.selected.fecha}" mask="true"/>
+                                <p:calendar id="fechaNacimiento" required="true" requiredMessage="Olvido ingresar una fecha" pattern="dd/MM/yyyy" value="#{instanciaEvaluacionController.selected.fecha}" mask="true"/>
                                 <p:outputLabel value="Seleccione una tipo de instancia:" />
                                 <p:selectOneMenu id="semestre" value="#{instanciaEvaluacionController.selected.tipo}" appendTo="@this" style="width:200px;">
                                     <f:selectItems value="#{semestreAnioController.tipoInstancia}"/>

@@ -124,6 +124,7 @@ public class CursoController implements Serializable {
         docenteController.setSelected(null);
         docenteController.setIdSelected(0);
         materiaController.setSelected(null);
+        materiaController.setSelectedNode(null);
     }
     
     public void cargarControllersSelecteds(){

@@ -105,7 +105,7 @@
                                         <h:outputText value="#{alumno.usuario.cedula}" />
                                     </p:column>
                                     <f:facet name="footer">
-                                        <p:commandButton id="quitarButton" class="btn btn-default" value="quitar" actionListener="#{asignarAlumnoCursoCnontroller.quitarAlumnoACurso}" update=":GestionarAlumnosForm" disabled="#{buttonBean.disabled}"/>
+                                        <p:commandButton id="quitarButton" class="btn btn-default" value="quitar" actionListener="#{asignarAlumnoCursoCnontroller.quitarAlumnoACurso}" update=":GestionarAlumnosForm" disabled="#{buttonBean.disabled || empty asignarAlumnoCursoCnontroller.alumnoCursoSelected}"/>
                                         <p:commandButton id="guardarButton" class="btn btn-default" value="guardar cambios" actionListener="#{asignarAlumnoCursoCnontroller.guardarCambios}" update=":growl"/>
                                     </f:facet>
                                 </p:dataTable>
