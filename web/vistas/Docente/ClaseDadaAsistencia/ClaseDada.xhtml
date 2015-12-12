@@ -52,7 +52,7 @@
                                 <p:outputLabel style="width:110px" id="fechaSelec" value="#{claseDadaController.fechaString}"/>
                                 <ui:repeat var="alumno" value="#{claseDadaController.obtenerAlumnosClaseDada()}">
                                     <div>
-                                        <p:outputLabel style="width:80px" value="#{alumno.usuario.primerNombre}  #{alumno.usuario.primerApellido}"/>
+                                        <p:outputLabel value="#{alumno.usuario.primerNombre}  #{alumno.usuario.primerApellido}"/>
                                         <p:selectBooleanCheckbox style="width:30px" id="isPresente" value="#{claseDadaController.isAsistio}">
                                             <p:ajax listener="#{claseDadaController.setAlumnoAsistio(alumno.idRol)}" />
                                         </p:selectBooleanCheckbox>
@@ -65,7 +65,7 @@
                                     <p:outputLabel  style="width:110px" value="#{claseDada.fecha}"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:outputLabel>
                                     <ui:repeat var="asistencia" value="#{claseDadaController.asistenciasClaseDada(claseDada)}"> 
                                         <div>
-                                            <p:outputLabel style="width:80px" value="#{asistencia.alumno.usuario.primerNombre}  #{asistencia.alumno.usuario.primerApellido}"/>
+                                            <p:outputLabel value="#{asistencia.alumno.usuario.primerNombre}  #{asistencia.alumno.usuario.primerApellido}"/>
                                             <p:selectBooleanCheckbox style="width:30px" id="isPresente" value="#{asistencia.isPresente}" disabled="true"/>
                                         </div>
                                     </ui:repeat>

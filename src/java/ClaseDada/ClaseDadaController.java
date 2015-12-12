@@ -20,6 +20,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -77,6 +79,11 @@ public class ClaseDadaController implements Serializable{
         List<ClaseDada> clasesDadasCursos = new ArrayList<>();
         if(cursoSelec != null){
             clasesDadasCursos = ejbClaseDada.obtenerClasesDadasIdCurso(cursoSelec.getIdCurso());
+            Collections.sort(clasesDadasCursos, new Comparator<ClaseDada>() {
+            public int compare(ClaseDada o1, ClaseDada o2) {
+                return o2.getFecha().compareTo(o1.getFecha());
+            }
+        });
         }
         return clasesDadasCursos;
     }

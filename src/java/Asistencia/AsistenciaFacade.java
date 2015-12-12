@@ -1,11 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package Asistencia;
 
 import General.AbstractFacade;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -19,16 +21,16 @@ import javax.persistence.Query;
 public class AsistenciaFacade extends AbstractFacade<Asistencia> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public AsistenciaFacade() {
         super(Asistencia.class);
     }
-
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Asistencia> getAsistenciaClaseDada(int id) {
         Query query = em.createQuery("SELECT a FROM Asistencia a WHERE a.claseDada.idClaseDada = :idClaseDada ORDER BY a.claseDada.fecha DESC");
@@ -36,7 +38,7 @@ public class AsistenciaFacade extends AbstractFacade<Asistencia> {
         List<Asistencia> asistencias = query.getResultList();
         return asistencias;
     }
-//    
+//
 //        @TransactionAttribute(TransactionAttributeType.REQUIRED)
 //    public List<RespuestaPregunta> obtenerRespPreguntaIdLogCurso(int idEncuesta, int idUserLog, int idCurso) {
 //        Query query = em.createQuery("SELECT r FROM RespuestaPregunta r WHERE r.encuesta.idEncuesta = :idEncuesta AND r.alumno.idRol = :idUser AND r.curso.idCurso = :idCurso");

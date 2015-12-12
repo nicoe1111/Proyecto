@@ -43,17 +43,19 @@
                 <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Estadistica de la encuesta" resizable="false" >
                     <p:outputPanel id="output" layout="block" style="width:900px;height:500px"/>
                 </p:dialog>
-                <h:panelGroup id="tablaAlumnosPendientes">
-                <h4 style="margin-top:0">Alumnos con encuestas pendientes pendiente</h4>
-                <table class="table table-hover table-bordered" style="width:900px; margin: auto;">
-                    <tbody>
-                        <ui:repeat var="alumnos" value="#{encuestaController.alumnosPendientesEncuesta}">
-                            <tr>
-                                <td>#{alumnos}</td>
-                            </tr>
-                        </ui:repeat>
-                    </tbody>
-                </table>
+                <h:panelGroup  >
+                    <p:panelGrid id="tablaAlumnosPendientes" rendered="#{encuestaController.alumnosPendientesEncuesta.size() > 0}">
+                        <h4 style="margin-top:0">Alumnos con encuestas pendientes pendiente</h4>
+                        <table class="table table-hover table-bordered" style="width:900px; margin: auto;">
+                            <tbody>
+                                <ui:repeat var="alumnos" value="#{encuestaController.alumnosPendientesEncuesta}">
+                                    <tr>
+                                        <td>#{alumnos}</td>
+                                    </tr>
+                                </ui:repeat>
+                            </tbody>
+                        </table>
+                    </p:panelGrid>
                 </h:panelGroup>
                 
                 <script type="text/javascript">
