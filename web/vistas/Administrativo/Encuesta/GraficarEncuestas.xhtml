@@ -5,18 +5,21 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
     <h:head>
         <title>Graficar encuestas</title>
     </h:head>
-    <body>
-        <ui:composition >
+    <ui:composition >
+        <body>
             <h:form id="idFormGraficar" style="width:900px; margin: auto" styleClass="text-center">  
+                <br/><br/>
                 <h4 style="margin-top:0">Seleccione fecha del curso a graficar</h4>
                 <h:selectOneMenu id="cursoClaseDada" value="#{encuestaController.fechaSeleccionada}" style="width:150px">
                     <f:selectItem itemLabel="Seleccinar Anio..." itemValue="" />
                     <f:selectItems value="#{encuestaController.years}" itemLabel="#{anio}"/>
                     <p:ajax event="change" listener="#{encuestaController.cursosAnioTree()}" update=":idFormGraficar:treeGrafica" />
                 </h:selectOneMenu>
+                
                 <h4 style="margin-top:0">Seleccionar curso o semestre</h4>
                 <p:tree id="treeGrafica" value="#{encuestaController.root}" var="node" orientation="horizontal"
                         selectionMode="multiple" dynamic="true" cache="false" selection="#{encuestaController.selectedNode}">
@@ -26,25 +29,26 @@
                     </p:treeNode>
                 </p:tree>
                 
-                <p:chart styleClass="" id="grafica" type="line" model="#{encuestaController.lineModel1}" style="width:900px;height:500px" widgetVar="chart"/>
+                <h:panelGroup id="grafica">
+                    <p:chart type="line" model="#{encuestaController.lineModel1}" style="width:900px;height:500px"/>
+                </h:panelGroup>
                 
                 <h:panelGroup id="tablaGrafPreguntas">
-                    <table class="table table-hover table-bordered" style="width:900px; margin: auto;">
-                        <tbody>
-                            <ui:repeat var="pregunta" value="#{encuestaController.graficaPreguntas}">
-                                <tr>
-                                    <td>#{pregunta}</td>
-                                </tr>
-                            </ui:repeat>
-                        </tbody>
-                    </table>
+                    <h:panelGrid  rendered="#{encuestaController.graficaPreguntas.size() > 0}">
+                        <h4 style="margin-top:0">Preguntas de la encuesta</h4>
+                        <table class="table table-hover table-bordered" style="width:900px; text-align: left">
+                            <tbody>
+                                <ui:repeat var="pregunta" value="#{encuestaController.graficaPreguntas}" varStatus="myVarStatus">
+                                    <tr>
+                                        <td><h:outputLabel value="#{myVarStatus.index + 1} -  #{pregunta}"></h:outputLabel> </td>
+                                    </tr>
+                                </ui:repeat>
+                            </tbody>
+                        </table>
+                    </h:panelGrid>
                 </h:panelGroup>
-                <p:commandButton value="Exportar" icon="ui-icon-extlink" styleClass="btn btn-primary btn-xs" onclick="exportChart();"/>
-                <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Estadistica de la encuesta" resizable="false" >
-                    <p:outputPanel id="output" layout="block" style="width:900px;height:500px"/>
-                </p:dialog>
-                <h:panelGroup  >
-                    <p:panelGrid id="tablaAlumnosPendientes" rendered="#{encuestaController.alumnosPendientesEncuesta.size() > 0}">
+                <h:panelGroup id="tablaAlumnosPendientes">
+                    <h:panelGrid  rendered="#{encuestaController.alumnosPendientesEncuesta.size() > 0}">
                         <h4 style="margin-top:0">Alumnos con encuestas pendientes pendiente</h4>
                         <table class="table table-hover table-bordered" style="width:900px; margin: auto;">
                             <tbody>
@@ -55,19 +59,9 @@
                                 </ui:repeat>
                             </tbody>
                         </table>
-                    </p:panelGrid>
+                    </h:panelGrid>
                 </h:panelGroup>
-                
-                <script type="text/javascript">
-                    function exportChart() {
-                        //export image
-                        $('#output').empty().append(PF('chart').exportAsImage());
- 
-                        //show the dialog
-                        PF('dlg').show();
-                    }
-                </script>
             </h:form> 
-        </ui:composition>
-    </body>
+        </body>
+    </ui:composition>
 </html>
