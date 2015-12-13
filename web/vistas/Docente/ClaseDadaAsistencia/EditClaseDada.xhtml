@@ -8,19 +8,19 @@
     
     <ui:composition>
         
-        <p:dialog id="ClaseDadaEditDlg" widgetVar="ClaseDadaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar asistencias o datos de clases" showEffect="clip" hideEffect="clip">
+        <p:dialog id="ClaseDadaEditDlg" width="800" widgetVar="ClaseDadaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar asistencias o datos de clases" showEffect="clip" hideEffect="clip">
             
-            <h:form id="ClaseDadaEditForm">
-                <h:panelGroup id="display" rendered="#{claseDadaController.selected != null}">
+            <h:form id="ClaseDadaEditForm" >
+                <h:panelGroup id="display" rendered="#{claseDadaController.selected != null}" style="text-align: center; margin: auto;">
                     <div class="row">
                         <div class="col-md-4"><p:outputLabel value="Fecha: " for="fechaClaseDada" /></div>
                         <div class="col-md-4">
                             <p:calendar id="fechaClaseDada" pattern="yyyy-MM-dd" value="#{claseDadaController.selected.fecha}" mask="true">
-                                <p:ajax event="dateSelect" listener="#{claseDadaController.onDateSelect}" update=":idFormPanelRefresh:fechaSelec" />
+                                <p:ajax event="dateSelect" listener="#{claseDadaController.onDateSelect}" update=":idFormPanelRefresh:tabla" />
                             </p:calendar>
                         </div>
                     </div>
-                    <br/>
+                    <br/> 
                     <div class="row">
                         <div class="col-md-4"><p:outputLabel value="Tema dado en Clase " for="textClaseDada" /></div>
                         <div class="col-md-4"><p:inputTextarea id="textClaseDada" maxlength="255" value="#{claseDadaController.selected.temaDado}" rows="6" cols="33" >
@@ -28,16 +28,18 @@
                             </p:inputTextarea>
                         </div>
                     </div>
-                    
-                    <ui:repeat var="asistencia" value="#{claseDadaController.selected.asistencias}">
-                        <div>
-                            <p:outputLabel value="#{asistencia.alumno.usuario.primerNombre} #{asistencia.alumno.usuario.primerApellido}"/>
-                            <p:selectBooleanCheckbox id="isPresente" value="#{asistencia.isPresente}">
-                                <p:ajax listener="#{claseDadaController.setModificarAsistencia(asistencia, asistencia.isPresente)}" />
-                            </p:selectBooleanCheckbox>
-                        </div>
-                    </ui:repeat>
-                    
+                    <p:dataTable id="tabla1" value="" scrollable="true" scrollHeight="250" >
+                        <p:column  width="80" headerText="Modificar asistencias">
+                            <ui:repeat var="asistencia" value="#{claseDadaController.selected.asistencias}">
+                                <div>
+                                    <p:outputLabel style="width:110px" value="#{asistencia.alumno.usuario.primerNombre} #{asistencia.alumno.usuario.primerApellido}"/>
+                                    <p:selectBooleanCheckbox style="width:20px" id="isPresente" value="#{asistencia.isPresente}">
+                                        <p:ajax listener="#{claseDadaController.setModificarAsistencia(asistencia, asistencia.isPresente)}" />
+                                    </p:selectBooleanCheckbox>
+                                </div>
+                            </ui:repeat>
+                        </p:column>
+                    </p:dataTable>
                     <p:commandButton  actionListener="#{claseDadaController.updateClaseDada}" value="Modificar" update=":growl, :idFormPanelRefresh:panelAsistencia" oncomplete="handleSubmit(args, 'ClaseDadaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClaseDadaEditDialog.hide()"/>
                 </h:panelGroup>
