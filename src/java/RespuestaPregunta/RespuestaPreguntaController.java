@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -340,13 +341,14 @@ public class RespuestaPreguntaController implements Serializable{
         return encuestasRespuestas;
     }
     
+    private int actualYear = Integer.valueOf(Calendar.getInstance().get(Calendar.YEAR));
     public List<RespuestaPregunta> obtenerEncuestasPendientes(){
         boolean bool = false;
         List<RespuestaPregunta> encuestasRespuestas = new ArrayList<RespuestaPregunta>();
         List<RespuestaPregunta> respuestasPreguntas = ejbRespuestaPregunta.findAll();
         for (int i = 0; i < respuestasPreguntas.size(); i++) {
             bool = false;
-            if(!respuestasPreguntas.get(i).isContesto()){
+            if(!respuestasPreguntas.get(i).isContesto() && respuestasPreguntas.get(i).getEncuesta().getFecha() == actualYear){
                 for (int j = 0; j < encuestasRespuestas.size(); j++) {
                     if(encuestasRespuestas.get(j).getEncuesta().getIdEncuesta() == respuestasPreguntas.get(i).getEncuesta().getIdEncuesta() &&
                             encuestasRespuestas.get(j).getAlumno().getUsuario().getId_user() ==  respuestasPreguntas.get(i).getAlumno().getUsuario().getId_user()){
@@ -359,6 +361,10 @@ public class RespuestaPreguntaController implements Serializable{
             }
         }
         return encuestasRespuestas;
+    }
+
+    public int getActualYear() {
+        return actualYear;
     }
     
     public RespuestaPregunta getRespuestaPregunta(int id) {
@@ -408,6 +414,7 @@ public class RespuestaPreguntaController implements Serializable{
         MailCorreo.getCorreo().setTo(alumnos);
         MailCorreo.function();
     }
+    
     @EJB
             UsuarioFacade ejbUser;
     public void enviarCorreoUsuario(int idUser) throws MessagingException, UnsupportedEncodingException{

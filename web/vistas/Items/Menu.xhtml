@@ -19,7 +19,7 @@
                     
                         <c:if test="#{login.userLoged.hasRol('Docente')}" >
                             <p:menuitem value="Asignar Estudiante a curso" id="AsignarEstudiante" url="/vistas/Docente/AsignarEstudianteCurso.xhtml"/>
-                            <p:menuitem value="Pasar Lista" id="pasarLista" url="/vistas/Docente/ClaseDadaAsistencia/ClaseDada.xhtml"/>
+                            <p:menuitem value="Pasar Lista" id="pasarLista" url="/vistas/Docente/ClaseDadaAsistencia/ContenedorClaseDada.xhtml"/>
                         </c:if>
                         
                         <c:if test="#{login.userLoged.hasRol('Alumno')}" >

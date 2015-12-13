@@ -8,7 +8,6 @@ import Pregunta.Pregunta;
 import Pregunta.PreguntaFacade;
 import RespuestaPregunta.RespuestaPregunta;
 import RespuestaPregunta.RespuestaPreguntaFacade;
-import Rol.Alumno;
 import Usuario.util.JsfUtil;
 import java.io.IOException;
 import java.io.Serializable;
@@ -253,42 +252,47 @@ public class EncuestaController implements Serializable{
         selected.setFecha(actualYear);
         selected.setPreguntas(obtenerPreguntas());
         List<Curso> cursos = obtenerCursos();
-        if(!selected.getPreguntas().isEmpty() && selected.getFecha() != 0){
-            selected.setCursos(cursos);
-            for(Curso curso: cursos){
-                if(curso.getRespPregunta().isEmpty()){
-                    /// obtengo todos los alumnos de curso para mandarle las respuestasPreguntas
-                    if(curso.getAlumnos().isEmpty()){
-                        JsfUtil.addErrorMessage("No se creo las encuestas el curso "+ curso.getMateria().getNombre() + " no tiene alumnos asociados");
-                    }
-                    curso.setEncuesta(selected);
-                    for (int i = 0; i < curso.getAlumnos().size(); i++) {
-                        for (int j = 0; j < selected.getPreguntas().size(); j++) {
-                            RespuestaPregunta respuestaPregunta = new RespuestaPregunta();
-                            respuestaPregunta.setCurso(curso);
-                            respuestaPregunta.setAlumno(curso.getAlumnos().get(i));
-                            respuestaPregunta.setEncuesta(selected);
-                            respuestaPregunta.setContesto(false);
-                            respuestaPregunta.setPregunta(selected.getPreguntas().get(j));
-                            respuestasPreguntas.add(respuestaPregunta);
+        if(!cursos.isEmpty()){
+            if(!selected.getPreguntas().isEmpty() && selected.getFecha() != 0){
+                selected.setCursos(cursos);
+                for(Curso curso: cursos){
+                    if(curso.getRespPregunta().isEmpty()){
+                        /// obtengo todos los alumnos de curso para mandarle las respuestasPreguntas
+                        if(curso.getAlumnos().isEmpty()){
+                            JsfUtil.addErrorMessage("No se creo las encuestas el curso "+ curso.getMateria().getNombre() + " no tiene alumnos asociados");
                         }
-                        //curso.setRespPregunta(respuestasPreguntas);
+                        curso.setEncuesta(selected);
+                        for (int i = 0; i < curso.getAlumnos().size(); i++) {
+                            for (int j = 0; j < selected.getPreguntas().size(); j++) {
+                                RespuestaPregunta respuestaPregunta = new RespuestaPregunta();
+                                respuestaPregunta.setCurso(curso);
+                                respuestaPregunta.setAlumno(curso.getAlumnos().get(i));
+                                respuestaPregunta.setEncuesta(selected);
+                                respuestaPregunta.setContesto(false);
+                                respuestaPregunta.setPregunta(selected.getPreguntas().get(j));
+                                respuestasPreguntas.add(respuestaPregunta);
+                            }
+                            //curso.setRespPregunta(respuestasPreguntas);
+                        }
+                    }else{
+                        JsfUtil.addErrorMessage("No fue posible crear las encuestas verifique que no exista encuesta asociada al curso " + curso.getMateria().getNombre());
                     }
-                }else{
-                    JsfUtil.addErrorMessage("No fue posible crear las encuestas verifique que no exista encuesta asociada al curso " + curso.getMateria().getNombre());
+                    selected.setRespPregunta(respuestasPreguntas);
                 }
-                selected.setRespPregunta(respuestasPreguntas);
-            }
-            if(!selected.getRespPregunta().isEmpty()){
-                ejbEncuesta.edit(selected);
-                JsfUtil.addSuccessMessage("Se creo la encuesta correctamente");
+                if(!selected.getRespPregunta().isEmpty()){
+                    ejbEncuesta.edit(selected);
+                    JsfUtil.addSuccessMessage("Se creo la encuesta correctamente");
+                    return "ContenedorEncuesta.xhtml";
+                }
+            }else{
+                JsfUtil.addErrorMessage("No  fue posible realizar la encuesta verifique los datos ingresados");
                 return "ContenedorEncuesta.xhtml";
             }
-            
         }else{
             JsfUtil.addErrorMessage("No fue posible crear las encuestas faltan ingresar datos");
+            return "ContenedorEncuesta.xhtml";
         }
-        return "";
+        return "ContenedorEncuesta.xhtml";
     }
     @EJB
     private PreguntaFacade ejbPregunta;
@@ -365,14 +369,10 @@ public class EncuestaController implements Serializable{
     
     public LineChartModel getLineModel1() {
         if(lineModel1 == null){
+            
             lineModel1 = new LineChartModel();
-            lineModel1.setTitle("Cursos:  ");
-            lineModel1.setLegendPosition("e");
-            Axis yAxis = lineModel1.getAxis(AxisType.Y);
-            int Max = 6;
-            yAxis.setMin(0);
-            yAxis.setMax(Max);
             LineChartSeries series = new LineChartSeries();
+            series.setLabel("");
             series.set(1 , 1);
             lineModel1.addSeries(series);
         }
@@ -380,84 +380,104 @@ public class EncuestaController implements Serializable{
     }
     
     private void createLineModels(List<Curso> cursos) {
-        
-        lineModel1 = initLinearModel(cursos);
         if(!cursos.isEmpty()){
+            lineModel1 = initLinearModel(cursos);
             lineModel1.setTitle("Cursos:  " + cursos.get(0).getAnio());
             lineModel1.setLegendPosition("e");
             Axis yAxis = lineModel1.getAxis(AxisType.Y);
             int Max_y = 6;
             yAxis.setMin(0);
-            yAxis.setMax(Max_y);
+            yAxis.setMax((int)Max_y);
             yAxis.setLabel("PUNTAJES");
             Axis XAxis = lineModel1.getAxis(AxisType.X);
             XAxis.setLabel("PREGUNTAS");
         }
     }
+    
     int n = 0;
     private LineChartModel initLinearModel(List<Curso> cursos) {
-        int cant = 0;
+        Boolean entro = false;
         List<String> alumnosPendiente = new ArrayList<>();
         graficaPreguntas.clear();
         alumnosPendientesEncuesta.clear();
         List<Pregunta> listPreguntas = new ArrayList<>();
         for (int i = 0; i < cursos.size(); i++) {
+            listPreguntas.clear();
             if(i == 0){
                 n = i;
             }else{
                 n = i-1;
             }
-            if(cursos.get(i).getEncuesta().getIdEncuesta() == cursos.get(n).getEncuesta().getIdEncuesta()){
-                LineChartSeries series = new LineChartSeries();
-                series.setLabel(cursos.get(i).getDocente().getUsuario().getPrimerNombre() + " " + cursos.get(i).getDocente().getUsuario().getPrimerApellido()+ " - " +cursos.get(i).getMateria().getNombre());
-                int key = 1;
-                boolean bool = false;
-                List<RespuestaPregunta> listRPreguntas = new ArrayList<>();
+            if(cursos.get(i).getEncuesta() != null){
                 
-                for (int j = 0; j < cursos.get(i).getRespPregunta().size(); j++) {
-                    if(cursos.get(i).getRespPregunta().get(j).isContesto()){
-                        float puntaje = 0;
-                        int cantPreg = 0;
-                        for (int k = 0; k < cursos.get(i).getRespPregunta().size(); k++) {
-                            if(cursos.get(i).getRespPregunta().get(k).isContesto()){
-                                if(cursos.get(i).getRespPregunta().get(j).getPregunta().getIdPregunta() == cursos.get(i).getRespPregunta().get(k).getPregunta().getIdPregunta()){
-                                    
-                                    for (RespuestaPregunta listRPregunta : listRPreguntas) {
-                                        if(listRPregunta.getIdRespuestaPregunta() == cursos.get(i).getRespPregunta().get(k).getIdRespuestaPregunta()){
-                                            bool= true;
+                if(cursos.get(i).getEncuesta().getIdEncuesta() == cursos.get(n).getEncuesta().getIdEncuesta()){
+                    
+                    LineChartSeries series = new LineChartSeries();
+                    series.setLabel(cursos.get(i).getDocente().getUsuario().getPrimerNombre() + " " + cursos.get(i).getDocente().getUsuario().getPrimerApellido()+ " - " +cursos.get(i).getMateria().getNombre());
+                    int key = 1;
+                    boolean bool;
+                    List<RespuestaPregunta> listRPreguntas = new ArrayList<>();
+                    
+                    for (int j = 0; j < cursos.get(i).getRespPregunta().size(); j++) {
+                        if(cursos.get(i).getRespPregunta().get(j).isContesto()){
+                            if(listRPreguntas.size() < cursos.get(i).getRespPregunta().size()){
+                                float puntaje = 0;
+                                int cantPreg = 0;
+                                for (int k = 0; k < cursos.get(i).getRespPregunta().size(); k++) {
+                                    bool =  false;
+                                    if(cursos.get(i).getRespPregunta().get(k).isContesto()){
+                                        if(cursos.get(i).getRespPregunta().get(j).getPregunta().getIdPregunta() == cursos.get(i).getRespPregunta().get(k).getPregunta().getIdPregunta()){
+                                            
+                                            for (RespuestaPregunta listRPregunta : listRPreguntas) {
+                                                if(listRPregunta.getIdRespuestaPregunta() == cursos.get(i).getRespPregunta().get(k).getIdRespuestaPregunta()){
+                                                    bool= true;
+                                                }
+                                            }
+                                            if(!bool){
+                                                puntaje = puntaje + cursos.get(i).getRespPregunta().get(k).getPuntaje();
+                                                cantPreg++;
+                                                listRPreguntas.add(cursos.get(i).getRespPregunta().get(k));
+                                            }
+                                            if(!graficaPreguntas.contains(cursos.get(i).getRespPregunta().get(j).getPregunta().getPregunta())){
+                                                graficaPreguntas.add(cursos.get(i).getRespPregunta().get(j).getPregunta().getPregunta());
+                                            }
                                         }
                                     }
-                                    if(!bool){
-                                        puntaje = puntaje + cursos.get(i).getRespPregunta().get(k).getPuntaje();
-                                        cantPreg++;
-                                        listRPreguntas.add(cursos.get(i).getRespPregunta().get(k));
-                                    }
                                     
                                 }
-                                
-                                if(!graficaPreguntas.contains(cursos.get(i).getRespPregunta().get(j).getPregunta().getPregunta())){
-                                    graficaPreguntas.add(cursos.get(i).getRespPregunta().get(j).getPregunta().getPregunta());
-                                }
-                                
                                 if(!listPreguntas.contains(cursos.get(i).getRespPregunta().get(j).getPregunta())){
                                     listPreguntas.add(cursos.get(i).getRespPregunta().get(j).getPregunta());
                                     series.set(key, (puntaje / cantPreg));
                                     key++;
+                                    entro = true;
                                 }
+                                
+                            }
+                        }else{
+                            if(!alumnosPendiente.contains(cursos.get(i)+ "" + cursos.get(i).getRespPregunta().get(j).getAlumno().getIdRol())){
+                                alumnosPendientesEncuesta.add("Curso: " + cursos.get(i).getMateria().getNombre()+ " - " +
+                                        cursos.get(i).getRespPregunta().get(j).getAlumno().getUsuario().getPrimerNombre() +
+                                        " " + cursos.get(i).getRespPregunta().get(j).getAlumno().getUsuario().getPrimerApellido());
+                                alumnosPendiente.add(cursos.get(i)+ "" + cursos.get(i).getRespPregunta().get(j).getAlumno().getIdRol());
                             }
                         }
-                    }else{
-                        if(!alumnosPendiente.contains(cursos.get(i)+ "" + cursos.get(i).getRespPregunta().get(j).getAlumno().getIdRol())){
-                            alumnosPendientesEncuesta.add("Curso: " + cursos.get(i).getMateria().getNombre()+ " - " +
-                                    cursos.get(i).getRespPregunta().get(j).getAlumno().getUsuario().getPrimerNombre() +
-                                    " " + cursos.get(i).getRespPregunta().get(j).getAlumno().getUsuario().getPrimerApellido());
-                            alumnosPendiente.add(cursos.get(i)+ "" + cursos.get(i).getRespPregunta().get(j).getAlumno().getIdRol());
-                        }
                     }
-                    
+                    lineModel1.addSeries(series);
                 }
+            }else{
+                LineChartSeries series = new LineChartSeries();
+                series.setLabel( cursos.get(i).getMateria().getNombre() + "  Sin encuesta");
+                series.set(1 , 1);
                 lineModel1.addSeries(series);
+                entro = true;
             }
+        }
+        if(!entro){
+            lineModel1.clear();
+            LineChartSeries series = new LineChartSeries();
+            series.setLabel("Ningun alumno ha contestado");
+            series.set(1 , 1);
+            lineModel1.addSeries(series);
         }
         return lineModel1;
     }
@@ -474,7 +494,6 @@ public class EncuestaController implements Serializable{
     
     
     public void onNodeSelectTree(NodeSelectEvent event){
-        
         List<Curso> listCurso = obtenerCursos();
         if(listCurso.size() > 0){
             lineModel1.clear();
@@ -483,7 +502,6 @@ public class EncuestaController implements Serializable{
     }
     
     private List<String> graficaPreguntas = new ArrayList<>();
-    
     
     public List<String> getGraficaPreguntas() {
         return graficaPreguntas;

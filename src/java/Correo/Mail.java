@@ -36,14 +36,7 @@ public class Mail implements Serializable {
         String pass = ResourceBundle.getBundle("/Bundle").getString("pass");
 
         String status="";
-        
-//        props.setProperty("mail.smtp.host","smtp.gmail.com");
-//        props.put("mail.transport.protocol","smtp");
-//        props.setProperty("mail.smtp.starttls.enable", "true");
-//        props.setProperty("mail.smtp.port","587");
-//        props.put("mail.smtp.auth", "true");
-//        props.setProperty("mail.smtp.user", user);
-//        props.setProperty("mail.smtp.password", pass);
+
         
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
         
