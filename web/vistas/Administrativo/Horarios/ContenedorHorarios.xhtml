@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition template="../../index.xhtml">
+        <ui:define name="centro">
+            <script>
+                $(function() {
+                    $( "#home" ).click(function(evt) {
+                        $( "#contenedor" ).load("GestionSalon.xhtml")
+                    });
+                    $( "#menu1" ).click(function(evt) {
+                        $( "#contenedor" ).load("GestionSalonCurso.xhtml")
+                    });
+                });
+            </script>
+            
+            <ul class="nav nav-tabs">
+                <li class="active"><a id="home" data-toggle="tab" href="#">AMB Salon</a></li>
+                <li><a id="menu1" data-toggle="tab" href="#">Asignar Horarios a Curso</a></li>
+            </ul>
+            
+            <div id="contenedor" class="tab tab-content">
+                <ui:include src="GestionSalon.xhtml"/>
+            </div>
+        </ui:define>
+    </ui:composition>         
+</html>
+

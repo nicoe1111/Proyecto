@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import prueba.util.JsfUtil;
 
 @Named("materiaController")
 @ViewScoped
@@ -50,8 +51,10 @@ public class MateriaController implements Serializable {
     }
     
     public void updateSelected(){
+        if(!ejbMateria.existeMateria(selected.getNombre(), selected.getIdMateria())){
         ejbMateria.edit(selected);
         updateItems();
+        }else JsfUtil.addErrorMessage("Ya existe una materia con ese nombre");
     }
     
     public void update(int id){
@@ -74,9 +77,11 @@ public class MateriaController implements Serializable {
     }
     
     public void createSelected(){
-        ejbMateria.create(selected);
-        updateItems();
-        selected = null;
+        if(!ejbMateria.existeMateria(selected.getNombre())){
+            ejbMateria.create(selected);
+            updateItems();
+            selected = null;
+        }else JsfUtil.addErrorMessage("Ya existe una materia con ese nombre");
     }
     
     private void updateItems(){
@@ -167,7 +172,7 @@ public class MateriaController implements Serializable {
     
     public void setSelectedNode(TreeNode selectedNode) {
         if(selectedNode!=null){
-            List<Materia> mats= ejbMateria.findByNick(selectedNode.getData().toString());
+            List<Materia> mats= ejbMateria.findByNombre(selectedNode.getData().toString());
             selected = mats.get(0);
         }
         this.selectedNode = selectedNode;

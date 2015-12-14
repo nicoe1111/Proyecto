@@ -15,6 +15,8 @@ import Rol.Docente;
 import SalonCurso.SalonCurso;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -169,6 +171,15 @@ public class Curso implements Serializable{
     
     public void setRespPregunta(List<RespuestaPregunta> respPregunta) {
         this.respPregunta = respPregunta;
+    }
+    
+    public List<Evaluacion> getInstanciasEvaluacionesOrderByFecha() {
+        Collections.sort(instanciasEvaluaciones, new Comparator<Evaluacion>() {
+            public int compare(Evaluacion o1, Evaluacion o2) {
+                return o2.getFecha().compareTo(o1.getFecha());
+            }
+        });
+        return instanciasEvaluaciones;
     }
     
 }

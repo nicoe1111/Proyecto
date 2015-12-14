@@ -42,7 +42,7 @@
                                 <p:selectOneMenu id="salon" value="#{salonController.salonID}" appendTo="@this" style="width:200px;">
                                     <f:selectItem itemLabel="Seleciona salon" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                     <f:selectItems value="#{salonController.items}" var="salon" itemLabel="#{salon.nombreNumero}" itemValue="#{salon.idSalon}"/>
-                                    <p:ajax update=":getionarSalonCursoForm:createButton" />
+                                    <p:ajax update=":getionarSalonCursoForm:generalButton" />
                                 </p:selectOneMenu>
                                 Dia:
                                 <p:selectOneMenu id="dia" value="#{semestreAnioController.diaSemanaSelected}" appendTo="@this" style="width:200px;">
@@ -69,7 +69,7 @@
                                              emptyMessage="No cursos encontrados"
                                              widgetVar="studentsTable" scrollHeight="200">
                                     
-                                    <p:ajax event="rowSelect" update=":getionarSalonCursoForm:createButton" />
+                                    <p:ajax event="rowSelect" update=":getionarSalonCursoForm:generalButton" />
                                     
                                     <f:facet name="header">
                                         <p:outputPanel>
@@ -94,10 +94,14 @@
                             <div class="col-sm-2">
                                 <c:choose>
                                     <c:when test="#{salonCursoController.selected.idSalonCurso>0}">
-                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{salonCursoController.updateSelected()}" />
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Edit}" update=":GestionarSalonCursoForm" actionListener="#{salonCursoController.updateSelected()}">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                        </p:commandLink>
                                     </c:when>
                                     <c:otherwise>
-                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{salonCursoController.createSelected()}" disabled="#{not (cursoController.selected.idCurso > 0) || not (salonController.selected.idSalon > 0)}"/>
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Create}" update=":GestionarSalonCursoForm" actionListener="#{salonCursoController.createSelected()}" disabled="#{not (cursoController.selected.idCurso > 0) || not (salonController.selected.idSalon > 0)}">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                        </p:commandLink>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

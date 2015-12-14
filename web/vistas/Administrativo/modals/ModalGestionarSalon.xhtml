@@ -41,10 +41,14 @@
                             <div class="col-sm-2">
                                 <c:choose>
                                     <c:when test="#{salonController.selected.idSalon > 0}">
-                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{salonController.updateSelected()}"/>
+                                        <p:commandLink id="editButton" class="btn btn-default" value="#{bundle.Edit}" update=":GestionSalonForm" actionListener="#{salonController.updateSelected()}" disabled="#{not (salonController.selected.idSalon > 0)}">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                        </p:commandLink>
                                     </c:when>
                                     <c:otherwise>
-                                        <h:commandButton id="createButton" class="btn btn-default" value="#{bundle.Create}" actionListener="#{salonController.createSelected()}" disabled="#{empty salonController.selected}"/>
+                                        <p:commandLink id="createButton" class="btn btn-default" value="#{bundle.Create}" update=":GestionSalonForm" actionListener="#{salonController.createSelected()}" disabled="#{empty salonController.selected}">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                        </p:commandLink>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

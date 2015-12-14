@@ -7,8 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
-    <ui:composition template="../index.xhtml">
-        <ui:define name="centro">
+    <ui:composition >
             <h:body>
                 <div style="width: 800px; text-align: center; margin: auto;">
                     <h:form id="GestionarSalonCursoForm">
@@ -17,7 +16,7 @@
                                          selectionMode="single" selection="#{salonCursoController.selected}"
                                          scrollable="true" 
                                          rowKey="#{salonCurso.idSalonCurso}"
-                                         emptyMessage="No salonCursos encontrados"
+                                         emptyMessage="No hay horarios encontrados"
                                          filteredValue="#{filtersList.filteredItems}"
                                          widgetVar="GSC" scrollHeight="340"
                                          >
@@ -68,9 +67,8 @@
                         </p:panel>
                     </h:form>
                 </div>
-                <ui:include src="modals/ModalGestionarSalonCurso.xhtml"/>
+                <ui:include src="../modals/ModalGestionarSalonCurso.xhtml"/>
             </h:body>
-        </ui:define>
     </ui:composition>
 </html>
 

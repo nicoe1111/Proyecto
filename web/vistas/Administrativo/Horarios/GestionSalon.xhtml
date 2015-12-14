@@ -6,8 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     
-    <ui:composition template="../index.xhtml">
-        <ui:define name="centro">
+    <ui:composition>
             <h:body>
                 <div style="width: 800px; text-align: center; margin: auto;">
                     <h:form id="GestionSalonForm">
@@ -17,7 +16,7 @@
                                          scrollable="true" scrollHeight="340"
                                          rowKey="#{salon.idSalon}"
                                          filteredValue="#{filtersList.filteredItems}"
-                                         emptyMessage="No users encontrados"
+                                         emptyMessage="Ningun salon encontrado"
                                          widgetVar="GS">
                                 
                                 <p:ajax event="rowSelect" update="deleteButton editButton" listener="#{buttonBean.onRowSelect}" />
@@ -51,9 +50,8 @@
                         </p:panel>
                     </h:form>
                 </div>
-                <ui:include src="modals/ModalGestionarSalon.xhtml"/>
+                <ui:include src="../modals/ModalGestionarSalon.xhtml"/>
             </h:body>
-        </ui:define>
     </ui:composition>
 </html>
 

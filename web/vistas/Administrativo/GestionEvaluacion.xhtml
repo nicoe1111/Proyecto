@@ -1,17 +1,18 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <ui:composition template="../index.xhtml">
-        <ui:define name="centro">
-            
-            
-            
-            <h:body>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:head>
+        <title>Gestion Evaluacion</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../index.xhtml">
+            <ui:define name="centro">
                 <style>
                     #ui-datepicker-div{
                         z-index: 1051 !important;
@@ -53,18 +54,18 @@
                                                      rowKey="#{evaluacion.idEvaluacion}"
                                                      filteredValue="#{filtersList.filteredItems}"
                                                      emptyMessage="El curso no posee ninguna evaluacion"
-                                                     widgetVar="IE">
-                                                         
+                                            widgetVar="IE">
+                                                     
                                             <p:ajax event="rowSelect" update="deleteButton verButton" listener="#{buttonBean.onRowSelect}" />
                                             <p:ajax event="rowUnselect" update="deleteButton verButton" listener="#{buttonBean.onRowUnselect}" />
-                                                
+                                            
                                             <f:facet name="header">
                                                 <p:outputPanel>
                                                     <h:outputText value="Buscar en todos los Campos:" />
                                                     <p:inputText id="globalFilter" onkeyup="PF('IE').filter()" style="width:150px" placeholder="Ingresa algo"/>
                                                 </p:outputPanel>
                                             </f:facet>
-                                                
+                                            
                                             <p:column headerText="materia" footerText="materia" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains" sortBy="#{evaluacion.curso.materia.nombre}">
                                                 <h:outputText value="#{evaluacion.curso.materia.nombre}" />
                                             </p:column>
@@ -96,7 +97,7 @@
                 </p:panelGrid>
                 <ui:include src="modals/ModalGestionarEvaluacion.xhtml"/>
                 <ui:include src="modals/ModalVerResultadosInstancia.xhtml"/>
-            </h:body>
-        </ui:define>
-    </ui:composition>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
