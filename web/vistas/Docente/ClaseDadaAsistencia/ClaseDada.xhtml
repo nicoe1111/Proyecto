@@ -57,7 +57,7 @@
                                         </p:selectBooleanCheckbox>
                                     </div>
                                 </ui:repeat>
-                                <h:commandButton style="width:160px" type="submit" action="#{claseDadaController.crearClaseDada()}" styleClass="btn btn-default" value="Crear"/>
+                                <p:commandLink style="width:160px" action="#{claseDadaController.crearClaseDada()}" update=":idFormPanelRefresh" styleClass="btn btn-default" value="Crear"/>
                             </p:column>
                             
                             <p:columns width="200" headerText="Historial de Asistencias" var="claseDada" value="#{claseDadaController.obtenerCasesDadas(claseDadaController.claseDada.curso)}">

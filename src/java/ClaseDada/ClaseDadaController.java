@@ -199,15 +199,15 @@ public class ClaseDadaController implements Serializable{
         this.isAsistio = isAsistio;
     }
     @EJB
-            RolFacade ejbRol;
+     RolFacade ejbRol;
     public void setAlumnoAsistio(int id){
         if(isAsistio){
             asistencia = new Asistencia();
-            TipoRol alumno = new Alumno();
-            alumno = ejbRol.find(id);
-            asistencia.setAlumno((Alumno)alumno);
+            Alumno alumno = (Alumno)ejbRol.find(id);
+            asistencia.setAlumno(alumno);
             asistencia.setClaseDada(claseDada);
             asistencia.setIsPresente(true);
+            
             asistencias.add(asistencia);
         }else{
             for (int i = 0; i < asistencias.size(); i++) {
@@ -226,7 +226,7 @@ public class ClaseDadaController implements Serializable{
         this.fechaString = fechaSeleccionada;
     }
     
-    public String crearClaseDada() throws ParseException{
+    public void crearClaseDada() throws ParseException{
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         seteoAsistenciasFalse();
         claseDada.setAsistencias(asistencias);
@@ -238,7 +238,6 @@ public class ClaseDadaController implements Serializable{
             ejbClaseDada.create(claseDada);
             JsfUtil.addSuccessMessage("Se creo la clase y sus asistencias correctamente");
         }
-        return "ClaseDada.xhtml";
     }
     
     public void seteoAsistenciasFalse(){
