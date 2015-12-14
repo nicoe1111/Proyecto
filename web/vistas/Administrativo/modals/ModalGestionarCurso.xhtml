@@ -28,12 +28,12 @@
                                 <p:selectOneMenu id="comboDocente" value="#{docenteController.idSelected}" appendTo="@this" style="width:200px;">
                                     <f:selectItem itemLabel="Seleciona Docente" itemValue="" noSelectionOption="true" itemDisabled="true" />
                                     <f:selectItems value="#{docenteController.items}" var="doc" itemLabel="#{doc.primerNombre} #{doc.primerApellido}" itemValue="#{doc.id_user}"/>
-                                    <p:ajax update=":getionarCursoForm:createButton"/>
+                                    <p:ajax update=":getionarCursoForm:generalButton"/>
                                 </p:selectOneMenu>
                             </div>
                             <div class="form-group">
                                 <p:tree value="#{materiaController.root}" selectionMode="single" selection="#{materiaController.selectedNode}" var="node" dynamic="true" animate="true">
-                                    <p:ajax event="select" update=":getionarCursoForm:createButton"  />
+                                    <p:ajax event="select" update=":getionarCursoForm:generalButton"  />
                                     <p:treeNode >
                                         <h:outputText value="#{node}"/>
                                     </p:treeNode>
@@ -44,10 +44,14 @@
                             <div class="col-sm-2">
                                 <c:choose>
                                     <c:when test="#{cursoController.selected.idCurso>0}">
-                                        <h:commandButton id="editButton" class="btn btn-default" value="#{bundle.Edit}" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty docenteController.selected || empty materiaController.selected}"/>
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Edit}" update=":GestionarCursoForm" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty docenteController.selected || empty materiaController.selected}">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                        </p:commandLink>
                                     </c:when>
                                     <c:otherwise>
-                                        <h:commandButton id="createButton" value="#{bundle.Create}" class="btn btn-default" actionListener="#{cursoController.createSelected()}" disabled="#{not (docenteController.selected.id_user > 0) || empty materiaController.selectedNode }"/>
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Create}" update=":GestionarCursoForm" actionListener="#{cursoController.createSelected()}" disabled="#{not (docenteController.selected.id_user > 0) || empty materiaController.selectedNode }">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                        </p:commandLink>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
