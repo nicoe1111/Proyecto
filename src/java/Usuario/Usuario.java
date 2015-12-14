@@ -298,12 +298,9 @@ public class Usuario implements Serializable {
             if(rolStr.equals("Docente")){
                 if(rol instanceof Docente) return true;
             }
-            if(rolStr.equals("Administrativo")){
-                if(rol instanceof Administrativo) return true;
+            if(rolStr.equals("Administrativo") || rolStr.equals("Administrativo")){
+                if(rol instanceof Administrativo || rol instanceof Administrador) return true;
                 
-            }
-            if(rolStr.equals("Administrativo") || rolStr.equals("Docente") || rolStr.equals("Administrador")){
-                if(rol instanceof Administrador) return true;
             }
         }
         return false;

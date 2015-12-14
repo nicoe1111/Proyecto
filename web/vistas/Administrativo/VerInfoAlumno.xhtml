@@ -8,6 +8,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="../index.xhtml">
         <ui:define name="centro">
+            <div align="center" >
+                <h4>#{sessionAlumnoController.selected.usuario.primerNombre} #{sessionAlumnoController.selected.usuario.primerApellido}</h4>
+                <h4>(Cedula: #{sessionAlumnoController.selected.usuario.cedula})</h4>
+            </div>
             <h:form id="VerInfoAlumnoForm">
                 <div style="width: 800px; text-align: center; margin: auto;">
                     <p:accordionPanel multiple="true" style="">

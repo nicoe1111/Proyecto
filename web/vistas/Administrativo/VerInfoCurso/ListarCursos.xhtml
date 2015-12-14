@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="../../index.xhtml">
+        <ui:define name="centro">
+            <div style="width: 800px; text-align: center; margin: auto;">
+                <h:form id="GestionarCursoForm">
+                    <p:panel header="Gestionar Curso">
+                        <p:dataTable id="datalist" var="curso" value="#{cursoController.items}" 
+                                     selectionMode="single" selection="#{sessionCursoController.selected}"
+                                     scrollable="true" 
+                                     rowKey="#{curso.idCurso}"
+                                     filteredValue="#{filtersList.filteredItems}"
+                                     emptyMessage="No cursos encontrados"
+                                     widgetVar="GC" scrollHeight="340">
+                            
+                            <p:ajax event="rowSelect" update="infoButton" listener="#{buttonBean.onRowSelect}" />
+                            <p:ajax event="rowUnselect" update="infoButton" listener="#{buttonBean.onRowUnselect}" />
+                            
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Buscar en todos los Campos:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('GC').filter()" style="width:150px" placeholder="Ingresa algo"/>
+                                </p:outputPanel>
+                            </f:facet>
+                            
+                            <p:column headerText="Materia" footerText="Materia" filterStyle="display:none" filterBy="materia.nombre" filterMatchMode="contains">
+                                <p:outputLabel value="#{curso.materia.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Semestre" footerText="Semestre" filterStyle="display:none" filterBy="materia.semestre" filterMatchMode="contains">
+                                <h:outputText value="#{curso.materia.semestre}" />
+                            </p:column>
+                            <p:column headerText="anio" footerText="anio" filterStyle="display:none" filterBy="anio" filterMatchMode="contains">
+                                <h:outputText value="#{curso.anio}" />
+                            </p:column>
+                            <p:column headerText="Docente" footerText="Docente" filterStyle="display:none" filterBy="docente.usuario.primerNombre" filterMatchMode="contains">
+                                <h:outputText value="#{curso.docente.usuario.primerNombre} #{curso.docente.usuario.primerApellido}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandLink id="infoButton" action="ContenedorInfoCurso.xhtml" styleClass="btn btn-default" disabled="#{buttonBean.disabled || empty cursoController.items || not (sessionCursoController.selected.idCurso > 0)}">
+                                    <span  class="glyphicon glyphicon-exclamation-sign"></span>Ver Info
+                                </p:commandLink>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
