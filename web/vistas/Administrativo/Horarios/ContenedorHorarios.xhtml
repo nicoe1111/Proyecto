@@ -10,25 +10,21 @@
             <script>
                 $(function() {
                     $( "#home" ).click(function(evt) {
-                        $( "#contenedor" ).load("GestionMateria.xhtml")
+                        $( "#contenedor" ).load("GestionSalon.xhtml")
                     });
                     $( "#menu1" ).click(function(evt) {
-                        $( "#contenedor" ).load("GestionarCurso.xhtml")
-                    });
-                    $( "#menu2" ).click(function(evt) {
-                        $( "#contenedor" ).load("AsignarEstudianteCurso.xhtml")
+                        $( "#contenedor" ).load("GestionSalonCurso.xhtml")
                     });
                 });
             </script>
             
             <ul class="nav nav-tabs">
-                <li class="active"><a id="home" data-toggle="tab" href="#">AMB Materia</a></li>
-                <li><a id="menu1" data-toggle="tab" href="#">AMB Curso</a></li>
-                <li><a id="menu2" data-toggle="tab" href="#">Asignar Estudiante a Curso</a></li>
+                <li class="active"><a id="home" data-toggle="tab" href="#">AMB Salon</a></li>
+                <li><a id="menu1" data-toggle="tab" href="#">Asignar Horarios a Curso</a></li>
             </ul>
             
             <div id="contenedor" class="tab tab-content">
-                <ui:include src="GestionMateria.xhtml"/>
+                <ui:include src="GestionSalon.xhtml"/>
             </div>
         </ui:define>
     </ui:composition>         

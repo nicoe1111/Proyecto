@@ -29,21 +29,31 @@ public class MateriaFacade extends AbstractFacade<Materia> {
         super(Materia.class);
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Materia> findByNick(String nombremat) {
+    public List<Materia> findByNombre(String nombremat) {
         Query query = em.createQuery("SELECT m FROM Materia m WHERE m.nombre = :nombre");
         query.setParameter("nombre", nombremat);
         List<Materia> mats = query.getResultList();
         return mats;
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public boolean existeMateria(String nombremat) {
+        Query query = em.createQuery("SELECT m FROM Materia m WHERE m.nombre = :nombre");
+        query.setParameter("nombre", nombremat);
+        return query.getResultList().size() > 0;
+    }
+    
+    public boolean existeMateria(String nombremat, int id) {
+        Query query = em.createQuery("SELECT m FROM Materia m WHERE m.nombre = :nombre and m.idMateria != :id");
+        query.setParameter("nombre", nombremat);
+        query.setParameter("id", id);
+        return query.getResultList().size() > 0;
+    }
+    
     public List<String> getAllNombres() {
         Query query = em.createQuery("SELECT m.nombre FROM Materia m");
         return query.getResultList();
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Materia> findByNombreSemestre(String nombremat, String semestremat) {
         Query query = em.createQuery("SELECT m FROM Materia m WHERE m.nombre = :nombre AND m.semestre = :semestre");
         query.setParameter("nombre", nombremat);
@@ -51,5 +61,4 @@ public class MateriaFacade extends AbstractFacade<Materia> {
         List<Materia> mats = query.getResultList();
         return mats;
     }
-    
 }
