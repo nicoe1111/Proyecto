@@ -5,6 +5,7 @@
 */
 package ClaseDada;
 
+import Asistencia.Asistencia;
 import General.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -43,18 +44,18 @@ public class ClaseDadaFacade extends AbstractFacade<ClaseDada> {
         Query query = em.createQuery("SELECT cd.curso.idCurso FROM ClaseDada cd WHERE cd.idClaseDada = :idCLase");
         query.setParameter("idCLase", id);
         if(query.getResultList().size() > 0){
-        idCursoClaseDada = (int) query.getResultList().get(0);
+            idCursoClaseDada = (int) query.getResultList().get(0);
         }
         return idCursoClaseDada;
     }
-//
-//        @TransactionAttribute(TransactionAttributeType.REQUIRED)
-//    public List<RespuestaPregunta> obtenerRespPreguntaIdLogCurso(int idEncuesta, int idUserLog, int idCurso) {
-//        Query query = em.createQuery("SELECT r FROM RespuestaPregunta r WHERE r.encuesta.idEncuesta = :idEncuesta AND r.alumno.idRol = :idUser AND r.curso.idCurso = :idCurso");
-//        query.setParameter("idUser", idUserLog);
-//        query.setParameter("idEncuesta", idEncuesta);
-//        query.setParameter("idCurso", idCurso);
-//        List<RespuestaPregunta> encuesta = query.getResultList();
-//        return encuesta;
-//    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Asistencia> obtenerAsistenciaAlumno(int idAlumno) {
+        List<Asistencia> asistencias;
+        Query query = em.createQuery("SELECT a FROM Asistencia a WHERE a.alumno.idRol = :idAlumno");
+        query.setParameter("idAlumno", idAlumno);
+            asistencias = query.getResultList();
+        return asistencias;
+    }
+    
 }
