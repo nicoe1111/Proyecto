@@ -12,8 +12,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.PersistenceProperty;
 import javax.persistence.Query;
 /**
  *
@@ -43,6 +41,16 @@ public class CursoFacade extends AbstractFacade<Curso> {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursosSemestreAnioDocente(String semestre, int anio, int idRolDocente) {
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio= :anio AND c.docente.idRol = :idDocente");
+        query.setParameter("semestre", semestre);
+        query.setParameter("anio", anio);
+        query.setParameter("idDocente", idRolDocente);
+        List<Curso> users = query.getResultList();
+        return users;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Curso> getCursosSemestre(String semestre) {
         Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre");
         query.setParameter("semestre", semestre);
@@ -64,6 +72,17 @@ public class CursoFacade extends AbstractFacade<Curso> {
         query.setParameter("semestre", semestrecurs);
         query.setParameter("anio", aniocurs);
         query.setParameter("materia", materiacurs);
+        List<Curso> users = query.getResultList();
+        return users;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursosSemestreNombreAnioDocente(String semestrecurs, int aniocurs, String materiacurs, int idRolDocente){
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio = :anio AND c.materia.nombre = :materia AND c.docente.idRol = :idRolDocente");
+        query.setParameter("semestre", semestrecurs);
+        query.setParameter("anio", aniocurs);
+        query.setParameter("materia", materiacurs);
+        query.setParameter("idRolDocente", idRolDocente);
         List<Curso> users = query.getResultList();
         return users;
     }
