@@ -9,6 +9,7 @@ import Asistencia.Asistencia;
 import Asistencia.AsistenciaFacade;
 import Curso.Curso;
 import Curso.CursoFacade;
+import Curso.SessionCursoController;
 import Materia.Materia;
 import Materia.MateriaFacade;
 import Rol.Alumno;
@@ -31,6 +32,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.event.SelectEvent;
@@ -345,6 +347,15 @@ public class ClaseDadaController implements Serializable{
         cursosSeleccionados = obtenerCursos();
     }
     
+    @Inject
+    SessionCursoController sessionCursoController;
+    
+    public List<Alumno> obtenerAlumnosCurso1(){
+        cursosSeleccionados.clear();
+        cursosSeleccionados.add(sessionCursoController.getSelected());
+        return sessionCursoController.getSelected().getAlumnos();
+    }
+    
     public List<Alumno> obtenerAlumnosCurso(Curso curso){
         return curso.getAlumnos();
     }
@@ -385,7 +396,6 @@ public class ClaseDadaController implements Serializable{
     
     public String getAsistencias(Alumno alumnoSelec){
         alumnoSelec.getAsistencias();
-        String texto = "";
         List<Asistencia> asistencias =  ejbClaseDada.obtenerAsistenciaAlumno(alumnoSelec.getIdRol(), cursosSeleccionados.get(0).getIdCurso());
         asistio = 0;
         for (Asistencia asistencia : asistencias) {
