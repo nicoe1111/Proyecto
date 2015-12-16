@@ -353,7 +353,8 @@ public class ClaseDadaController implements Serializable{
     public List<Alumno> obtenerAlumnosCurso1(){
         cursosSeleccionados.clear();
         cursosSeleccionados.add(sessionCursoController.getSelected());
-        return sessionCursoController.getSelected().getAlumnos();
+        List<Alumno> alumnos = cursosSeleccionados.get(0).getAlumnos();
+        return alumnos;
     }
     
     public List<Alumno> obtenerAlumnosCurso(Curso curso){

@@ -9,24 +9,16 @@
     <h:head>
         <title>Gestionar Encuestas</title>
         <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-        <h:outputScript library="js" name="jsfcrud.js"/>
-        <!--            <h:outputScript library="js" name="bootstrap.js" />-->
-        <h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputStylesheet library="css" name="jsfcrud.css"/>
-        <h:outputStylesheet name="css/bootstrap.css" />
-        <h:outputStylesheet name="css/bootstrap.min.css" />
-        <h:outputStylesheet name="css/custom.css" />
     </h:head>
-    <body >
-        <ui:composition >
+    <h:body >
             <h:form id="VerFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
-                <h:panelGroup id="accordeon" >
-                    <div style="width: 800px; text-align: left; margin: auto;">
-                        <p:accordionPanel id="tablaAsistencia"  multiple="true">
-                            <c:forEach items="#{claseDadaController.obtenerAlumnosCurso1(sessionCursoController.selected)}" var="alumno" varStatus="ind">
-                                        <h:outputText value="#{claseDadaController.getAsistencias(alumno)}" />
+                
+                    
+<!--                        <p:accordionPanel id="acordeonPanel">-->
+                            <c:forEach items="#{claseDadaController.obtenerAlumnosCurso1()}" var="alumno" varStatus="ind">
+                                <p:outputLabel value="#{claseDadaController.getAsistencias(alumno)}" />
                                         <div>
-                                            <h:outputText rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
+                                            <p:outputLabel rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
                                             <table width="800" class="table table-hover table-bordered" >
                                                 <thead>
                                                     <tr >
@@ -54,10 +46,8 @@
                                             </table>
                                         </div>
                                     </c:forEach> 
-                        </p:accordionPanel>
-                    </div>
-                </h:panelGroup>
+                        <!--</p:accordionPanel>-->
+                    
             </h:form>
-        </ui:composition> 
-    </body>
+    </h:body>
 </html>
