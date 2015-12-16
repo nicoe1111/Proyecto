@@ -11,43 +11,38 @@
         <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
     </h:head>
     <h:body >
-            <h:form id="VerFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
-                
-                    
-<!--                        <p:accordionPanel id="acordeonPanel">-->
-                            <c:forEach items="#{claseDadaController.obtenerAlumnosCurso1()}" var="alumno" varStatus="ind">
-                                <p:outputLabel value="#{claseDadaController.getAsistencias(alumno)}" />
-                                        <div>
-                                            <p:outputLabel rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
-                                            <table width="800" class="table table-hover table-bordered" >
-                                                <thead>
-                                                    <tr >
-                                                        <th style="width: 50%"><h:outputText style="font-size : 15px; " value="#{alumno.usuario.primerNombre} #{alumno.usuario.primerApellido}" /></th>
-                                                        <th style="width: 50%"><h:outputText rendered="#{claseDadaController.bien}" styleClass="label-success" style="font-size : 15px;" value="Bien!!" />
-                                                            <h:outputText rendered="#{claseDadaController.maso}" styleClass="label-warning" style="font-size : 15px;" value="Cuidado!!" />
-                                                            <h:outputText rendered="#{claseDadaController.mal}" styleClass="label-danger" style="font-size : 15px;" value="Reprobado!!" />
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="width: 50%"><h:outputText style="font-size : 12px;" value="Asistió" /></td>
-                                                        <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.asistio}" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 50%"><h:outputText style="font-size : 12px;" value="No Asistió" /></td>
-                                                        <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.noAsistio}" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 50%"><h:outputText style="font-size : 12px;" value="Porcentaje" /></td>
-                                                        <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.porcentaje} %" /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </c:forEach> 
-                        <!--</p:accordionPanel>-->
-                    
-            </h:form>
+        <h:form id="VerFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
+            <c:forEach items="#{claseDadaController.obtenerAlumnosCurso1()}" var="alumno" varStatus="ind">
+                <p:outputLabel value="#{claseDadaController.getAsistencias(alumno)}" />
+                <div>
+                    <p:outputLabel rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
+                    <table width="800" class="table table-hover table-bordered" >
+                        <thead>
+                            <tr >
+                                <th style="width: 50%"><h:outputText style="font-size : 15px; " value="#{alumno.usuario.primerNombre} #{alumno.usuario.primerApellido}" /></th>
+                                <th style="width: 50%"><h:outputText rendered="#{claseDadaController.bien}" styleClass="label-success" style="font-size : 15px;" value="Bien!!" />
+                                    <h:outputText rendered="#{claseDadaController.maso}" styleClass="label-warning" style="font-size : 15px;" value="Cuidado!!" />
+                                    <h:outputText rendered="#{claseDadaController.mal}" styleClass="label-danger" style="font-size : 15px;" value="Reprobado!!" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%"><h:outputText style="font-size : 12px;" value="Asistió" /></td>
+                                <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.asistio}" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%"><h:outputText style="font-size : 12px;" value="No Asistió" /></td>
+                                <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.noAsistio}" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%"><h:outputText style="font-size : 12px;" value="Porcentaje" /></td>
+                                <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.porcentaje} %" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </c:forEach> 
+        </h:form>
     </h:body>
 </html>
