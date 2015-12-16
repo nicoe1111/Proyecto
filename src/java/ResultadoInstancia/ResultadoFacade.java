@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package ResultadoInstancia;
 
 import InstanciaEvaluacion.*;
@@ -21,12 +21,12 @@ import javax.persistence.Query;
 public class ResultadoFacade extends AbstractFacade<ResultadoInstancia> {
     @PersistenceContext(unitName = "ProyectoPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public ResultadoFacade() {
         super(ResultadoInstancia.class);
     }
@@ -36,6 +36,9 @@ public class ResultadoFacade extends AbstractFacade<ResultadoInstancia> {
         Query query = em.createQuery("SELECT ri FROM ResultadoInstancia ri WHERE ri.alumno.idRol = :idAlumno AND ri.instanciaEvaluacion.idEvaluacion = :idEvaluacion");
         query.setParameter("idAlumno", idAlumno);
         query.setParameter("idEvaluacion", idEvaluacion);
-        return (ResultadoInstancia)query.getResultList().get(0);
+        if(!query.getResultList().isEmpty()){
+            return (ResultadoInstancia)query.getResultList().get(0);
+        }
+        return null;
     }
 }

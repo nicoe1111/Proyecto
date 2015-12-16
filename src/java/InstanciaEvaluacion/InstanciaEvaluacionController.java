@@ -4,6 +4,9 @@ import Curso.Curso;
 import Curso.CursoController;
 import Curso.CursoFacade;
 import InterfazUtil.SemestreAnioController;
+import ResultadoInstancia.ResultadoFacade;
+import ResultadoInstancia.ResultadoInstancia;
+import Rol.Alumno;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,9 @@ public class InstanciaEvaluacionController implements Serializable{
     
     @EJB
     private EvaluacionFacade ejbInstancia;
+    
+    @EJB
+    private ResultadoFacade ejbResultado;
     
     @EJB
     private CursoFacade ejbCurso;
@@ -68,6 +74,7 @@ public class InstanciaEvaluacionController implements Serializable{
     public void createSelected(){
         Curso c = cursoController.getSelected();
         selected.setCurso(c);
+        crearResultadosAlumno(selected);
         ejbInstancia.edit(selected);
         updateItems();
     }
@@ -82,8 +89,12 @@ public class InstanciaEvaluacionController implements Serializable{
     private void beforeDelete(){
         selected.getCurso().getInstanciasEvaluaciones().remove(selected);
         selected.setCurso(null);
-        
-        selected.setResultadosInstancias(new ArrayList());
+        for(ResultadoInstancia ri : selected.getResultadosInstancias()){
+            ri.setAlumno(null);
+            ri.setInstanciaEvaluacion(null);
+            ejbResultado.remove(ri);
+        }
+        selected.setResultadosInstancias(null);
         ejbInstancia.edit(selected);
     }
     
@@ -94,5 +105,25 @@ public class InstanciaEvaluacionController implements Serializable{
     private void updateItems(){
         cursoController.setSelected(ejbCurso.find(cursoController.getSelected().getIdCurso()));
         items=cursoController.getSelected().getInstanciasEvaluaciones();
+    }
+    
+    private void crearResultadosAlumno(Evaluacion e){
+        for(Alumno a:e.getCurso().getAlumnos()){
+            if(!existeResultadoAlumno(e, a)){
+                ResultadoInstancia ri = new ResultadoInstancia();
+                ri.setAlumno(a);
+                e.getResultadosInstancias().add(ri);
+                ri.setInstanciaEvaluacion(e);
+            }
+        }
+    }
+    
+    private boolean existeResultadoAlumno(Evaluacion e, Alumno a){
+        for(ResultadoInstancia ri : e.getResultadosInstancias()){
+            if(ri.getAlumno().getIdRol()==a.getIdRol()){
+                return true;
+            }
+        }
+        return false;
     }
 }

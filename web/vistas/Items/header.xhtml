@@ -4,7 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     
     <ui:composition>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -46,7 +47,7 @@
                             </ul>
                         </li>
                         <li><h:form class="navbar-form navbar-right"> 
-                                <h:commandLink class="form-control" style="color: #FFF;" value="Cerrar Session" action="#{login.logout()}"/> 
+                                <p:commandLink class="form-control" style="color: #FFF;" value="Cerrar Session" action="#{login.logout()}"/> 
                             </h:form></li>
                     </ul>
                     <form class="navbar-form navbar-right">
