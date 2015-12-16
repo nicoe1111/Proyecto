@@ -199,7 +199,7 @@ public class ClaseDadaController implements Serializable{
         this.isAsistio = isAsistio;
     }
     @EJB
-     RolFacade ejbRol;
+            RolFacade ejbRol;
     public void setAlumnoAsistio(int id){
         if(isAsistio){
             asistencia = new Asistencia();
@@ -226,7 +226,7 @@ public class ClaseDadaController implements Serializable{
         this.fechaString = fechaSeleccionada;
     }
     
-    public void crearClaseDada() throws ParseException{
+    public String crearClaseDada() throws ParseException{
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         seteoAsistenciasFalse();
         claseDada.setAsistencias(asistencias);
@@ -238,6 +238,7 @@ public class ClaseDadaController implements Serializable{
             ejbClaseDada.create(claseDada);
             JsfUtil.addSuccessMessage("Se creo la clase y sus asistencias correctamente");
         }
+        return "ContenedorClaseDada.xhtml";
     }
     
     public void seteoAsistenciasFalse(){
@@ -345,24 +346,76 @@ public class ClaseDadaController implements Serializable{
     }
     
     public List<Alumno> obtenerAlumnosCurso(Curso curso){
-       return curso.getAlumnos();
+        return curso.getAlumnos();
+    }
+    
+    private float asistio;
+    private float noAsistio;
+    private float porcentaje;
+    private int cantClaseDada;
+    public float getAsistio() {
+        return asistio;
+    }
+    
+    public float getNoAsistio() {
+        return noAsistio;
+    }
+    private Boolean bien;
+    private Boolean maso;
+    private Boolean mal;
+    public float getPorcentaje() {
+        return porcentaje;
+    }
+    
+    public Boolean getBien() {
+        return bien;
+    }
+    
+    public Boolean getMaso() {
+        return maso;
+    }
+    
+    public Boolean getMal() {
+        return mal;
+    }
+    
+    public int getCantClaseDada() {
+        return cantClaseDada;
     }
     
     public String getAsistencias(Alumno alumnoSelec){
         alumnoSelec.getAsistencias();
         String texto = "";
-        int cantClasesDadas = 0;//cursosSeleccionados.get(0).getClasesDadas().size();
-       List<Asistencia> asistencias =  ejbClaseDada.obtenerAsistenciaAlumno(alumnoSelec.getIdRol());
-       int asistio = 0;
+        List<Asistencia> asistencias =  ejbClaseDada.obtenerAsistenciaAlumno(alumnoSelec.getIdRol(), cursosSeleccionados.get(0).getIdCurso());
+        asistio = 0;
         for (Asistencia asistencia : asistencias) {
             if(asistencia.isIsPresente() && asistencia.getAlumno().getIdRol() == alumnoSelec.getIdRol()){
                 asistio++;
-                cantClasesDadas++;
             }
         }
-        int noAsistio = cantClasesDadas - asistio;
-        texto = "Cantidad de clases dadas: " + cantClasesDadas + "    Asistencias: " + asistio + "    Inasistencias: " + noAsistio;
-        return texto;
+        cantClaseDada = asistencias.size();
+        noAsistio = asistencias.size() - asistio;
+        porcentaje = (asistio / asistencias.size())*100;
+        porcentaje = 100 - porcentaje;
+        setMensaje();
+        
+        return "";
+    }
+    
+    public void setMensaje(){
+        if(porcentaje < 14){
+            bien = true;
+            maso = false;
+            mal = false;
+        }else if(porcentaje > 14 && porcentaje < 20){
+            maso = true;
+            bien = false;
+            mal = false;
+        }else{
+            mal = true;
+            bien = false;
+            maso = false;
+        }
     }
     
     public List<Curso> obtenerCursos(){
@@ -371,18 +424,18 @@ public class ClaseDadaController implements Serializable{
         List<Curso> listCursosSemestre = new ArrayList<>();
         ArrayList<ArrayList<String>> cursosString = new ArrayList<ArrayList<String>>();
         ArrayList<String> datosCursosString = null;
-            if(!selectedNode.getData().toString().equals("Root")){
-                if(selectedNode.getChildCount() > 0){
-                    JsfUtil.addErrorMessage("Seleccione una materia");
-                    cursosSeleccionados.clear();
-                    return cursosSeleccionados;
-                }else{
-                    datosCursosString = new ArrayList<>();
-                    datosCursosString.add(selectedNode.getParent().getData().toString());// lugar 0
-                    datosCursosString.add(selectedNode.getData().toString());              //lugar 1
-                    cursosString.add(datosCursosString);
-                }
+        if(!selectedNode.getData().toString().equals("Root")){
+            if(selectedNode.getChildCount() > 0){
+                JsfUtil.addErrorMessage("Seleccione una materia");
+                cursosSeleccionados.clear();
+                return cursosSeleccionados;
+            }else{
+                datosCursosString = new ArrayList<>();
+                datosCursosString.add(selectedNode.getParent().getData().toString());// lugar 0
+                datosCursosString.add(selectedNode.getData().toString());              //lugar 1
+                cursosString.add(datosCursosString);
             }
+        }
         
         List<Materia> materiaCurso = new ArrayList<>();
         //paso la lista de cursosString a objeto curso pero tengo que traer la materia primero

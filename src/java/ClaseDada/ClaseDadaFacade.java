@@ -50,10 +50,11 @@ public class ClaseDadaFacade extends AbstractFacade<ClaseDada> {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Asistencia> obtenerAsistenciaAlumno(int idAlumno) {
+    public List<Asistencia> obtenerAsistenciaAlumno(int idAlumno, int idCurso) {
         List<Asistencia> asistencias;
-        Query query = em.createQuery("SELECT a FROM Asistencia a WHERE a.alumno.idRol = :idAlumno");
+        Query query = em.createQuery("SELECT a FROM Asistencia a WHERE a.alumno.idRol = :idAlumno AND a.claseDada.curso.idCurso = :IdCurso");
         query.setParameter("idAlumno", idAlumno);
+        query.setParameter("IdCurso", idCurso);
             asistencias = query.getResultList();
         return asistencias;
     }

@@ -35,12 +35,39 @@
                         <p:accordionPanel id="tablaAsistencia"  multiple="true">
                             <c:forEach items="#{claseDadaController.cursosSeleccionados}" var="curso">
                                 <p:tab title="#{curso.materia.nombre} - #{curso.anio}" titleStyle="background-color : #2196f3; color : #FFF; font-size : 16px;" >
-                                    <c:forEach items="#{claseDadaController.obtenerAlumnosCurso(curso)}" var="alumno">
+                                    <c:forEach items="#{claseDadaController.obtenerAlumnosCurso(curso)}" var="alumno" varStatus="ind">
+                                        
+                                        <h:outputText value="#{claseDadaController.getAsistencias(alumno)}" />
                                         <div>
-                                            <h:outputText style="font-size : 14px;" value="#{alumno.usuario.primerNombre} #{alumno.usuario.primerApellido}" />
-                                        <h:outputText value="       #{claseDadaController.getAsistencias(alumno)}" />
+                                            <h:outputText rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
+                                            <table class="table table-hover table-bordered" >
+                                                <thead>
+                                                    <tr>
+                                                        <th><h:outputText style="font-size : 15px; " value="#{alumno.usuario.primerNombre} #{alumno.usuario.primerApellido}" /></th>
+                                                        <th><h:outputText rendered="#{claseDadaController.bien}" styleClass="label-success" style="font-size : 15px;" value="Bien!!" />
+                                                            <h:outputText rendered="#{claseDadaController.maso}" styleClass="label-warning" style="font-size : 15px;" value="Cuidado!!" />
+                                                            <h:outputText rendered="#{claseDadaController.mal}" styleClass="label-danger" style="font-size : 15px;" value="Reprobado!!" />
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><h:outputText style="font-size : 12px;" value="Asistió" /></td>
+                                                        <td><h:outputText style="font-size : 12px;" value="#{claseDadaController.asistio}" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><h:outputText style="font-size : 12px;" value="No Asistió" /></td>
+                                                        <td><h:outputText style="font-size : 12px;" value="#{claseDadaController.noAsistio}" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><h:outputText style="font-size : 12px;" value="Porcentaje" /></td>
+                                                        <td><h:outputText style="font-size : 12px;" value="#{claseDadaController.porcentaje} %" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </c:forEach>                              
+                                    </c:forEach>  
+                                    <h:outputText style="font-size : 10px;" value="Nota: porcentaje mayor a 20% reprueba el curso" />
                                 </p:tab>
                             </c:forEach>
                         </p:accordionPanel>
