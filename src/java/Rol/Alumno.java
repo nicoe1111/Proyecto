@@ -23,11 +23,11 @@ public class Alumno extends TipoRol{
     @ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos = new ArrayList<>();
     
-    @OneToMany
-    private List<ResultadoInstancia> resultadosInstancias= new ArrayList<>();
+    @OneToMany(mappedBy = "alumno", fetch = FetchType.EAGER)
+    private List<ResultadoInstancia> resultadosInstancias;
     
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<RespuestaPregunta> respuestaPreguntas;
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<RespuestaPregunta> respuestaPreguntas;
     
     @OneToMany(fetch = FetchType.EAGER)
     private List<Asistencia> asistencias;
@@ -50,13 +50,13 @@ public class Alumno extends TipoRol{
         this.resultadosInstancias = resultadosInstancias;
     }  
 
-    public List<RespuestaPregunta> getRespuestaPreguntas() {
-        return respuestaPreguntas;
-    }
-
-    public void setRespuestaPreguntas(List<RespuestaPregunta> respuestaPreguntas) {
-        this.respuestaPreguntas = respuestaPreguntas;
-    }
+//    public List<RespuestaPregunta> getRespuestaPreguntas() {
+//        return respuestaPreguntas;
+//    }
+//
+//    public void setRespuestaPreguntas(List<RespuestaPregunta> respuestaPreguntas) {
+//        this.respuestaPreguntas = respuestaPreguntas;
+//    }
 
     public List<Asistencia> getAsistencias() {
         return asistencias;

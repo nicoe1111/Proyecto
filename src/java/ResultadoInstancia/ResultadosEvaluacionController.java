@@ -43,33 +43,13 @@ public class ResultadosEvaluacionController implements Serializable{
     
     public void cargarResultadosDeEvaluacion(){
         Evaluacion e = instanciaEvaluacionController.getSelected();
-        crearResultadosAlumno(e);
         items = e.getResultadosInstancias();
-    }
-     
-    private void crearResultadosAlumno(Evaluacion e){
-        for(Alumno a:e.getCurso().getAlumnos()){
-            if(!existeResultadoAlumno(e, a)){
-                ResultadoInstancia ri = new ResultadoInstancia();
-                ri.setAlumno(a);
-                e.getResultadosInstancias().add(ri);
-                ri.setInstanciaEvaluacion(e);
-            }
-        }
-        
-    }
-    
-    private boolean existeResultadoAlumno(Evaluacion e, Alumno a){
-        for(ResultadoInstancia ri : e.getResultadosInstancias()){
-            if(ri.getAlumno().getIdRol()==a.getIdRol()){
-                return true;
-            }
-        }
-        return false;
     }
     
     public void guardar(){
-        ejbInstancia.edit(items.get(0).getInstanciaEvaluacion());
+        Evaluacion e = instanciaEvaluacionController.getSelected();
+        e.setResultadosInstancias(items);
+        ejbInstancia.edit(e);
     }
     
     public ResultadoInstancia getResultadoAlumno(Evaluacion e, Alumno a){
