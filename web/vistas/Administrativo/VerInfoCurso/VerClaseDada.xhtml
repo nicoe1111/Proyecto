@@ -8,35 +8,22 @@
        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Gestionar Encuestas</title>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <!--            <h:outputScript library="js" name="bootstrap.js" />-->
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet name="css/bootstrap.css" />
+        <h:outputStylesheet name="css/bootstrap.min.css" />
+        <h:outputStylesheet name="css/custom.css" />
     </h:head>
     <body >
         <ui:composition >
-            <p:growl id="mensaje" life="8000" />
             <h:form id="VerFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
-                
-                <br/><br/>
-                <h4 style="margin-top:0">Seleccione fecha del curso a graficar</h4>
-                <h:selectOneMenu id="VercursoClaseDada" value="#{claseDadaController.fechaSeleccionada}" style="width:150px">
-                    <f:selectItem itemLabel="Seleccinar Anio..." itemValue="" />
-                    <f:selectItems value="#{claseDadaController.years}" itemLabel="#{anio}"/>
-                    <p:ajax event="change" listener="#{claseDadaController.cursosAnioTree()}" update=":VerFormClaseDada:Vertree" />
-                </h:selectOneMenu>
-                
-                <h4 style="margin-top:0">Seleccionar curso o semestre</h4>
-                <p:tree id="Vertree" value="#{claseDadaController.root}" selectionMode="single"  var="node" orientation="horizontal"
-                        dynamic="true" cache="false" selection="#{claseDadaController.selectedNode}">
-                    <p:ajax event="select" listener="#{claseDadaController.onNodeSelectTree}" update=":mensaje, :VerFormClaseDada:accordeon, :VerFormClaseDada:tablaAsistencia"/>
-                    <p:treeNode >
-                        <h:outputText value="#{node}" />
-                    </p:treeNode>
-                </p:tree>  
                 <h:panelGroup id="accordeon" >
                     <div style="width: 800px; text-align: left; margin: auto;">
                         <p:accordionPanel id="tablaAsistencia"  multiple="true">
-                            <c:forEach items="#{claseDadaController.cursosSeleccionados}" var="curso">
-                                <p:tab title="#{curso.materia.nombre} - #{curso.anio}" titleStyle="background-color : #2196f3; color : #FFF; font-size : 16px;" >
-                                    <c:forEach items="#{claseDadaController.obtenerAlumnosCurso(curso)}" var="alumno" varStatus="ind">
-                                        
+                            <c:forEach items="#{claseDadaController.obtenerAlumnosCurso1(sessionCursoController.selected)}" var="alumno" varStatus="ind">
                                         <h:outputText value="#{claseDadaController.getAsistencias(alumno)}" />
                                         <div>
                                             <h:outputText rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
@@ -66,10 +53,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </c:forEach>  
-                                    <h:outputText style="font-size : 10px;" value="Nota: porcentaje mayor a 20% reprueba el curso" />
-                                </p:tab>
-                            </c:forEach>
+                                    </c:forEach> 
                         </p:accordionPanel>
                     </div>
                 </h:panelGroup>
