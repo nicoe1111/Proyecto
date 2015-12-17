@@ -44,18 +44,18 @@
                             <div class="col-sm-2">
                                 <c:choose>
                                     <c:when test="#{cursoController.selected.idCurso>0}">
-                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Edit}" update=":GestionarCursoForm" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty docenteController.selected || empty materiaController.selected}">
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Edit}" update=":GestionarCursoForm :msj" actionListener="#{cursoController.updateSelected()}" disabled="#{empty cursoController.selected || empty docenteController.selected || empty materiaController.selected}">
                                             <f:passThroughAttribute name="data-dismiss" value="modal"/>
                                         </p:commandLink>
                                     </c:when>
                                     <c:otherwise>
-                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Create}" update=":GestionarCursoForm" actionListener="#{cursoController.createSelected()}" disabled="#{not (docenteController.selected.id_user > 0) || empty materiaController.selectedNode }">
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Create}" update=":GestionarCursoForm :msj" actionListener="#{cursoController.createSelected()}" disabled="#{not (docenteController.selected.id_user > 0) || empty materiaController.selectedNode }">
                                             <f:passThroughAttribute name="data-dismiss" value="modal"/>
                                         </p:commandLink>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
                         </div>
                     </div>
                 </h:form>

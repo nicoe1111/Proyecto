@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  lang="en" xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Gestionar Encuestas</title>
+    </h:head>
+    <body >
+        <ui:composition template="../index.xhtml">
+            <ui:define name="centro">
+                <p:growl id="mensaje" life="8000" />
+                <h:form id="VerFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
+                    
+                    <br/><br/>
+                    <h4 style="margin-top:0">Seleccione fecha del curso a graficar</h4>
+                    <h:selectOneMenu id="VercursoClaseDada" value="#{claseDadaController.fechaSeleccionada}" style="width:150px">
+                        <f:selectItem itemLabel="Seleccinar Anio..." itemValue="" />
+                        <f:selectItems value="#{claseDadaController.years}" itemLabel="#{anio}"/>
+                        <p:ajax event="change" listener="#{claseDadaController.cursosAnioTree()}" update=":VerFormClaseDada:Vertree" />
+                    </h:selectOneMenu>
+                    
+                    <h4 style="margin-top:0">Seleccionar curso o semestre</h4>
+                    <p:tree id="Vertree" value="#{claseDadaController.root}" selectionMode="single"  var="node" orientation="horizontal"
+                            dynamic="true" cache="false" selection="#{claseDadaController.selectedNode}">
+                        <p:ajax event="select" listener="#{claseDadaController.onNodeSelectTree}" update=":mensaje, :VerFormClaseDada:accordeon, :VerFormClaseDada:tablaAsistencia"/>
+                        <p:treeNode >
+                            <h:outputText value="#{node}" />
+                        </p:treeNode>
+                    </p:tree>  
+                    <h:panelGroup id="accordeon" >
+                        <div style="width: 800px; text-align: left; margin: auto;">
+                            <p:accordionPanel id="tablaAsistencia"  multiple="true">
+                                <c:forEach items="#{claseDadaController.cursosSeleccionados}" var="curso">
+                                    <p:tab title="#{curso.materia.nombre} - #{curso.anio}" titleStyle="background-color : #2196f3; color : #FFF; font-size : 16px;" >
+                                        <c:forEach items="#{claseDadaController.obtenerAlumnosCurso(curso)}" var="alumno" varStatus="ind">
+                                            
+                                            <h:outputText value="#{claseDadaController.getAsistencias(alumno)}" />
+                                            <div>
+                                                <h:outputText rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
+                                                <table width="800" class="table table-hover table-bordered" >
+                                                    <thead>
+                                                        <tr >
+                                                            <th style="width: 50%"><h:outputText style="font-size : 15px; " value="#{alumno.usuario.primerNombre} #{alumno.usuario.primerApellido}" /></th>
+                                                            <th style="width: 50%"><h:outputText rendered="#{claseDadaController.bien}" styleClass="label-success" style="font-size : 15px;" value="Bien!!" />
+                                                                <h:outputText rendered="#{claseDadaController.maso}" styleClass="label-warning" style="font-size : 15px;" value="Cuidado!!" />
+                                                                <h:outputText rendered="#{claseDadaController.mal}" styleClass="label-danger" style="font-size : 15px;" value="Reprobado!!" />
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width: 50%"><h:outputText style="font-size : 12px;" value="Asistió" /></td>
+                                                            <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.asistio}" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 50%"><h:outputText style="font-size : 12px;" value="No Asistió" /></td>
+                                                            <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.noAsistio}" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 50%"><h:outputText style="font-size : 12px;" value="Porcentaje de inasistencias" /></td>
+                                                            <td style="width: 50%"><h:outputText style="font-size : 12px;" value="#{claseDadaController.porcentaje} %" /></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </c:forEach>  
+                                        <h:outputText style="font-size : 10px;" value="Nota: porcentaje mayor a 20% reprueba el curso" />
+                                    </p:tab>
+                                </c:forEach>
+                            </p:accordionPanel>
+                        </div>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+        </ui:composition> 
+    </body>
+</html>

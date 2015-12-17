@@ -94,18 +94,18 @@
                             <div class="col-sm-2">
                                 <c:choose>
                                     <c:when test="#{salonCursoController.selected.idSalonCurso>0}">
-                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Edit}" update=":GestionarSalonCursoForm" actionListener="#{salonCursoController.updateSelected()}">
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Edit}" update=":GestionarSalonCursoForm :msj" actionListener="#{salonCursoController.updateSelected()}">
                                             <f:passThroughAttribute name="data-dismiss" value="modal"/>
                                         </p:commandLink>
                                     </c:when>
                                     <c:otherwise>
-                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Create}" update=":GestionarSalonCursoForm" actionListener="#{salonCursoController.createSelected()}" disabled="#{not (cursoController.selected.idCurso > 0) || not (salonController.selected.idSalon > 0)}">
+                                        <p:commandLink id="generalButton" class="btn btn-default" value="#{bundle.Create}" update=":GestionarSalonCursoForm :msj" actionListener="#{salonCursoController.createSelected()}" disabled="#{not (cursoController.selected.idCurso > 0) || not (salonController.selected.idSalon > 0)}">
                                             <f:passThroughAttribute name="data-dismiss" value="modal"/>
                                         </p:commandLink>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
                         </div>
                     </div>
                 </h:form>

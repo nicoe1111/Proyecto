@@ -46,12 +46,12 @@
                                             <c:choose>
                                                 <c:when test="#{materiaController.selected.idMateria > 0 }">
                                                     <h:inputHidden value="#{materiaController.selected.idMateria}" />
-                                                    <h:commandButton action="#{materiaController.updateSelected()}" value="Update" styleClass="btn btn-default"/>
-                                                    <h:commandButton action="#{materiaController.setSelected(null)}" value="Cancel" styleClass="btn btn-default"/>
+                                                    <h:commandButton action="#{materiaController.updateSelected()}" value="Editar" styleClass="btn btn-default"/>
+                                                    <h:commandButton action="#{materiaController.setSelected(null)}" value="Cancelar" styleClass="btn btn-default"/>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h:commandLink action="#{materiaController.createSelected()}" styleClass="btn btn-default">
-                                                        <span class="glyphicon glyphicon-plus"></span>Create
+                                                        <span class="glyphicon glyphicon-plus"></span>Crear
                                                     </h:commandLink>
                                                 </c:otherwise>
                                             </c:choose>
