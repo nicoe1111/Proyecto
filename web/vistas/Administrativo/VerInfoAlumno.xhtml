@@ -10,7 +10,7 @@
         <ui:define name="centro">
             <div align="center" >
                 <h4>#{sessionAlumnoController.selected.usuario.primerNombre} #{sessionAlumnoController.selected.usuario.primerApellido}</h4>
-                <h4>(Cedula: #{sessionAlumnoController.selected.usuario.cedula})</h4>
+                <h4>(Cédula: #{sessionAlumnoController.selected.usuario.cedula})</h4>
             </div>
             <h:form id="VerInfoAlumnoForm">
                 <div style="width: 800px; text-align: center; margin: auto;">
@@ -26,7 +26,7 @@
                                                 <h:outputText value="Evaluacion : #{instancia.tipo}" />
                                             </p:row>
                                             <p:row>
-                                                <h:outputText value="fecha : #{instancia.fecha}" />
+                                                <h:outputLabel value="fecha : #{dateTransorm.obtenerYMDFormat(instancia.fecha)}" />
                                             </p:row>
                                             <p:row>
                                                 <h:outputText value="Resultado : #{resultadosEvaluacionController.getResultadoAlumno(instancia ,sessionAlumnoController.selected).calificacion}" />

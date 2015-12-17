@@ -8,6 +8,7 @@ package Curso;
 import Materia.Materia;
 import Materia.MateriaController;
 import RolDocente.DocenteController;
+import Usuario.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +58,12 @@ public class CursoController implements Serializable {
     
     public void updateSelected(){
         beforCreate();
-        ejbCurso.edit(selected);
+        if(!itemsContainsMateria()){
+            ejbCurso.edit(selected);
+            JsfUtil.addSuccessMessage("El curso se ha editado correctamente");
+        }else {
+            JsfUtil.addErrorMessage("Ya existe un curso con ese nombre y ese año");
+        }
         updateItems();
     }
     
@@ -83,8 +89,13 @@ public class CursoController implements Serializable {
     
     public void createSelected(){
         beforCreate();
-        ejbCurso.create(selected);
-        updateItems();
+        if(!itemsContainsMateria()){
+            ejbCurso.create(selected);
+            updateItems();
+            JsfUtil.addSuccessMessage("El curso se ha creado correctamente");
+        }else {
+            JsfUtil.addErrorMessage("Ya existe un curso con ese nombre y ese año");
+        }
         vaciarControllersSelecteds();
     }
     
@@ -94,6 +105,15 @@ public class CursoController implements Serializable {
     
     public void loadSelected(int id){
         selected=ejbCurso.find(id);
+    }
+    
+    private boolean itemsContainsMateria(){
+        for(Curso c: items){
+            if(c.getMateria().getNombre().equals(selected.getMateria().getNombre()) && c.getAnio() == selected.getAnio() && selected.getIdCurso() != c.getIdCurso()){
+                return true;
+            }
+        }
+        return false;
     }
     
     @Inject

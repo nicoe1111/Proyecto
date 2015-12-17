@@ -52,12 +52,10 @@
                         <h:outputLabel style="width:150px" value="#{usuarioController.selected.telefono}" title="#{bundle.ViewUsuarioTitle_telefono}"/>
                         <h:outputLabel style="width:150px" value="#{bundle.ViewUsuarioLabel_nick}"/>
                         <h:outputLabel style="width:150px" value="#{usuarioController.selected.nick}" title="#{bundle.ViewUsuarioTitle_nick}"/>
-                        <h:outputLabel style="width:150px" value="#{bundle.ViewUsuarioLabel_pass}"/>
-                        <h:outputLabel style="width:150px" value="#{usuarioController.selected.pass}" title="#{bundle.ViewUsuarioTitle_pass}"/>
                         <h:outputLabel style="width:150px" value="#{bundle.ViewUsuarioLabel_lugarNacimiento}"/>
                         <h:outputLabel style="width:150px" value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.ViewUsuarioTitle_lugarNacimiento}"/>
                         <h:outputLabel style="width:150px" value="#{bundle.ViewUsuarioLabel_rol}"/>
-                        <ui:repeat value="#{usuarioController.selected.roles}" var="rol">
+                        <ui:repeat value="#{usuarioController.selected.rolesString}" var="rol">
                             <h:outputLabel style="width:150px" value="#{rol}"/><br/>
                         </ui:repeat>
                     </p:panelGrid>

@@ -480,6 +480,8 @@ public class ClaseDadaController implements Serializable{
                 cursosTree = ejbCurso.getCursosSemestreAnio(semestres.get(i), actualYear);
             }else if(getUserLog().hasRol("Docente")){
                 cursosTree = ejbCurso.getCursosSemestreAnioDocente(semestres.get(i), actualYear, userLog.getRolDocente().getIdRol());
+            }else if(getUserLog().hasRol("Alumno")){
+                cursosTree = ejbCurso.getCursosSemestreAnioAlumno(semestres.get(i), fechaSeleccionada, userLog.getRolAlumno());
             }
             if(cursosTree.size() > 0){
                 nodoSemestres = new DefaultTreeNode(semestres.get(i), root);
@@ -499,6 +501,8 @@ public class ClaseDadaController implements Serializable{
                 cursosTree = ejbCurso.getCursosSemestreAnio(semestres.get(i), fechaSeleccionada);
             }else if(getUserLog().hasRol("Docente")){
                 cursosTree = ejbCurso.getCursosSemestreAnioDocente(semestres.get(i), fechaSeleccionada, userLog.getRolDocente().getIdRol());
+            }else if(getUserLog().hasRol("Alumno")){
+                cursosTree = ejbCurso.getCursosSemestreAnioAlumno(semestres.get(i), fechaSeleccionada, userLog.getRolAlumno());
             }
             if(cursosTree.size() > 0){
                 nodoSemestres = new DefaultTreeNode(semestres.get(i), root);

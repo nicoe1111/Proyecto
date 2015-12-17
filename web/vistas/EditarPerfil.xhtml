@@ -61,7 +61,7 @@
                             <h:outputText value="#{bundle.ViewUsuarioLabel_lugarNacimiento}"/>
                             <h:outputText value="#{usuarioController.selected.lugarNacimiento}" title="#{bundle.ViewUsuarioTitle_lugarNacimiento}"/>
                             <h:outputText value="#{bundle.ViewUsuarioLabel_rol}"/>
-                            <ui:repeat value="#{usuarioController.selected.roles}" var="rol">
+                            <ui:repeat value="#{usuarioController.selected.rolesString}" var="rol">
                                 <h:outputText value="#{rol}"/><br/>
                             </ui:repeat>
                     </p:panelGrid>

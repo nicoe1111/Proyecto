@@ -6,6 +6,7 @@
 package Curso;
 
 import General.AbstractFacade;
+import Rol.Alumno;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -46,6 +47,16 @@ public class CursoFacade extends AbstractFacade<Curso> {
         query.setParameter("semestre", semestre);
         query.setParameter("anio", anio);
         query.setParameter("idDocente", idRolDocente);
+        List<Curso> users = query.getResultList();
+        return users;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Curso> getCursosSemestreAnioAlumno(String semestre, int anio, Alumno idRolAlumno) {
+        Query query = em.createQuery("SELECT c FROM Curso c WHERE c.materia.semestre = :semestre AND c.anio :anio AND c.alumnos = :idRolAlumno");
+        query.setParameter("semestre", semestre);
+        query.setParameter("anio", anio);
+        query.setParameter("idRolAlumno", idRolAlumno);
         List<Curso> users = query.getResultList();
         return users;
     }
