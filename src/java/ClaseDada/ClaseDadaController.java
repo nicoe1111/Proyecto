@@ -147,7 +147,13 @@ public class ClaseDadaController implements Serializable{
     }
     
     public List<Alumno> obtenerAlumnosClaseDada(){
-        return claseDada.getCurso().getAlumnos();
+        List<Alumno> alumnos = claseDada.getCurso().getAlumnos();
+        Collections.sort(alumnos, new Comparator<Alumno>() {
+            public int compare(Alumno o1, Alumno o2) {
+                return o2.getUsuario().getPrimerApellido().compareTo(o1.getUsuario().getPrimerApellido());
+            }
+        });
+        return alumnos;
     }
     
     private Usuario userLog;
@@ -348,7 +354,7 @@ public class ClaseDadaController implements Serializable{
     }
     
     @Inject
-    SessionCursoController sessionCursoController;
+            SessionCursoController sessionCursoController;
     
     public List<Alumno> obtenerAlumnosCurso1(){
         cursosSeleccionados.clear();
