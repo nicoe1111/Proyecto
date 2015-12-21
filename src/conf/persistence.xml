@@ -3,7 +3,7 @@
   <persistence-unit name="ProyectoPU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:/jdbc/SistemaAdmin</jta-data-source>
-    <exclude-unlisted-classes>false </exclude-unlisted-classes>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
     </properties>

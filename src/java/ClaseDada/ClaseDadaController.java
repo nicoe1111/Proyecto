@@ -402,7 +402,6 @@ public class ClaseDadaController implements Serializable{
     }
     
     public String getAsistencias(Alumno alumnoSelec){
-        alumnoSelec.getAsistencias();
         List<Asistencia> asistencias =  ejbClaseDada.obtenerAsistenciaAlumno(alumnoSelec.getIdRol(), cursosSeleccionados.get(0).getIdCurso());
         asistio = 0;
         for (Asistencia asistencia : asistencias) {
@@ -416,6 +415,24 @@ public class ClaseDadaController implements Serializable{
         porcentaje = 100 - porcentaje;
         setMensaje();
         
+        return "";
+    }
+    
+        public String getAsistencias1(){
+
+        List<Asistencia> asistencias =  ejbClaseDada.obtenerAsistenciaAlumno(userLog.getRolAlumno().getIdRol(), cursosSeleccionados.get(0).getIdCurso());
+        asistio = 0;
+        for (Asistencia asistencia : asistencias) {
+            if(asistencia.isIsPresente() && asistencia.getAlumno().getIdRol() == userLog.getRolAlumno().getIdRol()){
+                asistio++;
+            }
+        }
+        cantClaseDada = asistencias.size();
+        noAsistio = asistencias.size() - asistio;
+        porcentaje = (asistio / asistencias.size())*100;
+        porcentaje = 100 - porcentaje;
+        setMensaje();
+
         return "";
     }
     
@@ -462,6 +479,8 @@ public class ClaseDadaController implements Serializable{
                 listCursosSemestre =  mergeListaCursos(listCursosSemestre, ejbCurso.getCursosSemestreNombreAnio(cursosString.get(i).get(0), fechaSeleccionada, materiaCurso.get(0).getNombre()));
             }else if(getUserLog().hasRol("Docente")){
                 listCursosSemestre =  mergeListaCursos(listCursosSemestre, ejbCurso.getCursosSemestreNombreAnioDocente(cursosString.get(i).get(0), fechaSeleccionada, materiaCurso.get(0).getNombre(), userLog.getRolDocente().getIdRol()));
+            }else if(getUserLog().hasRol("Alumno")){
+                listCursosSemestre =  mergeListaCursos(listCursosSemestre, ejbCurso.getCursosSemestreNombreAnio(cursosString.get(i).get(0), fechaSeleccionada, materiaCurso.get(0).getNombre()));
             }
         }
         return listCursosSemestre;
@@ -487,7 +506,14 @@ public class ClaseDadaController implements Serializable{
             }else if(getUserLog().hasRol("Docente")){
                 cursosTree = ejbCurso.getCursosSemestreAnioDocente(semestres.get(i), actualYear, userLog.getRolDocente().getIdRol());
             }else if(getUserLog().hasRol("Alumno")){
-                cursosTree = ejbCurso.getCursosSemestreAnioAlumno(semestres.get(i), fechaSeleccionada, userLog.getRolAlumno());
+                List<Curso> cursos = ejbCurso.getCursosSemestreAnioAlumno(semestres.get(i), actualYear);
+                for (Curso curso : userLog.getRolAlumno().getCursos()) {
+                    for (Curso curso1 : cursos) {
+                        if(curso.getIdCurso() == curso1.getIdCurso()){
+                            cursosTree.add(curso);
+                        }
+                    }
+                }
             }
             if(cursosTree.size() > 0){
                 nodoSemestres = new DefaultTreeNode(semestres.get(i), root);
@@ -495,6 +521,7 @@ public class ClaseDadaController implements Serializable{
             for (int j = 0; j < cursosTree.size(); j++) {
                 nodoSemestres.getChildren().add(new DefaultTreeNode(cursosTree.get(j).getMateria().getNombre()));
             }
+            cursosTree.clear();
         }
     }
     
@@ -508,7 +535,7 @@ public class ClaseDadaController implements Serializable{
             }else if(getUserLog().hasRol("Docente")){
                 cursosTree = ejbCurso.getCursosSemestreAnioDocente(semestres.get(i), fechaSeleccionada, userLog.getRolDocente().getIdRol());
             }else if(getUserLog().hasRol("Alumno")){
-                cursosTree = ejbCurso.getCursosSemestreAnioAlumno(semestres.get(i), fechaSeleccionada, userLog.getRolAlumno());
+                cursosTree = ejbCurso.getCursosSemestreAnioAlumno(semestres.get(i), fechaSeleccionada);
             }
             if(cursosTree.size() > 0){
                 nodoSemestres = new DefaultTreeNode(semestres.get(i), root);

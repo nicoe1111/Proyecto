@@ -16,35 +16,25 @@
                 <h:form id="VerFormClaseDada" style="width:900px; margin: auto" styleClass="text-center">
                     
                     <br/><br/>
-                    <h4 style="margin-top:0">Seleccione fecha del curso a graficar</h4>
-                    <h:selectOneMenu id="VercursoClaseDada" value="#{claseDadaController.fechaSeleccionada}" style="width:150px">
-                        <f:selectItem itemLabel="Seleccinar Anio..." itemValue="" />
-                        <f:selectItems value="#{claseDadaController.years}" itemLabel="#{anio}"/>
-                        <p:ajax event="change" listener="#{claseDadaController.cursosAnioTree()}" update=":VerFormClaseDada:Vertree" />
-                    </h:selectOneMenu>
-                    
                     <h4 style="margin-top:0">Seleccionar curso o semestre</h4>
                     <p:tree id="Vertree" value="#{claseDadaController.root}" selectionMode="single"  var="node" orientation="horizontal"
                             dynamic="true" cache="false" selection="#{claseDadaController.selectedNode}">
-                        <p:ajax event="select" listener="#{claseDadaController.onNodeSelectTree}" update=":mensaje, :VerFormClaseDada:accordeon, :VerFormClaseDada:tablaAsistencia"/>
+                        <p:ajax event="select" listener="#{claseDadaController.onNodeSelectTree}" update=":mensaje, :VerFormClaseDada:accordeon"/>
                         <p:treeNode >
                             <h:outputText value="#{node}" />
                         </p:treeNode>
                     </p:tree>  
                     <h:panelGroup id="accordeon" >
                         <div style="width: 800px; text-align: left; margin: auto;">
-                            <p:accordionPanel id="tablaAsistencia"  multiple="true">
-                                <c:forEach items="#{claseDadaController.cursosSeleccionados}" var="curso">
-                                    <p:tab title="#{curso.materia.nombre} - #{curso.anio}" titleStyle="background-color : #2196f3; color : #FFF; font-size : 16px;" >
-                                        <c:forEach items="#{claseDadaController.obtenerAlumnosCurso(curso)}" var="alumno" varStatus="ind">
-                                            
-                                            <h:outputText value="#{claseDadaController.getAsistencias(alumno)}" />
+                            <c:forEach items="#{claseDadaController.cursosSeleccionados}" var="curso" rendered="#{claseDadaController.cursosSeleccionados.size() > 0}">
+                                        <h:outputText value="#{claseDadaController.getAsistencias1()}" />
                                             <div>
-                                                <h:outputText rendered="#{ind.index == 0}" style="font-size : 14px;" value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
+                                                <h:outputText style="background-color : #2196f3; color : #FFF; font-size : 16px;" value="#{curso.materia.nombre} - #{curso.anio}" />
+                                                <h:outputText value="Cantidad Clases dadas a la fecha: #{claseDadaController.cantClaseDada}" />
                                                 <table width="800" class="table table-hover table-bordered" >
                                                     <thead>
                                                         <tr >
-                                                            <th style="width: 50%"><h:outputText style="font-size : 15px; " value="#{alumno.usuario.primerNombre} #{alumno.usuario.primerApellido}" /></th>
+                                                            <th style="width: 50%"><h:outputText style="font-size : 15px; " value="#{claseDadaController.userLog.primerNombre} #{claseDadaController.userLog.primerApellido}" /></th>
                                                             <th style="width: 50%"><h:outputText rendered="#{claseDadaController.bien}" styleClass="label-success" style="font-size : 15px;" value="Bien!!" />
                                                                 <h:outputText rendered="#{claseDadaController.maso}" styleClass="label-warning" style="font-size : 15px;" value="Cuidado!!" />
                                                                 <h:outputText rendered="#{claseDadaController.mal}" styleClass="label-danger" style="font-size : 15px;" value="Reprobado!!" />
@@ -67,11 +57,8 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </c:forEach>  
                                         <h:outputText style="font-size : 10px;" value="Nota: porcentaje mayor a 20% reprueba el curso" />
-                                    </p:tab>
                                 </c:forEach>
-                            </p:accordionPanel>
                         </div>
                     </h:panelGroup>
                 </h:form>
